@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- Browsers support chrome-grid, chrome-headless, chrome-ng -->
+<!-- Environments support dev, qa, prod -->
+<!-- <suite name="CFTR Automation Suite" parallel="tests" thread-count="10" 
+	verbose="1"> -->
+<suite name="CFTR Automation Suite" verbose="1">
+
+	<listeners>
+		<listener class-name="suite.listener.ExtentListner" />
+	</listeners>
+	<test name="Regression Suite">
+		<classes>
+			<class name="suite.testRunner.TestRunner" />
+		</classes>
+	</test>
+
+</suite>

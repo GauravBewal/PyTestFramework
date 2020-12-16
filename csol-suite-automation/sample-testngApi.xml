@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- Browsers support chrome, chrome-headless, chrome-ng -->
+<!-- Environments support dev, qa, prod -->
+<!-- <suite name="CFTR Automation Suite" parallel="methods" thread-count="10" verbose="1">-->
+<suite name="CFTR Automation Suite" verbose="1">
+	<test name="Regression">
+		<classes>
+			<class name="suite.service.ApiTest" />
+		</classes>
+	</test>
+</suite>

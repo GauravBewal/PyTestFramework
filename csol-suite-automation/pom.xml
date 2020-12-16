@@ -1,0 +1,224 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.cyware</groupId>
+	<artifactId>csol-suite-automation</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Test Automation Suite</name>
+	<description>Test Automation Suite for CSOL </description>
+	<inceptionYear>2020</inceptionYear>
+	<developers>
+		<developer>
+			<name>Sandeep Kumar</name>
+			<email>sandeep.kumar@cyware.com</email>
+			<roles>
+				<role>Senior SDET</role>
+			</roles>
+			<organization>Cyware Labs</organization>
+		</developer>
+	</developers>
+	<properties>
+		<maven-cucumber-reporting.version>2.8.0 </maven-cucumber-reporting.version>
+		<rest-assured.version>4.0.0</rest-assured.version>
+		<testng.version>6.14.3</testng.version>
+		<selenium-java.version>3.141.59</selenium-java.version>
+		<maven-surefire-plugin>3.0.0-M4</maven-surefire-plugin>
+		<maven-compiler-plugin>3.8.1</maven-compiler-plugin>
+		<cucumber-java.version>3.0.2</cucumber-java.version>
+		<cucumber-testng.version>3.0.2</cucumber-testng.version>
+		<cucumber-jvm-deps.version>1.0.6</cucumber-jvm-deps.version>
+		<cucumber-reporting.version>3.13.0</cucumber-reporting.version>
+		<jmeter-maven-plugin>2.8.5</jmeter-maven-plugin>
+		<jdk.level>1.8</jdk.level>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<webdrivermanager>3.8.1</webdrivermanager>
+		<unirest-java.version>1.4.9</unirest-java.version>
+		<jackson-databind.version>2.9.4</jackson-databind.version>
+		<poi.version>4.1.1</poi.version>
+		<extentreports.version>2.41.2</extentreports.version>
+		<appium.version>7.3.0</appium.version>
+		<slf4j-log4j12.version>1.7.13</slf4j-log4j12.version>
+		<rest-assured.version>4.3.0</rest-assured.version>
+		<jackson-databind.version>2.9.4</jackson-databind.version>
+		<jaxb-impl-version>2.1</jaxb-impl-version>
+		<hamcrest.version> 1.3 </hamcrest.version>
+		<extentreports>4.0.9</extentreports>
+		<extentreports-cucumber4-adapter.version>1.0.8</extentreports-cucumber4-adapter.version>
+		<owner.version>1.0.10</owner.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium-java.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>${webdrivermanager}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>${unirest-java.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>${appium.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-log4j12.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.relevantcodes</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>${extentreports.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.xml</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>${jaxb-impl-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-databind.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>${hamcrest.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber-java.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>${cucumber-testng.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-jvm-deps</artifactId>
+			<version>${cucumber-jvm-deps.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports-cucumber4-adapter</artifactId>
+			<version>${extentreports-cucumber4-adapter.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>${extentreports}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aeonbits.owner</groupId>
+			<artifactId>owner</artifactId>
+			<version>${owner.version}</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>net.masterthought</groupId>
+				<artifactId>maven-cucumber-reporting</artifactId>
+				<version>${maven-cucumber-reporting.version}</version>
+				<executions>
+					<execution>
+						<id>execution</id>
+						<phase>test</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+						<!---	<maven.test.failure.ignore>true</maven.test.failure.ignore> -->
+							<projectName>CSOL-Automation-Suite</projectName>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+							<cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+							<skippedFails>true</skippedFails>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin}</version>
+				<configuration>
+					<source>${jdk.level}</source>
+					<target>${jdk.level}</target>
+				</configuration>
+			</plugin>
+
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin}</version>
+				<configuration>
+					<systemPropertyVariables>
+						<environment>qa</environment>
+					</systemPropertyVariables>
+					<suiteXmlFiles>
+						<!-- TestNG suite XML files -->
+						<suiteXmlFile>sample-testngWebSequentialBDD.xml</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
+				<version>${maven-surefire-plugin}</version> <configuration> <suiteXmlFiles> 
+				TestNG suite XML files <suiteXmlFile>sample-testngWebSequentialMode.xml</suiteXmlFile> 
+				</suiteXmlFiles> </configuration> </plugin> -->
+
+		</plugins>
+
+	</build>
+</project>
