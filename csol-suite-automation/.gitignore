@@ -2,11 +2,21 @@
 .classpath
 .project
 .settings/
+**/*.class
+**/target
+**/test-output
+**/spark
+**/logger
+**/testLogs
+**/testReports
+**/archivedTestReport
+**/.metadata
 
 # Intellij
 .idea/
 *.iml
 *.iws
+*.ipr
 
 # Mac
 .DS_Store
@@ -14,3 +24,8 @@
 # Maven
 log/
 target/
+
+
+### Ignore Manifest Files ###
+**/META-INF/MANIFEST.MF
+
