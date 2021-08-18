@@ -1,0 +1,140 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2021-08-18T10:28:23.671Z",
+        "line": 4,
+        "name": "Validate Login",
+        "description": "",
+        "id": "verify-successful-login-on-csol;validate-login",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 6125000000,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "the user is on CSOL Login page",
+            "match": {
+              "location": "StepDefs.LoginPageTest.user_is_on_CSOL_Login_page()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 508000000,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "the user enters UserName and Password",
+            "match": {
+              "location": "StepDefs.LoginPageTest.the_user_enters_username_and_password()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 85000000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "user clicks on login button",
+            "match": {
+              "location": "StepDefs.LoginPageTest.user_click_on_login_button()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 5000000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "User is on dashboard page",
+            "match": {
+              "location": "StepDefs.LoginPageTest.user_should_be_validated_redirected()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@smoke"
+          }
+        ]
+      }
+    ],
+    "name": "Verify Successful Login on CSOL",
+    "description": "",
+    "id": "verify-successful-login-on-csol",
+    "keyword": "Feature",
+    "uri": "file:src/main/java/Features/Scenario_01.feature",
+    "tags": []
+  },
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2021-08-18T10:28:30.461Z",
+        "line": 3,
+        "name": "Verify user is able to redirect on Admin Panel",
+        "description": "",
+        "id": "redirect-to-admin-panel-redirection;verify-user-is-able-to-redirect-on-admin-panel",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 1567000000,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "the user is in CSOL Dashboard",
+            "match": {
+              "location": "StepDefs.AdminPanelTest.User_is_in_CSOL_Dashboard()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 64000000,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "the user clicks on the Admin panel icon on the bottom left",
+            "match": {
+              "location": "StepDefs.AdminPanelTest.user_on_admin_panel_page()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 736000000,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "user should be redirected to CSOL Admin panel - listing page",
+            "match": {
+              "location": "StepDefs.AdminPanelTest.user_redirect_to_CSol_admin()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@smoke"
+          }
+        ]
+      }
+    ],
+    "name": "Redirect to Admin Panel Redirection",
+    "description": "",
+    "id": "redirect-to-admin-panel-redirection",
+    "keyword": "Feature",
+    "uri": "file:src/main/java/Features/Scenario_02.feature",
+    "tags": []
+  }
+]
