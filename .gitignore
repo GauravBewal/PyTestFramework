@@ -1,0 +1,12 @@
+.idea
+**/.DS_Store
+**/tempvalues.txt
+**/temp.txt
+**/geckodriver.log
+**/__pycache__
+**/venv
+.DS_Store
+reports/assets/style.css
+reports/report.html
+reports/screenshots/*
+
