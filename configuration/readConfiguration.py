@@ -1,7 +1,7 @@
 import configparser
 import os
 
-os.environ["PYTHONPATH"] = os.path.join(os.getcwd().split("CSOL_Automation_Test")[0], "CSOL_Automation_Test")
+os.environ["PYTHONPATH"] = os.path.join(os.getcwd().split("CSOL_UI_Automation_Test")[0], "CSOL_UI_Automation_Test")
 ini_path = os.path.join(os.environ["PYTHONPATH"], "configuration", "config.ini")
 config = configparser.ConfigParser()
 config.read(ini_path)
