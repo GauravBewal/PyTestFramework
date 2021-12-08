@@ -1,15 +1,13 @@
-**CTIX Tests**  
-Bitbucket URL: https://bitbucket.org/cywarelabs/ctix_tests  
-QA Jenkins PROJECTS: https://jenkins.cyware.com/view/CTIX_TESTS/
-- Selenium python UI/API testing framework
+**CSOL Tests**  
+Bitbucket URL: https://bitbucket.org/cywarelabs/csol_automation_suite
+QA Jenkins PROJECTS: https://jenkins.cyware.com/view
+- Selenium python UI testing framework
 - Docker enable framework for execution in isolated environment
 - Supports Windows/Mac/Linux
 
   
 **Directory Structure**    
-**config** - Defines a place to put all the configuration related stuff, use config.ini to edit the run configuration  
-**jenkins** - This directory is used for jenkins related execution. Contains Docker configuration etc.  
-**lib** - Contains Library methods common and application related.  
+**configuration** - Defines a place to put all the configuration related stuff, use config.ini to edit the run configuration  
 **PROJECTS** - Place to put the test scripts  
 **reports** - All the output reports xml/html will come in this directory.  
 **testdata** - Any testdata related to testing will be put here. eg files, csv, png etc  

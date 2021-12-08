@@ -24,10 +24,10 @@ def setup(request):
         options = webdriver.FirefoxOptions()
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
     driver.maximize_window()
+    # get the url from conf file
     driver.get(ReadConfig.getAppURL())
     driver.implicitly_wait(ReadConfig.defaultWait())  # seconds
     login()
-    # get the url from conf file
     request.cls.driver = driver
     yield
     driver.close()
@@ -49,8 +49,8 @@ def pytest_runtest_makereport(item):
         xfail = hasattr(report, 'wasxfail')
         if (report.skipped and xfail) or (report.failed and not xfail):
             tc_name = report.nodeid.replace("::", "_")[-1]
-            os.environ["PYTHONPATH"] = os.path.join(os.getcwd().split("CSOL_Automation_Test")[0],
-                                                    "CSOL_Automation_Test")
+            os.environ["PYTHONPATH"] = os.path.join(os.getcwd().split("CSOL_UI_Automation_Test")[0],
+                                                    "CSOL_UI_Automation_Test")
             file_path = os.path.join(os.environ["PYTHONPATH"], "./reports/screenshots/")
             file_name = file_path + tc_name + ".png"
             _capture_screenshot(file_name)

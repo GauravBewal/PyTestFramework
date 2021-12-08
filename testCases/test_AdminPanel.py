@@ -16,4 +16,4 @@ class TestAdminPanel(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         action.click(nav.Click_Admin_Menu())
-        assert action.getTitle() in 'Admin Pane | Cyware Orchestrate'
+        assert action.getTitle() in 'Admin Panel | Cyware Orchestrate'
