@@ -13,8 +13,10 @@ class TestApps(Base):
         """
             Verify Apps redirection from Main Menu
         """
+        log = self.getlogger()
         nav = Navigation(self.driver)
         action = Action(self.driver)
         action.click(nav.Click_Main_Menu())
+        log.info("Click on Apps from Menu")
         action.click(nav.Navigate_Apps())
         assert action.getTitle() in 'App(s) | Cyware Orchestrate'
