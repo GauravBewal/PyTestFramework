@@ -8,7 +8,7 @@ class Labels:
 
     create_New_Label = (By.XPATH, "//button[normalize-space()='New']")
     text_box_Label_Name = (By.XPATH, "//input[@aria-placeholder='Label Name']")
-    text_box_Description = (By.XPATH, "//input[@aria-placeholder='Description']")
+    text_box_Description = (By.XPATH, "//textarea[@aria-placeholder='Description']")
     text_box_search = (By.CSS_SELECTOR, "#main-input")
     tab_inActive = (By.XPATH, "//a[normalize-space()='Inactive']")
     tab_Active = (By.XPATH, "//a[normalize-space()='Active']")
