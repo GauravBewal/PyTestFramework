@@ -1,5 +1,5 @@
-import configparser
 import os
+import configparser
 
 config = configparser.ConfigParser()
 

@@ -4,7 +4,8 @@ import pytest
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
-from configuration.readConfiguration import *
+
+from configuration.readConfiguration import ReadConfig
 
 driver = None
 
@@ -51,7 +52,15 @@ def pytest_runtest_makereport(item):
         xfail = hasattr(report, 'wasxfail')
         if (report.skipped and xfail) or (report.failed and not xfail):
             tc_name = report.nodeid.split("::")[-1]
-            file_name = "../reports/screenshots/" + tc_name + ".png"
+            current_folder = os.path.dirname(os.path.abspath(__file__))
+            report_path = os.path.join(current_folder, '../', 'reports', 'screenshots')
+            # Check whether the specified path exists or not
+            isExist = os.path.exists(report_path)
+            if not isExist:
+                # Create a new directory because it does not exist
+                os.makedirs(report_path)
+                print("screenshots directory is created!")
+            file_name = report_path + "/" + tc_name + ".png"
             _capture_screenshot(file_name)
             if file_name:
                 html = '<div><img src="screenshots/%s.png" alt="screenshot" style="width:304px;height:228px;" ' \
