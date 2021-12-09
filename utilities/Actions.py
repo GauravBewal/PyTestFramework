@@ -1,6 +1,6 @@
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from datetime import datetime
 
 
 class Action:
@@ -14,6 +14,9 @@ class Action:
     def sendKeys(self, inputfield, value):
         inputfield.send_keys(value)
 
+    def clickEnter(self, inputfield):
+        inputfield.send_keys(Keys.ENTER)
+
     def selectFromDD(self, dropdown, value):
         ddelement = Select(dropdown)
         ddelement.select_by_value(value)
@@ -23,3 +26,7 @@ class Action:
 
     def getTitle(self):
         return self.driver.title
+
+    def CurrentTime(self):
+        return datetime.now().strftime("%B %d, %Y %H:%M:%S")
+

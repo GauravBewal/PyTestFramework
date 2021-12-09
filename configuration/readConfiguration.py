@@ -1,10 +1,12 @@
 import configparser
 import os
 
-os.environ["PYTHONPATH"] = os.path.join(os.getcwd().split("CSOL_UI_Automation_Test")[0], "CSOL_UI_Automation_Test")
-ini_path = os.path.join(os.environ["PYTHONPATH"], "configuration", "config.ini")
 config = configparser.ConfigParser()
-config.read(ini_path)
+
+Current_folder = os.path.dirname(os.path.abspath(__file__))
+ini_file = os.path.join(Current_folder, 'config.ini')
+
+config.read(ini_file)
 
 
 class ReadConfig:
