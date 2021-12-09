@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pageObjects.Labels import Labels
@@ -21,16 +23,24 @@ class TestLabels(Base):
         assert action.getTitle() in 'Label List | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    def test_04_create_label(self):
+    def test_02_create_label(self):
         """
             Verify Label Create functionality
         """
         action = Action(self.driver)
         label = Labels(self.driver)
+        before_label_creation_count = int(action.getcount(label.get_label_count()))
         action.click(label.click_New_Label())
-        action.sendKeys(label.put_Label_Name(), "Label_" + action.CurrentTime())
+        label_text = "Label_" + action.CurrentTime()
+        action.sendKeys(label.put_Label_Name(), label_text)
         action.sendKeys(label.put_Description(), "Test Description")
         action.click(label.create_Label())
+        action.click(label.click_close_tooltip())
+        time.sleep(1)
+        after_label_creation_count = int(action.getcount(label.get_label_count()))
+        get_created_label_name = action.getText(label.top_1_label_name())
+        assert label_text == get_created_label_name and before_label_creation_count <= after_label_creation_count
+
 
     @pytest.mark.smoke
     def test_03_search_label(self):
@@ -39,5 +49,74 @@ class TestLabels(Base):
         """
         action = Action(self.driver)
         label = Labels(self.driver)
-        action.sendKeys(label.put_Search_String(), "Label")
-        action.clickEnter()
+        search_text = "Label"
+        action.sendKeys(label.put_Search_String(), search_text)
+        action.clickEnter(label.put_Search_String())
+        time.sleep(5)
+        read_top_search_result = action.getText(label.top_1_label_name())
+        assert search_text in read_top_search_result
+
+    @pytest.mark.smoke
+    def test_04_update_label(self):
+        """
+          verify user is able to update the label
+        """
+        action = Action(self.driver)
+        label = Labels(self.driver)
+        action.click(label.top_1_label_name())
+        action.clear_field(label.put_Label_Name())
+        new_label_name = "Label_" + action.CurrentTime()
+        action.sendKeys(label.put_Label_Name(), new_label_name)
+        action.clear_field(label.put_Description())
+        action.sendKeys(label.put_Description(), "updated description")
+        time.sleep(1)
+        action.click(label.click_update_label())
+        action.click(label.click_close_tooltip())
+        updated_label_name = action.getText(label.top_1_label_name())
+        assert new_label_name == updated_label_name
+
+
+
+    @pytest.mark.smoke
+    def test_05_deactivate_label(self):
+
+        """
+        Verify label is being listed under inactive tab once label was de-activated
+        """
+        action = Action(self.driver)
+        label = Labels(self.driver)
+        label_name_before_deactivating = action.getText(label.top_1_label_name())
+        action.click(label.top_1_label_name())
+        action.click(label.click_toggle())
+        action.click(label.click_update_label())
+        action.click(label.click_InActive())  #navigating inactiva tab to check whether the label is de-activated or not
+        time.sleep(5)
+        label_name_after_deactivating = action.getText(label.top_1_label_name())
+        assert label_name_before_deactivating == label_name_after_deactivating  #checking whether same label is visible in inactive tab listing after deactivating it
+
+    @pytest.mark.smoke
+    def test_06_create_label_without_name(self):
+
+        """
+        Verify user is able to get error message when tried to create a label without name
+        """
+        action = Action(self.driver)
+        label = Labels(self.driver)
+        action.click(label.click_New_Label())
+        action.sendKeys(label.put_Description(), "description")
+        action.click(label.create_Label())
+        error_msg = action.getText(label.get_label_field_error_msg())
+        assert error_msg in 'Label Name is required'
+
+
+
+
+
+
+
+
+
+
+
+
+
