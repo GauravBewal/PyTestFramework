@@ -2,7 +2,6 @@
 Bitbucket URL: https://bitbucket.org/cywarelabs/csol_automation_suite \
 QA Jenkins PROJECTS: https://jenkins.cyware.com/view/Pipelines-CSOL/job/csol-ui-automation/
 
-
 - Selenium python UI testing framework
 - Docker enable framework for execution in isolated environment
 - Supports Window/Mac/Linux
@@ -37,6 +36,6 @@ pytest-html==3.1.1\
 pytest-xdist==2.4.0\
 configparser==5.2.0
 
-NOTE: webdriver-manager should automatically install the drivers required for automation.
+**NOTE:** webdriver-manager should automatically install the drivers required for automation.
 
 
