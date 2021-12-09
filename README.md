@@ -1,93 +1,42 @@
-**CSOL Tests**  
-Bitbucket URL: https://bitbucket.org/cywarelabs/csol_automation_suite
-QA Jenkins PROJECTS: https://jenkins.cyware.com/view
+**CSOL UI Automation Test**  
+Bitbucket URL: https://bitbucket.org/cywarelabs/csol_automation_suite \
+QA Jenkins PROJECTS: https://jenkins.cyware.com/view/Pipelines-CSOL/job/csol-ui-automation/
+
+
 - Selenium python UI testing framework
 - Docker enable framework for execution in isolated environment
-- Supports Windows/Mac/Linux
+- Supports Window/Mac/Linux
 
   
 **Directory Structure**    
 **configuration** - Defines a place to put all the configuration related stuff, use config.ini to edit the run configuration  
-**PROJECTS** - Place to put the test scripts  
-**reports** - All the output reports xml/html will come in this directory.  
+**testCases** - Place to put all test scripts\conftest  
+**reports** - All the output reports xml/html and screenshots will come in this directory.  
 **testdata** - Any testdata related to testing will be put here. eg files, csv, png etc  
-**tools** - Third party tools, Keys, web drivers will be placed here.  
-**execute_*** - Execution entry point to initiate testing on test plan.  
+**utilities** - Base and all common actions related classes files are placed here.\
+**pageObjects** - All module related pages and elements are placed here.  
   
 
 **How to Configure on a User's System**
 
-**Method 1** 
-- Detailed Setup Guide: https://docs.google.com/document/d/11Wwsnw68bm3fpckWRaqnlrCpeLF7p3HqhvfgXQV1TNo/edit?usp=sharing  
-- Checkout Workspace
-- Open in PyCharm editor , select venv environment with python 3.x and install the dependencies
-- Select the script from PROJECTS and run in the editor.
+- First run command "git clone git@bitbucket.org:cywarelabs/csol_automation_suite.git" in any workspace via terminal
+- Open PyCharm editor, Select Open project and open git cloned folder
+- Run the script from pycharm terminal "venv_setup_mac.sh"
+- If venv doesn't set run command again on terminal "source venv/bin/activate"
 
-**Method 2**
-- Checkout Workspace
-- Install Python and below dependencies
-- Configure settings in config/config.ini
-- Change Directory to parent ctix_tests
-- Run execute_testplan.sh
-
-
-
-
-**Installation Requirements**  
+**Installation Requirements**
 Although latest version of python and the modules can be used, below are the tested versions.  
-Python Version - 3.8    
-numpy==1.19.5  
-xmlrunner==1.7.7  
-webdriver-manager (Latest version)  
-urllib3==1.26.4  
-six==1.16.0  
-selenium==3.141.0  
-pytz==2021.1  
-python-dateutil==2.8.1  
-configparser==5.0.2  
-html-testRunner==1.2.1  
-Pillow==8.3.1  
-matplotlib==3.4.2  
-pandas==1.2.4  
 
-setuptools==56.1.0 (pre existing)  
-pip==21.1.1 (pre existing)  
-  
-**Browsers**
-Install Chrome Browser (90.0.4430.212-1) 
-Install Firefox Browser (NOTE: Console debug logs doesn't work with firefox, Driver Limitations)  
+Python Version - 3.9 (pre-install)\
+setuptools==56.1.0 (pre-install)\
+pip==21.1.1 (pre-install)\
+selenium==3.141.0\
+webdriver-manager==3.5.2\
+pytest==6.2.5\
+pytest-html==3.1.1\
+pytest-xdist==2.4.0\
+configparser==5.2.0
 
 NOTE: webdriver-manager should automatically install the drivers required for automation.
 
-**Directory Structure Detailed**  
-```
-├── ** config - Defines a place to put all the configuration related stuff, use config.ini to edit the run configuration  
-│   ├── config.ini  
-│   ├── process_config.py  
-│   └── testplans  
-│       └── ui_sanity.txt  
-├── ** execute_testplan.sh - Entry Point to initiate test plan
-├── ** jenkins - This directory is used for jenkins related execution. Contains Docker configuration etc.  
-│   ├── docker_entrypoint.sh  
-│   ├── Dockerfile  
-│   └── email_report_generate.py  
-├── ** lib - Contains Library methods common and application related.
-│   ├── common_functions.py  
-│   └── ui  
-│       └── app_navigation.py  
-├── ** PROJECTS - Place to put the test scripts
-│   ├── API  
-│   │   └── readme  
-│   └── UI  
-│       ├── test_checks.py  
-│       └── test_navigation_checks.py  
-├── README.md  
-├── ** reports - All the output reports xml/html will come in this directory.
-│   └── readme.txt  
-├── ** testdata - Any testdata related to testing will be put here. eg files, csv, png etc
-│   └── inviteusers.csv  
-└── ** tools - Third party tools, Keys, web drivers will be placed here.
-    └── macos  
-        ├── chromedriver  
-        └── geckodriver  
-```
+
