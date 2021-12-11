@@ -82,9 +82,14 @@ def _capture_screenshot(name):
 
 
 def login():
-    emailId = driver.find_element_by_xpath("//input[@aria-placeholder='Enter your e-mail address']")
-    emailId.send_keys(ReadConfig.getUserEmail())
-    password = driver.find_element_by_xpath("//input[@aria-placeholder='Enter your password']")
-    password.send_keys(ReadConfig.getPassword())
-    clickLogin = driver.find_element_by_xpath("//button[contains(text(),'Login')]")
-    clickLogin.click()
+
+    text_field_emailID = "//input[@aria-placeholder='Enter your e-mail address']"
+    text_filed_password = "//input[@aria-placeholder='Enter your password']"
+    button_login = "//button[contains(text(),'Login')]"
+
+    put_emailId = driver.find_element_by_xpath(text_field_emailID)
+    put_emailId.send_keys(ReadConfig.getUserEmail())
+    put_password = driver.find_element_by_xpath(text_filed_password)
+    put_password.send_keys(ReadConfig.getPassword())
+    click_Login = driver.find_element_by_xpath(button_login)
+    click_Login.click()
