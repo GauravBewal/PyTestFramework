@@ -23,6 +23,7 @@ class Navigation:
         return self.driver.find_element(*Navigation.nav_main_menu)
 
     def Navigate_Dashboard(self):
+
         return self.driver.find_element(*Navigation.nav_dashboard)
 
     def Navigate_Manage_Playbook(self):

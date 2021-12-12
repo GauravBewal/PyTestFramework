@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from utilities.Base import Base
 
 
 class Labels:
@@ -23,7 +24,10 @@ class Labels:
     label_field_error_msg = (By.XPATH, "//div[@class='el-form-item__error']")
 
     def click_New_Label(self):
-        return self.driver.find_element(*Labels.create_New_Label)
+        try:
+            return self.driver.find_element(*Labels.create_New_Label)
+        except Exception as e:
+            print(e)
 
     def get_label_field_error_msg(self):
         return self.driver.find_element(*Labels.label_field_error_msg)

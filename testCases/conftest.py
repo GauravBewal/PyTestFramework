@@ -1,4 +1,5 @@
 import os.path
+import time
 
 import pytest
 from selenium import webdriver
@@ -82,14 +83,17 @@ def _capture_screenshot(name):
 
 
 def login():
-
     text_field_emailID = "//input[@aria-placeholder='Enter your e-mail address']"
     text_filed_password = "//input[@aria-placeholder='Enter your password']"
     button_login = "//button[contains(text(),'Login')]"
 
-    put_emailId = driver.find_element_by_xpath(text_field_emailID)
-    put_emailId.send_keys(ReadConfig.getUserEmail())
-    put_password = driver.find_element_by_xpath(text_filed_password)
-    put_password.send_keys(ReadConfig.getPassword())
-    click_Login = driver.find_element_by_xpath(button_login)
-    click_Login.click()
+    try:
+        put_emailId = driver.find_element_by_xpath(text_field_emailID)
+        put_emailId.send_keys(ReadConfig.getUserEmail())
+        put_password = driver.find_element_by_xpath(text_filed_password)
+        put_password.send_keys(ReadConfig.getPassword())
+        click_Login = driver.find_element_by_xpath(button_login)
+        click_Login.click()
+        time.sleep(2)
+    except Exception as e:
+        print(e)
