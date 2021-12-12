@@ -1,11 +1,7 @@
 from selenium.webdriver.common.by import By
-from utilities.Base import Base
 
 
 class Labels:
-
-    def __init__(self, driver):
-        self.driver = driver
 
     create_New_Label = (By.XPATH, "//button[normalize-space()='New']")
     text_box_Label_Name = (By.XPATH, "//input[@aria-placeholder='Label Name']")
@@ -22,6 +18,9 @@ class Labels:
     click_close_tooltip_xpath = (By.XPATH, "//div[@role='alert']//div[2]")
     click_active_toggle = (By.XPATH, "//form//div[4]//button")
     label_field_error_msg = (By.XPATH, "//div[@class='el-form-item__error']")
+
+    def __init__(self, driver):
+        self.driver = driver
 
     def click_New_Label(self):
         try:
