@@ -30,3 +30,8 @@ class ReadConfig:
     def defaultWait():
         Wait = config.get('Waits', 'defaultWait')
         return Wait
+
+    @staticmethod
+    def sleepWait():
+        sleepWait = config.get('Waits', 'sleepWait')
+        return sleepWait
