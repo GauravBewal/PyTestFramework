@@ -3,9 +3,6 @@ from selenium.webdriver.common.by import By
 
 class AppStore:
 
-    def __init__(self, driver):
-        self.driver = driver
-
     app_status = ('Active', 'Inactive', 'Installed')
     button_create_new_app = (By.XPATH, "(//div[@slot='header']//button)[1]")
     button_import_package = (By.XPATH, "(//div[@slot='header']//button)[2]")
@@ -21,3 +18,23 @@ class AppStore:
     first_install_button = (By.XPATH, "(//button[contains(@type,'button')][normalize-space()='Install'])[1]")
     first_published_app = (By.XPATH, "(//p[@class='font-size-11 color-n300'][normalize-space()='Published By'])[1]")
     first_created_by = (By.XPATH, "(//p[contains(text(),'Created By')])[1]")
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    def App_Store_Tab(self):
+        return self.driver.find_element(*AppStore.tab_app_store)
+
+    def My_Apps_Tab(self):
+        return self.driver.find_element(*AppStore.tab_my_apps)
+
+    def Import_button(self):
+        return self.driver.find_element(*AppStore.button_import_package)
+
+    def Create_App_button(self):
+        return self.driver.find_element(*AppStore.button_create_new_app)
+
+    def Walk_through_button(self):
+        return self.driver.find_element(*AppStore.button_app_walkthrough)
+
+

@@ -34,4 +34,4 @@ class ReadConfig:
     @staticmethod
     def sleepWait():
         sleepWait = config.get('Waits', 'sleepWait')
-        return sleepWait
+        return int(sleepWait)
