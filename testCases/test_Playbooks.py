@@ -41,7 +41,7 @@ class TestPlaybook(Base):
         assert action.getTitle() in 'System Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    def test_03_Cyware_Playbooks_switch_tab(self):
+    def test_03_My_Playbooks_switch_tab(self):
         """
             Verify user is able to switch from Cyware Playbooks to My Playbooks
             Validation - 1. On the basis of Windows title
@@ -53,3 +53,6 @@ class TestPlaybook(Base):
         action.click(playbooks.custom_app_tab())
         time.sleep(ReadConfig.sleepWait())
         assert action.getTitle() in 'Custom Playbooks | Cyware Orchestrate'
+
+
+
