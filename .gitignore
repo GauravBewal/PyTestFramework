@@ -11,4 +11,6 @@ reports/report.html
 reports/screenshots/*
 testCases/reports/*
 reports/screenshots/*.png
+logs/logfile.log
+*.log
 
