@@ -23,3 +23,16 @@
 2021-12-12 15:18:39,417 : INFO : test_01_manage_playbook : Click on Manage Playbook from Main Menu
 2021-12-12 15:18:40,397 : INFO : test_02_Cyware_Playbooks_switch_tab : Click on Cyware Playbooks for switch tab 
 2021-12-12 15:18:46,264 : INFO : test_03_Cyware_Playbooks_switch_tab : Click on My Playbooks for switch tab
+2021-12-12 15:38:49,496 : INFO : test_01_manage_playbook : Click on Main Menu
+2021-12-12 15:38:51,424 : INFO : test_01_manage_playbook : Click on Manage Playbook from Main Menu
+2021-12-12 15:38:52,449 : INFO : test_02_Cyware_Playbooks_switch_tab : Click on Cyware Playbooks for switch tab 
+2021-12-12 15:38:58,369 : INFO : test_03_Cyware_Playbooks_switch_tab : Click on My Playbooks for switch tab
+2021-12-12 15:51:09,956 : INFO : test_01_admin_panel_redirection : Click on Admin Menu
+2021-12-12 15:51:35,266 : INFO : test_01_apps_redirection : Click on Main Menu
+2021-12-12 15:51:37,210 : INFO : test_01_apps_redirection : Click on Apps from Menu
+2021-12-12 15:51:42,589 : INFO : test_02_appstore_switch_tab : Click on App Store tab
+2021-12-12 15:51:47,794 : INFO : test_03_My_Apps_switch_tab : Click on App Store tab
+2021-12-12 15:54:49,747 : INFO : test_01_manage_playbook : Click on Main Menu
+2021-12-12 15:54:51,491 : INFO : test_01_manage_playbook : Click on Manage Playbook from Main Menu
+2021-12-12 15:54:52,585 : INFO : test_02_Cyware_Playbooks_switch_tab : Click on Cyware Playbooks for switch tab 
+2021-12-12 15:54:57,900 : INFO : test_03_Cyware_Playbooks_switch_tab : Click on My Playbooks for switch tab

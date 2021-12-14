@@ -9,4 +9,6 @@
 reports/assets/style.css
 reports/report.html
 reports/screenshots/*
+testCases/reports/*
+reports/screenshots/*.png
 
