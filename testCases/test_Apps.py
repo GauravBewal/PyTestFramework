@@ -13,13 +13,13 @@ from utilities.Base import Base
 class TestApps(Base):
 
     global new_app_name
-    new_app_name = ""
+    new_app_name = " "
 
     @pytest.mark.smoke
     def test_01_apps_redirection(self):
         """
             Verify Apps redirection from Main Menu
-            Validation - 1. On the basis of Window title
+            Validation - 1. On the basis of Window's title
         """
         log = self.getlogger()
         nav = Navigation(self.driver)
@@ -35,7 +35,7 @@ class TestApps(Base):
     def test_02_appstore_switch_tab(self):
         """
             Verify user is able to switch from My apps to App Store
-            Validation - 1. On the basis of Windows title
+            Validation - 1. On the basis of Window's title
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -49,7 +49,7 @@ class TestApps(Base):
     def test_03_my_apps_switch_tab(self):
         """
             Verify user is able to switch from App Store to My Apps
-            Validation - 1. On the basis of Windows title
+            Validation - 1. On the basis of Window's title
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -62,7 +62,8 @@ class TestApps(Base):
     @pytest.mark.smoke
     def test_04_create_new_app(self):
         """
-        Verify user is able to create a new app
+            Verify user is able to create a new app manually
+            Validation - 1. By check count increase under My apps
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -73,7 +74,7 @@ class TestApps(Base):
         action.click(myapps.Create_App_button())
         log.info("Enter app name")
         global new_app_name
-        new_app_name = "newapp" + action.getrandomdigit()
+        new_app_name = "newapp" + action.getRandomDigit()
         action.sendKeys(myapps.enter_app_name(), new_app_name)
         log.info("Enter app supported api version")
         action.sendKeys(myapps.enter_supported_api_version(), "1.0.0")
@@ -94,15 +95,25 @@ class TestApps(Base):
 
     @pytest.mark.smoke
     def test_05_search_app(self):
+        """
+            Verify user is able to search new manually created app.
+            Validation - 1. search the app which is created new manually.
+        """
         log = self.getlogger()
         action = Action(self.driver)
         myapps = MyApps(self.driver)
         action.sendKeys(myapps.click_on_app_search(), new_app_name)
+        log.info("Search the app which is created new manually")
         time.sleep(ReadConfig.sleepWait())
         assert new_app_name == action.getText(myapps.top_first_search())
 
     @pytest.mark.smoke
     def test_06_app_detail(self):
+        """
+            Verify the app detail page redirection
+            Validation - 1. On the basis of Window's title
+                         2. app title
+        """
         log = self.getlogger()
         action = Action(self.driver)
         myapps = MyApps(self.driver)
@@ -116,6 +127,10 @@ class TestApps(Base):
 
     @pytest.mark.smoke
     def test_07_switch_app_actions_tab(self):
+        """
+            Verify user is able to switch app action tab
+            Validation - 1. On the basis of Window's title
+        """
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
@@ -126,6 +141,10 @@ class TestApps(Base):
 
     @pytest.mark.smoke
     def test_08_switch_app_instance_tab(self):
+        """
+            Verify user is able to switch on Instance App tab
+            Validation - 1. On the basis of Window's title
+        """
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
@@ -136,6 +155,10 @@ class TestApps(Base):
 
     @pytest.mark.smoke
     def test_09_create_new_instance(self):
+        """
+            Verify user is able to new instance.
+            Validation - 1. By check presence of created instance's title on page
+        """
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
@@ -148,6 +171,10 @@ class TestApps(Base):
 
     @pytest.mark.smoke
     def test_10_switch_playbook_tab(self):
+        """
+            Verify user is able to switch to playbook tab.
+            Validation - 1. On the basis of Window's title
+        """
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
@@ -158,6 +185,11 @@ class TestApps(Base):
 
     @pytest.mark.smoke
     def test_11_uninstall_app(self):
+        """
+            Verify user is able to uninstall app
+            Validation - 1. On the basis of search same app
+                         2. On the basis of tooltip after successful uninstall
+        """
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)

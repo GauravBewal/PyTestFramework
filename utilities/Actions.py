@@ -1,11 +1,11 @@
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.common.keys import Keys
-from datetime import datetime
 import random
 import string
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.keys import Keys
+from datetime import datetime
 
 
 class Action:
@@ -24,14 +24,14 @@ class Action:
         count = element.text
         return int(float(count.split('(')[1].split(')')[0]))
 
-    def getcountfromapps(self,element):
+    def getcountfromapps(self, element):
         count = element.text
-        return  count.split(' ')[0]
+        return count.split(' ')[0]
 
     def sendKeys(self, inputfield, value):
         inputfield.send_keys(value)
 
-    def clear_field(self,element):
+    def clear_field(self, element):
         while len(element.get_attribute("value")) > 0:
             element.send_keys(Keys.BACK_SPACE)
 
@@ -54,6 +54,19 @@ class Action:
     def CurrentTime(self):
         return datetime.now().strftime("%B %d, %Y %H:%M:%S")
 
-    def getrandomdigit(self):
+    def getRandomDigit(self):
         res = ''.join(random.choices(string.digits, k=4))
         return res
+
+    def WebdriverWait(self, element, wait):
+        web_element = WebDriverWait(self.driver, wait).until(
+            EC.presence_of_element_located(element))
+        return web_element
+
+    def accept_alert(self):
+        alert = self.driver.switch_to_alert()
+        alert.accept()
+
+    def dismiss_alert(self):
+        alert = self.driver.switch_to_alert()
+        alert.dismiss()
