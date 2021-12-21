@@ -1,12 +1,53 @@
-FROM packages.cyware.com/centos7:python3.9
+FROM --platform=linux/amd64 ubuntu:20.04
 
-COPY . /root/
+#Installing python
+RUN apt-get -y update && \
+  DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata && \
+  apt-get install -y --no-install-recommends build-essential && \
+  apt-get install -y software-properties-common
+RUN apt-get install python3.9 -y
+RUN apt-get install python3-tk -y
 
-WORKDIR /root/
+RUN apt-get install -y wget
+# Adding trusting keys to apt for repositories
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+# Adding Google Chrome to the repositories
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+#Updating apt to see and install Google Chrome
+RUN apt-get -y update
 
-RUN python3 -m venv venv
-RUN source venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt
+RUN apt-get install -y python3-pip \
+  libffi-dev \
+  libssl-dev \
+  curl \
+  libcurl3-dev \
+  libxml2-dev \
+  libxslt-dev \
+  libxrender1 \
+  libasound2 \
+  libdbus-glib-1-2 \
+  libgtk-3-0 \
+  xvfb \
+  libffi-dev \
+  libssl-dev
 
-RUN chmod +x /root/entrypoint.sh
-CMD ["/root/entrypoint.sh"]
 
+ARG CHROME_VERSION="90.0.4430.212-1"
+RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb \
+  && apt install -y /tmp/chrome.deb \
+  && rm /tmp/chrome.deb \
+
+RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
+  apt-get purge firefox && \
+  wget -O $FIREFOX_SETUP "https://download.mozilla.org/?product=firefox-latest&os=linux64" && \
+  tar xjf $FIREFOX_SETUP -C /opt/ && \
+  ln -s /opt/firefox/firefox /usr/bin/firefox && \
+  rm $FIREFOX_SETUP \
+
+COPY requirements.txt /tmp/requirements.txt
+COPY entrypoint.sh /tmp/entrypoint.sh
+RUN chmod +x /tmp/entrypoint.sh
+
+RUN pip3 install -r /tmp/requirements.txt
+
+CMD ["/tmp/entrypoint.sh"]
