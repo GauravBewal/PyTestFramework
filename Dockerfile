@@ -51,5 +51,5 @@ COPY . /csol_ui_automation/
 WORKDIR /csol_ui_automation/
 
 RUN chmod +x /csol_ui_automation/entrypoint.sh
-
+RUN mkdir reports/screenshots
 CMD ["/csol_ui_automation/entrypoint.sh"]

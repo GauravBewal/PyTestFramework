@@ -13,4 +13,5 @@ testCases/reports/*
 reports/screenshots/*.png
 logs/logfile.log
 *.log
+file1
 
