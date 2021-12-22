@@ -12,8 +12,28 @@ driver = None
 
 
 def pytest_addoption(parser):
-    parser.addoption("--browser_name", action="store",
-                     default="chrome")
+    parser.addoption("--browser_name", action="store", default="chrome")
+
+
+def _capture_screenshot(driver, file_name):
+    driver.get_screenshot_as_file(file_name)
+
+
+def login():
+    text_field_emailID = "//input[@aria-placeholder='Enter your e-mail address']"
+    text_filed_password = "//input[@aria-placeholder='Enter your password']"
+    button_login = "//button[contains(text(),'Login')]"
+
+    try:
+        put_emailId = driver.find_element_by_xpath(text_field_emailID)
+        put_emailId.send_keys(ReadConfig.getUserEmail())
+        put_password = driver.find_element_by_xpath(text_filed_password)
+        put_password.send_keys(ReadConfig.getPassword())
+        click_Login = driver.find_element_by_xpath(button_login)
+        click_Login.click()
+        time.sleep(2)
+    except Exception as e:
+        print(e)
 
 
 @pytest.fixture(scope="class")
@@ -62,7 +82,7 @@ def pytest_runtest_makereport(item):
                 os.makedirs(report_path)
                 print("screenshots directory is created!")
             file_name = report_path + "/" + tc_name + ".png"
-            _capture_screenshot(file_name)
+            _capture_screenshot(driver,file_name)
             if file_name:
                 html = '<div><img src="screenshots/%s.png" alt="screenshot" style="width:304px;height:228px;" ' \
                        'onclick="window.open(this.src)" align="right"/></div>' % tc_name
@@ -76,24 +96,3 @@ def pytest_html_report_title(report):
 
 def pytest_configure(config):
     config._metadata["Instance URL"] = ReadConfig.getAppURL()
-
-
-def _capture_screenshot(name):
-    driver.get_screenshot_as_file(name)
-
-
-def login():
-    text_field_emailID = "//input[@aria-placeholder='Enter your e-mail address']"
-    text_filed_password = "//input[@aria-placeholder='Enter your password']"
-    button_login = "//button[contains(text(),'Login')]"
-
-    try:
-        put_emailId = driver.find_element_by_xpath(text_field_emailID)
-        put_emailId.send_keys(ReadConfig.getUserEmail())
-        put_password = driver.find_element_by_xpath(text_filed_password)
-        put_password.send_keys(ReadConfig.getPassword())
-        click_Login = driver.find_element_by_xpath(button_login)
-        click_Login.click()
-        time.sleep(2)
-    except Exception as e:
-        print(e)
