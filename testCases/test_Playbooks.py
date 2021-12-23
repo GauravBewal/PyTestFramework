@@ -24,7 +24,7 @@ class TestPlaybook(Base):
         action.click(nav.Click_Main_Menu())
         log.info("Click on Manage Playbook from Main Menu")
         action.click(nav.Navigate_Manage_Playbook())
-        assert action.getTitle() in 'Custom Playbooks | Cyware Orchestrate'
+        assert action.getTitle() in 'My Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
     def test_02_Cyware_Playbooks_switch_tab(self):
@@ -38,7 +38,7 @@ class TestPlaybook(Base):
         log.info("Click on Cyware Playbooks for switch tab ")
         action.click(playbooks.cyware_app_tab())
         time.sleep(ReadConfig.sleepWait())
-        assert action.getTitle() in 'System Playbooks | Cyware Orchestrate'
+        assert action.getTitle() in 'Cyware Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
     def test_03_My_Playbooks_switch_tab(self):
@@ -52,7 +52,7 @@ class TestPlaybook(Base):
         log.info("Click on My Playbooks for switch tab")
         action.click(playbooks.custom_app_tab())
         time.sleep(ReadConfig.sleepWait())
-        assert action.getTitle() in 'Custom Playbooks | Cyware Orchestrate'
+        assert action.getTitle() in 'My Playbooks | Cyware Orchestrate'
 
 
 
