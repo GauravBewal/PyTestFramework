@@ -65,7 +65,8 @@ def pytest_runtest_makereport(item):
         xfail = hasattr(report, 'wasxfail')
         if (report.skipped and xfail) or (report.failed and not xfail):
             tc_name = report.nodeid.split("::")[-1]
-            report_path = os.path.join('../', 'reports', 'screenshots')
+            current_folder = os.path.dirname(os.path.abspath(__file__))
+            report_path = os.path.join(current_folder, '../', 'reports', 'screenshots')
             # Check whether the specified path exists or not
             isExist = os.path.exists(report_path)
             if not isExist:
