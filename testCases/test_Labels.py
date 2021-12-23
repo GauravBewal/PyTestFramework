@@ -28,7 +28,7 @@ class TestLabels(Base):
         log.info("Validating the page title")
         assert action.getTitle() in 'Label List | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_02_create_label_without_name(self):
         """
         Verify user is able to get error message when tried to create a label without name
@@ -50,7 +50,7 @@ class TestLabels(Base):
         log.info("Validating the error message")
         assert error_msg in 'Label Name is required'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_03_create_label(self):
         """
             Verify Label Create functionality
@@ -160,13 +160,14 @@ class TestLabels(Base):
         log.info("Click on label toggle")
         action.click(label.click_toggle())
         log.info("Click on update label button")
+        time.sleep(ReadConfig.sleepWait())
         action.click(label.click_update_label())
         log.info("Click on inactive button")
         # navigating inactive tab to check whether the label is de-activated or not
         action.click(label.click_InActive())
         time.sleep(ReadConfig.sleepWait())
-        log.info("Click on to close label creation tooltip ")
-        action.click(label.click_close_tooltip())
+        # log.info("Click on to close label creation tooltip ")
+        # action.click(label.click_close_tooltip())
         label_name_after_deactivating = action.getText(label.top_1_label_name())
         log.info("Validating label name before and after deactivating")
         # checking whether same label is visible in inactive tab listing after deactivating it

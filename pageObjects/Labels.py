@@ -6,7 +6,7 @@ class Labels():
     def __init__(self, driver):
         self.driver = driver
 
-    create_New_Label = (By.XPATH, "//button[@aria-describedby='el-tooltip-4478']")
+    create_New_Label = (By.CSS_SELECTOR, ".el-tooltip.create-playbook.d-flex")
     text_box_Label_Name = (By.XPATH, "//input[@aria-placeholder='Label Name']")
     text_box_Description = (By.XPATH, "//textarea[@aria-placeholder='Description']")
     text_box_search = (By.CSS_SELECTOR, "#main-input")
@@ -14,11 +14,11 @@ class Labels():
     tab_Active = (By.XPATH, "//a[normalize-space()='Active']")
     tab_All = (By.XPATH, "//a[normalize-space()='All']")
     button_sort = (By.XPATH, "//span[contains(text(),'Sort')]")
-    button_create = (By.XPATH, "//button[normalize-space()='Create']")
-    button_update = (By.XPATH, "//button[normalize-space()='Update']")
+    button_create = (By.XPATH, "//button[text()='Create']")
+    button_update = (By.XPATH, "//button[text()='Update']")
     get_labels_count = (By.XPATH, "//h1[contains(text(),'Labels (')]")
     top_label_in_listing = (By.XPATH, "(//tr//a[contains(text(),'Label_')])[1]")
-    click_close_tooltip_xpath = (By.XPATH, "//div[@role='alert']//div[2]")
+    click_close_tooltip_xpath = (By.XPATH, "//div[@class='modal--header']//div[2]/i")
     click_active_toggle = (By.XPATH, "//form//div[4]//span[text()='On ']")
     click_on_close_label_slider = (By.XPATH, "//form//i[contains(@class,'el-icon-close')]")
     label_field_error_msg = (By.XPATH, "//div[@class='el-form-item__error']")
