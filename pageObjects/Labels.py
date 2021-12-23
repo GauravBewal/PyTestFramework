@@ -6,7 +6,7 @@ class Labels():
     def __init__(self, driver):
         self.driver = driver
 
-    create_New_Label = (By.XPATH, "//button[normalize-space()='New']")
+    create_New_Label = (By.XPATH, "//button[@aria-describedby='el-tooltip-4478']")
     text_box_Label_Name = (By.XPATH, "//input[@aria-placeholder='Label Name']")
     text_box_Description = (By.XPATH, "//textarea[@aria-placeholder='Description']")
     text_box_search = (By.CSS_SELECTOR, "#main-input")
