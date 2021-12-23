@@ -47,9 +47,8 @@ RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
   ln -s /opt/firefox/firefox /usr/bin/firefox && \
   rm $FIREFOX_SETUP
 
-COPY . /csol_ui_automation/
-WORKDIR /csol_ui_automation/
+COPY . /csol_automation_suite/
+WORKDIR /csol_automation_suite/
 
-RUN chmod +x /csol_ui_automation/entrypoint.sh
-
-CMD ["/csol_ui_automation/entrypoint.sh"]
+RUN chmod +x /csol_automation_suite/entrypoint.sh
+CMD ["/csol_automation_suite/entrypoint.sh"]

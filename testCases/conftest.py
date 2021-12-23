@@ -2,21 +2,29 @@ import os.path
 import time
 
 import pytest
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
 
 from configuration.readConfiguration import ReadConfig
+from utilities.webdriver_factory import WebDriverFactory
 
-driver = None
+webapp_driver = None
 
 
 def pytest_addoption(parser):
     parser.addoption("--browser_name", action="store", default="chrome")
+    parser.addoption("--base_url", action="store", default=ReadConfig.getAppURL())
 
 
-def _capture_screenshot(driver, file_name):
-    driver.get_screenshot_as_file(file_name)
+@pytest.fixture(scope="class", autouse=True)
+def setup(request):
+    global webapp_driver
+    browser_name = request.config.getoption("browser_name")
+    base_url = request.config.getoption("base_url")
+    wd = WebDriverFactory(browser_name, base_url)
+    webapp_driver = wd.getWebDriverInstance()
+    login()
+    request.cls.driver = webapp_driver
+    yield
+    webapp_driver.close()
 
 
 def login():
@@ -25,39 +33,23 @@ def login():
     button_login = "//button[contains(text(),'Login')]"
 
     try:
-        put_emailId = driver.find_element_by_xpath(text_field_emailID)
+        put_emailId = webapp_driver.find_element_by_xpath(text_field_emailID)
         put_emailId.send_keys(ReadConfig.getUserEmail())
-        put_password = driver.find_element_by_xpath(text_filed_password)
+        put_password = webapp_driver.find_element_by_xpath(text_filed_password)
         put_password.send_keys(ReadConfig.getPassword())
-        click_Login = driver.find_element_by_xpath(button_login)
+        click_Login = webapp_driver.find_element_by_xpath(button_login)
         click_Login.click()
         time.sleep(2)
     except Exception as e:
         print(e)
 
 
-@pytest.fixture(scope="class")
-def setup(request):
-    global driver
-    browser_name = request.config.getoption("browser_name")
-    if browser_name == "chrome":
-        options = webdriver.ChromeOptions()
-        options.add_argument("start-maximized")
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-    elif browser_name == "firefox":
-        options = webdriver.FirefoxOptions()
-        driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
-    driver.maximize_window()
-    # get the url from conf file
-    driver.get(ReadConfig.getAppURL())
-    driver.implicitly_wait(ReadConfig.defaultWait())  # seconds
-    login()
-    request.cls.driver = driver
-    yield
-    driver.close()
+def _capture_screenshot(name):
+    global webapp_driver
+    webapp_driver.get_screenshot_as_file(name)
 
 
-@pytest.mark.hookwrapper
+@pytest.mark.hookwrapper()
 def pytest_runtest_makereport(item):
     """
     Extends the Pytest Plugin to take and embed screenshot in html report, whenever test fails.
@@ -82,7 +74,7 @@ def pytest_runtest_makereport(item):
                 os.makedirs(report_path)
                 print("screenshots directory is created!")
             file_name = report_path + "/" + tc_name + ".png"
-            _capture_screenshot(driver,file_name)
+            _capture_screenshot(file_name)
             if file_name:
                 html = '<div><img src="screenshots/%s.png" alt="screenshot" style="width:304px;height:228px;" ' \
                        'onclick="window.open(this.src)" align="right"/></div>' % tc_name
