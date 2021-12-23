@@ -28,7 +28,7 @@ class TestLabels(Base):
         log.info("Validating the page title")
         assert action.getTitle() in 'Label List | Cyware Orchestrate'
 
-    @pytest.mark.regression
+    @pytest.mark.smoke
     def test_02_create_label_without_name(self):
         """
         Verify user is able to get error message when tried to create a label without name
@@ -50,7 +50,7 @@ class TestLabels(Base):
         log.info("Validating the error message")
         assert error_msg in 'Label Name is required'
 
-    @pytest.mark.regression
+    @pytest.mark.smoke
     def test_03_create_label(self):
         """
             Verify Label Create functionality
