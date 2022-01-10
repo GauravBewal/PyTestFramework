@@ -17,4 +17,4 @@ class TestTriggerEvents(Base):
         action = Action(self.driver)
         action.click(nav.Click_Main_Menu())
         action.click(nav.Navigate_Trigger_Event())
-        assert action.getTitle() in 'Source Events | Cyware Orchestrate'
+        assert action.getTitle() in 'Trigger Events | Cyware Orchestrate'

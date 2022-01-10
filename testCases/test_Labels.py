@@ -26,7 +26,7 @@ class TestLabels(Base):
         log.info("Click on to label module for redirection")
         action.click(nav.Navigate_Labels())
         log.info("Validating the page title")
-        assert action.getTitle() in 'Label List | Cyware Orchestrate'
+        assert action.getTitle() in 'Labels | Cyware Orchestrate'
 
     @pytest.mark.smoke
     def test_02_create_label_without_name(self):
