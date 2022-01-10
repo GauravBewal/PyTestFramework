@@ -17,4 +17,4 @@ class TestCywareAgentTask(Base):
         action = Action(self.driver)
         action.click(nav.Click_Main_Menu())
         action.click(nav.Navigate_Agent_task())
-        assert action.getTitle() in 'Command Logs List | Cyware Orchestrate'
+        assert action.getTitle() in 'Cyware Agent Tasks | Cyware Orchestrate'

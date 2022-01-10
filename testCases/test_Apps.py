@@ -29,7 +29,7 @@ class TestApps(Base):
         log.info("Click on Apps from Menu")
         action.click(nav.Navigate_Apps())
         time.sleep(ReadConfig.sleepWait())
-        assert action.getTitle() in 'App(s) | Cyware Orchestrate'
+        assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
     def test_02_appstore_switch_tab(self):
@@ -43,7 +43,7 @@ class TestApps(Base):
         log.info("Click on App Store tab")
         action.click(myapps.App_Store_Tab())
         time.sleep(ReadConfig.sleepWait())
-        assert action.getTitle() in 'App-store | Cyware Orchestrate'
+        assert action.getTitle() in 'Appstore | Cyware Orchestrate'
 
     @pytest.mark.smoke
     def test_03_my_apps_switch_tab(self):
@@ -57,7 +57,7 @@ class TestApps(Base):
         log.info("Click on App Store tab")
         action.click(myapps.My_Apps_Tab())
         time.sleep(ReadConfig.sleepWait())
-        assert action.getTitle() in 'App(s) | Cyware Orchestrate'
+        assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
     def test_04_create_new_app(self):
@@ -86,14 +86,14 @@ class TestApps(Base):
         action.click(myapps.click_active_app())
         log.info("Click on app save button")
         action.click(myapps.click_save_app_button())
-        # time.sleep(ReadConfig.MediumsleepWait())
-        # log.info("Click on close tool tip")
-        # action.click(myapps.close_tooltip())
-        # time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.MediumsleepWait())
+        log.info("Click on close tool tip")
+        action.click(myapps.close_tooltip())
+        time.sleep(ReadConfig.sleepWait())
         count_of_app_after_creation = action.getCountfromString(myapps.get_app_count())
         assert count_of_app_before_creation+1 == count_of_app_after_creation
 
-    @pytest.mark.smoke1
+    @pytest.mark.smoke
     def test_05_search_app(self):
         """
             Verify user is able to search new manually created app.
@@ -107,7 +107,7 @@ class TestApps(Base):
         time.sleep(ReadConfig.sleepWait())
         assert new_app_name == action.getText(myapps.top_first_search())
 
-    @pytest.mark.smoke1
+    @pytest.mark.smoke
     def test_06_app_detail(self):
         """
             Verify the app detail page redirection
@@ -125,7 +125,7 @@ class TestApps(Base):
         app_title_summary = action.getText(myapps.read_app_title())
         assert page_title == 'App Summary | Cyware Orchestrate' and app_title_listing == app_title_summary
 
-    @pytest.mark.smoke1
+    @pytest.mark.smoke
     def test_07_switch_app_actions_tab(self):
         """
             Verify user is able to switch app action tab
@@ -139,7 +139,7 @@ class TestApps(Base):
         page_title = action.getTitle()
         assert page_title == 'App Actions | Cyware Orchestrate'
 
-    @pytest.mark.smoke1
+    @pytest.mark.smoke
     def test_08_switch_app_instance_tab(self):
         """
             Verify user is able to switch on Instance App tab
@@ -153,7 +153,7 @@ class TestApps(Base):
         page_title = action.getTitle()
         assert page_title == 'App Instances | Cyware Orchestrate'
 
-    @pytest.mark.smoke1
+    @pytest.mark.smoke
     def test_09_create_new_instance(self):
         """
             Verify user is able to new instance.
@@ -169,7 +169,7 @@ class TestApps(Base):
         action.click(my_apps.click_instance_creation())
         assert action.getText(my_apps.read_default_instance()) == 'test'
 
-    @pytest.mark.smoke1
+    @pytest.mark.smoke
     def test_10_switch_playbook_tab(self):
         """
             Verify user is able to switch to playbook tab.
@@ -183,7 +183,7 @@ class TestApps(Base):
         page_title = action.getTitle()
         assert page_title == 'App Playbooks | Cyware Orchestrate'
 
-    @pytest.mark.smoke1
+    @pytest.mark.smoke
     def test_11_uninstall_app(self):
         """
             Verify user is able to uninstall app
