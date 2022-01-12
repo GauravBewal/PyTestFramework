@@ -51,7 +51,7 @@ class Action:
     def getTitle(self):
         return self.driver.title
 
-    def CurrentTime(self):
+    def currentTime(self):
         return datetime.now().strftime("%B %d, %Y %H:%M:%S")
 
     def getRandomDigit(self):
