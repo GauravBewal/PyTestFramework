@@ -15,7 +15,7 @@ class TestLabels(Base):
     @pytest.mark.smoke
     def test_01_labels_redirection(self):
         """
-            Verify Labels redirection from Main Menu
+            Verify Labels Page redirection from Main Menu
             TC_ID: Label-TC-001
         """
         log = self.getlogger()
@@ -31,8 +31,8 @@ class TestLabels(Base):
     @pytest.mark.smoke
     def test_02_create_label_without_name(self):
         """
-        Verify user is able to get error message when tried to create a label without name
-         TC_ID: Label-TC-002
+            Verify user is able to get error message when tried to create a label without any name
+            TC_ID: Label-TC-002
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -64,7 +64,7 @@ class TestLabels(Base):
         before_label_creation_count = (action.getCountfromString(label.get_label_count()))
         log.info("Click on to create new label")
         action.click(label.click_New_Label())
-        label_text = "Label_" + action.CurrentTime()
+        label_text = "Label_" + action.currentTime()
         log.info("Entering new label name")
         action.sendKeys(label.put_Label_Name(), label_text)
         log.info("Entering label description")
@@ -114,7 +114,7 @@ class TestLabels(Base):
         action.click(label.top_1_label_name())
         log.info("Deleting and Entering new name to the existing label")
         action.clear_field(label.put_Label_Name())
-        new_label_name = "Label_" + action.CurrentTime()
+        new_label_name = "Label_" + action.currentTime()
         action.sendKeys(label.put_Label_Name(), new_label_name)
         log.info("Deleting and entering new description the existing label")
         action.clear_field(label.put_Description())
