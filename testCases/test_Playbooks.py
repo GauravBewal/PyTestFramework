@@ -12,6 +12,7 @@ from utilities.Base import Base
 class TestPlaybook(Base):
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_01_manage_playbook(self):
         """
             Verify Manage Playbook redirection from Main Menu
@@ -21,12 +22,13 @@ class TestPlaybook(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         log.info("Click on Main Menu")
-        action.click(nav.Click_Main_Menu())
+        action.click(nav.click_Main_Menu())
         log.info("Click on Manage Playbook from Main Menu")
         action.click(nav.Navigate_Manage_Playbook())
         assert action.getTitle() in 'My Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_02_Cyware_Playbooks_switch_tab(self):
         """
             Verify user is able to switch from My Playbooks to Cyware Playbooks
@@ -41,6 +43,7 @@ class TestPlaybook(Base):
         assert action.getTitle() in 'Cyware Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_03_My_Playbooks_switch_tab(self):
         """
             Verify user is able to switch from Cyware Playbooks to My Playbooks
