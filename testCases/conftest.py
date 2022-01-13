@@ -90,5 +90,6 @@ def pytest_html_report_title(report):
     report.title = "Cyware Orchestrate UI Testcases Execution Report"
 
 
-def pytest_configure(config):
-    config._metadata["Instance URL"] = ReadConfig.getAppURL()
+def pytest_configure(config, request):
+    url = request.config.getoption("url")
+    config._metadata["Instance URL"] = url
