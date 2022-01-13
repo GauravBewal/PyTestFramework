@@ -11,32 +11,36 @@ webapp_driver = None
 
 def pytest_addoption(parser):
     parser.addoption("--browser_name", action="store", default="chrome")
-    parser.addoption("--base_url", action="store", default=ReadConfig.getAppURL())
+    parser.addoption("--url", action="store", default=ReadConfig.getAppURL())
+    parser.addoption("--email", action="store", default=ReadConfig.getUserEmail())
+    parser.addoption("--password", action="store", default=ReadConfig.getPassword())
 
 
 @pytest.fixture(scope="class", autouse=True)
 def setup(request):
     global webapp_driver
     browser_name = request.config.getoption("browser_name")
-    base_url = request.config.getoption("base_url")
+    base_url = request.config.getoption("url")
+    getEmail = request.config.getoption("email")
+    getPassword = request.config.getoption("password")
     wd = WebDriverFactory(browser_name, base_url)
     webapp_driver = wd.getWebDriverInstance()
-    login()
+    login(getEmail, getPassword)
     request.cls.driver = webapp_driver
     yield
     webapp_driver.close()
 
 
-def login():
+def login(getEmail, getPassword):
     text_field_emailID = "//input[@aria-placeholder='Enter your e-mail address']"
     text_filed_password = "//input[@aria-placeholder='Enter your password']"
     button_login = "//button[contains(text(),'Login')]"
 
     try:
         put_emailId = webapp_driver.find_element_by_xpath(text_field_emailID)
-        put_emailId.send_keys(ReadConfig.getUserEmail())
+        put_emailId.send_keys(getEmail)
         put_password = webapp_driver.find_element_by_xpath(text_filed_password)
-        put_password.send_keys(ReadConfig.getPassword())
+        put_password.send_keys(getPassword)
         click_Login = webapp_driver.find_element_by_xpath(button_login)
         click_Login.click()
         time.sleep(2)
