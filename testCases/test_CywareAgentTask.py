@@ -9,12 +9,13 @@ from utilities.Base import Base
 class TestCywareAgentTask(Base):
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_01_cyware_agent_task_redirection(self):
         """
             Verify Cyware Agent Task redirection from Main Menu
         """
         nav = Navigation(self.driver)
         action = Action(self.driver)
-        action.click(nav.Click_Main_Menu())
+        action.click(nav.click_Main_Menu())
         action.click(nav.Navigate_Agent_task())
         assert action.getTitle() in 'Cyware Agent Tasks | Cyware Orchestrate'

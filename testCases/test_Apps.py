@@ -16,6 +16,7 @@ class TestApps(Base):
     new_app_name = " "
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_01_apps_redirection(self):
         """
             Verify Apps redirection from Main Menu
@@ -25,13 +26,14 @@ class TestApps(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         log.info("Click on Main Menu")
-        action.click(nav.Click_Main_Menu())
+        action.click(nav.click_Main_Menu())
         log.info("Click on Apps from Menu")
         action.click(nav.Navigate_Apps())
         time.sleep(ReadConfig.sleepWait())
         assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_02_appstore_switch_tab(self):
         """
             Verify user is able to switch from My apps to App Store
@@ -46,6 +48,7 @@ class TestApps(Base):
         assert action.getTitle() in 'Appstore | Cyware Orchestrate'
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_03_my_apps_switch_tab(self):
         """
             Verify user is able to switch from App Store to My Apps

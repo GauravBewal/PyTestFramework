@@ -13,6 +13,7 @@ from utilities.Base import Base
 class TestLabels(Base):
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_01_labels_redirection(self):
         """
             Verify Labels Page redirection from Main Menu
@@ -22,13 +23,14 @@ class TestLabels(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         log.info("Click on to main menu")
-        action.click(nav.Click_Main_Menu())
+        action.click(nav.click_Main_Menu())
         log.info("Click on to label module for redirection")
         action.click(nav.Navigate_Labels())
         log.info("Validating the page title")
         assert action.getTitle() in 'Labels | Cyware Orchestrate'
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_02_create_label_without_name(self):
         """
             Verify user is able to get error message when tried to create a label without any name

@@ -8,6 +8,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestConfigureTriggers(Base):
 
+    @pytest.mark.readOnly
     @pytest.mark.smoke
     def test_01_configure_triggers_redirection(self):
         """
@@ -15,6 +16,6 @@ class TestConfigureTriggers(Base):
         """
         nav = Navigation(self.driver)
         action = Action(self.driver)
-        action.click(nav.Click_Main_Menu())
+        action.click(nav.click_Main_Menu())
         action.click(nav.Navigate_Configure_Event())
         assert action.getTitle() in 'Configure Triggers | Cyware Orchestrate'
