@@ -71,7 +71,9 @@ class Navigation:
     def Navigate_Labels(self):
         return self.driver.find_element(*Navigation.nav_labels)
 
-    nav_profile = (By.XPATH, "//span[@aria-describedby='el-tooltip-2789']")
+    profile_settings_icon = (By.XPATH, "//*[@class='el-dropdown']/div/span")
 
-    def Navigate_Profile(self):
-        return self.driver.find_element(*Navigation.nav_profile)
+    def Navigate_Profile_icon(self):
+        return self.driver.find_element(*Navigation.profile_settings_icon)
+
+
