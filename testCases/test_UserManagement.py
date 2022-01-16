@@ -1,7 +1,10 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.UserManagement import UserManagement
+from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -57,6 +60,7 @@ class TestUserManagement(Base):
         action = Action(self.driver)
         log.info("Click on export button")
         action.click(user.click_export())
+        time.sleep(ReadConfig.sleepWait())
         log.info("Read export option available")
         t = action.check_visibility_of_element(user.export_option_visibility())
         assert t is True

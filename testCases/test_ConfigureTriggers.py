@@ -1,8 +1,11 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
 from utilities.Base import Base
+from configuration.readConfiguration import ReadConfig
 from pageObjects.ConfigureTrigger import ConfigureTrigger
 
 
@@ -35,6 +38,7 @@ class TestConfigureTriggers(Base):
         log.info("Click on configure new trigger button")
         action.click(config_trigger.click_configure_trigger())
         log.info("Read the slider heading")
+        time.sleep(ReadConfig.sleepWait())
         slider_heading = action.getText(config_trigger.get_slider_heading())
         log.info("Click on close slider button")
         action.click(config_trigger.click_close_slider())
