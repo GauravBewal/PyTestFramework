@@ -26,6 +26,11 @@ class ConsoleStatus:
     def click_celery(self):
         return self.driver.find_element(*ConsoleStatus.left_panel_celery)
 
+    text_server_page_heading = (By.XPATH, "//h1[contains(text(),'Console Status')]/following-sibling::span")
+
+    def get_server_page_heading(self):
+        return self.driver.find_element(*ConsoleStatus.text_server_page_heading)
+
     left_panel_gunicorn = (By.XPATH, "//*[@id='admin-left__panel']/ul/li[11]/div[7]")
 
     def click_gunicorn(self):
