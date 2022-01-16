@@ -8,13 +8,21 @@ class Playbooks:
 
     tab_cyware_playbooks = (By.XPATH, "(//div[@slot='header']//a)[2]")
 
-    def cyware_app_tab(self):
+    def cyware_playbook_tab(self):
         return self.driver.find_element(*Playbooks.tab_cyware_playbooks)
 
-    tab_custom_playbooks = (By.XPATH, "(//div[@slot='header']//a)[1]")
 
-    def custom_app_tab(self):
-        return self.driver.find_element(*Playbooks.tab_custom_playbooks)
+    tab_my_playbooks = (By.XPATH, "(//div[@slot='header']//a)[1]")
+
+    def my_playbook_tab(self):
+        return self.driver.find_element(*Playbooks.tab_my_playbooks)
+
+
+    playbook_page_heading = (By.XPATH, "//header//h1")
+
+    def get_manage_playbook_heading(self):
+        return self.driver.find_element(*Playbooks.playbook_page_heading)
+
 
     button_create_playbook = (By.XPATH, "//button[contains(@class,'create-playbook')]")
 

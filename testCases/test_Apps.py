@@ -15,6 +15,7 @@ class TestApps(Base):
     global new_app_name
     new_app_name = " "
 
+
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_01_apps_redirection(self):
@@ -89,7 +90,8 @@ class TestApps(Base):
         action.click(myapps.click_active_app())
         log.info("Click on app save button")
         action.click(myapps.click_save_app_button())
-        time.sleep(ReadConfig.MediumsleepWait())
+
+        time.sleep(ReadConfig.LargesleepWait())
         log.info("Click on close tool tip")
         action.click(myapps.close_tooltip())
         time.sleep(ReadConfig.sleepWait())
@@ -97,7 +99,7 @@ class TestApps(Base):
         assert count_of_app_before_creation+1 == count_of_app_after_creation
 
     @pytest.mark.smoke
-    def test_05_search_app(self):
+    def test_05_search_manually_created_app(self):
         """
             Verify user is able to search new manually created app.
             Validation - 1. search the app which is created new manually.

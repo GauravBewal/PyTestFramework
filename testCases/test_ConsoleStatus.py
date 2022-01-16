@@ -45,7 +45,8 @@ class TestAdminPanel(Base):
         console = ConsoleStatus(self.driver)
         action.click(console.click_elastic_search())
         log.info("Click on Elastic Search from left panel")
-        assert action.getText(console.get_server_status()) == 'Active'
+        page_heading = action.getText(console.get_server_page_heading())
+        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Elasticsearch'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -59,7 +60,8 @@ class TestAdminPanel(Base):
         console = ConsoleStatus(self.driver)
         action.click(console.click_my_sql())
         log.info("Click on My SQL from left panel")
-        assert action.getText(console.get_server_status()) == 'Active'
+        page_heading = action.getText(console.get_server_page_heading())
+        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'MySQL'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -73,7 +75,8 @@ class TestAdminPanel(Base):
         console = ConsoleStatus(self.driver)
         action.click(console.click_redis())
         log.info("Click on redis from left panel")
-        assert action.getText(console.get_server_status()) == 'Active'
+        page_heading = action.getText(console.get_server_page_heading())
+        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Redis'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -87,7 +90,8 @@ class TestAdminPanel(Base):
         console = ConsoleStatus(self.driver)
         action.click(console.click_celery())
         log.info("Click on Celery from left panel")
-        assert action.getText(console.get_server_status()) == 'Active'
+        page_heading = action.getText(console.get_server_page_heading())
+        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Celery'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -101,7 +105,8 @@ class TestAdminPanel(Base):
         console = ConsoleStatus(self.driver)
         action.click(console.click_gunicorn())
         log.info("Click on Gunicorn from left panel")
-        assert action.getText(console.get_server_status()) == 'Active'
+        page_heading = action.getText(console.get_server_page_heading())
+        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Gunicorn'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -113,6 +118,7 @@ class TestAdminPanel(Base):
         log = self.getlogger()
         action = Action(self.driver)
         console = ConsoleStatus(self.driver)
-        action.click(console.click_gunicorn())
+        action.click(console.click_ngnix())
         log.info("Click on Ngnix from left panel")
-        assert action.getText(console.get_server_status()) == 'Active'
+        page_heading = action.getText(console.get_server_page_heading())
+        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Nginx'

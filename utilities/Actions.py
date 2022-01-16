@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.color import Color
 from datetime import datetime
 
 
@@ -12,6 +13,7 @@ class Action:
 
     def __init__(self, driver):
         self.driver = driver
+
 
     def click(self, element):
         element.click()
@@ -41,6 +43,14 @@ class Action:
         action1.send_keys(Keys.ENTER)
         action1.perform()
 
+    def check_visibility_of_element(self, element):
+
+        if element.is_displayed():
+            return True
+        else:
+            return False
+
+
     def selectFromDD(self, dropdown, value):
         ddelement = Select(dropdown)
         ddelement.select_by_value(value)
@@ -51,8 +61,16 @@ class Action:
     def getTitle(self):
         return self.driver.title
 
+    def getattribute(self, element, attributeValue):
+        return element.get_attribute(attributeValue)
+
     def currentTime(self):
         return datetime.now().strftime("%B %d, %Y %H:%M:%S")
+
+    def getElementColor(self, element):
+        rgb = element.value_of_css_property('color')
+        return Color.from_string(rgb).hex
+
 
     def getRandomDigit(self):
         res = ''.join(random.choices(string.digits, k=4))
