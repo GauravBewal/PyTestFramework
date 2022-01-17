@@ -5,7 +5,7 @@ class TriggerEvents:
     def __init__(self, driver):
         self.driver = driver
 
-    button_create_event = (By.XPATH, "//header//button/i")
+    button_create_event = (By.XPATH, "//button[contains(@aria-describedby,'el-tooltip')]")
 
     def click_create_new_event(self):
         return self.driver.find_element(*TriggerEvents.button_create_event)
