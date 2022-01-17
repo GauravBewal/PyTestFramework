@@ -37,10 +37,10 @@ RUN wget -q --continue -P /chromedriver "https://chromedriver.storage.googleapis
     unzip /chromedriver/chromedriver* -d /usr/local/bin/
 RUN chmod 755 /usr/local/bin/chromedriver
 
-
+ARG CHROME_VERSION="$(curl -s 'https://chromedriver.storage.googleapis.com/LATEST_RELEASE')"
 RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb \
   && apt install -y /tmp/chrome.deb \
-  && rm /tmp/chrome.deb \
+  && rm /tmp/chrome.deb
 
 RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
   apt-get purge firefox && \
