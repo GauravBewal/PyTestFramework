@@ -11,7 +11,7 @@ class OpenApi:
     def click_Open_API_tab(self):
         return self.driver.find_element(*OpenApi.tab_Open_API)
 
-    btn_new_open_api = (By.XPATH, "//header//div[3]/button")
+    btn_new_open_api = (By.XPATH, "//button[contains(@aria-describedby,'el-tooltip')]")
 
     def click_new_open_api(self):
         return self.driver.find_element(*OpenApi.btn_new_open_api)

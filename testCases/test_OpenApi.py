@@ -1,8 +1,11 @@
+import time
+
 import pytest
 
 from pageObjects.OpenApi import OpenApi
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
+from configuration.readConfiguration import ReadConfig
 from utilities.Base import Base
 
 
@@ -33,6 +36,7 @@ class TestOpenApi(Base):
         action = Action(self.driver)
         openapi = OpenApi(self.driver)
         log.info("Click on add openapi button")
+        time.sleep(ReadConfig.MediumsleepWait())
         action.javascript_click_element(openapi.click_new_open_api())
         log.info("Read the slider title")
         slider_title = action.getText(openapi.get_slider_title())
