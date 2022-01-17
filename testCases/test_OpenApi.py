@@ -35,7 +35,7 @@ class TestOpenApi(Base):
         action = Action(self.driver)
         openapi = OpenApi(self.driver)
         log.info("Click on add openapi button")
-        time.sleep(ReadConfig.MediumsleepWait())
+        time.sleep(ReadConfig.mediumSleepWait())
         action.javascript_click_element(openapi.click_new_open_api())
         log.info("Read the slider title")
         slider_title = action.getText(openapi.get_slider_title())

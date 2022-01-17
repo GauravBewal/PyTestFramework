@@ -37,16 +37,16 @@ class ReadConfig:
         return int(sleepWait)
 
     @staticmethod
-    def MediumsleepWait():
+    def mediumSleepWait():
         mediumsleepWait = config.get('Waits', 'MediumSleepWait')
         return int(mediumsleepWait)
 
     @staticmethod
-    def LargesleepWait():
+    def largeSleepWait():
         largesleepWait = config.get('Waits', 'LargeSleepWait')
         return int(largesleepWait)
 
     @staticmethod
     def appname():
-        app_name = config.get('MY_APPS DETAILS','app_name')
+        app_name = config.get('MY_APPS DETAILS', 'app_name')
         return app_name

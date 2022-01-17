@@ -11,12 +11,10 @@ class Admin:
     def click_Configuration(self):
         return self.driver.find_element(*Admin.tab_Configuration)
 
-
     tab_Authentication = (By.XPATH, "//div[@class='admin-components__list']//div[2]")
 
     def click_Authentication(self):
         return self.driver.find_element(*Admin.tab_Authentication)
-
 
     tab_License_Management = (By.XPATH, "//div[@class='admin-components__list']//div[3]")
 
@@ -28,30 +26,25 @@ class Admin:
     def click_Cyware_Agent(self):
         return self.driver.find_element(*Admin.tab_Cyware_Agent)
 
-
     tab_Open_API = (By.XPATH, "//div[@class='admin-components__list']//div[8]")
 
     def click_Open_API(self):
         return self.driver.find_element(*Admin.tab_Open_API)
-
 
     tab_Webhooks = (By.XPATH, "//div[@class='admin-components__list']//div[9]")
 
     def click_Webhooks(self):
         return self.driver.find_element(*Admin.tab_Webhooks)
 
-
     tab_SysLogs = (By.XPATH, "//div[@class='admin-components__list']//div[10]")
 
     def click_SysLogs(self):
         return self.driver.find_element(*Admin.tab_SysLogs)
 
-
     tab_Console_Status = (By.XPATH, "//div[@class='admin-components__list']//div[11]")
 
     def click_Console_Status(self):
         return self.driver.find_element(*Admin.tab_Console_Status)
-
 
     tab_Playbook_tags = (By.XPATH, "//div[@class='admin-components__list']//div[12]")
 
@@ -62,7 +55,6 @@ class Admin:
 
     def click_elasticsearch(self):
         return self.driver.find_element(*Admin.tab_elastic_search)
-
 
     btn_back_admin = (By.XPATH, "//div[@class='d-flex align-items-center mr-3 el-col el-col-4']/div")
 
@@ -78,6 +70,3 @@ class Admin:
 
     def field_licence_key(self):
         return self.driver.find_element(*Admin.text_licence_field)
-
-
-

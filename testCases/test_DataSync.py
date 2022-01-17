@@ -22,7 +22,7 @@ class TestDataSync(Base):
         action = Action(self.driver)
         action.click(nav.click_Main_Menu())
         action.click(nav.Navigate_Data_Sync())
-        assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'
+        assert action.getTitle() in 'Data Sync Jobs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -35,8 +35,7 @@ class TestDataSync(Base):
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
         log.info('Click on create data sync button')
-        time.sleep(ReadConfig.MediumsleepWait())
-        action.javascript_click_element(dataSync.click_create_data_sync())
+        action.click(dataSync.click_create_data_sync())
         log.info('Store the page title in page_title variable for validation')
         page_title = action.getTitle()
         log.info('click on back button to cancel the data sync job creation')
@@ -44,8 +43,7 @@ class TestDataSync(Base):
         log.info('click on close without saving button to cancel the data sync job creation')
         action.click(dataSync.click_confirm_close())
         log.info('validation based on the page title')
-        assert page_title == 'Create Data Sync Policy | Cyware Orchestrate'
-
+        assert page_title in 'Create Data Sync Policy | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -57,7 +55,7 @@ class TestDataSync(Base):
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
         action.click(dataSync.click_run_history())
-        assert action.getTitle() == 'Run History Logs | Cyware Orchestrate'
+        assert action.getTitle() in 'Run History Logs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -70,4 +68,4 @@ class TestDataSync(Base):
         action = Action(self.driver)
         time.sleep(ReadConfig.sleepWait())
         action.click(dataSync.click_job_details())
-        assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'
+        assert action.getTitle() in 'Data Sync Jobs | Cyware Orchestrate'
