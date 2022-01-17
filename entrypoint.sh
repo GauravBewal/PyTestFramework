@@ -2,6 +2,7 @@
 
 ./venv_setup_mac.sh
 source venv/bin/activate
+pip install --upgrade --force-reinstall chromedriver-binary-auto
 echo "$marker"
 echo "$URL"
 echo "$Email"
