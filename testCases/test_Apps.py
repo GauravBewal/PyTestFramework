@@ -89,7 +89,7 @@ class TestApps(Base):
         log.info("Click on app save button")
         action.click(myapps.click_save_app_button())
 
-        time.sleep(ReadConfig.LargesleepWait())
+        time.sleep(ReadConfig.largeSleepWait())
         log.info("Click on close tool tip")
         action.click(myapps.close_tooltip())
         time.sleep(ReadConfig.sleepWait())

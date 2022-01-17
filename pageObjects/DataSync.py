@@ -11,7 +11,7 @@ class DataSync:
     def click_run_history(self):
         return self.driver.find_element(*DataSync.tab_run_history)
 
-    button_create_data_sync = (By.XPATH, "//header//button/i")
+    button_create_data_sync = (By.XPATH, "//button[contains(@class,'el-tooltip d-flex align-items-center')]")
 
     def click_create_data_sync(self):
         return self.driver.find_element(*DataSync.button_create_data_sync)
@@ -21,7 +21,7 @@ class DataSync:
     def click_job_details(self):
         return self.driver.find_element(*DataSync.tab_job_details)
 
-    button_back_to_home = (By.XPATH, "//div[contains(@class,'back-button')]/i")
+    button_back_to_home = (By.XPATH, "//div[contains(@class,'back-button-container')]")
 
     def click_back_button(self):
         return self.driver.find_element(*DataSync.button_back_to_home)
