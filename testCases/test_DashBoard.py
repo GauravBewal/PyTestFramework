@@ -9,7 +9,6 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestDashBoard(Base):
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_01_dashboard_redirection(self):
@@ -39,9 +38,3 @@ class TestDashBoard(Base):
     #         t = action.check_visibility_of_element(dashboard.visibility_of_legends_btn())
     #         action.click(dashboard.click_on_back_btn())
     #         assert t is True
-
-
-
-
-
-

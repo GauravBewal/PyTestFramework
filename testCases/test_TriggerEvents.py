@@ -2,6 +2,7 @@ import time
 
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
 from utilities.Base import Base
@@ -38,8 +39,10 @@ class TestTriggerEvents(Base):
         action = Action(self.driver)
         trigger_events = TriggerEvents(self.driver)
         log.info("Click on create new event button")
-        action.click(trigger_events.click_create_new_event())
+        action.javascript_click_element(trigger_events.click_create_new_event())
+        # action.click(trigger_events.click_create_new_event())
         log.info("Reading the slider heading")
+        time.sleep(ReadConfig.mediumSleepWait())
         page_title = action.getText(trigger_events.get_slider_text())
         action.click(trigger_events.click_close_slider())
         assert page_title == 'New Triggered Event'

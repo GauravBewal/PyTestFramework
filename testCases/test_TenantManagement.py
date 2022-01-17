@@ -9,7 +9,6 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestTenantManagement(Base):
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_01_Tenant_Management_redirection(self):
@@ -27,7 +26,6 @@ class TestTenantManagement(Base):
         action.click(tenant.click_Tenant_Management())
         assert action.getTitle() == 'Tenant Management | Cyware Orchestrate'
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_02_click_new_tenant(self):
@@ -41,7 +39,6 @@ class TestTenantManagement(Base):
         log.info("Click on slider close button")
         action.click(tenant.click_slider_close())
         assert slider_text == 'Add Tenant'
-
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -57,8 +54,3 @@ class TestTenantManagement(Base):
         action.click(tenant.click_inactive_tenant_tab())
         tab_color = action.getElementColor(tenant.click_inactive_tenant_tab())
         assert tab_color == '#1a3ee8'
-
-
-
-
-

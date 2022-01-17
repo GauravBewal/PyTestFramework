@@ -85,7 +85,6 @@ class TestAdminPanel(Base):
         placeholder_text = action.getattribute(admin.field_licence_key(), 'placeholder')
         assert placeholder_text == 'Enter License Key *'
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_06_admin_Cyware_Agent(self):
@@ -101,7 +100,6 @@ class TestAdminPanel(Base):
         log.info("Click on User Cyware Agent tab from Admin Page")
         action.click(admin.click_Cyware_Agent())
         assert action.getTitle() in 'Cyware Agent | Cyware Orchestrate'
-
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -150,7 +148,6 @@ class TestAdminPanel(Base):
         log.info("Click on Console Status tab from Admin Page")
         action.click(admin.click_Console_Status())
         assert action.getTitle() in 'Console Status | Cyware Orchestrate'
-
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
