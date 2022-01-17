@@ -9,7 +9,6 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestUserGroupManagement(Base):
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_01_User_Group_Management_redirection(self):

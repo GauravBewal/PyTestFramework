@@ -46,7 +46,6 @@ class TestUserManagement(Base):
         action.click(user.click_slider_close())
         assert slider_title == 'User'
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_03_export_user(self):
@@ -64,12 +63,9 @@ class TestUserManagement(Base):
         t = action.check_visibility_of_element(user.export_option_visibility())
         assert t is True
 
-
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_04_switch_inactive_tab(self):
-
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -81,4 +77,3 @@ class TestUserManagement(Base):
         action.click(user.click_inactive_tenant_tab())
         tab_color = action.getElementColor(user.click_inactive_tenant_tab())
         assert tab_color == '#1a3ee8'
-

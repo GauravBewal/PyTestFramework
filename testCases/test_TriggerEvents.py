@@ -2,6 +2,7 @@ import time
 
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
 from utilities.Base import Base
@@ -40,6 +41,7 @@ class TestTriggerEvents(Base):
         log.info("Click on create new event button")
         action.click(trigger_events.click_create_new_event())
         log.info("Reading the slider heading")
+        time.sleep(ReadConfig.defaultWait())
         page_title = action.getText(trigger_events.get_slider_text())
         action.click(trigger_events.click_close_slider())
         assert page_title == 'New Triggered Event'
