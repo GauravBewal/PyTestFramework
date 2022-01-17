@@ -102,21 +102,6 @@ class TestAdminPanel(Base):
         action.click(admin.click_Cyware_Agent())
         assert action.getTitle() in 'Cyware Agent | Cyware Orchestrate'
 
-    @pytest.mark.smoke
-    @pytest.mark.readOnly
-    def test_7_admin_Open_APIs(self):
-        """
-            Verify redirection of Open APIs from the admin page
-            Validation - 1. On the basis of Window's title
-        """
-        log = self.getlogger()
-        admin = Admin(self.driver)
-        action = Action(self.driver)
-        log.info("Click on back button from Cyware Agent")
-        action.click(admin.click_Back_Button())
-        log.info("Click on Open APIs tab from Admin Page")
-        action.click(admin.click_Open_API())
-        assert action.getTitle() in 'Open APIs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

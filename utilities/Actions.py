@@ -21,6 +21,10 @@ class Action:
     def mouse_hover_on_element(self, element):
         hover = ActionChains(self.driver).move_to_element(element)
         hover.perform()
+        element.click()
+
+    def javascript_click_element(self, element):
+        return self.driver.execute_script("arguments[0].click();", element)
 
     def getCountfromString(self, element):
         count = element.text
