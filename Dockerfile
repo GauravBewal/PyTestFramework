@@ -32,14 +32,16 @@ RUN apt-get -y update
 #RUN apt-get install -y google-chrome-stable
 RUN apt-get install -yqq unzip curl
 
-RUN wget -q --continue -P /chromedriver "http://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip" && \
+ARG CHROME_VERSION="$(curl -s 'https://chromedriver.storage.googleapis.com/LATEST_RELEASE')"
+RUN wget -q --continue -P /chromedriver "https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip" && \
     unzip /chromedriver/chromedriver* -d /usr/local/bin/
 RUN chmod 755 /usr/local/bin/chromedriver
 
-ARG CHROME_VERSION="90.0.4430.212-1"
+
 RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb \
   && apt install -y /tmp/chrome.deb \
-  && rm /tmp/chrome.deb
+  && rm /tmp/chrome.deb \
+
 RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
   apt-get purge firefox && \
   wget -O $FIREFOX_SETUP "https://download.mozilla.org/?product=firefox-latest&os=linux64" && \
