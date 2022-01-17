@@ -5,7 +5,7 @@ class ConfigureTrigger:
     def __init__(self, driver):
         self.driver = driver
 
-    button_configure_trigger = (By.XPATH, "//button[contains(@aria-describedby,'el-tooltip')]")
+    button_configure_trigger = (By.XPATH, "/button[contains(@class,'el-tooltip create-playbook')]")
 
     def click_configure_trigger(self):
         return self.driver.find_element(*ConfigureTrigger.button_configure_trigger)

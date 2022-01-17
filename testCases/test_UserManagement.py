@@ -30,7 +30,6 @@ class TestUserManagement(Base):
         assert action.getTitle() in 'User Management | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_02_add_user(self):
         """
             Verify creation of new user
@@ -41,7 +40,6 @@ class TestUserManagement(Base):
         action = Action(self.driver)
         log.info("Click on add new user button")
         action.javascript_click_element(user.click_add_user())
-        time.sleep(ReadConfig.MediumsleepWait())
         log.info("Read the slider title")
         slider_title = action.getText(user.get_slider_title())
         log.info("Click on close slider button")
