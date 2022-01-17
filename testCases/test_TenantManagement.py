@@ -35,7 +35,7 @@ class TestTenantManagement(Base):
         tenant = TenantManagement(self.driver)
         action = Action(self.driver)
         log.info("Click on add tenant button")
-        action.click(tenant.click_new_tenant())
+        action.javascript_click_element(tenant.click_new_tenant())
         log.info("Read the tenant form slider title")
         slider_text = action.getText(tenant.get_slider_title())
         log.info("Click on slider close button")
