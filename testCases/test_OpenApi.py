@@ -30,7 +30,6 @@ class TestOpenApi(Base):
         assert action.getTitle() == 'Open APIs | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_02_click_new_openapi(self):
         log = self.getlogger()
         action = Action(self.driver)

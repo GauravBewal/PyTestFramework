@@ -5,12 +5,12 @@ class TriggerEvents:
     def __init__(self, driver):
         self.driver = driver
 
-    button_create_event = (By.XPATH, "//button[contains(@aria-describedby,'el-tooltip')]")
+    button_create_event = (By.XPATH, "//button[contains(@class,'el-tooltip create-playbook')]")
 
     def click_create_new_event(self):
         return self.driver.find_element(*TriggerEvents.button_create_event)
 
-    text_get_slider_heading = (By.XPATH, "//div[@class='modal--header']//span")
+    text_get_slider_heading = (By.XPATH, "//span[contains(@class,'cursor-pointer')]")
 
     def get_slider_text(self):
         return self.driver.find_element(*TriggerEvents.text_get_slider_heading)

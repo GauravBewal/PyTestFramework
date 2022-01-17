@@ -26,7 +26,6 @@ class TestConfigureTriggers(Base):
         assert action.getTitle() in 'Configure Triggers | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_02_click_configure_new_trigger(self):
         """
           Verify configuration of new trigger
@@ -36,7 +35,7 @@ class TestConfigureTriggers(Base):
         action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on configure new trigger button")
-        action.javascript_click_element(config_trigger.click_configure_trigger())
+        action.click(config_trigger.click_configure_trigger())
         time.sleep(ReadConfig.MediumsleepWait())
         log.info("Read the slider heading")
         slider_heading = action.getText(config_trigger.get_slider_heading())

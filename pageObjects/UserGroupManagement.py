@@ -15,7 +15,7 @@ class UserGroupManagement:
     def click_inactive_tenant_tab(self):
         return self.driver.find_element(*UserGroupManagement.tab_inactive_tenant)
 
-    btn_add_user_group = (By.XPATH, "//header//button/i")
+    btn_add_user_group = (By.XPATH, "//header//button")
 
     def click_add_user_group(self):
         return self.driver.find_element(*UserGroupManagement.btn_add_user_group)
