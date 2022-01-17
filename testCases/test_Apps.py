@@ -62,7 +62,6 @@ class TestApps(Base):
         assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_04_create_manual_new_app(self):
         """
             Verify user is able to create a new app manually
@@ -98,7 +97,6 @@ class TestApps(Base):
         assert count_of_app_before_creation + 1 == count_of_app_after_creation
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_05_search_manual_created_app(self):
         """
             Verify user is able to search new manually created app.
@@ -113,7 +111,6 @@ class TestApps(Base):
         assert new_app_name == action.getText(myapps.top_first_search())
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_06_app_detail_for_manual_created(self):
         """
             Verify the app detail page redirection
@@ -132,7 +129,6 @@ class TestApps(Base):
         assert page_title == 'App Summary | Cyware Orchestrate' and app_title_listing == app_title_summary
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_07_switch_app_actions_tab(self):
         """
             Verify user is able to switch app action tab
@@ -147,7 +143,6 @@ class TestApps(Base):
         assert page_title == 'App Actions | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_08_switch_app_instance_tab(self):
         """
             Verify user is able to switch on Instance App tab
@@ -162,7 +157,6 @@ class TestApps(Base):
         assert page_title == 'App Instances | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_09_create_new_instance_for_manual_created_app(self):
         """
             Verify user is able to new instance.
@@ -179,7 +173,6 @@ class TestApps(Base):
         assert action.getText(my_apps.read_default_instance()) == 'test'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_10_switch_playbook_tab(self):
         """
             Verify user is able to switch to playbook tab.
@@ -194,7 +187,6 @@ class TestApps(Base):
         assert page_title == 'App Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_11_uninstall_manual_created_app(self):
         """
             Verify user is able to uninstall app
