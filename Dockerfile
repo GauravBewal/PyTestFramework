@@ -32,7 +32,8 @@ RUN apt-get -y update
 #RUN apt-get install -y google-chrome-stable
 RUN apt-get install -yqq unzip curl
 
-ARG CHROME_VERSION="$(curl -s 'https://chromedriver.storage.googleapis.com/LATEST_RELEASE')"
+ARG CHROME_VERSION=$('curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE"')
+RUN echo ${CHROME_VERSION}
 RUN wget -q --continue -P /chromedriver "https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip" && \
     unzip /chromedriver/chromedriver* -d /usr/local/bin/
 RUN chmod 755 /usr/local/bin/chromedriver
