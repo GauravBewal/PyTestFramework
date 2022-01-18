@@ -51,9 +51,9 @@ class TestTenantManagement(Base):
         tenant = TenantManagement(self.driver)
         action = Action(self.driver)
         log.info("Click on inactive tab")
-        action.click(tenant.click_inactive_tenant_tab())
+        action.click(tenant.click_inactive_tab())
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(tenant.click_inactive_tenant_tab())
+        tab_color = action.getElementColor(tenant.click_inactive_tab())
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke

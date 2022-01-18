@@ -36,7 +36,7 @@ class TestDataSync(Base):
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
         log.info('Click on create data sync button')
-        time.sleep(ReadConfig.MediumsleepWait())
+        time.sleep(ReadConfig.mediumSleepWait())
         action.javascript_click_element(dataSync.click_create_data_sync())
         log.info('Store the page title in page_title variable for validation')
         page_title = action.getTitle()

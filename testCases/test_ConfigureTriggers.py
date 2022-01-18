@@ -37,7 +37,7 @@ class TestConfigureTriggers(Base):
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on configure new trigger button")
         action.javascript_click_element(config_trigger.click_configure_trigger())
-        time.sleep(ReadConfig.MediumsleepWait())
+        time.sleep(ReadConfig.mediumSleepWait())
         log.info("Read the slider heading")
         slider_heading = action.getText(config_trigger.get_slider_heading())
         log.info("Click on close slider button")
