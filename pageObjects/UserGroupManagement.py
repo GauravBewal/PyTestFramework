@@ -11,10 +11,15 @@ class UserGroupManagement:
     def click_User_Group_Management(self):
         return self.driver.find_element(*UserGroupManagement.tab_User_Group_Management)
 
-    tab_inactive_tenant = (By.XPATH, "//div[@class='px-2 tabs--list my-2']//li[3]/a")
+    tab_inactive = (By.XPATH, "//div[@class='px-2 tabs--list my-2']//li[3]/a")
 
-    def click_inactive_tenant_tab(self):
-        return self.driver.find_element(*UserGroupManagement.tab_inactive_tenant)
+    def click_inactive_tab(self):
+        return self.driver.find_element(*UserGroupManagement.tab_inactive)
+
+    tab_All = (By.XPATH, "//div[@class='px-2 tabs--list my-2']//li[3]/a")
+
+    def click_All_tab(self):
+        return self.driver.find_element(*UserGroupManagement.tab_All)
 
     btn_add_user_group = (By.XPATH, "//header//button")
 

@@ -1,12 +1,13 @@
 import random
 import string
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.color import Color
 from datetime import datetime
+
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.color import Color
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class Action:
@@ -14,17 +15,29 @@ class Action:
     def __init__(self, driver):
         self.driver = driver
 
-
     def click(self, element):
         element.click()
+
+    def switch_new_window(self, window_number):
+        parent_window = self.driver.current_window_handle
+        all_windows = self.driver.window_handles
+        size = len(all_windows)
+        for x in range(size):
+            if(x == window_number):
+                self.driver.switch_to.window(all_windows[x])
+                break
+        return parent_window
+
+    def switch_back_parent_window(self, parent_window):
+        self.driver.close()
+        self.driver.switch_to.window(parent_window)
 
     def mouse_hover_on_element(self, element):
         hover = ActionChains(self.driver).move_to_element(element)
         hover.perform()
-        element.click()
 
     def javascript_click_element(self, element):
-        return self.driver.execute_script("arguments[0].click();", element)
+        self.driver.execute_script("arguments[0].click();", element)
 
     def getCountfromString(self, element):
         count = element.text
@@ -54,7 +67,6 @@ class Action:
         else:
             return False
 
-
     def selectFromDD(self, dropdown, value):
         ddelement = Select(dropdown)
         ddelement.select_by_value(value)
@@ -74,7 +86,6 @@ class Action:
     def getElementColor(self, element):
         rgb = element.value_of_css_property('color')
         return Color.from_string(rgb).hex
-
 
     def getRandomDigit(self):
         res = ''.join(random.choices(string.digits, k=4))

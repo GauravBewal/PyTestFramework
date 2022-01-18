@@ -4,9 +4,9 @@ import pytest
 
 from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
+from pageObjects.TriggerEvents import TriggerEvents
 from utilities.Actions import Action
 from utilities.Base import Base
-from pageObjects.TriggerEvents import TriggerEvents
 
 
 @pytest.mark.usefixtures("setup")
@@ -40,9 +40,8 @@ class TestTriggerEvents(Base):
         trigger_events = TriggerEvents(self.driver)
         log.info("Click on create new event button")
         action.click(trigger_events.click_create_new_event())
+        time.sleep(ReadConfig.sleepWait())
         log.info("Reading the slider heading")
-        time.sleep(ReadConfig.mediumSleepWait())
         page_title = action.getText(trigger_events.get_slider_text())
         action.click(trigger_events.click_close_slider())
         assert page_title == 'New Triggered Event'
-

@@ -26,7 +26,12 @@ class OpenApi:
     def click_slider_close(self):
         return self.driver.find_element(*OpenApi.btn_slider_close)
 
-    tab_inactive_tenant = (By.XPATH, "//div[@class='px-2 tabs--list my-2']//li[3]/a")
+    tab_inactive = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
 
-    def click_inactive_tenant_tab(self):
-        return self.driver.find_element(*OpenApi.tab_inactive_tenant)
+    def click_inactive_tab(self):
+        return self.driver.find_element(*OpenApi.tab_inactive)
+
+    tab_All = (By.XPATH, "//li/a[contains(text(),'All')]")
+
+    def click_All_tab(self):
+        return self.driver.find_element(*OpenApi.tab_All)

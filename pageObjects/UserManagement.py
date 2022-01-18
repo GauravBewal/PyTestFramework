@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+
 class UserManagement:
 
     def __init__(self, driver):
@@ -10,10 +11,15 @@ class UserManagement:
     def click_User_Management(self):
         return self.driver.find_element(*UserManagement.tab_User_Management)
 
-    tab_inactive_tenant = (By.XPATH, "//div[@class='px-2 tabs--list my-2']//li[3]/a")
+    tab_inactive = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
 
-    def click_inactive_tenant_tab(self):
-        return self.driver.find_element(*UserManagement.tab_inactive_tenant)
+    def click_inactive_tab(self):
+        return self.driver.find_element(*UserManagement.tab_inactive)
+
+    tab_All = (By.XPATH, "//li/a[contains(text(),'All')]")
+
+    def click_All_tab(self):
+        return self.driver.find_element(*UserManagement.tab_All)
 
     btn_new_user = (By.XPATH, "//header//div[3]/button")
 
@@ -30,7 +36,6 @@ class UserManagement:
     def export_option_visibility(self):
         return self.driver.find_element(*UserManagement.drpdwn_export_option)
 
-
     text_slider_title = (By.XPATH, "//div[text()='User']")
 
     def get_slider_title(self):
@@ -40,6 +45,3 @@ class UserManagement:
 
     def click_slider_close(self):
         return self.driver.find_element(*UserManagement.btn_slider_close)
-
-
-

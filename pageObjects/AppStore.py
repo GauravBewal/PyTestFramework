@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 
 
 class AppStore:
-
     count_my_apps = (By.XPATH, "//a[@href='/soar/app/list/my-apps']/span")
     count_app_store = (By.XPATH, "//a[@href='/soar/app/list/app-store']/span")
     first_app_tab = (By.XPATH, "//div[contains(@class,'text-dark-primary pt-4 pb-5 mb-4 px-4 el-row')]/div[1]/div[1]")
