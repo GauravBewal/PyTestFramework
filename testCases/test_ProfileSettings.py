@@ -1,11 +1,12 @@
 import time
+
 import pytest
 
 from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.ProfileSettings import ProfileSettings
-from utilities.Base import Base
 from utilities.Actions import Action
+from utilities.Base import Base
 
 
 @pytest.mark.usefixtures("setup")

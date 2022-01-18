@@ -103,39 +103,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_8_admin_Webhooks(self):
-        """
-            Verify redirection of Webhooks from the admin page
-            Validation - 1. On the basis of Window's title
-        """
-        log = self.getlogger()
-        admin = Admin(self.driver)
-        action = Action(self.driver)
-        log.info("Click on back button from Open APIs")
-        action.click(admin.click_Back_Button())
-        log.info("Click on Webhooks tab from Admin Page")
-        action.click(admin.click_Webhooks())
-        assert action.getTitle() in 'Webhooks | Cyware Orchestrate'
-
-    @pytest.mark.smoke
-    @pytest.mark.readOnly
-    def test_9_admin_SysLogs(self):
-        """
-            Verify redirection of SysLogs from the admin page
-            Validation - 1. On the basis of Window's title
-        """
-        log = self.getlogger()
-        admin = Admin(self.driver)
-        action = Action(self.driver)
-        log.info("Click on back button from Webhooks")
-        action.click(admin.click_Back_Button())
-        log.info("Click on SysLogs tab from Admin Page")
-        action.click(admin.click_SysLogs())
-        assert action.getTitle() in 'Syslogs | Cyware Orchestrate'
-
-    @pytest.mark.smoke
-    @pytest.mark.readOnly
-    def test_10_Console_Status(self):
+    def test_07_Console_Status(self):
         """
             Verify redirection of Console Status from the admin page
             Validation - 1. On the basis of Window's title
@@ -151,7 +119,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_11_Playbook_tags(self):
+    def test_08_Playbook_tags(self):
         """
             Verify redirection of Playbook Tags from the admin page
             Validation - 1. On the basis of Window's title

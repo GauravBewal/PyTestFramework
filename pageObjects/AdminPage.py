@@ -26,21 +26,6 @@ class Admin:
     def click_Cyware_Agent(self):
         return self.driver.find_element(*Admin.tab_Cyware_Agent)
 
-    tab_Open_API = (By.XPATH, "//div[@class='admin-components__list']//div[8]")
-
-    def click_Open_API(self):
-        return self.driver.find_element(*Admin.tab_Open_API)
-
-    tab_Webhooks = (By.XPATH, "//div[@class='admin-components__list']//div[9]")
-
-    def click_Webhooks(self):
-        return self.driver.find_element(*Admin.tab_Webhooks)
-
-    tab_SysLogs = (By.XPATH, "//div[@class='admin-components__list']//div[10]")
-
-    def click_SysLogs(self):
-        return self.driver.find_element(*Admin.tab_SysLogs)
-
     tab_Console_Status = (By.XPATH, "//div[@class='admin-components__list']//div[11]")
 
     def click_Console_Status(self):

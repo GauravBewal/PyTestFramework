@@ -75,4 +75,3 @@ class ConsoleStatus:
 
     def get_overview_ngnix_text(self):
         return self.driver.find_element(*ConsoleStatus.list_overview_ngnix)
-

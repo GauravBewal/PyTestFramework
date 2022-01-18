@@ -45,6 +45,7 @@ class Navigation:
     def Navigate_Configure_Event(self):
         return self.driver.find_element(*Navigation.nav_configure_event)
 
+
     nav_data_sync = (By.XPATH,
                      "//div[@class='cs-menu-item--title font-weight-500 color-n800 font-size-15']"
                      "[normalize-space()='Data Sync']")
@@ -75,5 +76,3 @@ class Navigation:
 
     def Navigate_Profile_icon(self):
         return self.driver.find_element(*Navigation.profile_settings_icon)
-
-

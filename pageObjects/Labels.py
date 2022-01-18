@@ -7,7 +7,7 @@ class Labels:
     def __init__(self, driver):
         self.driver = driver
 
-    create_New_Label = (By.CSS_SELECTOR, ".el-tooltip.create-playbook.d-flex")
+    create_New_Label = (By.XPATH, "//header//button")
 
     def click_New_Label(self):
         return self.driver.find_element(*Labels.create_New_Label)

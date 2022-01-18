@@ -2,10 +2,10 @@ import time
 
 import pytest
 
-from pageObjects.OpenApi import OpenApi
-from pageObjects.Navigation import Navigation
-from utilities.Actions import Action
 from configuration.readConfiguration import ReadConfig
+from pageObjects.Navigation import Navigation
+from pageObjects.OpenApi import OpenApi
+from utilities.Actions import Action
 from utilities.Base import Base
 
 
@@ -30,12 +30,13 @@ class TestOpenApi(Base):
         assert action.getTitle() == 'Open APIs | Cyware Orchestrate'
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_02_click_new_openapi(self):
         log = self.getlogger()
         action = Action(self.driver)
         openapi = OpenApi(self.driver)
         log.info("Click on add openapi button")
-        time.sleep(ReadConfig.mediumSleepWait())
+        time.sleep(ReadConfig.MediumsleepWait())
         action.javascript_click_element(openapi.click_new_open_api())
         log.info("Read the slider title")
         slider_title = action.getText(openapi.get_slider_title())
@@ -54,9 +55,23 @@ class TestOpenApi(Base):
         openapi = OpenApi(self.driver)
         action = Action(self.driver)
         log.info("Click on inactive tab")
-        action.click(openapi.click_inactive_tenant_tab())
-        tab_color = action.getElementColor(openapi.click_inactive_tenant_tab())
+        action.click(openapi.click_inactive_tab())
+        log.info("Read the tab color after switching")
+        tab_color = action.getElementColor(openapi.click_inactive_tab())
         assert tab_color == '#1a3ee8'
 
-
-
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_04_switch_All_tab(self):
+        """
+            Verify switch to inactive tab from active tab
+            Validation - 1. On the basis of tab color
+        """
+        log = self.getlogger()
+        openapi = OpenApi(self.driver)
+        action = Action(self.driver)
+        log.info("Click on All tab")
+        action.click(openapi.click_All_tab())
+        log.info("Read the tab color after switching")
+        tab_color = action.getElementColor(openapi.click_All_tab())
+        assert tab_color == '#1a3ee8'

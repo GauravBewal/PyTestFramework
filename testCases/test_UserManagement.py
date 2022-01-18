@@ -2,9 +2,9 @@ import time
 
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.UserManagement import UserManagement
-from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -30,9 +30,10 @@ class TestUserManagement(Base):
         assert action.getTitle() in 'User Management | Cyware Orchestrate'
 
     @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_02_add_user(self):
         """
-            Verify creation of new user
+            Verify create button functionality of new user
             Validation - 1. On the basis of slider title
         """
         log = self.getlogger()
@@ -41,6 +42,7 @@ class TestUserManagement(Base):
         log.info("Click on add new user button")
         action.javascript_click_element(user.click_add_user())
         log.info("Read the slider title")
+        time.sleep(ReadConfig.sleepWait())
         slider_title = action.getText(user.get_slider_title())
         log.info("Click on close slider button")
         action.click(user.click_slider_close())
@@ -74,6 +76,23 @@ class TestUserManagement(Base):
         user = UserManagement(self.driver)
         action = Action(self.driver)
         log.info("Click on inactive tab")
-        action.click(user.click_inactive_tenant_tab())
-        tab_color = action.getElementColor(user.click_inactive_tenant_tab())
+        action.click(user.click_inactive_tab())
+        log.info("Read the tab color after switching")
+        tab_color = action.getElementColor(user.click_inactive_tab())
+        assert tab_color == '#1a3ee8'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_05_switch_All_tab(self):
+        """
+            Verify switch to All tab from inactive tab
+            Validation - 1. On the basis of tab color
+        """
+        log = self.getlogger()
+        user = UserManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Click on All tab")
+        action.click(user.click_All_tab())
+        log.info("Read the tab color after switching")
+        tab_color = action.getElementColor(user.click_All_tab())
         assert tab_color == '#1a3ee8'

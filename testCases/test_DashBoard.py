@@ -1,7 +1,7 @@
 import pytest
 
-from pageObjects.Navigation import Navigation
 from pageObjects.Dashboard import Dashboard
+from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -33,8 +33,9 @@ class TestDashBoard(Base):
     #     dashboard = Dashboard(self.driver)
     #     action = Action(self.driver)
     #     elements_list = dashboard.get_all_elements()
-    #     for element in range(0, len(elements_list)):
-    #         elements_list[element].click()
-    #         t = action.check_visibility_of_element(dashboard.visibility_of_legends_btn())
-    #         action.click(dashboard.click_on_back_btn())
-    #         assert t is True
+    #     print(len(elements_list))
+        # for element in range(0, len(elements_list)):
+        #     elements_list[element].click()
+        #     t = action.check_visibility_of_element(dashboard.visibility_of_legends_btn())
+        #     action.click(dashboard.click_on_back_btn())
+        #     assert t is True

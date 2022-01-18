@@ -55,6 +55,23 @@ class TestUserGroupManagement(Base):
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
         log.info("Click on inactive tab")
-        action.click(usergroup.click_inactive_tenant_tab())
-        tab_color = action.getElementColor(usergroup.click_inactive_tenant_tab())
+        action.click(usergroup.click_inactive_tab())
+        log.info("Read the tab color after switching")
+        tab_color = action.getElementColor(usergroup.click_inactive_tab())
+        assert tab_color == '#1a3ee8'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_04_switch_inactive_tab(self):
+        """
+            Verify switch to All tab from inactive tab
+            Validation - 1. On the basis of tab color
+        """
+        log = self.getlogger()
+        usergroup = UserGroupManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Click on All tab")
+        action.click(usergroup.click_All_tab())
+        log.info("Read the tab color after switching")
+        tab_color = action.getElementColor(usergroup.click_All_tab())
         assert tab_color == '#1a3ee8'

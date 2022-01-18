@@ -11,10 +11,15 @@ class TenantManagement:
     def click_Tenant_Management(self):
         return self.driver.find_element(*TenantManagement.tab_Tenant_Management)
 
-    tab_inactive_tenant = (By.XPATH, "//li[3]/a")
+    tab_inactive = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
 
-    def click_inactive_tenant_tab(self):
-        return self.driver.find_element(*TenantManagement.tab_inactive_tenant)
+    def click_inactive_tab(self):
+        return self.driver.find_element(*TenantManagement.tab_inactive)
+
+    tab_All = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
+
+    def click_All_tab(self):
+        return self.driver.find_element(*TenantManagement.tab_All)
 
     btn_new_tenant = (By.XPATH, "//header//button")
 

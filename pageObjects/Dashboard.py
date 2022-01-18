@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+
 class Dashboard:
 
     def __init__(self, driver):
@@ -19,5 +20,3 @@ class Dashboard:
 
     def click_on_back_btn(self):
         return self.driver.find_element(*Dashboard.btn_back)
-
-

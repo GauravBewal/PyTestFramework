@@ -1,7 +1,7 @@
 import pytest
 
-from pageObjects.TenantManagement import TenantManagement
 from pageObjects.Navigation import Navigation
+from pageObjects.TenantManagement import TenantManagement
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -52,5 +52,38 @@ class TestTenantManagement(Base):
         action = Action(self.driver)
         log.info("Click on inactive tab")
         action.click(tenant.click_inactive_tenant_tab())
+        log.info("Read the tab color after switching")
         tab_color = action.getElementColor(tenant.click_inactive_tenant_tab())
+        assert tab_color == '#1a3ee8'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_03_switch_inactive_tab(self):
+        """
+            Verify switch to inactive tab from active tab
+            Validation - 1. On the basis of tab color
+        """
+        log = self.getlogger()
+        tenant = TenantManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Click on inactive tab")
+        action.click(tenant.click_inactive_tab())
+        log.info("Read the tab color after switching")
+        tab_color = action.getElementColor(tenant.click_inactive_tab())
+        assert tab_color == '#1a3ee8'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_04_switch_All_tab(self):
+        """
+            Verify switch to All tab from active tab
+            Validation - 1. On the basis of tab color
+        """
+        log = self.getlogger()
+        tenant = TenantManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Click on All tab")
+        action.click(tenant.click_All_tab())
+        log.info("Read the tab color after switching")
+        tab_color = action.getElementColor(tenant.click_All_tab())
         assert tab_color == '#1a3ee8'
