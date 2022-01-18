@@ -62,7 +62,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_switch_inactive_tab(self):
+    def test_04_switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 1. On the basis of tab color
