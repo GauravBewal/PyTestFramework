@@ -62,7 +62,7 @@ class WebDriverFactory:
         else:
             driver = webdriver.Edge(EdgeChromiumDriverManager().install())
         # Setting Driver Implicit Time out for An Element
-        driver.implicitly_wait(40)
+        driver.implicitly_wait(20)
         # Maximize the window
         driver.maximize_window()
         # Loading browser with App URL
