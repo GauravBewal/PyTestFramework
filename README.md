@@ -1,4 +1,4 @@
-**CSOL UI Automation Test**  
+**Cyware Orchestrate UI Automation Test Framework**  
 
 **Pre-requisite :**  
 1. This framework will support only for Cyware Orchestrate 3.X version instances only.  
