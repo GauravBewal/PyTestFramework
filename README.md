@@ -6,7 +6,7 @@
 3. Don't login with system admin credentials while automation suite jenkins job run status is in progress.   
 
 **Bitbucket URL:** https://bitbucket.org/cywarelabs/csol_automation_suite  
-**Jenkins Job URL:** https://jenkins.cyware.com/view/Pipelines-CSOL/job/csol-ui-automation/
+**Jenkins Job URL:** https://jenkins.cyware.com/job/csol-ui-automation/
 
 - Selenium python UI testing framework
 - Docker enable framework for execution in isolated environment
