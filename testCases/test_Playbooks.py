@@ -40,10 +40,10 @@ class TestPlaybook(Base):
         log = self.getlogger()
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        time.sleep(ReadConfig.mediumSleepWait())
+        time.sleep(ReadConfig.Wait_20_Sec())
         log.info("Click on Cyware Playbooks for switch tab ")
         action.click(playbooks.cyware_playbook_tab())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_10_Sec())
         assert action.getTitle() == 'Cyware Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -58,7 +58,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         log.info("Click on the first playbook")
         action.click(playbooks.click_first_playbook())
-        time.sleep(ReadConfig.mediumSleepWait())
+        time.sleep(ReadConfig.Wait_20_Sec())
         log.info("Switch to new tab")
         parent_window = action.switch_new_window(1)
         log.info("Read the window title")
@@ -80,7 +80,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         log.info("Click on My Playbooks for switch tab")
         action.click(playbooks.my_playbook_tab())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_10_Sec())
         assert action.getTitle() == 'My Playbooks | Cyware Orchestrate'
 
 
@@ -116,7 +116,12 @@ class TestPlaybook(Base):
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Click on add node button")
-        action.click()
+        action.click(playbooks.click_add_node())
+        log.info("Read the add node slider title")
+        slider_text = action.getText(playbooks.get_add_node_slider_text())
+        assert slider_text == ''
+
+
 
 
 

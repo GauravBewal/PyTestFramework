@@ -28,7 +28,7 @@ class TestApps(Base):
         action.click(nav.click_Main_Menu())
         log.info("Click on Apps from Menu")
         action.click(nav.Navigate_Apps())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -43,7 +43,7 @@ class TestApps(Base):
         myapps = MyApps(self.driver)
         log.info("Click on App Store tab")
         action.click(myapps.App_Store_Tab())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() in 'Appstore | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -58,7 +58,7 @@ class TestApps(Base):
         myapps = MyApps(self.driver)
         log.info("Click on App Store tab")
         action.click(myapps.My_Apps_Tab())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -88,11 +88,10 @@ class TestApps(Base):
         action.click(myapps.click_active_app())
         log.info("Click on app save button")
         action.click(myapps.click_save_app_button())
-
-        time.sleep(ReadConfig.LargesleepWait())
+        time.sleep(ReadConfig.Wait_10_Sec())
         log.info("Click on close tool tip")
         action.click(myapps.close_tooltip())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         count_of_app_after_creation = action.getCountfromString(myapps.get_app_count())
         assert count_of_app_before_creation + 1 == count_of_app_after_creation
 
@@ -107,7 +106,7 @@ class TestApps(Base):
         myapps = MyApps(self.driver)
         action.sendKeys(myapps.click_on_app_search(), new_app_name)
         log.info("Search the app which is created new manually")
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         assert new_app_name == action.getText(myapps.top_first_search())
 
     @pytest.mark.smoke
@@ -124,7 +123,7 @@ class TestApps(Base):
         log.info("Click on the searched app")
         action.click(myapps.top_first_search())
         page_title = action.getTitle()
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         app_title_summary = action.getText(myapps.read_app_title())
         assert page_title == 'App Summary | Cyware Orchestrate' and app_title_listing == app_title_summary
 
@@ -202,7 +201,7 @@ class TestApps(Base):
         action.click(my_apps.click_on_uninstall_app())
         log.info("Click on confirm button to uninstall app")
         action.click(my_apps.click_confirm_uninstall_app())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Validating app uninstalled successfully or not")
         tooltip_message = action.getText(my_apps.read_app_uninstall_success_message())
         search_result_message = action.getText(my_apps.get_search_result_after_uninstall())

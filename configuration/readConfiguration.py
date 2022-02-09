@@ -32,19 +32,24 @@ class ReadConfig:
         return Wait
 
     @staticmethod
-    def sleepWait():
-        sleepWait = config.get('Waits', 'sleepWait')
-        return int(sleepWait)
+    def Wait_10_Sec():
+        wait_10_Sec = config.get('Waits', 'Wait_10_Seconds')
+        return int(wait_10_Sec)
 
     @staticmethod
-    def mediumSleepWait():
-        mediumsleepWait = config.get('Waits', 'MediumSleepWait')
-        return int(mediumsleepWait)
+    def Wait_3_Sec():
+        wait_3_Sec = config.get('Waits', 'Wait_3_Seconds')
+        return int(wait_3_Sec)
 
     @staticmethod
-    def largeSleepWait():
-        largesleepWait = config.get('Waits', 'LargeSleepWait')
-        return int(largesleepWait)
+    def Wait_20_Sec():
+        wait_20_Sec = config.get('Waits', 'Wait_20_Seconds')
+        return int(wait_20_Sec)
+
+    @staticmethod
+    def Wait_50_Sec():
+        wait_50_Sec = config.get('Waits', 'Wait_50_Seconds')
+        return int(wait_50_Sec)
 
     @staticmethod
     def appname():

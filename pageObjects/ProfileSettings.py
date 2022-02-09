@@ -16,11 +16,15 @@ class ProfileSettings:
     def click_Change_Password(self):
         return self.driver.find_element(*ProfileSettings.btn_change_password)
 
-    btn_edit_Profile = (By.CSS_SELECTOR, "button[class='ml-3 px-4 d-flex align-items-center "
-                                         "justify-content-center cy-button cy-button--primary cy-button--md']")
+    btn_edit_profile = (By.XPATH, "//button//span[contains(text(),'Edit')]")
 
-    def click_Edit(self):
-        return self.driver.find_element(*ProfileSettings.btn_edit_Profile)
+    def click_on_edit_button(self):
+        return self.driver.find_element(*ProfileSettings.btn_edit_profile)
+
+    btn_save_profile = (By.XPATH, "//button//span[contains(text(),'Save')]")
+
+    def check_save_btn_visibility(self):
+        return self.driver.find_element(*ProfileSettings.btn_save_profile)
 
     slider_title_change_password = (By.CSS_SELECTOR, ".cy-right-modal-header__label.flex-grow-1")
 

@@ -27,7 +27,7 @@ class TestProfileSettings(Base):
         action.click(nav.Navigate_Profile_icon())
         log.info("Click on Profile Settings dropdown")
         action.click(profile.click_Profile_Settings())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Check after click page redirects")
         assert action.getTitle() in 'Profile Settings | Cyware Orchestrate'
 
@@ -43,6 +43,24 @@ class TestProfileSettings(Base):
         profile = ProfileSettings(self.driver)
         action.click(profile.click_Change_Password())
         slider_text = action.getText(profile.get_ChangePassword_SliderTitle())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         action.click(profile.click_Close_ToolTip_ChangePassword())
         assert slider_text in 'Change Password'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_03_click_on_edit_profile(self):
+        """
+              Verify user is able to click on edit profile button
+              Validation: Based on the save button visibility
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        profile = ProfileSettings(self.driver)
+        log.info("Clicking on edit button")
+        action.click(profile.click_on_edit_button())
+        log.info("Check for the save button visibility")
+        val = action.check_visibility_of_element(profile.check_save_btn_visibility())
+        assert val is True
+
+

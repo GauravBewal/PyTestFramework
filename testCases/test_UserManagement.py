@@ -28,6 +28,7 @@ class TestUserManagement(Base):
         log.info("Click on User Management tab from Admin Page")
         action.click(user.click_User_Management())
         assert action.getTitle() in 'User Management | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -40,9 +41,9 @@ class TestUserManagement(Base):
         user = UserManagement(self.driver)
         action = Action(self.driver)
         log.info("Click on add new user button")
-        action.javascript_click_element(user.click_add_user())
+        action.click(user.click_add_user())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Read the slider title")
-        time.sleep(ReadConfig.sleepWait())
         slider_title = action.getText(user.get_slider_title())
         log.info("Click on close slider button")
         action.click(user.click_slider_close())
@@ -60,7 +61,7 @@ class TestUserManagement(Base):
         action = Action(self.driver)
         log.info("Click on export button")
         action.click(user.click_export())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_10_Sec())
         log.info("Read export option available")
         t = action.check_visibility_of_element(user.export_option_visibility())
         assert t is True

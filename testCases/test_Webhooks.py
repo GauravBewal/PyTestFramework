@@ -1,9 +1,12 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.Webhooks import Webhooks
 from utilities.Actions import Action
 from utilities.Base import Base
+from configuration.readConfiguration import ReadConfig
 
 
 @pytest.mark.usefixtures("setup")
@@ -25,6 +28,7 @@ class TestWebhooks(Base):
         log.info("Click on Webhooks tab from Admin Page")
         action.click(webhook.click_Webhooks())
         assert action.getTitle() in 'Webhooks | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -39,6 +43,7 @@ class TestWebhooks(Base):
         log.info("Click on add webhook button")
         action.click(webhook.click_new_webhook())
         log.info("Read the slider title")
+        time.sleep(ReadConfig.Wait_3_Sec())
         slider_title = action.getText(webhook.get_slider_title())
         log.info("Click on close slider button")
         action.click(webhook.click_slider_close())

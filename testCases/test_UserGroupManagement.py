@@ -1,6 +1,9 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
+from configuration.readConfiguration import ReadConfig
 from pageObjects.UserGroupManagement import UserGroupManagement
 from utilities.Actions import Action
 from utilities.Base import Base
@@ -25,6 +28,8 @@ class TestUserGroupManagement(Base):
         log.info("Click on User group Management tab from Admin Page")
         action.click(usergroup.click_User_Group_Management())
         assert action.getTitle() in 'User Groups Management | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
+
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
