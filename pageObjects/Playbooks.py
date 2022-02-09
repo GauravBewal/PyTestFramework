@@ -26,25 +26,36 @@ class Playbooks:
     def get_manage_playbook_heading(self):
         return self.driver.find_element(*Playbooks.playbook_page_heading)
 
-    button_create_playbook = (By.XPATH, "//button[contains(@class,'create-playbook')]")
+    playbook_create_btn = (By.XPATH, "//button[contains(@class,'create-playbook')]")
 
     def click_on_create_playbook_btn(self):
-        return self.driver.find_element(*Playbooks.button_create_playbook)
+        return self.driver.find_element(*Playbooks.playbook_create_btn)
 
-    button_back = (By.XPATH, "//div[@class='playbook_header__view']//i")
+    #playbook_3_dots_btn = (By.XPATH, "")
+
+
+
+    playbook_back_btn = (By.XPATH, "//div[@class='playbook_header__view']//i")
 
     def click_on_back_button(self):
-        return self.driver.find_element(*Playbooks.button_back)
+        return self.driver.find_element(*Playbooks.playbook_back_btn)
 
-    button_exit_without_save = (By.XPATH, "//button[contains(text(),'Exit without Save')]")
+    playbook_exit_without_save_btn = (By.XPATH, "//button[contains(text(),'Exit without Save')]")
 
     def click_exit_without_save(self):
-        return self.driver.find_element(*Playbooks.button_exit_without_save)
+        return self.driver.find_element(*Playbooks.playbook_exit_without_save_btn)
 
-    button_add_node = (By.XPATH, "")
+    playbook_add_node_btn = (By.XPATH, "//div[@class='stencil-container walkthrough-stencil']")
 
-    def click_add_node(self):
-        return self.driver.find_element(*Playbooks.button_add_node)
+    def click_add_node_btn(self):
+        return self.driver.find_element(*Playbooks.playbook_add_node_btn)
+
+    playbook_node_slider_text = (By.XPATH, "//div[@class='stencil-header']")
+
+    def get_add_node_slider_text(self):
+        return self.driver.find_element(*Playbooks.playbook_node_slider_text)
+
+
 
 
     playbook_name_field = (By.XPATH, "//input[@placeholder='Enter Name']")

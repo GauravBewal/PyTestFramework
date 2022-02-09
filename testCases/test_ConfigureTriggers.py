@@ -24,6 +24,7 @@ class TestConfigureTriggers(Base):
         action.click(nav.click_Main_Menu())
         action.click(nav.Navigate_Configure_Event())
         assert action.getTitle() in 'Configure Triggers | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -36,8 +37,8 @@ class TestConfigureTriggers(Base):
         action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on configure new trigger button")
-        action.javascript_click_element(config_trigger.click_configure_trigger())
-        time.sleep(ReadConfig.mediumSleepWait())
+        action.click(config_trigger.click_configure_trigger())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Read the slider heading")
         slider_heading = action.getText(config_trigger.get_slider_heading())
         log.info("Click on close slider button")

@@ -1,6 +1,9 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Syslogs import Syslogs
 from utilities.Actions import Action
 from utilities.Base import Base
@@ -25,6 +28,7 @@ class TestSyslogs(Base):
         log.info("Click on SysLogs tab from Admin Page")
         action.click(syslog.click_SysLogs())
         assert action.getTitle() in 'Syslogs | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

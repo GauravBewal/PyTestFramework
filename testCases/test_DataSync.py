@@ -24,6 +24,7 @@ class TestDataSync(Base):
         action.click(nav.click_Main_Menu())
         action.click(nav.Navigate_Data_Sync())
         assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -36,8 +37,7 @@ class TestDataSync(Base):
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
         log.info('Click on create data sync button')
-        time.sleep(ReadConfig.mediumSleepWait())
-        action.javascript_click_element(dataSync.click_create_data_sync())
+        action.click(dataSync.click_create_data_sync())
         log.info('Store the page title in page_title variable for validation')
         page_title = action.getTitle()
         log.info('click on back button to cancel the data sync job creation')
@@ -68,6 +68,6 @@ class TestDataSync(Base):
         """
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         action.click(dataSync.click_job_details())
         assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'

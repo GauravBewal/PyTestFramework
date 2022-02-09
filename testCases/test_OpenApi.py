@@ -28,6 +28,7 @@ class TestOpenApi(Base):
         log.info("Click on Open APIs tab from Admin Page")
         action.click(openapi.click_Open_API_tab())
         assert action.getTitle() == 'Open APIs | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -36,8 +37,7 @@ class TestOpenApi(Base):
         action = Action(self.driver)
         openapi = OpenApi(self.driver)
         log.info("Click on add openapi button")
-        time.sleep(ReadConfig.mediumSleepWait())
-        action.javascript_click_element(openapi.click_new_open_api())
+        action.click(openapi.click_new_open_api())
         log.info("Read the slider title")
         slider_title = action.getText(openapi.get_slider_title())
         log.info("Click on close slider button")

@@ -2,6 +2,7 @@ import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.TenantManagement import TenantManagement
+from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -25,6 +26,7 @@ class TestTenantManagement(Base):
         log.info("Click on Tenant Management tab from Admin Page")
         action.click(tenant.click_Tenant_Management())
         assert action.getTitle() == 'Tenant Management | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

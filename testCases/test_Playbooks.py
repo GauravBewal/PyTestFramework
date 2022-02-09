@@ -29,6 +29,7 @@ class TestPlaybook(Base):
         action.click(nav.Navigate_Manage_Playbook())
         read_page_heading = action.getText(playbooks.get_manage_playbook_heading())
         assert read_page_heading == 'Manage Playbooks'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -40,10 +41,9 @@ class TestPlaybook(Base):
         log = self.getlogger()
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        time.sleep(ReadConfig.mediumSleepWait())
         log.info("Click on Cyware Playbooks for switch tab ")
         action.click(playbooks.cyware_playbook_tab())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() == 'Cyware Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -58,7 +58,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         log.info("Click on the first playbook")
         action.click(playbooks.click_first_playbook())
-        time.sleep(ReadConfig.mediumSleepWait())
+        time.sleep(ReadConfig.Wait_10_Sec())
         log.info("Switch to new tab")
         parent_window = action.switch_new_window(1)
         log.info("Read the window title")
@@ -80,7 +80,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         log.info("Click on My Playbooks for switch tab")
         action.click(playbooks.my_playbook_tab())
-        time.sleep(ReadConfig.sleepWait())
+        time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() == 'My Playbooks | Cyware Orchestrate'
 
 
@@ -105,7 +105,7 @@ class TestPlaybook(Base):
         action.click(playbooks.click_exit_without_save())
         assert page_title == 'Add Playbook | Cyware Orchestrate'
 
-    #@pytest.mark.readOnly
+    @pytest.mark.readOnly
     @pytest.mark.smoke
     def test_06_click_add_node(self):
         """
@@ -115,8 +115,33 @@ class TestPlaybook(Base):
         log = self.getlogger()
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
+        time.sleep(ReadConfig.Wait_3_Sec())
+        log.info("Click on create new playbook cta")
+        action.click(playbooks.click_on_create_playbook_btn())
         log.info("Click on add node button")
-        action.click()
+        action.click(playbooks.click_add_node_btn())
+        log.info("Read the add node slider title")
+        slider_text = action.getText(playbooks.get_add_node_slider_text())
+        assert slider_text == 'ADD NODES'
+
+    # @pytest.mark.smoke
+    # @pytest.mark.readOnly
+    # def test_07_check_activity_logs(self):
+    #     """
+    #        Verify user is able to check the activity logs
+    #        Validation: Based on the acivity logs slider heading
+    #     """
+    #     action = Action(self.driver)
+    #     log = self.getlogger()
+    #     playbooks = Playbooks(self.driver)
+    #     time.sleep(ReadConfig.Wait_3_Sec())
+    #     log.info("Click on create new playbook cta")
+    #     action.click(playbooks.click_on_create_playbook_btn())
+    #     log.info("Mouse hover on 3 dots")
+    #     action.mouse_hover_on_element()
+
+
+
 
 
 
