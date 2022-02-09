@@ -28,7 +28,7 @@ class TestSyslogs(Base):
         log.info("Click on SysLogs tab from Admin Page")
         action.click(syslog.click_SysLogs())
         assert action.getTitle() in 'Syslogs | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
