@@ -27,7 +27,7 @@ class TestTriggerEvents(Base):
         log.info("click on trigger events")
         action.click(nav.Navigate_Trigger_Event())
         assert action.getTitle() in 'Trigger Events | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -41,6 +41,7 @@ class TestTriggerEvents(Base):
         trigger_events = TriggerEvents(self.driver)
         log.info("Click on create new event button")
         action.click(trigger_events.click_create_new_event())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Reading the slider heading")
         page_title = action.getText(trigger_events.get_slider_text())
         action.click(trigger_events.click_close_slider())
