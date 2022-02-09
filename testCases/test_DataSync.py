@@ -24,7 +24,7 @@ class TestDataSync(Base):
         action.click(nav.click_Main_Menu())
         action.click(nav.Navigate_Data_Sync())
         assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

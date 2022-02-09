@@ -28,7 +28,7 @@ class TestTenantManagement(Base):
         log.info("Click on Tenant Management tab from Admin Page")
         action.click(tenant.click_Tenant_Management())
         assert action.getTitle() == 'Tenant Management | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

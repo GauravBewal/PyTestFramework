@@ -28,7 +28,7 @@ class TestUserGroupManagement(Base):
         log.info("Click on User group Management tab from Admin Page")
         action.click(usergroup.click_User_Group_Management())
         assert action.getTitle() in 'User Groups Management | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
 
     @pytest.mark.smoke
