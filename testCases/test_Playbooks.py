@@ -124,21 +124,27 @@ class TestPlaybook(Base):
         slider_text = action.getText(playbooks.get_add_node_slider_text())
         assert slider_text == 'ADD NODES'
 
-    # @pytest.mark.smoke
-    # @pytest.mark.readOnly
-    # def test_07_check_activity_logs(self):
-    #     """
-    #        Verify user is able to check the activity logs
-    #        Validation: Based on the acivity logs slider heading
-    #     """
-    #     action = Action(self.driver)
-    #     log = self.getlogger()
-    #     playbooks = Playbooks(self.driver)
-    #     time.sleep(ReadConfig.Wait_3_Sec())
-    #     log.info("Click on create new playbook cta")
-    #     action.click(playbooks.click_on_create_playbook_btn())
-    #     log.info("Mouse hover on 3 dots")
-    #     action.mouse_hover_on_element()
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_07_check_all_nodes_visibility(self):
+        """
+           Verify user is able to check the activity logs
+           Validation: Based on the nodes category title
+        """
+        action = Action(self.driver)
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Read all the action nodes")
+        all_elements = playbooks.get_all_elements()
+        nodes_list = ['Action Nodes', 'Condition Nodes', 'Input Node', 'Memory Node']
+        for i in range(0, len(all_elements)):
+            node_title = action.getText(all_elements[i])
+            log.info("Validate all the node title")
+            assert node_title == nodes_list[i]
+
+
+
+
 
 
 

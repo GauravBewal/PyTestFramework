@@ -42,6 +42,7 @@ class TestSyslogs(Base):
         action = Action(self.driver)
         log.info("Click on add syslog button")
         action.click(syslog.click_new_Syslog())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Read the slider title")
         slider_title = action.getText(syslog.get_slider_title())
         log.info("Click on close slider button")
