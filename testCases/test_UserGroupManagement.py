@@ -43,6 +43,7 @@ class TestUserGroupManagement(Base):
         action = Action(self.driver)
         log.info("Click on add new user button")
         action.click(usergroup.click_add_user_group())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Read the slider title")
         slider_title = action.getText(usergroup.get_slider_title())
         log.info("Click on close slider button")
