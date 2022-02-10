@@ -31,10 +31,6 @@ class Playbooks:
     def click_on_create_playbook_btn(self):
         return self.driver.find_element(*Playbooks.playbook_create_btn)
 
-    #playbook_3_dots_btn = (By.XPATH, "")
-
-
-
     playbook_back_btn = (By.XPATH, "//div[@class='playbook_header__view']//i")
 
     def click_on_back_button(self):
@@ -54,6 +50,12 @@ class Playbooks:
 
     def get_add_node_slider_text(self):
         return self.driver.find_element(*Playbooks.playbook_node_slider_text)
+
+    all_Action_nodes_text = (By.XPATH, "//div[@class='content']//h3")
+
+    def get_all_elements(self):
+        return self.driver.find_elements(*Playbooks.all_Action_nodes_text)
+
 
 
 
