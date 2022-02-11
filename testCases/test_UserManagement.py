@@ -28,7 +28,7 @@ class TestUserManagement(Base):
         log.info("Click on User Management tab from Admin Page")
         action.click(user.click_User_Management())
         assert action.getTitle() in 'User Management | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

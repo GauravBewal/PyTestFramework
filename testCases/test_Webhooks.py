@@ -28,7 +28,7 @@ class TestWebhooks(Base):
         log.info("Click on Webhooks tab from Admin Page")
         action.click(webhook.click_Webhooks())
         assert action.getTitle() in 'Webhooks | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
