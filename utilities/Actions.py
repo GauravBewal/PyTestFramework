@@ -28,6 +28,8 @@ class Action:
                 break
         return parent_window
 
+
+
     def switch_back_parent_window(self, parent_window):
         self.driver.close()
         self.driver.switch_to.window(parent_window)
@@ -43,9 +45,9 @@ class Action:
         count = element.text
         return int(float(count.split('(')[1].split(')')[0]))
 
-    def getcountfromapps(self, element):
+    def get_walkthrough_slider_count(self, element):
         count = element.text
-        return count.split(' ')[0]
+        return int(count.split(' ')[2])
 
     def sendKeys(self, inputfield, value):
         inputfield.send_keys(value)
@@ -90,6 +92,7 @@ class Action:
     def getRandomDigit(self):
         res = ''.join(random.choices(string.digits, k=4))
         return res
+
 
     def WebdriverWait(self, element, wait):
         web_element = WebDriverWait(self.driver, wait).until(
