@@ -24,7 +24,7 @@ class TestConfigureTriggers(Base):
         action.click(nav.click_Main_Menu())
         action.click(nav.Navigate_Configure_Event())
         assert action.getTitle() in 'Configure Triggers | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

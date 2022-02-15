@@ -11,6 +11,8 @@ from utilities.Base import Base
 
 @pytest.mark.usefixtures("setup")
 class TestPlaybook(Base):
+    global parent
+    parent = ''
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -29,7 +31,7 @@ class TestPlaybook(Base):
         action.click(nav.Navigate_Manage_Playbook())
         read_page_heading = action.getText(playbooks.get_manage_playbook_heading())
         assert read_page_heading == 'Manage Playbooks'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -46,31 +48,10 @@ class TestPlaybook(Base):
         time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() == 'Cyware Playbooks | Cyware Orchestrate'
 
-    @pytest.mark.smoke
-    @pytest.mark.readOnly
-    def test_03_view_playbook(self):
-        """
-        Verify opening playbook in view mode from cyware playbook
-        Validation : Based on the window's title
-        """
-        log = self.getlogger()
-        action = Action(self.driver)
-        playbooks = Playbooks(self.driver)
-        log.info("Click on the first playbook")
-        action.click(playbooks.click_first_playbook())
-        time.sleep(ReadConfig.Wait_10_Sec())
-        log.info("Switch to new tab")
-        parent_window = action.switch_new_window(1)
-        log.info("Read the window title")
-        page_title = action.getTitle()
-        log.info("Switch back to parent window and close child window")
-        action.switch_back_parent_window(parent_window)
-        assert page_title == 'View Playbook | Cyware Orchestrate'
-
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_My_Playbooks_switch_tab(self):
+    def test_03_My_Playbooks_switch_tab(self):
         """
             Verify user is able to switch from Cyware Playbooks to My Playbooks
             Validation - 1. On the basis of Windows title
@@ -87,7 +68,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_create_new_playbook(self):
+    def test_04_create_new_playbook(self):
         """
         Verify user is able to create a new playbook
         Validation : Based on the window title
@@ -107,7 +88,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_06_click_add_node(self):
+    def test_05_click_add_node(self):
         """
           Verify click on add node button
           Validation : Based on the add node slider title
@@ -126,7 +107,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_07_check_all_nodes_visibility(self):
+    def test_06_check_all_nodes_visibility(self):
         """
            Verify user is able to check the activity logs
            Validation: Based on the nodes category title
@@ -146,7 +127,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_08_check_video_walkthrough(self):
+    def test_07_check_video_walkthrough(self):
         """
                    Verify user is able to see the video walkthough
                    Validation: Based on the video walkthrough popup title
@@ -168,7 +149,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_09_check_tooltip_walkthrough(self):
+    def test_08_check_tooltip_walkthrough(self):
         """
                    Verify user is able to see the tooltip walkthough
                    Validation: Based on the tooltip walkthrough title
@@ -193,7 +174,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_10_check_save_options(self):
+    def test_09_check_save_options(self):
         """
                    Verify user is able to see the save options
                    Validation: Based on the save options visibility
@@ -209,7 +190,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_11_check_playbook_overview_slider(self):
+    def test_10_check_playbook_overview_slider(self):
         """
             Verify user is able to see the playbook overview slider
             Validation: Based on the slider title
@@ -226,7 +207,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_12_switch_output_parameters_section(self):
+    def test_11_switch_output_parameters_section(self):
         """
             Verify whether user is able to click on output parameter
             Validation: Based on the section title and add parameter button visibility
@@ -247,7 +228,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_13_add_output_parameter(self):
+    def test_12_add_output_parameter(self):
         """
             Verify user is able to add the output parameters
             Validation: Based on the params visibility
@@ -267,7 +248,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_14_switch_to_associated_playbooks(self):
+    def test_13_switch_to_associated_playbooks(self):
         """
             Verify user is able to switch to associated playbooks section
             Validation: Based on the section title and no state text
@@ -288,7 +269,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_15_switch_to_sub_playbooks_tab(self):
+    def test_14_switch_to_sub_playbooks_tab(self):
         """
             Verify whether user is able to switch to sub-playbooks tab
             Validation: Based on the subplaybooks tab color
@@ -305,7 +286,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_16_switch_app_and_actions(self):
+    def test_15_switch_app_and_actions(self):
         """
             Verify whether user is able to apps and actions tab
             Validation based on section title and no state text
@@ -322,7 +303,141 @@ class TestPlaybook(Base):
         section_title = action.getText(playbooks.click_apps_and_actions())
         log.info("Read the no state text")
         text = action.getText(playbooks.get_no_state_validation_text())
+        log.info("click on the back button")
+        action.click(playbooks.click_on_back_button())
+        log.info("Click exit without save button")
+        action.click(playbooks.click_exit_without_save())
         assert section_title == 'Apps (0) / Actions (0)' and text == 'No App/Actions Available'
+        time.sleep(ReadConfig.Wait_3_Sec())
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_16_click_customize_table(self):
+        """
+        Verify whether user is able to click on customize table
+        Validation: Based on the slider title
+        """
+        action = Action(self.driver)
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Click on the customize table button")
+        action.click(playbooks.click_on_customize_table_btn())
+        log.info("Read the slider title")
+        time.sleep(ReadConfig.Wait_3_Sec())
+        slider_txt = action.getText(playbooks.get_customize_table_txt())
+        log.info("close the slider")
+        action.click(playbooks.click_close_customize_table_btn())
+        assert slider_txt == 'Customize Display Fields'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_17_click_filter_btn(self):
+        """
+        Verify whether user is able to click on filter button
+        Validation: Based on the slider title
+        """
+        action = Action(self.driver)
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Click on the filter button")
+        action.click(playbooks.click_filter_btn())
+        time.sleep(ReadConfig.Wait_3_Sec())
+        log.info("Read the filter slider title")
+        slider_txt = action.getText(playbooks.get_filter_title())
+        assert slider_txt == 'FILTERS'
+
+
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_18_view_playbook(self):
+        """
+        Verify opening playbook in view mode from cyware playbook
+        Validation : Based on the window's title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        log.info("Switching to cyware playbook tab")
+        action.click(playbooks.cyware_playbook_tab())
+        time.sleep(ReadConfig.Wait_3_Sec())
+        log.info("Click on the first playbook")
+        action.click(playbooks.click_first_playbook())
+        time.sleep(ReadConfig.Wait_10_Sec())
+        log.info("Switch to new tab")
+        global parent_window
+        parent_window = action.switch_new_window(1)
+        log.info("Read the window title")
+        page_title = action.getTitle()
+        assert page_title == 'View Playbook | Cyware Orchestrate'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_19_check_export_options_visibility(self):
+        """
+        Verify whether user is able to seen the export options
+        Validation: Based on the export options visibility
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbook = Playbooks(self.driver)
+        log.info("Click on the more options")
+        action.mouse_hover_on_element(playbook.click_playbook_more_options())
+        log.info("Click on the export button")
+        action.click(playbook.mouse_hover_export_btn())
+        log.info("Check visibility of export options ")
+        export_png = action.check_visibility_of_element(playbook.check_visibility_export_as_png())
+        export_json = action.check_visibility_of_element(playbook.check_visibility_export_as_json())
+        assert export_json is True and export_png is True
+        time.sleep(ReadConfig.Wait_3_Sec())
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_20_check_clone_btn_visibility(self):
+        """
+        Verify whether user is able to see the clone button
+        Validation: Based on the clone button visibility
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbook = Playbooks(self.driver)
+        log.info("Click on the more options")
+        action.mouse_hover_on_element(playbook.click_playbook_more_options())
+        log.info("Check for clone button visibility")
+        assert action.check_visibility_of_element(playbook.check_visibility_of_clone_btn()) is True
+        time.sleep(ReadConfig.Wait_3_Sec())
+
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_21_click_on_test_instances(self):
+        """
+        Verify whether user is able to click on the test connectivity
+        Validation:- Based on the slider title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbook = Playbooks(self.driver)
+        log.info("Click on the more options")
+        action.mouse_hover_on_element(playbook.click_playbook_more_options())
+        log.info("Click on the test instances button")
+        action.click(playbook.click_on_test_instances_btn())
+        time.sleep(ReadConfig.Wait_3_Sec())
+        log.info("Read the slider title")
+        slider_title = action.getText(playbook.get_test_instance_slider_text())
+        log.info("Close the test instances slider")
+        action.click(playbook.click_test_instance_slider_close_btn())
+        log.info("Switch back to parent window and close child window")
+        action.switch_back_parent_window(parent_window)
+        assert slider_title == 'Test Instances'
+
+
+
+
+
+
+
+
 
 
 
