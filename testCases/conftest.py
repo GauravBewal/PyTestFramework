@@ -37,13 +37,13 @@ def login(getEmail, getPassword):
     button_login = "//button[contains(text(),'Login')]"
 
     try:
+        time.sleep(ReadConfig.Wait_3_Sec())
         put_emailId = webapp_driver.find_element_by_xpath(text_field_emailID)
         put_emailId.send_keys(getEmail)
         put_password = webapp_driver.find_element_by_xpath(text_filed_password)
         put_password.send_keys(getPassword)
         click_Login = webapp_driver.find_element_by_xpath(button_login)
         click_Login.click()
-        time.sleep(2)
     except Exception as e:
         print(e)
 

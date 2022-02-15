@@ -16,6 +16,58 @@ class Playbooks:
     def my_playbook_tab(self):
         return self.driver.find_element(*Playbooks.tab_my_playbooks)
 
+    more_options_btn = (By.XPATH, "//div[@class='el-dropdown']/span")
+
+    def click_playbook_more_options(self):
+        return self.driver.find_element(*Playbooks.more_options_btn)
+
+    playbook_clone_btn = (By.XPATH, "//i[@class='cyicon-copy']/parent::li")
+
+    def check_visibility_of_clone_btn(self):
+        return self.driver.find_element(*Playbooks.playbook_clone_btn)
+
+    playbook_test_instances = (By.XPATH, "//i[@class='icon-connect']/parent::li")
+
+    def click_on_test_instances_btn(self):
+        return self.driver.find_element(*Playbooks.playbook_test_instances)
+
+    playbook_test_instance_slider_text = (By.XPATH, "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div/div")
+
+    def get_test_instance_slider_text(self):
+        return self.driver.find_element(*Playbooks.playbook_test_instance_slider_text)
+
+    instance_connection_result_tabs = (By.XPATH, "//div[@class='px-2 tabs--list']//li")
+
+    def get_all_connection_result_tabs(self):
+        return self.driver.find_elements(*Playbooks.instance_connection_result_tabs)
+
+    test_instance_no_state_text = (By.XPATH, "//div[@class='h-100']//p")
+
+    def get_test_intance_no_state_text(self):
+        return self.driver.find_element(*Playbooks.test_instance_no_state_text)
+
+    test_instance_slider_close_btn = (By.XPATH, "//span[@data-testaction='slider-close']/parent::div")
+
+    def click_test_instance_slider_close_btn(self):
+        return self.driver.find_element(*Playbooks.test_instance_slider_close_btn)
+
+    playbook_export_btn = (By.XPATH, "//i[@class='icon-export-boxed']/parent::li")
+
+    def mouse_hover_export_btn(self):
+        return self.driver.find_element(*Playbooks.playbook_export_btn)
+
+    playbook_export_as_png = (By.XPATH, "//li[contains(text(),'PNG')]")
+
+    def check_visibility_export_as_png(self):
+        return self.driver.find_element(*Playbooks.playbook_export_as_png)
+
+    playbook_export_as_json = (By.XPATH, "//li[contains(text(),'JSON')]")
+
+    def check_visibility_export_as_json(self):
+        return self.driver.find_element(*Playbooks.playbook_export_as_json)
+
+
+
     btn_first_playbook = (By.XPATH, "//div[3]//tr[1]/td[2]//a")
 
     def click_first_playbook(self):
@@ -30,6 +82,32 @@ class Playbooks:
 
     def get_manage_playbook_heading(self):
         return self.driver.find_element(*Playbooks.playbook_page_heading)
+
+    playbook_customize_table_btn = (By.XPATH, "//i[@class='cyicon-settings']/parent::div")
+
+    def click_on_customize_table_btn(self):
+        return self.driver.find_element(*Playbooks.playbook_customize_table_btn)
+
+    customize_table_slider_title = (By.XPATH, "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div")
+
+    def get_customize_table_txt(self):
+        return self.driver.find_element(*Playbooks.customize_table_slider_title)
+
+    close_customize_table = (By.XPATH, "//span[@data-testaction='slider-close']/parent::div")
+
+    def click_close_customize_table_btn(self):
+        return self.driver.find_element(*Playbooks.close_customize_table)
+
+    playbook_filter_btn = (By.XPATH, "//i[@class='icon icon-filter']/parent::button")
+
+    def click_filter_btn(self):
+        return self.driver.find_element(*Playbooks.playbook_filter_btn)
+
+    playbook_filter_title = (By.XPATH, "//span[@class='filters__header__label']")
+
+    def get_filter_title(self):
+        return self.driver.find_element(*Playbooks.playbook_filter_title)
+
 
     playbook_create_btn = (By.XPATH, "//button[contains(@class,'create-playbook')]")
 
