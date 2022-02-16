@@ -77,15 +77,22 @@ class Labels:
     def click_Active(self):
         return self.driver.find_element(*Labels.tab_Active)
 
-    tab_inActive = (By.XPATH, "//a[normalize-space()='Inactive']")
+    tab_inActive = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
 
     def click_InActive(self):
         return self.driver.find_element(*Labels.tab_inActive)
 
-    tab_All = (By.XPATH, "//a[normalize-space()='All']")
+
+    tab_All = (By.XPATH, "//li/a[contains(text(),'All')]")
 
     def click_All(self):
         return self.driver.find_element(*Labels.tab_All)
+
+    tab_active = (By.XPATH, "//li/a[contains(text(),'Active')]")
+
+    def click_Active(self):
+        return self.driver.find_element(*Labels.tab_active)
+
 
     button_sort = (By.XPATH, "//span[contains(text(),'Sort')]")
 

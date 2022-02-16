@@ -30,3 +30,13 @@ class DataSync:
 
     def click_confirm_close(self):
         return self.driver.find_element(*DataSync.button_confirm_close)
+
+    datasync_filter_btn = (By.XPATH, "//div[@class='filters-view']//button")
+
+    def click_on_filter_btn(self):
+        return self.driver.find_element(*DataSync.datasync_filter_btn)
+
+    filter_slider_title = (By.XPATH, "//span[@class='filters__header__label']")
+
+    def get_filter_slider_title(self):
+        return self.driver.find_element(*DataSync.filter_slider_title)

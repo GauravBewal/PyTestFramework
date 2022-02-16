@@ -80,11 +80,8 @@ class TestPlaybook(Base):
         action.click(playbooks.click_on_create_playbook_btn())
         log.info("Read the page title")
         page_title = action.getTitle()
-        log.info("click on the back button")
-        action.click(playbooks.click_on_back_button())
-        log.info("Click exit without save button")
-        action.click(playbooks.click_exit_without_save())
         assert page_title == 'Add Playbook | Cyware Orchestrate'
+        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
@@ -96,9 +93,6 @@ class TestPlaybook(Base):
         log = self.getlogger()
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        time.sleep(ReadConfig.Wait_3_Sec())
-        log.info("Click on create new playbook cta")
-        action.click(playbooks.click_on_create_playbook_btn())
         log.info("Click on add node button")
         action.click(playbooks.click_add_node_btn())
         log.info("Read the add node slider title")

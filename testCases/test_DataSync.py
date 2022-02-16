@@ -49,19 +49,21 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_switch_run_history(self):
+    def test_03_switch_run_history(self):
         """
             Verify switch from Data Sync to Run History Logs
             Validation - 1. On the basis of Window's title
         """
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
+        log = self.getlogger()
+        log.info("Click on the run history button")
         action.click(dataSync.click_run_history())
         assert action.getTitle() == 'Run History Logs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_switch_job_details_data_Sync(self):
+    def test_04_switch_job_details_data_Sync(self):
         """
             Verify switch from Run History Logs to Data Sync Job details
             Validation - 1. On the basis of Window's title
@@ -71,3 +73,20 @@ class TestDataSync(Base):
         time.sleep(ReadConfig.Wait_3_Sec())
         action.click(dataSync.click_job_details())
         assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_05_click_on_filter_btn(self):
+        """
+        Verify user is able to click on the filter button
+        Validation: Based on the filter slider title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        dataSync = DataSync(self.driver)
+        log.info("Click on the filter button")
+        action.click(dataSync.click_on_filter_btn())
+        time.sleep(ReadConfig.Wait_3_Sec())
+        log.info("Read slider title")
+        slider_title = action.getText(dataSync.get_filter_slider_title())
+        assert slider_title == 'FILTERS'
