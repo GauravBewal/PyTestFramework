@@ -32,6 +32,40 @@ class TestLabels(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
+    def test_02_switch_to_inactive_tab(self):
+        """
+        Verify whether user is able to switch to inactive tab
+        Validation based on the tab color
+        """
+        log = self.getlogger()
+        label = Labels(self.driver)
+        action = Action(self.driver)
+        log.info("Click on the inactive tab")
+        action.click(label.click_InActive())
+        log.info("Read the tab color")
+        tab_color = action.getElementColor(label.click_InActive())
+        assert tab_color == '#1a3ee8'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_03_switch_to_all_tab(self):
+        """
+                Verify whether user is able to switch to all tab
+                Validation based on the tab color
+                """
+        log = self.getlogger()
+        label = Labels(self.driver)
+        action = Action(self.driver)
+        log.info("Click on the inactive tab")
+        action.click(label.click_All())
+        log.info("Read the tab color")
+        tab_color = action.getElementColor(label.click_All())
+        log.info("Switch to active tab")
+        action.click(label.click_Active())
+        assert tab_color == '#1a3ee8'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
     def test_02_create_label_without_name(self):
         """
             Verify user is able to get error message when tried to create a label without any name
@@ -175,3 +209,5 @@ class TestLabels(Base):
         log.info("Validating label name before and after deactivating")
         # checking whether same label is visible in inactive tab listing after deactivating it
         assert label_name_before_deactivating == label_name_after_deactivating
+
+

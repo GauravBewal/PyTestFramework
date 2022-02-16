@@ -44,6 +44,7 @@ def login(getEmail, getPassword):
         put_password.send_keys(getPassword)
         click_Login = webapp_driver.find_element_by_xpath(button_login)
         click_Login.click()
+        time.sleep(ReadConfig.Wait_3_Sec())
     except Exception as e:
         print(e)
 
