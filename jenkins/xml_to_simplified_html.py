@@ -18,7 +18,7 @@ try:
     arguments, values = getopt.getopt(argumentList, options, long_options)
     for currentArgument, currentValue in arguments:
 
-        if currentArgument in ("-n", "--name"):
+        if currentArgument in ("-n", "--report_name"):
             print("Report Name")
 
         elif currentArgument in ("-r", "--reports_path"):
