@@ -126,9 +126,10 @@ try:
                     executiontime = float(executiontime) + float(testsuite.attrib[x])
             for y in testsuite.findall('testcase'):
                 testfailed = False
-                for z in y.findall('error'):
+                for z in y.findall('failure'):
                     testfailed = True
-                    info_line = find_between("*** " + str(y.attrib['name']), "***", filepath=xmlpath)
+                    #info_line = find_between("*** " + str(y.attrib['name']), "***", filepath=xmlpath)
+                    info_line = ""
                     #print("info line: " + info_line)
                     #print(find_between("::author::", "::", data=info_line))
                     single_table = single_table + \
@@ -137,7 +138,8 @@ try:
                     "<td style='border:1px solid #ccc;'>" + str(y.attrib['name']) + "</td>" \
                     "<td style='border:1px solid #ccc; color:#ff0000;'> Failed </td>" \
                     "<td style='border:1px solid #ccc;'>"
-                    temp = find_known_issue(str(y.attrib['name']), xmlpath)
+                    #temp = find_known_issue(str(y.attrib['name']), xmlpath)
+                    temp = ""
                     strtemp = ""
                     if len(temp) > 0:
                         strtemp = strtemp + "Bug id:"
@@ -147,7 +149,7 @@ try:
                             strtemp = strtemp + " " + '<a href="https://cyware.atlassian.net/browse/' + bugs[i] + '" target="_blank">' + bugs[i] + "</a>"
 
                     single_table = single_table + \
-                    strtemp + deduce_reason(str(z.attrib['message'])) + "</td>" \
+                    strtemp + deduce_reason("") + "</td>" \
                     "<td style='border:1px solid #ccc;'>" + find_between("::author::", "::", data=info_line) + "</td>" \
                     "</tr>"
                     print("Test Suite:" + str(y.attrib['classname']) + " - Failed Test: " + str(y.attrib['name']))
