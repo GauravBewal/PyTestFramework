@@ -120,6 +120,8 @@ try:
                     failed = int(failed) + int(testsuite.attrib[x])
                 elif x == "tests":
                     total_cases = int(total_cases) + int(testsuite.attrib[x])
+                elif x == "skipped":
+                    skipped = int(skipped) + int(testsuite.attrib[x])
                 elif x == "time":
                     executiontime = float(executiontime) + float(testsuite.attrib[x])
             for y in testsuite.findall('testcase'):
@@ -166,8 +168,8 @@ try:
     # print(failed)
     # print(total_cases)
     # print(executiontime)
-    pieLabels = 'Pass', 'Fail'
-    populationShare = [total_cases - failed, failed]
+    pieLabels = 'Pass', 'Fail', 'Skipped'
+    populationShare = [total_cases - failed - skipped, failed, skipped]
     figureObject, axesObject = plotter.subplots()
     axesObject.pie(populationShare, labels=pieLabels, autopct='%1.2f', startangle=90)
     axesObject.axis('equal')
@@ -177,7 +179,8 @@ try:
         writer.write(('<b>Date: </b> ' + str(datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')) + "<br>").encode())
         writer.write(('<b>Execution Time:</b> ' + str(int(executiontime)) + " sec <br>").encode())
         writer.write(('<b>Total Cases:</b> ' + str(total_cases) + "<br>").encode())
-        writer.write(('<b>Passed:</b> ' + str(total_cases - failed) + "<br>").encode())
+        writer.write(('<b>Passed:</b> ' + str(total_cases - failed - skipped) + "<br>").encode())
+        writer.write(('<b>Skipped:</b> ' + str(skipped) + "<br>").encode())
         writer.write(('<b>Failed:</b> ' + str(failed) + "<br><br>").encode())
         #writer.write(emailcontent.encode())
         writer.write(single_table.encode())
