@@ -9,4 +9,6 @@ echo "$Email"
 echo "$Password"
 py.test -s -v -m $marker --url=$URL --email=$Email --password=$Password --html=./reports/report.html --junitxml=./reports/result.xml --capture sys
 echo "Test Execution Completed!"
+python3 -m jenkins/xml_to_simplified_html.py
+
 #[ -f jenkins/bridge.sh ] && chmod +x jenkins/bridge.sh && . jenkins/bridge.sh;
