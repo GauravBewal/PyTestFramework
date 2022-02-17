@@ -11,21 +11,20 @@ import datetime
 report_name = '../reports/simplified_html.html'
 reports_path = '../reports'
 
-argumentList = sys.argv[1:]
-options = "nr:"
-long_options = ["name", "reports_path ="]
 try:
-    arguments, values = getopt.getopt(argumentList, options, long_options)
-    for currentArgument, currentValue in arguments:
-
-        if currentArgument in ("-n", "--report_name"):
-            print("Report Name")
-
-        elif currentArgument in ("-r", "--reports_path"):
-            print(("Reports Path (% s)") % (currentValue))
-
+    args, values = getopt.getopt(sys.argv[1:], 'n:r:', ['report_name', 'reports_path'])
+    for key, value in args:
+        if key in ("-n", "--report_name"):
+            print("Report name argv " + str(value))
+            report_name = str(value)
+        elif key in ("-r", "--reports_path"):
+            print("xml Reports path argv " + str(value))
+            reports_path = str(value)
 except getopt.error as err:
     print(str(err))
+
+print("Report Name is: " + str(report_name))
+print("XML Reports Path is: " + str(reports_path))
 
 
 def deduce_reason(message):
