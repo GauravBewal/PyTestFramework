@@ -1,5 +1,6 @@
 #!/bin/bash
-
+pwd
+ls -la
 ./venv_setup_mac.sh
 source venv/bin/activate
 echo "$marker"
