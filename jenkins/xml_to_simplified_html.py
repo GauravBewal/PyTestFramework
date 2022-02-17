@@ -113,55 +113,53 @@ try:
     executiontime = 0
     xmlpaths = glob.glob(os.path.join(reports_path, "*.xml"))
     for xmlpath in xmlpaths:
-        print("path is: " + xmlpath)
         tree = et.parse(xmlpath)
-        for x in tree.getroot().attrib:
-            if x == "errors" or x == "failures":
-                failed = int(failed) + int(tree.getroot().attrib[x])
-            elif x == "tests":
-                total_cases = int(total_cases) + int(tree.getroot().attrib[x])
-            elif x == "time":
-                executiontime = float(executiontime) + float(tree.getroot().attrib[x])
+        for testsuite in tree.getroot().findall("testsuite"):
+            for x in testsuite.attrib:
+                if x == "errors" or x == "failures":
+                    failed = int(failed) + int(testsuite.attrib[x])
+                elif x == "tests":
+                    total_cases = int(total_cases) + int(testsuite.attrib[x])
+                elif x == "time":
+                    executiontime = float(executiontime) + float(testsuite.attrib[x])
+            for y in testsuite.findall('testcase'):
+                testfailed = False
+                for z in y.findall('error'):
+                    testfailed = True
+                    info_line = find_between("*** " + str(y.attrib['name']), "***", filepath=xmlpath)
+                    #print("info line: " + info_line)
+                    #print(find_between("::author::", "::", data=info_line))
+                    single_table = single_table + \
+                    "<tr>" \
+                    "<td style='border:1px solid #ccc;'>" + str(y.attrib['classname']) + "</td>" \
+                    "<td style='border:1px solid #ccc;'>" + str(y.attrib['name']) + "</td>" \
+                    "<td style='border:1px solid #ccc; color:#ff0000;'> Failed </td>" \
+                    "<td style='border:1px solid #ccc;'>"
+                    temp = find_known_issue(str(y.attrib['name']), xmlpath)
+                    strtemp = ""
+                    if len(temp) > 0:
+                        strtemp = strtemp + "Bug id:"
+                        temp = temp.replace(",", "")
+                        bugs = temp.split()
+                        for i in range(2, len(bugs)):
+                            strtemp = strtemp + " " + '<a href="https://cyware.atlassian.net/browse/' + bugs[i] + '" target="_blank">' + bugs[i] + "</a>"
 
-        for y in tree.findall('testcase'):
-            print("recursive-- ")
-            testfailed = False
-            for z in y.findall('error'):
-                testfailed = True
-                info_line = find_between("*** " + str(y.attrib['name']), "***", filepath=xmlpath)
-                #print("info line: " + info_line)
-                #print(find_between("::author::", "::", data=info_line))
-                single_table = single_table + \
-                "<tr>" \
-                "<td style='border:1px solid #ccc;'>" + str(y.attrib['classname']) + "</td>" \
-                "<td style='border:1px solid #ccc;'>" + str(y.attrib['name']) + "</td>" \
-                "<td style='border:1px solid #ccc; color:#ff0000;'> Failed </td>" \
-                "<td style='border:1px solid #ccc;'>"
-                temp = find_known_issue(str(y.attrib['name']), xmlpath)
-                strtemp = ""
-                if len(temp) > 0:
-                    strtemp = strtemp + "Bug id:"
-                    temp = temp.replace(",", "")
-                    bugs = temp.split()
-                    for i in range(2, len(bugs)):
-                        strtemp = strtemp + " " + '<a href="https://cyware.atlassian.net/browse/' + bugs[i] + '" target="_blank">' + bugs[i] + "</a>"
-
-                single_table = single_table + \
-                strtemp + deduce_reason(str(z.attrib['message'])) + "</td>" \
-                "<td style='border:1px solid #ccc;'>" + find_between("::author::", "::", data=info_line) + "</td>" \
-                "</tr>"
-                print("Test Suite:" + str(y.attrib['classname']) + " - Failed Test: " + str(y.attrib['name']))
-                # print(str(z.attrib['type']))
-            if not testfailed:
-                single_table = single_table + \
-                "<tr>" \
-                "<td style='border:1px solid #ccc;'>" + str(y.attrib['classname']) + "</td>" \
-                "<td style='border:1px solid #ccc;'>" + str(y.attrib['name']) + "</td>" \
-                "<td style='border:1px solid #ccc; color:#008000;'> Passed </td>" \
-                "<td style='border:1px solid #ccc;'></td>" \
-                "<td style='border:1px solid #ccc;'></td>" \
-                "</tr>"
-                print("Test Suite:" + str(y.attrib['classname']) + " - Passed Test: " + str(y.attrib['name']))
+                    single_table = single_table + \
+                    strtemp + deduce_reason(str(z.attrib['message'])) + "</td>" \
+                    "<td style='border:1px solid #ccc;'>" + find_between("::author::", "::", data=info_line) + "</td>" \
+                    "</tr>"
+                    print("Test Suite:" + str(y.attrib['classname']) + " - Failed Test: " + str(y.attrib['name']))
+                    # print(str(z.attrib['type']))
+                if not testfailed:
+                    single_table = single_table + \
+                    "<tr>" \
+                    "<td style='border:1px solid #ccc;'>" + str(y.attrib['classname']) + "</td>" \
+                    "<td style='border:1px solid #ccc;'>" + str(y.attrib['name']) + "</td>" \
+                    "<td style='border:1px solid #ccc; color:#008000;'> Passed </td>" \
+                    "<td style='border:1px solid #ccc;'></td>" \
+                    "<td style='border:1px solid #ccc;'></td>" \
+                    "</tr>"
+                    print("Test Suite:" + str(y.attrib['classname']) + " - Passed Test: " + str(y.attrib['name']))
     #ofailed_table = failed_table + "</table>"
     #opassed_table = passed_table + "</table><br>"
     single_table = single_table + "</table><br>"
