@@ -113,7 +113,7 @@ try:
     executiontime = 0
     xmlpaths = glob.glob(os.path.join(reports_path, "*.xml"))
     for xmlpath in xmlpaths:
-    	print("path is: " + xmlpath)
+        print("path is: " + xmlpath)
         tree = et.parse(xmlpath)
         for x in tree.getroot().attrib:
             if x == "errors" or x == "failures":
@@ -124,7 +124,7 @@ try:
                 executiontime = float(executiontime) + float(tree.getroot().attrib[x])
 
         for y in tree.findall('testcase'):
-        	print("recursive-- ")
+            print("recursive-- ")
             testfailed = False
             for z in y.findall('error'):
                 testfailed = True
