@@ -1,4 +1,7 @@
 #!/bin/bash
+
+python3 --version
+export PYTHONPATH=/csol_automation_suite
 cd csol_automation_suite
 ls -la
 ./venv_setup_mac.sh
