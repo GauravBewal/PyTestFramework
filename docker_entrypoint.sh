@@ -1,5 +1,5 @@
 #!/bin/bash
-pwd
+cd csol_automation_suite
 ls -la
 ./venv_setup_mac.sh
 source venv/bin/activate
