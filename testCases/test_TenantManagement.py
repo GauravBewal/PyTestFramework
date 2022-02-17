@@ -13,7 +13,6 @@ from utilities.Base import Base
 class TestTenantManagement(Base):
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_01_Tenant_Management_redirection(self):
         """
         Verify redirection of Tenant Management from the admin page
@@ -31,7 +30,6 @@ class TestTenantManagement(Base):
         time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_02_click_new_tenant(self):
         log = self.getlogger()
         tenant = TenantManagement(self.driver)
@@ -46,7 +44,6 @@ class TestTenantManagement(Base):
         assert slider_text == 'Add Tenant'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_03_switch_inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -62,7 +59,6 @@ class TestTenantManagement(Base):
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_03_switch_inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -78,7 +74,6 @@ class TestTenantManagement(Base):
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_04_switch_All_tab(self):
         """
             Verify switch to All tab from active tab

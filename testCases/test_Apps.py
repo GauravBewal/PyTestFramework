@@ -206,3 +206,4 @@ class TestApps(Base):
         tooltip_message = action.getText(my_apps.read_app_uninstall_success_message())
         search_result_message = action.getText(my_apps.get_search_result_after_uninstall())
         assert tooltip_message == 'App deleted successfully.' and search_result_message == 'No Results Found'
+

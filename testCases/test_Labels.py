@@ -62,11 +62,12 @@ class TestLabels(Base):
         tab_color = action.getElementColor(label.click_All())
         log.info("Switch to active tab")
         action.click(label.click_Active())
+        time.sleep(ReadConfig.Wait_3_Sec())
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_create_label_without_name(self):
+    def test_04_create_label_without_name(self):
         """
             Verify user is able to get error message when tried to create a label without any name
             TC_ID: Label-TC-002
@@ -80,7 +81,7 @@ class TestLabels(Base):
         action.sendKeys(label.put_Description(), "description")
         log.info("Click on to create label button")
         action.click(label.create_Label())
-        time.sleep(ReadConfig.Wait_10_Sec())
+        time.sleep(ReadConfig.Wait_3_Sec())
         error_msg = action.getText(label.get_label_field_error_msg())
         log.info("Click on to close label slider button")
         action.click(label.close_label_slider())
@@ -88,7 +89,7 @@ class TestLabels(Base):
         assert error_msg in 'Label Name is required'
 
     @pytest.mark.smoke
-    def test_03_create_label(self):
+    def test_05_create_label(self):
         """
             Verify Label Create functionality
             TC_ID: Label-TC-002
@@ -119,7 +120,7 @@ class TestLabels(Base):
         assert label_text == get_created_label_name and before_label_creation_count + 1 == after_label_creation_count
 
     @pytest.mark.smoke
-    def test_04_search_label(self):
+    def test_06_search_label(self):
         """
             Verify Search functionality of the Labels
             TC_ID: Label-TC-005
@@ -139,7 +140,7 @@ class TestLabels(Base):
         assert search_text in read_top_search_result
 
     @pytest.mark.smoke
-    def test_05_update_label(self):
+    def test_07_update_label(self):
         """
           verify user is able to update the label
           TC_ID: Label-TC-002
@@ -166,7 +167,7 @@ class TestLabels(Base):
         assert new_label_name == updated_label_name
 
     @pytest.mark.smoke
-    def test_06_read_modified_created_column_data(self):
+    def test_08_read_modified_created_column_data(self):
         """
         Verify user is able to see the created by and modified by details after creating and modifying label
         TC_ID: Label-TC-002
@@ -182,7 +183,7 @@ class TestLabels(Base):
         assert label_created_user_name == label_modified_user_name
 
     @pytest.mark.smoke
-    def test_07_deactivate_label(self):
+    def test_09_deactivate_label(self):
         """
         Verify label is being listed under inactive tab once label was de-activated
         TC_ID: Label-TC-003

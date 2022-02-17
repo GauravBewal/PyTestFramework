@@ -6,7 +6,7 @@ class Syslogs:
     def __init__(self, driver):
         self.driver = driver
 
-    tab_SysLogs = (By.XPATH, "//div[@class='admin-components__list']//div[10]")
+    tab_SysLogs = (By.XPATH, "//p[contains(text(),'Syslogs')]/parent::div/parent::div")
 
     def click_SysLogs(self):
         return self.driver.find_element(*Syslogs.tab_SysLogs)

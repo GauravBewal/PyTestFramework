@@ -6,7 +6,7 @@ class OpenApi:
     def __init__(self, driver):
         self.driver = driver
 
-    tab_Open_API = (By.XPATH, "//div[@class='admin-components__list']//div[8]")
+    tab_Open_API = (By.XPATH, "//p[contains(text(),'Open API')]/parent::div/parent::div")
 
     def click_Open_API_tab(self):
         return self.driver.find_element(*OpenApi.tab_Open_API)

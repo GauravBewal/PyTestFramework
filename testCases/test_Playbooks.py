@@ -302,10 +302,9 @@ class TestPlaybook(Base):
         log.info("Click exit without save button")
         action.click(playbooks.click_exit_without_save())
         assert section_title == 'Apps (0) / Actions (0)' and text == 'No App/Actions Available'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_16_click_customize_table(self):
         """
         Verify whether user is able to click on customize table

@@ -37,7 +37,6 @@ def login(getEmail, getPassword):
     button_login = "//button[contains(text(),'Login')]"
 
     try:
-        time.sleep(ReadConfig.Wait_10_Sec())
         put_emailId = webapp_driver.find_element_by_xpath(text_field_emailID)
         put_emailId.send_keys(getEmail)
         put_password = webapp_driver.find_element_by_xpath(text_filed_password)

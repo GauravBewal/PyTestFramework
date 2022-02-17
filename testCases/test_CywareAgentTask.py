@@ -9,7 +9,6 @@ from utilities.Base import Base
 class TestCywareAgentTask(Base):
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_01_cyware_agent_task_redirection(self):
         """
             Verify Cyware Agent Task redirection from Main Menu

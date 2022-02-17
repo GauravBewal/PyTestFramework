@@ -6,7 +6,7 @@ class TenantManagement:
     def __init__(self, driver):
         self.driver = driver
 
-    tab_Tenant_Management = (By.XPATH, "//div[@class='admin-components__list']//div[4]")
+    tab_Tenant_Management = (By.XPATH, "//p[contains(text(),'Tenant Management')]/parent::div/parent::div")
 
     def click_Tenant_Management(self):
         return self.driver.find_element(*TenantManagement.tab_Tenant_Management)
