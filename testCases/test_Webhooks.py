@@ -14,7 +14,7 @@ class TestWebhooks(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_admin_Webhooks(self):
+    def test_01_Verify_admin_Webhooks_redirection(self):
         """
             Verify redirection of Webhooks from the admin page
             Validation - 1. On the basis of Window's title
@@ -32,7 +32,7 @@ class TestWebhooks(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_new_webhook(self):
+    def test_02_click_new_webhook_btn(self):
         """
             Verify create button functionality of new webhook
             Validation - 2. On the basis of slider title
@@ -51,7 +51,7 @@ class TestWebhooks(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_switch_inactive_tab(self):
+    def test_03_Verify_switch_inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 3. On the basis of tab color
@@ -67,7 +67,7 @@ class TestWebhooks(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_switch_All_tab(self):
+    def test_04_Verify_switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 3. On the basis of tab color

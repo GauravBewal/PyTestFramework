@@ -83,6 +83,7 @@ class Labels:
         return self.driver.find_element(*Labels.tab_inActive)
 
 
+
     tab_All = (By.XPATH, "//li/a[contains(text(),'All')]")
 
     def click_All(self):

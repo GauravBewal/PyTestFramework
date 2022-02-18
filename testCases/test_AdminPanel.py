@@ -11,7 +11,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_admin_panel_redirection(self):
+    def test_01_Verify_admin_panel_redirection(self):
         """
             Verify redirection of the admin menu
             Validation - 1. On the basis of Window's title
@@ -25,7 +25,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_admin_Configurations(self):
+    def test_02_Verify_admin_Configurations_redirection(self):
         """
             Verify redirection of Configurations from the admin page
             Validation - 2. On the basis of Window's title
@@ -39,7 +39,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_admin_Authentication(self):
+    def test_03_Verify_admin_Authentication_redirection(self):
         """
             Verify redirection of Authentication from the admin page
             Validation - 3. On the basis of Window's title
@@ -55,7 +55,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_admin_License_Management(self):
+    def test_04_Verify_admin_License_Management_redirection(self):
         """
             Verify redirection of License Management from the admin page
             Validation - 4. On the basis of Window's title
@@ -71,7 +71,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_update_licence_key(self):
+    def test_05_click_update_licence_key_btn(self):
         """
             Verify updation of licence key
             Validation -5 : Based on the placeholder text of licence field
@@ -86,7 +86,7 @@ class TestAdminPanel(Base):
         assert placeholder_text == 'Enter License Key *'
 
     @pytest.mark.smoke
-    def test_06_admin_Cyware_Agent(self):
+    def test_06_Verify_admin_Cyware_Agent_redirection(self):
         """
             Verify redirection of Cyware Agent from the admin page
             Validation - 1. On the basis of Window's title
@@ -102,7 +102,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_07_Console_Status(self):
+    def test_07_Verify_admin_Console_Status_redirection(self):
         """
             Verify redirection of Console Status from the admin page
             Validation - 1. On the basis of Window's title
@@ -118,7 +118,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_08_Playbook_tags(self):
+    def test_08_Verify_admin_Playbook_tags_redirection(self):
         """
             Verify redirection of Playbook Tags from the admin page
             Validation - 1. On the basis of Window's title

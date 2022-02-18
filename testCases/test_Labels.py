@@ -11,6 +11,10 @@ from utilities.Base import Base
 
 @pytest.mark.usefixtures("setup")
 class TestLabels(Base):
+    global active_labels
+    active_labels = 0
+    global inactive_labels
+    inactive_labels = 0
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -22,10 +26,15 @@ class TestLabels(Base):
         log = self.getlogger()
         nav = Navigation(self.driver)
         action = Action(self.driver)
+        label = Labels(self.driver)
         log.info("Click on to main menu")
         action.click(nav.click_Main_Menu())
         log.info("Click on to label module for redirection")
         action.click(nav.Navigate_Labels())
+        log.info("Read the no of active labels available")
+        global active_labels
+        time.sleep(ReadConfig.Wait_3_Sec())
+        active_labels = action.getCountfromString(label.get_label_count())
         log.info("Validating the page title")
         assert action.getTitle() in 'Labels | Cyware Orchestrate'
         time.sleep(ReadConfig.Wait_3_Sec())
@@ -42,9 +51,15 @@ class TestLabels(Base):
         action = Action(self.driver)
         log.info("Click on the inactive tab")
         action.click(label.click_InActive())
+        log.info("Read the no of inactive labels available")
+        global inactive_labels
+        time.sleep(ReadConfig.Wait_3_Sec())
+        inactive_labels = action.getCountfromString(label.get_label_count())
         log.info("Read the tab color")
         tab_color = action.getElementColor(label.click_InActive())
         assert tab_color == '#1a3ee8'
+        time.sleep(ReadConfig.Wait_3_Sec())
+
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -60,10 +75,10 @@ class TestLabels(Base):
         action.click(label.click_All())
         log.info("Read the tab color")
         tab_color = action.getElementColor(label.click_All())
-        log.info("Switch to active tab")
-        action.click(label.click_Active())
         time.sleep(ReadConfig.Wait_3_Sec())
-        assert tab_color == '#1a3ee8'
+        log.info("Read the no of active labels available")
+        all_created_labels = action.getCountfromString(label.get_label_count())
+        assert tab_color == '#1a3ee8' and all_created_labels == inactive_labels + active_labels
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -75,6 +90,8 @@ class TestLabels(Base):
         log = self.getlogger()
         action = Action(self.driver)
         label = Labels(self.driver)
+        log.info("Switch to active tab")
+        action.click(label.click_Active())
         log.info("Click on to New Label Button")
         action.click(label.click_New_Label())
         log.info("Enter description of a label")

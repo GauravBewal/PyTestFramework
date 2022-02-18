@@ -14,7 +14,7 @@ class TestProfileSettings(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_profile_settings_redirection(self):
+    def test_01_Verify_profile_settings_redirection(self):
         """
             Verify user is able to access profile setting page
             Validation - 1. On the basis of Window's title
@@ -33,7 +33,7 @@ class TestProfileSettings(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_Change_Password_redirection(self):
+    def test_02_Verify_Change_Password_redirection(self):
         """
             Verify user is able to click on Change Password on Profile Settings page
             Validation 1. - On the basis of slider title
@@ -49,7 +49,7 @@ class TestProfileSettings(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_click_on_edit_profile(self):
+    def test_03_click_on_edit_profile_btn(self):
         """
               Verify user is able to click on edit profile button
               Validation: Based on the save button visibility
