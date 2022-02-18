@@ -152,3 +152,13 @@ class MyApps:
 
     def Walk_through_button(self):
         return self.driver.find_element(*MyApps.button_app_walkthrough)
+
+    walkthrough_tooltip_count = (By.XPATH, "//div[@class='introjs-helperNumberLayer']")
+
+    def get_tooltip_count(self):
+        return self.driver.find_element(*MyApps.walkthrough_tooltip_count)
+
+    walkthrough_tooltip_next_btn = (By.XPATH, "//a[contains(@class,'introjs-nextbutton')]")
+
+    def click_on_next_btn(self):
+        return self.driver.find_element(*MyApps.walkthrough_tooltip_next_btn)

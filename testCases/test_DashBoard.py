@@ -9,8 +9,11 @@ from utilities.Base import Base
 from configuration.readConfiguration import ReadConfig
 
 
+
 @pytest.mark.usefixtures("setup")
 class TestDashBoard(Base):
+
+
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -120,7 +123,7 @@ class TestDashBoard(Base):
         log.info("Click on the start date button")
         action.click(dashboard.click_start_date_btn())
         log.info("Select start date from calendar")
-        action.click(dashboard.select_calendar_start_date())
+        action.javascript_click_element(dashboard.select_calendar_start_date())
         log.info("select end date from calendar")
         action.click(dashboard.select_calendar_end_date())
         log.info("Click on the start date button to check whether date is selected or not")
