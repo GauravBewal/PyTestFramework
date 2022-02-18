@@ -3,6 +3,7 @@ import time
 import pytest
 
 from configuration.readConfiguration import ReadConfig
+from selenium.common.exceptions import NoSuchElementException
 from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
@@ -31,9 +32,27 @@ class TestApps(Base):
         time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
+    @pytest.mark.readOnly
+    @pytest.mark.smoke
+    def test_02_myapps_close_automatic_walkthrough(self):
+        """
+            close all automatically initiated walkthroughs for new poc
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        myapps = MyApps(self.driver)
+        try:
+            log.info("click on the next button")
+            tooltip_count = action.get_walkthrough_slider_count(myapps.get_tooltip_count())
+            for i in range(0, tooltip_count):
+                action.click(myapps.click_on_next_btn())
+        except NoSuchElementException:
+            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
+            pass
+
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_Verify_appstore_switch_tab(self):
+    def test_03_Verify_appstore_switch_tab(self):
         """
             Verify user is able to switch from My apps to App Store
             Validation - 1. On the basis of Window's title
@@ -46,9 +65,27 @@ class TestApps(Base):
         time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() in 'Appstore | Cyware Orchestrate'
 
+    @pytest.mark.readOnly
+    @pytest.mark.smoke
+    def test_04_cyware_apps_close_automatic_walkthrough(self):
+        """
+            close all automatically initiated walkthroughs for new poc
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        myapps = MyApps(self.driver)
+        try:
+            log.info("click on the next button")
+            tooltip_count = action.get_walkthrough_slider_count(myapps.get_tooltip_count())
+            for i in range(0, tooltip_count):
+                action.click(myapps.click_on_next_btn())
+        except NoSuchElementException:
+            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
+            pass
+
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_Verify_my_apps_switch_tab(self):
+    def test_05_Verify_my_apps_switch_tab(self):
         """
             Verify user is able to switch from App Store to My Apps
             Validation - 1. On the basis of Window's title
@@ -62,7 +99,7 @@ class TestApps(Base):
         assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    def test_04_create_new_custom_app(self):
+    def test_06_create_new_custom_app(self):
         """
             Verify user is able to create a new app manually
             Validation - 1. By check count increase under My apps
@@ -96,7 +133,7 @@ class TestApps(Base):
         assert count_of_app_before_creation + 1 == count_of_app_after_creation
 
     @pytest.mark.smoke
-    def test_05_search_manual_created_app(self):
+    def test_07_search_manual_created_app(self):
         """
             Verify user is able to search new manually created app.
             Validation - 1. search the app which is created new manually.
@@ -110,7 +147,7 @@ class TestApps(Base):
         assert new_app_name == action.getText(myapps.top_first_search())
 
     @pytest.mark.smoke
-    def test_06_app_detail_for_custom_created(self):
+    def test_08_app_detail_for_custom_created(self):
         """
             Verify the app detail page redirection
             Validation - 1. On the basis of Window's title
@@ -128,7 +165,7 @@ class TestApps(Base):
         assert page_title == 'App Summary | Cyware Orchestrate' and app_title_listing == app_title_summary
 
     @pytest.mark.smoke
-    def test_07_Verify_switch_app_actions_tab(self):
+    def test_09_Verify_switch_app_actions_tab(self):
         """
             Verify user is able to switch app action tab
             Validation - 1. On the basis of Window's title
@@ -142,7 +179,7 @@ class TestApps(Base):
         assert page_title == 'App Actions | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    def test_08_Verify_switch_app_instance_tab(self):
+    def test_10_Verify_switch_app_instance_tab(self):
         """
             Verify user is able to switch on Instance App tab
             Validation - 1. On the basis of Window's title
@@ -156,7 +193,7 @@ class TestApps(Base):
         assert page_title == 'App Instances | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    def test_09_create_new_instance_for_custom_created_app(self):
+    def test_11_create_new_instance_for_custom_created_app(self):
         """
             Verify user is able to new instance.
             Validation - 1. By check presence of created instance's title on page
@@ -172,7 +209,7 @@ class TestApps(Base):
         assert action.getText(my_apps.read_default_instance()) == 'test'
 
     @pytest.mark.smoke
-    def test_10_Verify_switch_playbook_tab(self):
+    def test_12_Verify_switch_playbook_tab(self):
         """
             Verify user is able to switch to playbook tab.
             Validation - 1. On the basis of Window's title
@@ -186,7 +223,7 @@ class TestApps(Base):
         assert page_title == 'App Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
-    def test_11_uninstall_custom_created_app(self):
+    def test_13_uninstall_custom_created_app(self):
         """
             Verify user is able to uninstall app
             Validation - 1. On the basis of search same app

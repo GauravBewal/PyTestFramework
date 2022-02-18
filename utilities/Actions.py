@@ -10,6 +10,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 
+
 class Action:
 
     def __init__(self, driver):
@@ -106,3 +107,5 @@ class Action:
     def dismiss_alert(self):
         alert = self.driver.switch_to_alert()
         alert.dismiss()
+
+

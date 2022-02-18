@@ -55,3 +55,13 @@ class Admin:
 
     def field_licence_key(self):
         return self.driver.find_element(*Admin.text_licence_field)
+
+    walkthrough_tooltip_count = (By.XPATH, "//div[@class='introjs-helperNumberLayer']")
+
+    def get_tooltip_count(self):
+        return self.driver.find_element(*Admin.walkthrough_tooltip_count)
+
+    walkthrough_tooltip_next_btn = (By.XPATH, "//a[contains(@class,'introjs-nextbutton')]")
+
+    def click_on_next_btn(self):
+        return self.driver.find_element(*Admin.walkthrough_tooltip_next_btn)

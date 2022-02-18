@@ -3,6 +3,7 @@ import time
 import pytest
 
 from configuration.readConfiguration import ReadConfig
+from selenium.common.exceptions import NoSuchElementException
 from pageObjects.Navigation import Navigation
 from pageObjects.Playbooks import Playbooks
 from utilities.Actions import Action
@@ -33,18 +34,23 @@ class TestPlaybook(Base):
         assert read_page_heading == 'Manage Playbooks'
         time.sleep(ReadConfig.Wait_10_Sec())
 
-    @pytest.mark.NewPoc
+    @pytest.mark.readOnly
+    @pytest.mark.smoke
     def test_02_my_playbooks_close_automatic_walkthrough(self):
         """
-                close all automatically initiated walkthroughs for new poc
+            close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        log.info("click on the next button")
-        tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
-        for i in range(0, tooltip_count):
-            action.click(playbooks.click_on_next_btn())
+        try:
+            log.info("click on the next button")
+            tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+            for i in range(0, tooltip_count):
+                action.click(playbooks.click_on_next_btn())
+        except NoSuchElementException:
+            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
+            pass
 
 
     @pytest.mark.smoke
@@ -62,10 +68,28 @@ class TestPlaybook(Base):
         time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() == 'Cyware Playbooks | Cyware Orchestrate'
 
+    @pytest.mark.readOnly
+    @pytest.mark.smoke
+    def test_04_cyware_playbooks_close_automatic_walkthrough(self):
+        """
+            close all automatically initiated walkthroughs for new poc
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        try:
+            log.info("click on the next button")
+            tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+            for i in range(0, tooltip_count):
+                action.click(playbooks.click_on_next_btn())
+        except NoSuchElementException:
+            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
+            pass
+
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_Verify_My_Playbooks_switch_tab(self):
+    def test_05_Verify_My_Playbooks_switch_tab(self):
         """
             Verify user is able to switch from Cyware Playbooks to My Playbooks
             Validation - 1. On the basis of Windows title
@@ -82,7 +106,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_verify_click_create_new_playbook_btn(self):
+    def test_06_verify_click_create_new_playbook_btn(self):
         """
         Verify user is able to click on create new playbook button
         Validation : Based on the window title
@@ -99,7 +123,25 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_06_verify_click_add_node_btn(self):
+    def test_07_edit_mode_close_automatic_walkthrough(self):
+        """
+                close all automatically initiated walkthroughs for new poc
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        try:
+            log.info("click on the next button")
+            tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+            for i in range(0, tooltip_count):
+                action.click(playbooks.click_on_next_btn())
+        except NoSuchElementException:
+            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
+            pass
+
+    @pytest.mark.readOnly
+    @pytest.mark.smoke
+    def test_08_verify_click_add_node_btn(self):
         """
           Verify click on add node button
           Validation : Based on the add node slider title
@@ -115,7 +157,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_07_Verify_all_nodes_visibility(self):
+    def test_09_Verify_all_nodes_visibility(self):
         """
            Verify user is able to see all the nodes
            Validation: Based on the nodes category title
@@ -135,7 +177,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_08_check_video_walkthrough(self):
+    def test_10_check_video_walkthrough(self):
         """
                    Verify user is able to see the video walkthough
                    Validation: Based on the video walkthrough popup title
@@ -157,7 +199,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_09_check_tooltip_walkthrough(self):
+    def test_11_check_tooltip_walkthrough(self):
         """
                    Verify user is able to see the tooltip walkthough
                    Validation: Based on the tooltip walkthrough title
@@ -182,7 +224,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_10_check_save_options(self):
+    def test_12_check_save_options(self):
         """
                    Verify user is able to see the save options
                    Validation: Based on the save options visibility
@@ -198,7 +240,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_11_check_playbook_overview_slider(self):
+    def test_13_check_playbook_overview_slider(self):
         """
             Verify user is able to see the playbook overview slider
             Validation: Based on the slider title
@@ -215,7 +257,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_12_switch_output_parameters_section(self):
+    def test_14_switch_output_parameters_section(self):
         """
             Verify whether user is able to click on output parameter
             Validation: Based on the section title and add parameter button visibility
@@ -236,7 +278,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_13_add_output_parameter(self):
+    def test_15_add_output_parameter(self):
         """
             Verify user is able to add the output parameters
             Validation: Based on the params visibility
@@ -256,7 +298,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_14_Verify_switch_to_associated_playbooks(self):
+    def test_16_Verify_switch_to_associated_playbooks(self):
         """
             Verify user is able to switch to associated playbooks section
             Validation: Based on the section title and no state text
@@ -277,7 +319,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_15_Verify_switch_to_sub_playbooks_tab(self):
+    def test_17_Verify_switch_to_sub_playbooks_tab(self):
         """
             Verify whether user is able to switch to sub-playbooks section
             Validation: Based on the subplaybooks tab color
@@ -294,7 +336,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_16_Verify_switch_app_and_actions(self):
+    def test_18_Verify_switch_app_and_actions(self):
         """
             Verify whether user is able switch to apps and actions section
             Validation based on section title and no state text
@@ -319,7 +361,7 @@ class TestPlaybook(Base):
         time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
-    def test_17_click_customize_table_btn(self):
+    def test_19_click_customize_table_btn(self):
         """
         Verify whether user is able to click on customize table
         Validation: Based on the slider title
@@ -338,7 +380,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_18_click_filter_btn(self):
+    def test_20_click_filter_btn(self):
         """
         Verify whether user is able to click on filter button
         Validation: Based on the slider title
@@ -357,7 +399,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_19_view_playbook(self):
+    def test_21_view_playbook(self):
         """
         Verify opening playbook in view mode from cyware playbook
         Validation : Based on the window's title
@@ -378,9 +420,27 @@ class TestPlaybook(Base):
         page_title = action.getTitle()
         assert page_title == 'View Playbook | Cyware Orchestrate'
 
+    @pytest.mark.readOnly
+    @pytest.mark.smoke
+    def test_22_view_mode_close_automatic_walkthrough(self):
+        """
+            close all automatically initiated walkthroughs for new poc
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        try:
+            log.info("click on the next button")
+            tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+            for i in range(0, tooltip_count):
+                action.click(playbooks.click_on_next_btn())
+        except NoSuchElementException:
+            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
+            pass
+
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_20_check_export_options_visibility(self):
+    def test_23_check_export_options_visibility(self):
         """
         Verify whether user is able to seen the export options
         Validation: Based on the export options visibility
@@ -400,7 +460,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_21_check_clone_btn_visibility(self):
+    def test_24_check_clone_btn_visibility(self):
         """
         Verify whether user is able to see the clone button
         Validation: Based on the clone button visibility
@@ -417,7 +477,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_22_click_on_test_instances(self):
+    def test_25_click_on_test_instances(self):
         """
         Verify whether user is able to click on the test connectivity
         Validation:- Based on the slider title
