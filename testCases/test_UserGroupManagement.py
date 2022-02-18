@@ -14,7 +14,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_User_Group_Management_redirection(self):
+    def test_01_Verify_User_Group_Management_redirection(self):
         """
         Verify redirection to user group management from admin menu
         Validation 1: On the basis of window's title
@@ -33,7 +33,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_add_user_group(self):
+    def test_02_click_new_user_group_btn(self):
         """
             Verify creation of new user group
             Validation - 1. On the basis of slider title
@@ -52,7 +52,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_switch_inactive_tab(self):
+    def test_03_Verify_switch_inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -68,7 +68,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_switch_All_tab(self):
+    def test_04_Verify_switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 1. On the basis of tab color

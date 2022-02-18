@@ -14,7 +14,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_dashboard_redirection(self):
+    def test_01_Verify_dashboard_redirection(self):
         """
             Verify Dashboard redirection from Main Menu
             Validation - 1. On the basis of Window's title
@@ -27,7 +27,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_check_all_widgets(self):
+    def test_02_check_all_widgets_visibility(self):
         """
         Check whether user is able to see all the widgets
         Validation: Based on the widget title's
@@ -50,7 +50,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_click_on_view_all(self):
+    def test_03_click_on_ViewAll_btn(self):
         """
             Verify that View All button is working as expected or not
             Validation - 1. On the basis of Legends button visibility
@@ -62,6 +62,7 @@ class TestDashBoard(Base):
         for element in range(1, len(elements_list)+1):
             path = "(//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')])["+str(element)+"]"
             action.click(dashboard.click_on_path(path))
+            time.sleep(ReadConfig.Wait_3_Sec())
             t = action.check_visibility_of_element(dashboard.visibility_of_legends_btn())
             action.click(dashboard.click_on_back_btn())
             time.sleep(ReadConfig.Wait_3_Sec())
@@ -69,7 +70,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_check_maximize_btn(self):
+    def test_04_click_maximize_btn(self):
         """
         Check whether user is able to click on the maximize button
         Validation: Based on the minimize button visibility after clicking on maximize button
@@ -87,7 +88,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_check_dark_mode(self):
+    def test_05_switch_dark_mode(self):
         """
         Verify whether user is able to switch to dark mode
         Validation: Based on the icon visibility and element color visibility

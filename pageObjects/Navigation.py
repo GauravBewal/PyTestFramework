@@ -11,6 +11,11 @@ class Navigation:
     def click_Main_Menu(self):
         return self.driver.find_element(*Navigation.nav_main_menu)
 
+    nav_menu_synopsis_btn = (By.XPATH, "//i[@class='cyicon-settings setting-icon']/parent::div")
+
+    def click_synopsis_btn(self):
+        return self.driver.find_element(*Navigation.nav_menu_synopsis_btn)
+
     nav_admin_menu = (By.CSS_SELECTOR, "i.icon.icon-settings-gear")
 
     def click_Admin_Menu(self):

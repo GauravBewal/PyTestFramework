@@ -13,7 +13,7 @@ class TestRUnLogs(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_run_logs(self):
+    def test_01_Verify_run_logs_redirection(self):
         """
             Verify Run Logs redirection from Main Menu
         """
@@ -28,7 +28,7 @@ class TestRUnLogs(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_on_filters(self):
+    def test_02_click_on_filters_btn(self):
         """
         Verify whether user is able click on filter
         Validation: Based on the filter title

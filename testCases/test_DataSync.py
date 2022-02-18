@@ -14,7 +14,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_data_sync_redirection(self):
+    def test_01_verify_data_sync_redirection(self):
         """
             Verify Data Sync redirection from Main Menu
             Validation - 1. On the basis of Window's title
@@ -28,7 +28,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_create_data_sync(self):
+    def test_02_click_create_data_sync_btn(self):
         """
             Verify creation of new data sync job from Main Menu
             Validation -1. On the basis of Page title
@@ -49,7 +49,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_switch_run_history(self):
+    def test_03_Verify_switch_run_history(self):
         """
             Verify switch from Data Sync to Run History Logs
             Validation - 1. On the basis of Window's title
@@ -63,7 +63,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_switch_job_details_data_Sync(self):
+    def test_04_Verify_switch_data_sync_job_details(self):
         """
             Verify switch from Run History Logs to Data Sync Job details
             Validation - 1. On the basis of Window's title

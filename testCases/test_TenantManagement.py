@@ -13,7 +13,7 @@ from utilities.Base import Base
 class TestTenantManagement(Base):
 
     @pytest.mark.smoke
-    def test_01_Tenant_Management_redirection(self):
+    def test_01_Verify_Tenant_Management_redirection(self):
         """
         Verify redirection of Tenant Management from the admin page
         Validation 1: On the basis of window title
@@ -30,7 +30,11 @@ class TestTenantManagement(Base):
         time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
-    def test_02_click_new_tenant(self):
+    def test_02_click_new_tenant_btn(self):
+        """
+        Verify whether user is able to click on new tenant button
+        Validation: Based on the slider title
+        """
         log = self.getlogger()
         tenant = TenantManagement(self.driver)
         action = Action(self.driver)
@@ -44,7 +48,7 @@ class TestTenantManagement(Base):
         assert slider_text == 'Add Tenant'
 
     @pytest.mark.smoke
-    def test_03_switch_inactive_tab(self):
+    def test_03_Verify_switch_inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -59,7 +63,7 @@ class TestTenantManagement(Base):
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
-    def test_03_switch_inactive_tab(self):
+    def test_03_Verify_switch_inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -74,7 +78,7 @@ class TestTenantManagement(Base):
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
-    def test_04_switch_All_tab(self):
+    def test_04_Verify_switch_All_tab(self):
         """
             Verify switch to All tab from active tab
             Validation - 1. On the basis of tab color

@@ -25,6 +25,7 @@ def setup(request):
     getPassword = request.config.getoption("password")
     wd = WebDriverFactory(browser_name, base_url)
     webapp_driver = wd.getWebDriverInstance()
+    time.sleep(ReadConfig.Wait_3_Sec())
     login(getEmail, getPassword)
     request.cls.driver = webapp_driver
     yield
@@ -43,7 +44,7 @@ def login(getEmail, getPassword):
         put_password.send_keys(getPassword)
         click_Login = webapp_driver.find_element_by_xpath(button_login)
         click_Login.click()
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_10_Sec())
     except Exception as e:
         print(e)
 
