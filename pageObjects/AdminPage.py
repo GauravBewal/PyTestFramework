@@ -6,32 +6,32 @@ class Admin:
     def __init__(self, driver):
         self.driver = driver
 
-    tab_Configuration = (By.XPATH, "//div[@class='admin-components__list']//div[1]")
+    tab_Configuration = (By.XPATH, "//p[contains(text(),'Configuration')]/parent::div/parent::div")
 
     def click_Configuration(self):
         return self.driver.find_element(*Admin.tab_Configuration)
 
-    tab_Authentication = (By.XPATH, "//div[@class='admin-components__list']//div[2]")
+    tab_Authentication = (By.XPATH, "//p[contains(text(),'Authentication')]/parent::div/parent::div")
 
     def click_Authentication(self):
         return self.driver.find_element(*Admin.tab_Authentication)
 
-    tab_License_Management = (By.XPATH, "//div[@class='admin-components__list']//div[3]")
+    tab_License_Management = (By.XPATH, "//p[contains(text(),'License Management')]/parent::div/parent::div")
 
     def click_License_Management(self):
         return self.driver.find_element(*Admin.tab_License_Management)
 
-    tab_Cyware_Agent = (By.XPATH, "//div[@class='admin-components__list']//div[7]")
+    tab_Cyware_Agent = (By.XPATH, "//p[contains(text(),'Cyware Agent')]/parent::div/parent::div")
 
     def click_Cyware_Agent(self):
         return self.driver.find_element(*Admin.tab_Cyware_Agent)
 
-    tab_Console_Status = (By.XPATH, "//div[@class='admin-components__list']//div[11]")
+    tab_Console_Status = (By.XPATH, "//p[contains(text(),'Console Status')]/parent::div/parent::div")
 
     def click_Console_Status(self):
         return self.driver.find_element(*Admin.tab_Console_Status)
 
-    tab_Playbook_tags = (By.XPATH, "//div[@class='admin-components__list']//div[12]")
+    tab_Playbook_tags = (By.XPATH, "//p[contains(text(),'Playbook Tags')]/parent::div/parent::div")
 
     def click_Playbook_tags(self):
         return self.driver.find_element(*Admin.tab_Playbook_tags)

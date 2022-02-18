@@ -6,22 +6,22 @@ class ConsoleStatus:
     def __init__(self, driver):
         self.driver = driver
 
-    left_panel_elastic_search = (By.XPATH, "//*[@id='admin-left__panel']/ul/li[11]/div[3]")
+    left_panel_elastic_search = (By.XPATH, "//div[contains(text(),'Elasticsearch')]")
 
     def click_elastic_search(self):
         return self.driver.find_element(*ConsoleStatus.left_panel_elastic_search)
 
-    left_panel_my_sql = (By.XPATH, "//*[@id='admin-left__panel']/ul/li[11]/div[4]")
+    left_panel_my_sql = (By.XPATH, "//div[contains(text(),'MySQL')]")
 
     def click_my_sql(self):
         return self.driver.find_element(*ConsoleStatus.left_panel_my_sql)
 
-    left_panel_redis = (By.XPATH, "//*[@id='admin-left__panel']/ul/li[11]/div[5]")
+    left_panel_redis = (By.XPATH, "//div[contains(text(),'Redis')]")
 
     def click_redis(self):
         return self.driver.find_element(*ConsoleStatus.left_panel_redis)
 
-    left_panel_celery = (By.XPATH, "//*[@id='admin-left__panel']/ul/li[11]/div[6]")
+    left_panel_celery = (By.XPATH, "//div[contains(text(),'Celery')]")
 
     def click_celery(self):
         return self.driver.find_element(*ConsoleStatus.left_panel_celery)
@@ -31,12 +31,12 @@ class ConsoleStatus:
     def get_server_page_heading(self):
         return self.driver.find_element(*ConsoleStatus.text_server_page_heading)
 
-    left_panel_gunicorn = (By.XPATH, "//*[@id='admin-left__panel']/ul/li[11]/div[7]")
+    left_panel_gunicorn = (By.XPATH, "//div[contains(text(),'Gunicorn')]")
 
     def click_gunicorn(self):
         return self.driver.find_element(*ConsoleStatus.left_panel_gunicorn)
 
-    left_panel_ngnix = (By.XPATH, "//*[@id='admin-left__panel']/ul/li[11]/div[8]")
+    left_panel_ngnix = (By.XPATH, "//div[contains(text(),'Nginx')]")
 
     def click_ngnix(self):
         return self.driver.find_element(*ConsoleStatus.left_panel_ngnix)

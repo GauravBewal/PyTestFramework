@@ -6,7 +6,7 @@ class Webhooks:
     def __init__(self, driver):
         self.driver = driver
 
-    tab_Webhooks = (By.XPATH, "//div[@class='admin-components__list']//div[9]")
+    tab_Webhooks = (By.XPATH, "//p[contains(text(),'Webhook')]/parent::div/parent::div")
 
     def click_Webhooks(self):
         return self.driver.find_element(*Webhooks.tab_Webhooks)

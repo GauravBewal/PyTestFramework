@@ -6,7 +6,7 @@ class UserGroupManagement:
     def __init__(self, driver):
         self.driver = driver
 
-    tab_User_Group_Management = (By.XPATH, "//div[@class='admin-components__list']//div[6]")
+    tab_User_Group_Management = (By.XPATH, "//p[contains(text(),'User Group')]/parent::div/parent::div")
 
     def click_User_Group_Management(self):
         return self.driver.find_element(*UserGroupManagement.tab_User_Group_Management)

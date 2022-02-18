@@ -6,7 +6,7 @@ class UserManagement:
     def __init__(self, driver):
         self.driver = driver
 
-    tab_User_Management = (By.XPATH, "//div[@class='admin-components__list']//div[5]")
+    tab_User_Management = (By.XPATH, "//p[contains(text(),'User Management')]/parent::div/parent::div")
 
     def click_User_Management(self):
         return self.driver.find_element(*UserManagement.tab_User_Management)

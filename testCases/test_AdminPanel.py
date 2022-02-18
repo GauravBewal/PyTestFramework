@@ -11,7 +11,6 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    @pytest.mark.testreport
     def test_01_admin_panel_redirection(self):
         """
             Verify redirection of the admin menu
@@ -26,7 +25,6 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    @pytest.mark.testreport
     def test_02_admin_Configurations(self):
         """
             Verify redirection of Configurations from the admin page
@@ -41,7 +39,6 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    @pytest.mark.testreport
     def test_03_admin_Authentication(self):
         """
             Verify redirection of Authentication from the admin page
@@ -58,7 +55,6 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    @pytest.mark.testreport
     def test_04_admin_License_Management(self):
         """
             Verify redirection of License Management from the admin page
@@ -75,7 +71,6 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    @pytest.mark.testreport
     def test_05_update_licence_key(self):
         """
             Verify updation of licence key
@@ -91,7 +86,6 @@ class TestAdminPanel(Base):
         assert placeholder_text == 'Enter License Key *'
 
     @pytest.mark.smoke
-    @pytest.mark.readOnly
     def test_06_admin_Cyware_Agent(self):
         """
             Verify redirection of Cyware Agent from the admin page
