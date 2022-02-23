@@ -41,7 +41,7 @@ class TestApps(Base):
         myapps = MyApps(self.driver)
         try:
             log.info("click on the next button")
-            tooltip_count = action.get_walkthrough_slider_count(myapps.get_tooltip_count())
+            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(myapps.get_tooltip_count())
             for i in range(0, tooltip_count):
                 action.click(myapps.click_on_next_btn())
         except NoSuchElementException:
@@ -74,7 +74,7 @@ class TestApps(Base):
         myapps = MyApps(self.driver)
         try:
             log.info("click on the next button")
-            tooltip_count = action.get_walkthrough_slider_count(myapps.get_tooltip_count())
+            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(myapps.get_tooltip_count())
             for i in range(0, tooltip_count):
                 action.click(myapps.click_on_next_btn())
         except NoSuchElementException:

@@ -45,7 +45,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         try:
             log.info("click on the next button")
-            tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
             for i in range(0, tooltip_count):
                 action.click(playbooks.click_on_next_btn())
         except NoSuchElementException:
@@ -78,7 +78,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         try:
             log.info("click on the next button")
-            tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
             for i in range(0, tooltip_count):
                 action.click(playbooks.click_on_next_btn())
         except NoSuchElementException:
@@ -128,7 +128,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         try:
             log.info("click on the next button")
-            tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
             for i in range(0, tooltip_count):
                 action.click(playbooks.click_on_next_btn())
         except NoSuchElementException:
@@ -208,7 +208,7 @@ class TestPlaybook(Base):
         log.info("Click on the tooltip walkthrough button")
         action.javascript_click_element(playbooks.click_on_tooltip_walkthrough_btn())
         log.info("Reading the no of tooltips available")
-        tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+        tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
         log.info("Reading the walkthrough tooltip title")
         tooltip_titles = ['Playbook Overview', 'Add Node', 'Connect Nodes', 'Zoom and Auto-arrange Nodes',
                           'Save and Run']
@@ -426,7 +426,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         try:
             log.info("click on the next button")
-            tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
+            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
             for i in range(0, tooltip_count):
                 action.click(playbooks.click_on_next_btn())
         except NoSuchElementException:
@@ -491,3 +491,61 @@ class TestPlaybook(Base):
         log.info("Switch back to parent window and close child window")
         action.switch_back_parent_window(parent_window)
         assert slider_title == 'Test Instances'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_26_Sort_options_visibility(self):
+        """
+        Verify whether user is able to see all the available sort options
+        Validation 1: Based on the options visibility
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbook = Playbooks(self.driver)
+        log.info("Switching to my playbooks tab")
+        action.click(playbook.my_playbook_tab())
+        log.info("Click on the sort option")
+        action.mouse_hover_on_element(playbook.mouse_hover_sort_options())
+        sort_options = ['Name', 'Modified', 'Created', 'ID', 'Last Run', 'Total Run']
+        log.info("Reading all the visible sort options")
+        all_sorting_elements = playbook.read_available_sort_options()
+        for ele in range(1, len(all_sorting_elements) + 1):
+            path = "(//ul[contains(@class,'sort')]/li)[" + str(ele) + "]"
+            read_sort_option = action.getText(playbook.find_element_path(path))
+            assert read_sort_option == sort_options[ele - 1]
+
+    @pytest.mark.smoke
+    def test_27_Verify_Pagination_increment(self):
+        """
+        Verify whether user is able to apply pagination
+        Validation 1: Based on the page number
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        log.info("Reding the no of pages available")
+        pagination_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_pagination_count())
+        log.info("Change to 2nd page")
+        if (pagination_count > 1):
+            action.click(playbooks.click_on_increment_pagination_btn())
+            time.sleep(ReadConfig.Wait_3_Sec())
+            current_page_number = action.get_current_page_number(playbooks.get_pagination_count())
+            assert current_page_number == 2
+
+    @pytest.mark.smoke
+    def test_28_Verify_Pagination_decrement(self):
+        """
+        Verify whether user is able to apply pagination
+        Validation 1: Based on the page number
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        log.info("Click on the previous page button")
+        action.click(playbooks.click_on_decrement_pagination_btn())
+        time.sleep(ReadConfig.Wait_3_Sec())
+        log.info("Reding the current page number")
+        current_page_count = action.get_current_page_number(playbooks.get_pagination_count())
+        assert current_page_count == 1
+
+

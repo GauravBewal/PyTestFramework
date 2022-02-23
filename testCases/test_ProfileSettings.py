@@ -25,9 +25,9 @@ class TestProfileSettings(Base):
         profile = ProfileSettings(self.driver)
         log.info("Click on Profile Settings icon")
         action.click(nav.Navigate_Profile_icon())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Click on Profile Settings dropdown")
         action.click(profile.click_Profile_Settings())
-        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Check after click page redirects")
         assert action.getTitle() in 'Profile Settings | Cyware Orchestrate'
 
