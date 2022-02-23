@@ -21,7 +21,7 @@ class TestAdminPanel(Base):
         admin = Admin(self.driver)
         try:
             log.info("click on the next button")
-            tooltip_count = action.get_walkthrough_slider_count(admin.get_tooltip_count())
+            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(admin.get_tooltip_count())
             for i in range(0, tooltip_count):
                 action.click(admin.click_on_next_btn())
         except NoSuchElementException:

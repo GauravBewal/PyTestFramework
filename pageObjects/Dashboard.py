@@ -38,14 +38,13 @@ class Dashboard:
 
     btn_light_mode = (By.XPATH, "//i[@class='icon cyicon-sun']/parent::button")
 
-    def click_light_mode(self):
+    def click_light_mode_btn(self):
         return self.driver.find_element(*Dashboard.btn_light_mode)
 
     start_date_btn = (By.XPATH, "//input[@placeholder='Start date']")
 
     def click_start_date_btn(self):
         return self.driver.find_element(*Dashboard.start_date_btn)
-
 
     select_end_date = (By.XPATH, "(//tr[@class='el-date-table__row']/td[@class='available']//span)[7]")
 
@@ -57,18 +56,15 @@ class Dashboard:
     def select_calendar_start_date(self):
         return self.driver.find_element(*Dashboard.select_start_date)
 
-    cyware_header_section = (By.XPATH, "//div[@class='cy-header dark-mode']")
+    cyware_header_section = (By.XPATH, "//div[contains(@class,'cy-header')]")
 
     def read_header_color(self):
         return self.driver.find_element(*Dashboard.cyware_header_section)
 
-
-    def click_on_path(self, path):
+    def find_element_path(self, path):
         return self.driver.find_element(By.XPATH, path)
 
     btn_back = (By.XPATH, "(//section[@class='csol-dashboard__fullscreen-widget']//i)[1]")
 
     def click_on_back_btn(self):
         return self.driver.find_element(*Dashboard.btn_back)
-
-

@@ -35,5 +35,3 @@ class OpenApi:
 
     def click_All_tab(self):
         return self.driver.find_element(*OpenApi.tab_All)
-
-

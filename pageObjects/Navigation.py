@@ -11,23 +11,43 @@ class Navigation:
     def click_Main_Menu(self):
         return self.driver.find_element(*Navigation.nav_main_menu)
 
-    nav_menu_synopsis_btn = (By.XPATH, "//i[@class='cyicon-settings setting-icon']/parent::div")
+    dashboard_menu_synopsis = (By.XPATH, "//span/div[contains(@class,'menuheader')]")
 
-    def click_synopsis_btn(self):
-        return self.driver.find_element(*Navigation.nav_menu_synopsis_btn)
+    def mouse_hover_menu_synopsis(self):
+        return self.driver.find_element(*Navigation.dashboard_menu_synopsis)
+
+    activate_synopsis_tool_tips = (By.XPATH, "//div[@class='cy-switch-btn-wrapper__icon']")
+
+    def enable_menu_synopsis(self):
+        return self.driver.find_element(*Navigation.activate_synopsis_tool_tips)
+
+    deactivate_menu_synopsis = (By.XPATH, "//div[@class='cy-switch-btn-wrapper__icon']")
+
+    def disable_menu_synopsis(self):
+        return self.driver.find_element(*Navigation.deactivate_menu_synopsis)
 
     nav_admin_menu = (By.CSS_SELECTOR, "i.icon.icon-settings-gear")
 
     def click_Admin_Menu(self):
         return self.driver.find_element(*Navigation.nav_admin_menu)
 
-    nav_dashboard = (By.XPATH, "//div[contains(@class,'cs-menu-item--title') or (text()='Dashboard')]")
+    nav_search_bar = (By.XPATH, "//div[@class='cy-sidebar']//input")
+
+    def click_search_bar(self):
+        return self.driver.find_element(*Navigation.nav_search_bar)
+
+    nav_dashboard = (By.XPATH, "//div[contains(@class,'menu-dashboard')]")
 
     def Navigate_Dashboard(self):
         return self.driver.find_element(*Navigation.nav_dashboard)
 
-    nav_manage_playbook = (
-        By.XPATH, "//div[@class='cs-menu-item--title color-n500 font-size-14'][normalize-space()='Manage Playbooks']")
+    nav_playbook_menu_tooltip = (
+    By.XPATH, "//img[@src='/soar/sidebar/playbook.svg']/following-sibling::div[position()=1]")
+
+    def get_playbook_menu_synopsis_text(self):
+        return self.driver.find_element(*Navigation.nav_playbook_menu_tooltip)
+
+    nav_manage_playbook = (By.XPATH, "//div[contains(@class,'menu-playbook')]")
 
     def Navigate_Manage_Playbook(self):
         return self.driver.find_element(*Navigation.nav_manage_playbook)
@@ -49,7 +69,6 @@ class Navigation:
 
     def Navigate_Configure_Event(self):
         return self.driver.find_element(*Navigation.nav_configure_event)
-
 
     nav_data_sync = (By.XPATH,
                      "//div[@class='cs-menu-item--title font-weight-500 color-n800 font-size-15']"

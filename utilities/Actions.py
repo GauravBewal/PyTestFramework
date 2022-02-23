@@ -29,8 +29,6 @@ class Action:
                 break
         return parent_window
 
-
-
     def switch_back_parent_window(self, parent_window):
         self.driver.close()
         self.driver.switch_to.window(parent_window)
@@ -46,9 +44,13 @@ class Action:
         count = element.text
         return int(float(count.split('(')[1].split(')')[0]))
 
-    def get_walkthrough_slider_count(self, element):
+    def get_no_of_walkthrough_and_pagination_count(self, element):
         count = element.text
         return int(count.split(' ')[2])
+
+    def get_current_page_number(self, element):
+        count = element.text
+        return int(count.split(' ')[0])
 
     def sendKeys(self, inputfield, value):
         inputfield.send_keys(value)

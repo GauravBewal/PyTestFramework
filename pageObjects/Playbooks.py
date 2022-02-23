@@ -31,7 +31,8 @@ class Playbooks:
     def click_on_test_instances_btn(self):
         return self.driver.find_element(*Playbooks.playbook_test_instances)
 
-    playbook_test_instance_slider_text = (By.XPATH, "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div/div")
+    playbook_test_instance_slider_text = (
+    By.XPATH, "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div/div")
 
     def get_test_instance_slider_text(self):
         return self.driver.find_element(*Playbooks.playbook_test_instance_slider_text)
@@ -51,6 +52,16 @@ class Playbooks:
     def click_test_instance_slider_close_btn(self):
         return self.driver.find_element(*Playbooks.test_instance_slider_close_btn)
 
+    playbook_sort_options = (By.XPATH, "//span[@class='sort-tab']/div")
+
+    def mouse_hover_sort_options(self):
+        return self.driver.find_element(*Playbooks.playbook_sort_options)
+
+    available_sort_options = (By.XPATH, "//ul[contains(@class,'sort')]/li")
+
+    def read_available_sort_options(self):
+        return self.driver.find_elements(*Playbooks.available_sort_options)
+
     playbook_export_btn = (By.XPATH, "//i[@class='icon-export-boxed']/parent::li")
 
     def mouse_hover_export_btn(self):
@@ -65,8 +76,6 @@ class Playbooks:
 
     def check_visibility_export_as_json(self):
         return self.driver.find_element(*Playbooks.playbook_export_as_json)
-
-
 
     btn_first_playbook = (By.XPATH, "//div[3]//tr[1]/td[2]//a")
 
@@ -88,7 +97,8 @@ class Playbooks:
     def click_on_customize_table_btn(self):
         return self.driver.find_element(*Playbooks.playbook_customize_table_btn)
 
-    customize_table_slider_title = (By.XPATH, "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div")
+    customize_table_slider_title = (
+    By.XPATH, "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div")
 
     def get_customize_table_txt(self):
         return self.driver.find_element(*Playbooks.customize_table_slider_title)
@@ -103,11 +113,15 @@ class Playbooks:
     def click_filter_btn(self):
         return self.driver.find_element(*Playbooks.playbook_filter_btn)
 
+    filter_close_btn = (By.XPATH, "//i[contains(@class,'cyicon-cross')]/parent::span")
+
+    def close_filter_btn(self):
+        return self.driver.find_element(*Playbooks.filter_close_btn)
+
     playbook_filter_title = (By.XPATH, "//span[@class='filters__header__label']")
 
     def get_filter_title(self):
         return self.driver.find_element(*Playbooks.playbook_filter_title)
-
 
     playbook_create_btn = (By.XPATH, "//button[contains(@class,'create-playbook')]")
 
@@ -169,7 +183,6 @@ class Playbooks:
     def get_save_and_exit_txt(self):
         return self.driver.find_element(*Playbooks.save_and_exit_btn)
 
-
     playbook_walkthrough_bulb_btn = (By.XPATH, "//div[@class=' el-dropdown-selfdefine']/button")
 
     def click_walkthrough_bulb_btn(self):
@@ -187,16 +200,31 @@ class Playbooks:
 
     walkthrough_tooltip_title = (By.XPATH, "//h1[@class='introjs-tooltip-title']")
 
+    def find_element_path(self, path):
+        return self.driver.find_element(By.XPATH, path)
+
+    pagination_count = (By.XPATH, "//div[contains(@class,'footer-box')]//span[contains(text(),'of')]")
+
+    def get_pagination_count(self):
+        return self.driver.find_element(*Playbooks.pagination_count)
+
+    increment_pagination_btn = (By.XPATH, "//div[contains(@class,'footer-box')]//button[@class='btn-next']")
+
+    def click_on_increment_pagination_btn(self):
+        return self.driver.find_element(*Playbooks.increment_pagination_btn)
+
+    decrement_pagination_btn = (By.XPATH, "//div[contains(@class,'footer-box')]//button[@class='btn-prev']")
+
+    def click_on_decrement_pagination_btn(self):
+        return self.driver.find_element(*Playbooks.decrement_pagination_btn)
+
     def get_tooltip_title(self):
         return self.driver.find_element(*Playbooks.walkthrough_tooltip_title)
-
-
 
     walkthrough_tooltip_next_btn = (By.XPATH, "//a[contains(@class,'introjs-nextbutton')]")
 
     def click_on_next_btn(self):
         return self.driver.find_element(*Playbooks.walkthrough_tooltip_next_btn)
-
 
     walkthrough_finish_btn = (By.XPATH, "//a[contains(@class,'introjs-donebutton')]")
 
@@ -228,7 +256,7 @@ class Playbooks:
     def get_grid_view_playbook(self):
         return self.driver.find_element(*Playbooks.grid_view_playbook)
 
-    textbox_search_playbook = (By.CSS_SELECTOR, "input[placeholder='Search Playbook(s)']")
+    textbox_search_playbook = (By.XPATH, "//header//div[contains(@class,'search-input')]/input")
 
     def search_playbooks(self):
         return self.driver.find_element(*Playbooks.textbox_search_playbook)
@@ -243,7 +271,8 @@ class Playbooks:
     def get_playbook_overview_slider_title(self):
         return self.driver.find_element(*Playbooks.playbook_overview_slider_title)
 
-    overview_output_parameters = (By.XPATH,"(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[1]")
+    overview_output_parameters = (
+    By.XPATH, "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[1]")
 
     def click_on_output_parameters(self):
         return self.driver.find_element(*Playbooks.overview_output_parameters)
@@ -253,7 +282,7 @@ class Playbooks:
     def click_on_add_parameter_btn(self):
         return self.driver.find_element(*Playbooks.add_parameters_btn)
 
-    parameter_key_field = (By.XPATH,"//textarea[@placeholder='Key']")
+    parameter_key_field = (By.XPATH, "//textarea[@placeholder='Key']")
 
     def check_visibility_of_key_field(self):
         return self.driver.find_element(*Playbooks.parameter_key_field)
@@ -288,11 +317,11 @@ class Playbooks:
     def switch_to_sub_playbooks_tab(self):
         return self.driver.find_element(*Playbooks.associated_sub_playbooks)
 
-    playbook_app_and_actions = (By.XPATH, "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[3]")
+    playbook_app_and_actions = (
+    By.XPATH, "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[3]")
 
     def click_apps_and_actions(self):
         return self.driver.find_element(*Playbooks.playbook_app_and_actions)
-
 
     button_import_playbook = (By.XPATH, "//button[contains(@class,'import-playbook')]")
 

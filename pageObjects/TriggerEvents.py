@@ -11,7 +11,7 @@ class TriggerEvents:
     def click_create_new_event(self):
         return self.driver.find_element(*TriggerEvents.button_create_event)
 
-    text_get_slider_heading = (By.XPATH, "//span[contains(@class,'cursor-pointer')]")
+    text_get_slider_heading = (By.XPATH, "//div[@class='modal--header']//span")
 
     def get_slider_text(self):
         return self.driver.find_element(*TriggerEvents.text_get_slider_heading)

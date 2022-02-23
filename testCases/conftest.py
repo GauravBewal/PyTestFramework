@@ -25,7 +25,7 @@ def setup(request):
     getPassword = request.config.getoption("password")
     wd = WebDriverFactory(browser_name, base_url)
     webapp_driver = wd.getWebDriverInstance()
-    time.sleep(ReadConfig.Wait_3_Sec())
+    time.sleep(ReadConfig.Wait_10_Sec())
     login(getEmail, getPassword)
     request.cls.driver = webapp_driver
     yield

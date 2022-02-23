@@ -6,17 +6,17 @@ class ProfileSettings:
     def __init__(self, driver):
         self.driver = driver
 
-    dd_profile_settings = (By.XPATH, "//ul[@class='el-dropdown-menu el-popper']/li[1]/div/div")
+    dd_profile_settings = (By.XPATH, "//i[contains(@class,'icon-profile')]/parent::div")
 
     def click_Profile_Settings(self):
         return self.driver.find_element(*ProfileSettings.dd_profile_settings)
 
-    btn_change_password = (By.CSS_SELECTOR, ".cs-profile-icon.d-flex.align-items-center.justify-content-center")
+    btn_change_password = (By.XPATH, "//header//div[contains(text(),'Change Password')]")
 
     def click_Change_Password(self):
         return self.driver.find_element(*ProfileSettings.btn_change_password)
 
-    btn_edit_profile = (By.XPATH, "//button//span[contains(text(),'Edit')]")
+    btn_edit_profile = (By.XPATH, "//header//span[contains(text(),'Edit')]//ancestor::button")
 
     def click_on_edit_button(self):
         return self.driver.find_element(*ProfileSettings.btn_edit_profile)
