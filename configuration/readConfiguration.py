@@ -47,9 +47,9 @@ class ReadConfig:
         return int(wait_20_Sec)
 
     @staticmethod
-    def Wait_50_Sec():
-        wait_50_Sec = config.get('Waits', 'Wait_50_Seconds')
-        return int(wait_50_Sec)
+    def Wait_6_Sec():
+        wait_6_Sec = config.get('Waits', 'Wait_6_Seconds')
+        return int(wait_6_Sec)
 
     @staticmethod
     def appname():

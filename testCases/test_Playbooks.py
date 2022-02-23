@@ -207,6 +207,7 @@ class TestPlaybook(Base):
         action.click(playbooks.click_walkthrough_bulb_btn())
         log.info("Click on the tooltip walkthrough button")
         action.javascript_click_element(playbooks.click_on_tooltip_walkthrough_btn())
+        time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Reading the no of tooltips available")
         tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
         log.info("Reading the walkthrough tooltip title")
@@ -390,6 +391,8 @@ class TestPlaybook(Base):
         time.sleep(ReadConfig.Wait_3_Sec())
         log.info("Read the filter slider title")
         slider_txt = action.getText(playbooks.get_filter_title())
+        log.info("Close filter")
+        action.click(playbooks.close_filter_btn())
         assert slider_txt == 'FILTERS'
 
     @pytest.mark.smoke

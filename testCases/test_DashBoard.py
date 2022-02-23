@@ -94,7 +94,7 @@ class TestDashBoard(Base):
             path = "(//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')])[" + str(
                 element) + "]"
             action.click(dashboard.find_element_path(path))
-            time.sleep(ReadConfig.Wait_3_Sec())
+            time.sleep(ReadConfig.Wait_6_Sec())
             t = action.check_visibility_of_element(dashboard.visibility_of_legends_btn())
             action.click(dashboard.click_on_back_btn())
             time.sleep(ReadConfig.Wait_3_Sec())
