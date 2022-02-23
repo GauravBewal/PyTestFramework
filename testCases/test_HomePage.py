@@ -2,10 +2,10 @@ import time
 
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
 from utilities.Base import Base
-from configuration.readConfiguration import ReadConfig
 
 
 @pytest.mark.usefixtures("setup")
@@ -13,7 +13,7 @@ class TestHomePage(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_verify_main_menu_redirection(self):
+    def test_01_Verify_Main_Menu_redirection(self):
         """
             Verify Main Menu is clickable
             Validation: Based on the menu sysnopsis button visibility

@@ -14,7 +14,7 @@ class TestOpenApi(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_1_verify_admin_Open_APIs(self):
+    def test_1_Verify_Admin_Open_APIs(self):
         """
             Verify redirection of Open APIs from the admin page
             Validation - 1. On the basis of Window's title
@@ -32,7 +32,7 @@ class TestOpenApi(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_new_openapi_btn(self):
+    def test_02_Click_New_Open_Api_btn(self):
         """
         Verify whether user is able on click on new openapi button
         Validation: Based on the create slider title
@@ -51,7 +51,7 @@ class TestOpenApi(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_Verify_switch_inactive_tab(self):
+    def test_03_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -67,7 +67,7 @@ class TestOpenApi(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_Verify_switch_All_tab(self):
+    def test_04_Verify_Switch_All_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color

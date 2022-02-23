@@ -14,7 +14,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_01_Verify_configure_triggers_redirection(self):
+    def test_01_Verify_Configure_Triggers_redirection(self):
         """
             Verify Configure Triggers redirection from Main Menu
             Validation: Based on the page title
@@ -28,7 +28,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_configure_new_trigger_btn(self):
+    def test_02_Click_Configure_New_Trigger_btn(self):
         """
           Verify configuration of new trigger
           Validation 2: Based on the slider title
@@ -48,7 +48,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_Verify_switch_inactive_tab(self):
+    def test_03_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -64,7 +64,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_Verify_switch_All_tab(self):
+    def test_04_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 1. On the basis of tab color
@@ -77,4 +77,3 @@ class TestConfigureTriggers(Base):
         log.info("Read the tab color after switching")
         tab_color = action.getElementColor(config_trigger.click_All_tab())
         assert tab_color == '#1a3ee8'
-

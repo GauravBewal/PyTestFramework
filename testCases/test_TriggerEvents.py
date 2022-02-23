@@ -14,7 +14,7 @@ class TestTriggerEvents(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_Verify_trigger_events_redirection(self):
+    def test_01_Verify_Trigger_Events_redirection(self):
         """
             Verify Trigger Events redirection from Main Menu
             Validation 1: Based on the page title
@@ -31,10 +31,10 @@ class TestTriggerEvents(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_new_event_btn(self):
+    def test_02_Click_New_Event_btn(self):
         """
-        Verify creation of new trigger event from trigger event page
-        Validation 2: Based on slider heading
+            Verify creation of new trigger event from trigger event page
+            Validation 2: Based on slider heading
         """
         log = self.getlogger()
         action = Action(self.driver)

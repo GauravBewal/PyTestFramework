@@ -1,10 +1,10 @@
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 
 from pageObjects.AdminPage import Admin
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
 from utilities.Base import Base
-from selenium.common.exceptions import NoSuchElementException
 
 
 @pytest.mark.usefixtures("setup")
@@ -12,9 +12,9 @@ class TestAdminPanel(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_01_dashboard_close_automatic_walkthrough(self):
+    def test_01_Dashboard_close_automatic_walkthrough(self):
         """
-            close all automatically initiated walkthroughs for new poc
+            Close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -30,7 +30,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_Verify_admin_panel_redirection(self):
+    def test_02_Verify_Admin_Panel_redirection(self):
         """
             Verify redirection of the admin menu
             Validation - 1. On the basis of Window's title
@@ -44,10 +44,10 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_Verify_admin_Configurations_redirection(self):
+    def test_03_Verify_Admin_Configurations_redirection(self):
         """
             Verify redirection of Configurations from the admin page
-            Validation - 2. On the basis of Window's title
+            Validation - 1. On the basis of Window's title
         """
         log = self.getlogger()
         admin = Admin(self.driver)
@@ -58,10 +58,10 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_Verify_admin_Authentication_redirection(self):
+    def test_04_Verify_Admin_Authentication_redirection(self):
         """
             Verify redirection of Authentication from the admin page
-            Validation - 3. On the basis of Window's title
+            Validation - 1. On the basis of Window's title
         """
         log = self.getlogger()
         admin = Admin(self.driver)
@@ -74,10 +74,10 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_Verify_admin_License_Management_redirection(self):
+    def test_05_Verify_Admin_License_Management_redirection(self):
         """
             Verify redirection of License Management from the admin page
-            Validation - 4. On the basis of Window's title
+            Validation - 1. On the basis of Window's title
         """
         log = self.getlogger()
         admin = Admin(self.driver)
@@ -90,10 +90,10 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_06_click_update_licence_key_btn(self):
+    def test_06_Click_Update_Licence_Key_btn(self):
         """
             Verify updation of licence key
-            Validation -5 : Based on the placeholder text of licence field
+            Validation - 1 : Based on the placeholder text of licence field
         """
         log = self.getlogger()
         admin = Admin(self.driver)
@@ -105,7 +105,7 @@ class TestAdminPanel(Base):
         assert placeholder_text == 'Enter License Key *'
 
     @pytest.mark.smoke
-    def test_07_Verify_admin_Cyware_Agent_redirection(self):
+    def test_07_Verify_Admin_Cyware_Agent_redirection(self):
         """
             Verify redirection of Cyware Agent from the admin page
             Validation - 1. On the basis of Window's title
@@ -121,7 +121,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_08_Verify_admin_Console_Status_redirection(self):
+    def test_08_Verify_Admin_Console_Status_redirection(self):
         """
             Verify redirection of Console Status from the admin page
             Validation - 1. On the basis of Window's title
@@ -137,7 +137,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_09_Verify_admin_Playbook_tags_redirection(self):
+    def test_09_Verify_Admin_Playbook_Tags_redirection(self):
         """
             Verify redirection of Playbook Tags from the admin page
             Validation - 1. On the basis of Window's title

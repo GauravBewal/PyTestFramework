@@ -2,18 +2,15 @@ import time
 
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Dashboard import Dashboard
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
 from utilities.Base import Base
-from configuration.readConfiguration import ReadConfig
-
 
 
 @pytest.mark.usefixtures("setup")
 class TestDashBoard(Base):
-
-
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -39,17 +36,19 @@ class TestDashBoard(Base):
         action = Action(self.driver)
         dashboard = Dashboard(self.driver)
         log.info("Read all the widget titles")
-        widget_titles = ['PLAYBOOK EXECUTION TIMELINE', 'FREQUENTLY USED PLAYBOOKS', 'PLAYBOOK EXECUTION TIME (ON AVERAGE)'
-                         , 'FREQUENTLY USED INSTANCES', 'FREQUENTLY USED APPS', 'FREQUENTLY USED ACTIONS', 'FREQUENTLY EXECUTED ACTIONS'
-                         , 'FREQUENTLY UTILIZED APPS', 'FREQUENTLY UTILIZED INSTANCES', 'TOTAL EVENT COUNT'
-                         , 'INCOMING SOURCE EVENTS', 'PERCENTAGE OF UNUTILIZED EVENTS', 'PERCENTAGE OF EVENTS THAT CAUSE PLAYBOOK EXECUTION ERROR']
+        widget_titles = ['PLAYBOOK EXECUTION TIMELINE', 'FREQUENTLY USED PLAYBOOKS',
+                         'PLAYBOOK EXECUTION TIME (ON AVERAGE)'
+            , 'FREQUENTLY USED INSTANCES', 'FREQUENTLY USED APPS', 'FREQUENTLY USED ACTIONS',
+                         'FREQUENTLY EXECUTED ACTIONS'
+            , 'FREQUENTLY UTILIZED APPS', 'FREQUENTLY UTILIZED INSTANCES', 'TOTAL EVENT COUNT'
+            , 'INCOMING SOURCE EVENTS', 'PERCENTAGE OF UNUTILIZED EVENTS',
+                         'PERCENTAGE OF EVENTS THAT CAUSE PLAYBOOK EXECUTION ERROR']
         all_widget_elements = dashboard.get_all_widget_elements()
-        for ele in range(1, len(all_widget_elements)+1):
-            path = "(//div[contains(@class,'widget-label')]/div)["+str(ele)+"]"
+        for ele in range(1, len(all_widget_elements) + 1):
+            path = "(//div[contains(@class,'widget-label')]/div)[" + str(ele) + "]"
             title = action.getText(dashboard.click_on_path(path))
-            assert widget_titles[ele-1] == title
+            assert widget_titles[ele - 1] == title
         time.sleep(ReadConfig.Wait_3_Sec())
-
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -62,8 +61,9 @@ class TestDashBoard(Base):
         action = Action(self.driver)
         elements_list = dashboard.get_all_viewall_elements()
         print(len(elements_list))
-        for element in range(1, len(elements_list)+1):
-            path = "(//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')])["+str(element)+"]"
+        for element in range(1, len(elements_list) + 1):
+            path = "(//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')])[" + str(
+                element) + "]"
             action.click(dashboard.click_on_path(path))
             time.sleep(ReadConfig.Wait_3_Sec())
             t = action.check_visibility_of_element(dashboard.visibility_of_legends_btn())
@@ -131,11 +131,3 @@ class TestDashBoard(Base):
         start_date_color = action.getElementColor(dashboard.select_calendar_start_date())
         end_date_color = action.getElementColor(dashboard.select_calendar_end_date())
         assert start_date_color == '#606266' and end_date_color == '#606266'
-
-
-
-
-
-
-
-

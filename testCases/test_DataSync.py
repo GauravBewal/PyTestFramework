@@ -14,7 +14,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_verify_data_sync_redirection(self):
+    def test_01_Verify_Data_Sync_redirection(self):
         """
             Verify Data Sync redirection from Main Menu
             Validation - 1. On the basis of Window's title
@@ -28,7 +28,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_create_data_sync_btn(self):
+    def test_02_Click_Create_Data_Sync_btn(self):
         """
             Verify creation of new data sync job from Main Menu
             Validation -1. On the basis of Page title
@@ -49,7 +49,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_Verify_switch_run_history(self):
+    def test_03_Verify_Switch_Run_History(self):
         """
             Verify switch from Data Sync to Run History Logs
             Validation - 1. On the basis of Window's title
@@ -63,7 +63,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_Verify_switch_data_sync_job_details(self):
+    def test_04_Verify_Switch_Data_Sync_Job_Details(self):
         """
             Verify switch from Run History Logs to Data Sync Job details
             Validation - 1. On the basis of Window's title
@@ -76,7 +76,7 @@ class TestDataSync(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_click_on_filter_btn(self):
+    def test_05_Click_on_Filter_btn(self):
         """
         Verify user is able to click on the filter button
         Validation: Based on the filter slider title
