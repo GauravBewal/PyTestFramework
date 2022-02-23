@@ -1,9 +1,9 @@
 import time
 
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 
 from configuration.readConfiguration import ReadConfig
-from selenium.common.exceptions import NoSuchElementException
 from pageObjects.Navigation import Navigation
 from pageObjects.Playbooks import Playbooks
 from utilities.Actions import Action
@@ -17,7 +17,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_Verify_manage_playbook_redirection(self):
+    def test_01_Verify_Manage_Playbook_redirection(self):
         """
             Verify Manage Playbook redirection from Main Menu
             Validation- 1. On the basis of page heading
@@ -36,7 +36,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_02_my_playbooks_close_automatic_walkthrough(self):
+    def test_02_My_Playbooks_close_automatic_walkthrough(self):
         """
             close all automatically initiated walkthroughs for new poc
         """
@@ -52,10 +52,9 @@ class TestPlaybook(Base):
             log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
             pass
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_Verify_Cyware_Playbooks_switch_tab(self):
+    def test_03_Verify_Cyware_Playbooks_Switch_tab(self):
         """
             Verify user is able to switch from My Playbooks to Cyware Playbooks
             Validation - 1. On the basis of Windows title
@@ -70,7 +69,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_04_cyware_playbooks_close_automatic_walkthrough(self):
+    def test_04_Cyware_Playbooks_close_automatic_walkthrough(self):
         """
             close all automatically initiated walkthroughs for new poc
         """
@@ -86,10 +85,9 @@ class TestPlaybook(Base):
             log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
             pass
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_Verify_My_Playbooks_switch_tab(self):
+    def test_05_Verify_My_Playbooks_Switch_tab(self):
         """
             Verify user is able to switch from Cyware Playbooks to My Playbooks
             Validation - 1. On the basis of Windows title
@@ -102,11 +100,9 @@ class TestPlaybook(Base):
         time.sleep(ReadConfig.Wait_3_Sec())
         assert action.getTitle() == 'My Playbooks | Cyware Orchestrate'
 
-
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_06_verify_click_create_new_playbook_btn(self):
+    def test_06_Verify_Click_Create_New_Playbook_btn(self):
         """
         Verify user is able to click on create new playbook button
         Validation : Based on the window title
@@ -123,9 +119,9 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_07_edit_mode_close_automatic_walkthrough(self):
+    def test_07_Edit_Mode_close_automatic_walkthrough(self):
         """
-                close all automatically initiated walkthroughs for new poc
+            close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -141,7 +137,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_08_verify_click_add_node_btn(self):
+    def test_08_Verify_Click_Add_Node_btn(self):
         """
           Verify click on add node button
           Validation : Based on the add node slider title
@@ -157,7 +153,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_09_Verify_all_nodes_visibility(self):
+    def test_09_Verify_All_Nodes_Visibility(self):
         """
            Verify user is able to see all the nodes
            Validation: Based on the nodes category title
@@ -177,10 +173,10 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_10_check_video_walkthrough(self):
+    def test_10_Check_Video_walkthrough(self):
         """
-                   Verify user is able to see the video walkthough
-                   Validation: Based on the video walkthrough popup title
+            Verify user is able to see the video walkthough
+            Validation: Based on the video walkthrough popup title
         """
         action = Action(self.driver)
         log = self.getlogger()
@@ -199,10 +195,10 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_11_check_tooltip_walkthrough(self):
+    def test_11_Check_Tooltip_walkthrough(self):
         """
-                   Verify user is able to see the tooltip walkthough
-                   Validation: Based on the tooltip walkthrough title
+            Verify user is able to see the tooltip walkthough
+            Validation: Based on the tooltip walkthrough title
         """
         action = Action(self.driver)
         log = self.getlogger()
@@ -214,7 +210,8 @@ class TestPlaybook(Base):
         log.info("Reading the no of tooltips available")
         tooltip_count = action.get_walkthrough_slider_count(playbooks.get_tooltip_count())
         log.info("Reading the walkthrough tooltip title")
-        tooltip_titles = ['Playbook Overview', 'Add Node', 'Connect Nodes', 'Zoom and Auto-arrange Nodes', 'Save and Run']
+        tooltip_titles = ['Playbook Overview', 'Add Node', 'Connect Nodes', 'Zoom and Auto-arrange Nodes',
+                          'Save and Run']
         for i in range(0, tooltip_count):
             time.sleep(ReadConfig.Wait_3_Sec())
             tooltip_text = action.getText(playbooks.get_tooltip_title())
@@ -224,10 +221,10 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_12_check_save_options(self):
+    def test_12_Check_Save_Options(self):
         """
-                   Verify user is able to see the save options
-                   Validation: Based on the save options visibility
+            Verify user is able to see the save options
+            Validation: Based on the save options visibility
         """
         action = Action(self.driver)
         log = self.getlogger()
@@ -240,7 +237,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_13_check_playbook_overview_slider(self):
+    def test_13_Check_Playbook_Overview_Slider(self):
         """
             Verify user is able to see the playbook overview slider
             Validation: Based on the slider title
@@ -257,7 +254,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_14_switch_output_parameters_section(self):
+    def test_14_Switch_Output_Parameters_Section(self):
         """
             Verify whether user is able to click on output parameter
             Validation: Based on the section title and add parameter button visibility
@@ -278,7 +275,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_15_add_output_parameter(self):
+    def test_15_Add_Output_Parameter(self):
         """
             Verify user is able to add the output parameters
             Validation: Based on the params visibility
@@ -298,7 +295,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_16_Verify_switch_to_associated_playbooks(self):
+    def test_16_Verify_Switch_to_Associated_Playbooks(self):
         """
             Verify user is able to switch to associated playbooks section
             Validation: Based on the section title and no state text
@@ -319,7 +316,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_17_Verify_switch_to_sub_playbooks_tab(self):
+    def test_17_Verify_Switch_to_Sub_Playbooks_tab(self):
         """
             Verify whether user is able to switch to sub-playbooks section
             Validation: Based on the subplaybooks tab color
@@ -336,9 +333,9 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_18_Verify_switch_app_and_actions(self):
+    def test_18_Verify_Switch_App_and_Actions(self):
         """
-            Verify whether user is able switch to apps and actions section
+            Verify whether user is able to switch apps and actions section
             Validation based on section title and no state text
         """
         action = Action(self.driver)
@@ -361,10 +358,10 @@ class TestPlaybook(Base):
         time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
-    def test_19_click_customize_table_btn(self):
+    def test_19_Click_Customize_Table_btn(self):
         """
-        Verify whether user is able to click on customize table
-        Validation: Based on the slider title
+            Verify whether user is able to click on customize table
+            Validation: Based on the slider title
         """
         action = Action(self.driver)
         log = self.getlogger()
@@ -380,10 +377,10 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_20_click_filter_btn(self):
+    def test_20_Click_Filter_btn(self):
         """
-        Verify whether user is able to click on filter button
-        Validation: Based on the slider title
+            Verify whether user is able to click on filter button
+            Validation: Based on the slider title
         """
         action = Action(self.driver)
         log = self.getlogger()
@@ -395,14 +392,12 @@ class TestPlaybook(Base):
         slider_txt = action.getText(playbooks.get_filter_title())
         assert slider_txt == 'FILTERS'
 
-
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_21_view_playbook(self):
+    def test_21_View_Playbook(self):
         """
-        Verify opening playbook in view mode from cyware playbook
-        Validation : Based on the window's title
+            Verify opening playbook in view mode from cyware playbook
+            Validation : Based on the window's title
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -422,9 +417,9 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
-    def test_22_view_mode_close_automatic_walkthrough(self):
+    def test_22_View_Mode_Close_automatic_walkthrough(self):
         """
-            close all automatically initiated walkthroughs for new poc
+            Close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -440,10 +435,10 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_23_check_export_options_visibility(self):
+    def test_23_Check_Export_Options_visibility(self):
         """
-        Verify whether user is able to seen the export options
-        Validation: Based on the export options visibility
+            Verify whether user is able to seen the export options
+            Validation: Based on the export options visibility
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -460,7 +455,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_24_check_clone_btn_visibility(self):
+    def test_24_Check_Clone_btn_Visibility(self):
         """
         Verify whether user is able to see the clone button
         Validation: Based on the clone button visibility
@@ -474,10 +469,9 @@ class TestPlaybook(Base):
         assert action.check_visibility_of_element(playbook.check_visibility_of_clone_btn()) is True
         time.sleep(ReadConfig.Wait_3_Sec())
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_25_click_on_test_instances(self):
+    def test_25_Click_on_Test_Instances(self):
         """
         Verify whether user is able to click on the test connectivity
         Validation:- Based on the slider title
@@ -497,25 +491,3 @@ class TestPlaybook(Base):
         log.info("Switch back to parent window and close child window")
         action.switch_back_parent_window(parent_window)
         assert slider_title == 'Test Instances'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

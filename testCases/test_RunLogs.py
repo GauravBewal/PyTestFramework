@@ -2,23 +2,24 @@ import time
 
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
+from pageObjects.Runlogs import Runlogs
 from utilities.Actions import Action
 from utilities.Base import Base
-from pageObjects.Runlogs import Runlogs
-from configuration.readConfiguration import ReadConfig
+
 
 @pytest.mark.usefixtures("setup")
 class TestRUnLogs(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_Verify_run_logs_redirection(self):
+    def test_01_Verify_Run_Logs_redirection(self):
         """
             Verify Run Logs redirection from Main Menu
         """
         nav = Navigation(self.driver)
-        log=self.getlogger()
+        log = self.getlogger()
         action = Action(self.driver)
         log.info("Click on the main menu")
         action.click(nav.click_Main_Menu())
@@ -28,10 +29,10 @@ class TestRUnLogs(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_on_filters_btn(self):
+    def test_02_Click_on_Filters_btn(self):
         """
-        Verify whether user is able click on filter
-        Validation: Based on the filter title
+            Verify whether user is able click on filter
+            Validation: Based on the filter title
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -42,4 +43,3 @@ class TestRUnLogs(Base):
         log.info("Read the slider title")
         slider_title = action.getText(runlogs.get_filter_slider_title())
         assert slider_title == 'FILTERS'
-

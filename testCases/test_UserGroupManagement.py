@@ -2,8 +2,8 @@ import time
 
 import pytest
 
-from pageObjects.Navigation import Navigation
 from configuration.readConfiguration import ReadConfig
+from pageObjects.Navigation import Navigation
 from pageObjects.UserGroupManagement import UserGroupManagement
 from utilities.Actions import Action
 from utilities.Base import Base
@@ -16,8 +16,8 @@ class TestUserGroupManagement(Base):
     @pytest.mark.readOnly
     def test_01_Verify_User_Group_Management_redirection(self):
         """
-        Verify redirection to user group management from admin menu
-        Validation 1: On the basis of window's title
+            Verify redirection to user group management from admin menu
+            Validation 1: On the basis of window's title
         """
         log = self.getlogger()
         nav = Navigation(self.driver)
@@ -30,10 +30,9 @@ class TestUserGroupManagement(Base):
         assert action.getTitle() in 'User Groups Management | Cyware Orchestrate'
         time.sleep(ReadConfig.Wait_10_Sec())
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_new_user_group_btn(self):
+    def test_02_Click_New_User_Group_btn(self):
         """
             Verify creation of new user group
             Validation - 1. On the basis of slider title
@@ -52,7 +51,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_Verify_switch_inactive_tab(self):
+    def test_03_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -68,7 +67,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_Verify_switch_All_tab(self):
+    def test_04_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 1. On the basis of tab color

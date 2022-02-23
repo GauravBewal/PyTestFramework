@@ -32,7 +32,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_click_add_user_btn(self):
+    def test_02_Click_Add_User_btn(self):
         """
             Verify create button functionality of new user
             Validation - 1. On the basis of slider title
@@ -51,7 +51,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_click_export_user_btn(self):
+    def test_03_Click_Export_User_btn(self):
         """
             Verify export functionality of user management
             Validation - 1. On the basis of export options visibility
@@ -68,7 +68,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_Verify_witch_inactive_tab(self):
+    def test_04_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -84,7 +84,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_Verify_switch_All_tab(self):
+    def test_05_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 1. On the basis of tab color

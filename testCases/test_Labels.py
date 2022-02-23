@@ -18,7 +18,7 @@ class TestLabels(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_labels_redirection(self):
+    def test_01_Labels_redirection(self):
         """
             Verify Labels Page redirection from Main Menu
             TC_ID: Label-TC-001
@@ -41,7 +41,7 @@ class TestLabels(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_switch_to_inactive_tab(self):
+    def test_02_Switch_to_Inactive_tab(self):
         """
         Verify whether user is able to switch to inactive tab
         Validation based on the tab color
@@ -60,10 +60,9 @@ class TestLabels(Base):
         assert tab_color == '#1a3ee8'
         time.sleep(ReadConfig.Wait_3_Sec())
 
-
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_switch_to_all_tab(self):
+    def test_03_Switch_to_All_tab(self):
         """
                 Verify whether user is able to switch to all tab
                 Validation based on the tab color
@@ -82,7 +81,7 @@ class TestLabels(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_create_label_without_name(self):
+    def test_04_Create_Label_Without_Name(self):
         """
             Verify user is able to get error message when tried to create a label without any name
             TC_ID: Label-TC-002
@@ -106,7 +105,7 @@ class TestLabels(Base):
         assert error_msg in 'Label Name is required'
 
     @pytest.mark.smoke
-    def test_05_create_label(self):
+    def test_05_Create_Label(self):
         """
             Verify Label Create functionality
             TC_ID: Label-TC-002
@@ -137,7 +136,7 @@ class TestLabels(Base):
         assert label_text == get_created_label_name and before_label_creation_count + 1 == after_label_creation_count
 
     @pytest.mark.smoke
-    def test_06_search_label(self):
+    def test_06_Search_Label(self):
         """
             Verify Search functionality of the Labels
             TC_ID: Label-TC-005
@@ -157,7 +156,7 @@ class TestLabels(Base):
         assert search_text in read_top_search_result
 
     @pytest.mark.smoke
-    def test_07_update_label(self):
+    def test_07_Update_Label(self):
         """
           verify user is able to update the label
           TC_ID: Label-TC-002
@@ -184,7 +183,7 @@ class TestLabels(Base):
         assert new_label_name == updated_label_name
 
     @pytest.mark.smoke
-    def test_08_read_modified_created_column_data(self):
+    def test_08_Read_Modified_Created_Column_Data(self):
         """
         Verify user is able to see the created by and modified by details after creating and modifying label
         TC_ID: Label-TC-002
@@ -200,7 +199,7 @@ class TestLabels(Base):
         assert label_created_user_name == label_modified_user_name
 
     @pytest.mark.smoke
-    def test_09_deactivate_label(self):
+    def test_09_Deactivate_Label(self):
         """
         Verify label is being listed under inactive tab once label was de-activated
         TC_ID: Label-TC-003
@@ -227,5 +226,3 @@ class TestLabels(Base):
         log.info("Validating label name before and after deactivating")
         # checking whether same label is visible in inactive tab listing after deactivating it
         assert label_name_before_deactivating == label_name_after_deactivating
-
-

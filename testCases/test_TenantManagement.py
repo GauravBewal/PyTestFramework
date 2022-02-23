@@ -2,9 +2,9 @@ import time
 
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.TenantManagement import TenantManagement
-from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -30,7 +30,7 @@ class TestTenantManagement(Base):
         time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
-    def test_02_click_new_tenant_btn(self):
+    def test_02_Click_New_Tenant_btn(self):
         """
         Verify whether user is able to click on new tenant button
         Validation: Based on the slider title
@@ -48,7 +48,7 @@ class TestTenantManagement(Base):
         assert slider_text == 'Add Tenant'
 
     @pytest.mark.smoke
-    def test_03_Verify_switch_inactive_tab(self):
+    def test_03_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -63,7 +63,7 @@ class TestTenantManagement(Base):
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
-    def test_03_Verify_switch_inactive_tab(self):
+    def test_03_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -78,7 +78,7 @@ class TestTenantManagement(Base):
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
-    def test_04_Verify_switch_All_tab(self):
+    def test_04_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from active tab
             Validation - 1. On the basis of tab color

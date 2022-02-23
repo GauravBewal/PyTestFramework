@@ -12,7 +12,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_01_check_console_status_overview_page_listing(self):
+    def test_01_Check_Console_Status_Overview_Page_listing(self):
         """
             Verify all the servers listed on this page
             Validation - 1. On the basis of list of the server's name listing
@@ -35,7 +35,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_check_elastic_search_server_status(self):
+    def test_02_Check_Elastic_Search_Server_Status(self):
         """
             Verify ElasticSearch server status
             Validation - 1. On the basis of Active text of status
@@ -50,7 +50,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_03_check_my_sql_server_status(self):
+    def test_03_Check_My_SQL_Server_Status(self):
         """
             Verify My SQL server status
             Validation - 1. On the basis of Active text of status
@@ -65,7 +65,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_check_redis_server_status(self):
+    def test_04_Check_Redis_Server_Status(self):
         """
             Verify redis server status
             Validation - 1. On the basis of Active text of status
@@ -80,7 +80,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_05_check_celery_server_status(self):
+    def test_05_Check_Celery_Server_Status(self):
         """
             Verify celery server status
             Validation - 1. On the basis of Active text of status
@@ -95,7 +95,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_06_check_gunicorn_server_status(self):
+    def test_06_Check_Gunicorn_Server_Status(self):
         """
             Verify gunicorn server status
             Validation - 1. On the basis of Active text of status
@@ -110,7 +110,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_07_check_ngnix_server_status(self):
+    def test_07_Check_Ngnix_Server_Status(self):
         """
             Verify Ngnix server status
             Validation - 1. On the basis of Active text of status
