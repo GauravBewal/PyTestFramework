@@ -41,7 +41,7 @@ class TestWebhooks(Base):
         webhook = Webhooks(self.driver)
         action = Action(self.driver)
         log.info("Click on add webhook button")
-        action.click(webhook.click_new_webhook())
+        action.javascript_click_element(webhook.click_new_webhook())
         log.info("Read the slider title")
         time.sleep(ReadConfig.Wait_3_Sec())
         slider_title = action.getText(webhook.get_slider_title())
