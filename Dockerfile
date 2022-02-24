@@ -51,6 +51,9 @@ RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
 
 RUN apt-get install -y zip unzip
 RUN apt-get install -y ffmpeg
+COPY . /csol_automation_suite
+WORKDIR /csol_automation_suite
+
 ADD docker_entrypoint.sh /usr/bin/init_build_env
 RUN chmod +x /usr/bin/init_build_env
 ENTRYPOINT ["init_build_env"]
