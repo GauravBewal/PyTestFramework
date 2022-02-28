@@ -24,11 +24,10 @@ class TestWebhooks(Base):
         action = Action(self.driver)
         nav = Navigation(self.driver)
         log.info("Click on Admin menu")
-        action.click(nav.click_Admin_Menu())
+        nav.click_Admin_Menu()
         log.info("Click on Webhooks tab from Admin Page")
-        action.click(webhook.click_Webhooks())
+        webhook.click_Webhooks()
         assert action.getTitle() in 'Webhooks | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -39,14 +38,12 @@ class TestWebhooks(Base):
         """
         log = self.getlogger()
         webhook = Webhooks(self.driver)
-        action = Action(self.driver)
         log.info("Click on add webhook button")
-        action.javascript_click_element(webhook.click_new_webhook())
+        webhook.click_new_webhook()
         log.info("Read the slider title")
-        time.sleep(ReadConfig.Wait_3_Sec())
-        slider_title = action.getText(webhook.get_slider_title())
+        slider_title = webhook.get_slider_title()
         log.info("Click on close slider button")
-        action.click(webhook.click_slider_close())
+        webhook.click_slider_close()
         assert slider_title == 'Add Webhook'
 
     @pytest.mark.smoke
@@ -57,12 +54,11 @@ class TestWebhooks(Base):
             Validation - 3. On the basis of tab color
         """
         log = self.getlogger()
-        action = Action(self.driver)
         webhook = Webhooks(self.driver)
         log.info("Click on inactive tab")
-        action.click(webhook.click_inactive_tab())
+        webhook.click_inactive_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(webhook.click_inactive_tab())
+        tab_color = webhook.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
@@ -73,10 +69,9 @@ class TestWebhooks(Base):
             Validation - 3. On the basis of tab color
         """
         log = self.getlogger()
-        action = Action(self.driver)
         webhook = Webhooks(self.driver)
         log.info("Click on All tab")
-        action.click(webhook.click_All_tab())
+        webhook.click_All_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(webhook.click_All_tab())
+        tab_color = webhook.get_all_tab_color()
         assert tab_color == '#1a3ee8'

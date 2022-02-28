@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
 
-class MyApps:
+class MyApps(Action):
     count_my_apps = (By.XPATH, "//a[@href='/soar/app/list/my-apps']/span")
     count_app_store = (By.XPATH, "//a[@href='/soar/app/list/app-store']/span")
     first_3_dot_icon = (By.XPATH, "(//i[contains(@class,'icon icon-more-vertical color-primary')])[1]")
@@ -11,154 +12,168 @@ class MyApps:
     first_created_by = (By.XPATH, "(//p[contains(text(),'Created By')])[1]")
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    tab_app_store = (By.XPATH, "//a[@href='/soar/app/list/app-store']")
+    tab_app_store = "//a[@href='/soar/app/list/app-store']"
 
     def App_Store_Tab(self):
-        return self.driver.find_element(*MyApps.tab_app_store)
+        return Action.waitandclick(self, By.XPATH, MyApps.tab_app_store)
 
-    total_app_count = (By.XPATH, "//a[@href='/soar/app/list/my-apps']/span")
+    text_page_heading = "//header//h1"
+
+    def get_page_heading(self):
+        return  Action.getText(self, By.XPATH, MyApps.text_page_heading)
+
+    total_app_count = "//a[@href='/soar/app/list/my-apps']/span"
 
     def get_app_count(self):
-        return self.driver.find_element(*MyApps.total_app_count)
+        return Action.getCountfromString(self, By.XPATH, MyApps.total_app_count)
 
-    read_search_result_after_uninstall = (By.XPATH, "//div[@class='apps-container']//h1")
+    read_search_result_after_uninstall = "//div[@class='apps-container']//h1"
 
     def get_search_result_after_uninstall(self):
-        return self.driver.find_element(*MyApps.read_search_result_after_uninstall)
+        return Action.getText(self, By.XPATH, MyApps.read_search_result_after_uninstall)
 
-    app_uninstalled_success_message = (By.XPATH, "//span[text()='App deleted successfully.']")
+    app_uninstalled_success_message = "//span[text()='App deleted successfully.']"
 
     def read_app_uninstall_success_message(self):
-        return self.driver.find_element(*MyApps.app_uninstalled_success_message)
+        return Action.getText(self, By.XPATH, MyApps.app_uninstalled_success_message)
 
-    confirm_uninstall_app = (By.XPATH, "(//div[@class='footer float-left']/button)[1]")
+    confirm_uninstall_app = "(//div[@class='footer float-left']/button)[1]"
 
     def click_confirm_uninstall_app(self):
-        return self.driver.find_element(*MyApps.confirm_uninstall_app)
+        return Action.waitandclick(self, By.XPATH, MyApps.confirm_uninstall_app)
 
-    more_options_dropdown = (By.XPATH, "//div[@class='el-dropdown']/span")
+    more_options_dropdown = "//div[@class='el-dropdown']/span"
 
     def mouse_hover_on_more_Actions(self):
-        return self.driver.find_element(*MyApps.more_options_dropdown)
+        return Action.mouse_hover_on_element(self, By.XPATH, MyApps.more_options_dropdown)
 
-    uninstall_app_button = (By.XPATH, "//li[text()='Uninstall App']")
+    uninstall_app_button = "//li[text()='Uninstall App']"
 
     def click_on_uninstall_app(self):
-        return self.driver.find_element(*MyApps.uninstall_app_button)
+        return Action.waitandclick(self, By.XPATH, MyApps.uninstall_app_button)
 
-    default_instance = (By.XPATH, "//div[contains(text(),'Default Instance')]/preceding-sibling::div")
+    default_instance = "//div[contains(text(),'Default Instance')]/preceding-sibling::div"
 
     def read_default_instance(self):
-        return self.driver.find_element(*MyApps.default_instance)
+        return Action.getText(self, By.XPATH, MyApps.default_instance)
 
-    instance_name_textbox = (By.XPATH, "//input[@placeholder='Enter Instance Name']")
+    instance_name_textbox = "//input[@placeholder='Enter Instance Name']"
 
-    def enter_instance_name(self):
-        return self.driver.find_element(*MyApps.instance_name_textbox)
+    def enter_instance_name(self, instance_name):
+        return Action.sendKeys(self, By.XPATH, MyApps.instance_name_textbox,instance_name)
 
-    instance_description_textbox = (By.XPATH, "//textarea[@placeholder='Enter Instance Description']")
+    instance_description_textbox = "//textarea[@placeholder='Enter Instance Description']"
 
-    def enter_instance_description(self):
-        return self.driver.find_element(*MyApps.instance_description_textbox)
+    def enter_instance_description(self, description):
+        return Action.sendKeys(self, By.XPATH, MyApps.instance_description_textbox, description)
 
-    instance_creation_button = (By.XPATH, "//button[text()='Create']")
+    instance_creation_button = "//button[text()='Create']"
 
     def click_instance_creation(self):
-        return self.driver.find_element(*MyApps.instance_creation_button)
+        return Action.waitandclick(self, By.XPATH, MyApps.instance_creation_button)
 
-    app_actions_tab = (By.XPATH, "//a[contains(@href,'/action/list')]")
+    app_actions_tab = "//a[contains(@href,'/action/list')]"
 
     def click_app_actions_tab(self):
-        return self.driver.find_element(*MyApps.app_actions_tab)
+        return Action.waitandclick(self, By.XPATH, MyApps.app_actions_tab)
 
-    button_new_instance = (By.XPATH, "//div[@class='app-summary__actions-header--wrapper']//button")
+    button_new_instance = "//div[@class='app-summary__actions-header--wrapper']//button"
 
     def click_on_new_instance(self):
-        return self.driver.find_element(*MyApps.button_new_instance)
+        return Action.waitandclick(self, By.XPATH, MyApps.button_new_instance)
 
-    app_instance_tab = (By.XPATH, "//a[contains(@href,'/instance/list')]")
+    app_instance_tab = "//a[contains(@href,'/instance/list')]"
 
     def click_app_instance_tab(self):
-        return self.driver.find_element(*MyApps.app_instance_tab)
+        return Action.waitandclick(self, By.XPATH, MyApps.app_instance_tab)
 
-    app_playbooks_tab = (By.XPATH, "//a[contains(@href,'/playbook/list')]")
+    app_playbooks_tab = "//a[contains(@href,'/playbook/list')]"
 
     def click_app_playbooks_tab(self):
-        return self.driver.find_element(*MyApps.app_playbooks_tab)
+        return Action.waitandclick(self, By.XPATH, MyApps.app_playbooks_tab)
 
-    app_title = (By.XPATH, "//div[@class='app-card-v2__header']//h3")
+    app_title = "//div[@class='app-card-v2__header']//h3"
 
     def read_app_title(self):
-        return self.driver.find_element(*MyApps.app_title)
+        return Action.getText(self, By.XPATH, MyApps.app_title)
 
-    active_app = (By.XPATH, "//div[@class='app-edit__view']//span//button")
+    active_app = "//div[@class='app-edit__view']//span//button"
 
     def click_active_app(self):
-        return self.driver.find_element(*MyApps.active_app)
+        return Action.waitandclick(self, By.XPATH, MyApps.active_app)
 
-    top_1_search_result = (By.XPATH, "(//div[@class='apps-container']//h3)[1]")
+    top_1_search_result = "(//div[@class='apps-container']//h3)[1]"
 
-    def top_first_search(self):
-        return self.driver.find_element(*MyApps.top_1_search_result)
+    def top_first_search(self, app_name):
+        return Action.ReadSearchResult(self, By.XPATH, MyApps.top_1_search_result, app_name)
 
-    search_app = (By.XPATH, "//input[@placeholder='Search App(s)']")
+    def click_first_search_result(self):
+        return Action.waitandclick(self, By.XPATH, MyApps.top_1_search_result)
 
-    def click_on_app_search(self):
-        return self.driver.find_element(*MyApps.search_app)
+    search_app = "//input[@placeholder='Search App(s)']"
 
-    app_name_textbox = (By.XPATH, "//input[@placeholder='Enter App Name']")
+    def click_on_app_search(self, app_name):
+        return Action.sendKeys(self, By.XPATH, MyApps.search_app, app_name)
 
-    def enter_app_name(self):
-        return self.driver.find_element(*MyApps.app_name_textbox)
+    app_name_textbox = "//input[@placeholder='Enter App Name']"
 
-    supported_api_version_textbox = (By.XPATH, "//input[@placeholder='Enter Supported API Versions']")
+    def enter_app_name(self, app_name):
+        return Action.sendKeys(self, By.XPATH, MyApps.app_name_textbox, app_name)
 
-    def enter_supported_api_version(self):
-        return self.driver.find_element(*MyApps.supported_api_version_textbox)
+    supported_api_version_textbox = "//input[@placeholder='Enter Supported API Versions']"
 
-    button_app_refresh = (By.XPATH, "//div[@class='tabs']//div[1]/i")
+    def enter_supported_api_version(self, version):
+        return Action.sendKeys(self, By.XPATH, MyApps.supported_api_version_textbox, version)
+
+    button_app_refresh = "//div[@class='tabs']//div[1]/i"
 
     def click_app_refresh_button(self):
-        return self.driver.find_element(*MyApps.button_app_refresh)
+        return Action.waitandclick(self, By.XPATH, MyApps.button_app_refresh)
 
-    tooltip_close = (By.XPATH, "//div[@role='alert']//div[2]")
+    tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
 
     def close_tooltip(self):
-        return self.driver.find_element(*MyApps.tooltip_close)
+        return Action.click(self, By.XPATH, MyApps.tooltip_close)
 
-    button_app_save = (By.XPATH, "//div[@class='app-edit__view']//div[3]/button")
+    button_app_save = "//div[@class='app-edit__view']//div[3]/button"
 
     def click_save_app_button(self):
-        return self.driver.find_element(*MyApps.button_app_save)
+        return Action.waitandclick(self, By.XPATH, MyApps.button_app_save)
 
-    tab_my_apps = (By.XPATH, "//a[@href='/soar/app/list/my-apps']")
+    tab_my_apps = "//a[@href='/soar/app/list/my-apps']"
 
     def My_Apps_Tab(self):
-        return self.driver.find_element(*MyApps.tab_my_apps)
+        return Action.waitandclick(self, By.XPATH, MyApps.tab_my_apps)
 
-    button_import_package = (By.XPATH, "(//div[@slot='header']//button)[2]")
+    button_import_package = "(//div[@slot='header']//button)[2]"
 
     def Import_button(self):
-        return self.driver.find_element(*MyApps.button_import_package)
+        return Action.waitandclick(self, By.XPATH, MyApps.button_import_package)
 
-    button_create_new_app = (By.XPATH, "(//div[@slot='header']//button)[1]")
+    button_create_new_app = "(//div[@slot='header']//button)[1]"
 
     def Create_App_button(self):
-        return self.driver.find_element(*MyApps.button_create_new_app)
+        return Action.waitandclick(self, By.XPATH, MyApps.button_create_new_app)
 
-    button_app_walkthrough = (By.XPATH, "(//div[@slot='header']//button)[3]")
+    button_app_walkthrough = "(//div[@slot='header']//button)[3]"
 
-    def Walk_through_button(self):
-        return self.driver.find_element(*MyApps.button_app_walkthrough)
+    def Click_walkthrough_button(self):
+        return Action.waitandclick(self, By.XPATH, MyApps.button_app_walkthrough)
 
-    walkthrough_tooltip_count = (By.XPATH, "//div[@class='introjs-helperNumberLayer']")
+    walkthrough_tooltip_count = "//div[@class='introjs-helperNumberLayer']"
 
     def get_tooltip_count(self):
-        return self.driver.find_element(*MyApps.walkthrough_tooltip_count)
+       return Action.waitandclick(self, By.XPATH, MyApps.walkthrough_tooltip_count)
 
-    walkthrough_tooltip_next_btn = (By.XPATH, "//a[contains(@class,'introjs-nextbutton')]")
+    walkthrough_tooltip_next_btn = "//a[contains(@class,'introjs-nextbutton')]"
 
     def click_on_next_btn(self):
-        return self.driver.find_element(*MyApps.walkthrough_tooltip_next_btn)
+        return Action.waitandclick(self, By.XPATH, MyApps.walkthrough_tooltip_next_btn)
+
+    close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
+
+    def click_on_close_walkthrough(self):
+        return Action.clickifelementfound(self, By.XPATH, MyApps.close_walkthrough_tooltip)

@@ -1,22 +1,28 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
-
-class TriggerEvents:
+class TriggerEvents(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    button_create_event = (By.XPATH, "//header//button")
+    button_create_event = "//header//button"
 
     def click_create_new_event(self):
-        return self.driver.find_element(*TriggerEvents.button_create_event)
+        return Action.waitandclick(self, By.XPATH, TriggerEvents.button_create_event)
 
-    text_get_slider_heading = (By.XPATH, "//div[@class='modal--header']//span")
+    text_page_heading = "//header//h1"
+
+    def get_page_heading(self):
+        return Action.getText(self, By.XPATH, TriggerEvents.text_page_heading)
+
+    text_get_slider_heading = "//div[@class='modal--header']//span"
 
     def get_slider_text(self):
-        return self.driver.find_element(*TriggerEvents.text_get_slider_heading)
+        return Action.getText(self, By.XPATH, TriggerEvents.text_get_slider_heading)
 
-    button_close_slider = (By.XPATH, "//div[@class='modal--header']//i")
+    button_close_slider = "//div[@class='modal--header']//i"
 
     def click_close_slider(self):
-        return self.driver.find_element(*TriggerEvents.button_close_slider)
+        return Action.waitandclick(self, By.XPATH, TriggerEvents.button_close_slider)

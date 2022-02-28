@@ -24,11 +24,10 @@ class TestUserManagement(Base):
         action = Action(self.driver)
         user = UserManagement(self.driver)
         log.info("Click on Admin menu")
-        action.click(nav.click_Admin_Menu())
+        nav.click_Admin_Menu()
         log.info("Click on User Management tab from Admin Page")
-        action.click(user.click_User_Management())
+        user.click_User_Management()
         assert action.getTitle() in 'User Management | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -39,14 +38,12 @@ class TestUserManagement(Base):
         """
         log = self.getlogger()
         user = UserManagement(self.driver)
-        action = Action(self.driver)
         log.info("Click on add new user button")
-        action.click(user.click_add_user())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        user.click_add_user()
         log.info("Read the slider title")
-        slider_title = action.getText(user.get_slider_title())
+        slider_title = user.get_slider_title()
         log.info("Click on close slider button")
-        action.click(user.click_slider_close())
+        user.click_slider_close()
         assert slider_title == 'User'
 
     @pytest.mark.smoke
@@ -58,13 +55,11 @@ class TestUserManagement(Base):
         """
         log = self.getlogger()
         user = UserManagement(self.driver)
-        action = Action(self.driver)
         log.info("Click on export button")
-        action.click(user.click_export())
-        time.sleep(ReadConfig.Wait_10_Sec())
+        user.click_export()
         log.info("Read export option available")
-        t = action.check_visibility_of_element(user.export_option_visibility())
-        assert t is True
+        visibility = user.export_option_visibility()
+        assert visibility is True
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -75,11 +70,10 @@ class TestUserManagement(Base):
         """
         log = self.getlogger()
         user = UserManagement(self.driver)
-        action = Action(self.driver)
         log.info("Click on inactive tab")
-        action.click(user.click_inactive_tab())
+        user.click_inactive_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(user.click_inactive_tab())
+        tab_color = user.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
@@ -91,9 +85,8 @@ class TestUserManagement(Base):
         """
         log = self.getlogger()
         user = UserManagement(self.driver)
-        action = Action(self.driver)
         log.info("Click on All tab")
-        action.click(user.click_All_tab())
+        user.click_All_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(user.click_All_tab())
+        tab_color = user.get_all_tab_color()
         assert tab_color == '#1a3ee8'

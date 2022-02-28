@@ -42,9 +42,9 @@ class ReadConfig:
         return int(wait_3_Sec)
 
     @staticmethod
-    def Wait_20_Sec():
-        wait_20_Sec = config.get('Waits', 'Wait_20_Seconds')
-        return int(wait_20_Sec)
+    def Wait_15_Sec():
+        wait_15_Sec = config.get('Waits', 'Wait_15_Seconds')
+        return int(wait_15_Sec)
 
     @staticmethod
     def Wait_6_Sec():

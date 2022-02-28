@@ -2,7 +2,7 @@ import time
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
-
+from selenium.common.exceptions import TimeoutException
 from configuration.readConfiguration import ReadConfig
 from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
@@ -23,12 +23,14 @@ class TestApps(Base):
         log = self.getlogger()
         nav = Navigation(self.driver)
         action = Action(self.driver)
+        myapps = MyApps(self.driver)
         log.info("Click on Main Menu")
-        action.click(nav.click_Main_Menu())
+        nav.click_Main_Menu()
         log.info("Click on Apps from Menu")
-        action.click(nav.Navigate_Apps())
-        time.sleep(ReadConfig.Wait_3_Sec())
-        assert action.getTitle() in 'My Apps | Cyware Orchestrate'
+        nav.Navigate_Apps()
+        log.info("Read page heading")
+        page_heading = myapps.get_page_heading()
+        assert action.getTitle() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps'
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
@@ -37,16 +39,9 @@ class TestApps(Base):
             close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
-        action = Action(self.driver)
         myapps = MyApps(self.driver)
-        try:
-            log.info("click on the next button")
-            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(myapps.get_tooltip_count())
-            for i in range(0, tooltip_count):
-                action.click(myapps.click_on_next_btn())
-        except NoSuchElementException:
-            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
-            pass
+        log.info("Check if walk through is initiated")
+        myapps.click_on_close_walkthrough()
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -59,8 +54,7 @@ class TestApps(Base):
         action = Action(self.driver)
         myapps = MyApps(self.driver)
         log.info("Click on App Store tab")
-        action.click(myapps.App_Store_Tab())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        myapps.App_Store_Tab()
         assert action.getTitle() in 'Appstore | Cyware Orchestrate'
 
     @pytest.mark.readOnly
@@ -70,16 +64,9 @@ class TestApps(Base):
             close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
-        action = Action(self.driver)
         myapps = MyApps(self.driver)
-        try:
-            log.info("click on the next button")
-            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(myapps.get_tooltip_count())
-            for i in range(0, tooltip_count):
-                action.click(myapps.click_on_next_btn())
-        except NoSuchElementException:
-            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
-            pass
+        log.info("Check if walk through is initiated")
+        myapps.click_on_close_walkthrough()
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -92,8 +79,7 @@ class TestApps(Base):
         action = Action(self.driver)
         myapps = MyApps(self.driver)
         log.info("Click on App Store tab")
-        action.click(myapps.My_Apps_Tab())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        myapps.My_Apps_Tab()
         assert action.getTitle() in 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -106,28 +92,27 @@ class TestApps(Base):
         action = Action(self.driver)
         myapps = MyApps(self.driver)
         log.info("Get the count of total apps before app creation")
-        count_of_app_before_creation = action.getCountfromString(myapps.get_app_count())
+        count_of_app_before_creation = myapps.get_app_count()
         log.info("Click on App create button")
-        action.click(myapps.Create_App_button())
+        myapps.Create_App_button()
         log.info("Enter app name")
         global new_app_name
         new_app_name = "newapp" + action.getRandomDigit()
-        action.sendKeys(myapps.enter_app_name(), new_app_name)
+        myapps.enter_app_name(new_app_name)
         log.info("Enter app supported api version")
-        action.sendKeys(myapps.enter_supported_api_version(), "1.0.0")
+        myapps.enter_supported_api_version("1.0.0")
         log.info("Click on refresh button")
-        action.click(myapps.click_app_refresh_button())
+        myapps.click_app_refresh_button()
         log.info("Click on close tool tip")
-        action.click(myapps.close_tooltip())
+        myapps.close_tooltip()
         log.info("Click on active app")
-        action.click(myapps.click_active_app())
+        myapps.click_active_app()
         log.info("Click on app save button")
-        action.click(myapps.click_save_app_button())
-        time.sleep(ReadConfig.Wait_10_Sec())
+        myapps.click_save_app_button()
         log.info("Click on close tool tip")
-        action.click(myapps.close_tooltip())
+        myapps.close_tooltip()
         time.sleep(ReadConfig.Wait_3_Sec())
-        count_of_app_after_creation = action.getCountfromString(myapps.get_app_count())
+        count_of_app_after_creation = myapps.get_app_count()
         assert count_of_app_before_creation + 1 == count_of_app_after_creation
 
     @pytest.mark.smoke
@@ -137,12 +122,10 @@ class TestApps(Base):
             Validation - 1. search the app which is created new manually.
         """
         log = self.getlogger()
-        action = Action(self.driver)
         myapps = MyApps(self.driver)
-        action.sendKeys(myapps.click_on_app_search(), new_app_name)
+        myapps.click_on_app_search(new_app_name)
         log.info("Search the app which is created new manually")
-        time.sleep(ReadConfig.Wait_3_Sec())
-        assert new_app_name == action.getText(myapps.top_first_search())
+        assert new_app_name == myapps.top_first_search(new_app_name)
 
     @pytest.mark.smoke
     def test_08_App_Detail_for_Custom_Created(self):
@@ -154,12 +137,11 @@ class TestApps(Base):
         log = self.getlogger()
         action = Action(self.driver)
         myapps = MyApps(self.driver)
-        app_title_listing = action.getText(myapps.top_first_search())
+        app_title_listing = myapps.top_first_search(new_app_name)
         log.info("Click on the searched app")
-        action.click(myapps.top_first_search())
+        myapps.click_first_search_result()
         page_title = action.getTitle()
-        time.sleep(ReadConfig.Wait_3_Sec())
-        app_title_summary = action.getText(myapps.read_app_title())
+        app_title_summary = myapps.read_app_title()
         assert page_title == 'App Summary | Cyware Orchestrate' and app_title_listing == app_title_summary
 
     @pytest.mark.smoke
@@ -172,7 +154,7 @@ class TestApps(Base):
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
         log.info("Click on actions tab")
-        action.click(my_apps.click_app_actions_tab())
+        my_apps.click_app_actions_tab()
         page_title = action.getTitle()
         assert page_title == 'App Actions | Cyware Orchestrate'
 
@@ -186,7 +168,7 @@ class TestApps(Base):
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
         log.info("Click on instance tab")
-        action.click(my_apps.click_app_instance_tab())
+        my_apps.click_app_instance_tab()
         page_title = action.getTitle()
         assert page_title == 'App Instances | Cyware Orchestrate'
 
@@ -197,14 +179,13 @@ class TestApps(Base):
             Validation - 1. By check presence of created instance's title on page
         """
         log = self.getlogger()
-        action = Action(self.driver)
         my_apps = MyApps(self.driver)
         log.info("Click on new instance button")
-        action.click(my_apps.click_on_new_instance())
-        action.sendKeys(my_apps.enter_instance_name(), 'test')
-        action.sendKeys(my_apps.enter_instance_description(), 'test')
-        action.click(my_apps.click_instance_creation())
-        assert action.getText(my_apps.read_default_instance()) == 'test'
+        my_apps.click_on_new_instance()
+        my_apps.enter_instance_name('test')
+        my_apps.enter_instance_description('test')
+        my_apps.click_instance_creation()
+        assert my_apps.read_default_instance() == 'test'
 
     @pytest.mark.smoke
     def test_12_Verify_Switch_Playbook_tab(self):
@@ -216,7 +197,7 @@ class TestApps(Base):
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
         log.info("Click on playbook tab")
-        action.click(my_apps.click_app_playbooks_tab())
+        my_apps.click_app_playbooks_tab()
         page_title = action.getTitle()
         assert page_title == 'App Playbooks | Cyware Orchestrate'
 
@@ -228,16 +209,14 @@ class TestApps(Base):
                          2. On the basis of tooltip after successful uninstall
         """
         log = self.getlogger()
-        action = Action(self.driver)
         my_apps = MyApps(self.driver)
         log.info("Mouse hover to more options")
-        action.mouse_hover_on_element(my_apps.mouse_hover_on_more_Actions())
+        my_apps.mouse_hover_on_more_Actions()
         log.info("Click on uninstall app")
-        action.click(my_apps.click_on_uninstall_app())
+        my_apps.click_on_uninstall_app()
         log.info("Click on confirm button to uninstall app")
-        action.click(my_apps.click_confirm_uninstall_app())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        my_apps.click_confirm_uninstall_app()
         log.info("Validating app uninstalled successfully or not")
-        tooltip_message = action.getText(my_apps.read_app_uninstall_success_message())
-        search_result_message = action.getText(my_apps.get_search_result_after_uninstall())
+        tooltip_message = my_apps.read_app_uninstall_success_message()
+        search_result_message = my_apps.get_search_result_after_uninstall()
         assert tooltip_message == 'App deleted successfully.' and search_result_message == 'No Results Found'

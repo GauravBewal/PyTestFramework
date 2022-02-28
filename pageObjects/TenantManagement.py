@@ -1,37 +1,44 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
-
-class TenantManagement:
+class TenantManagement(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    tab_Tenant_Management = (By.XPATH, "//p[contains(text(),'Tenant Management')]/parent::div/parent::div")
+    tab_Tenant_Management = "//p[contains(text(),'Tenant Management')]/parent::div/parent::div"
 
     def click_Tenant_Management(self):
-        return self.driver.find_element(*TenantManagement.tab_Tenant_Management)
+        return Action.waitandclick(self, By.XPATH, TenantManagement.tab_Tenant_Management)
 
-    tab_inactive = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
+    tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return self.driver.find_element(*TenantManagement.tab_inactive)
+        return Action.waitandclick(self, By.XPATH, TenantManagement.tab_inactive)
 
-    tab_All = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
+    def get_inactive_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, TenantManagement.tab_inactive)
+
+    tab_All = "//li/a[contains(text(),'Inactive')]"
 
     def click_All_tab(self):
-        return self.driver.find_element(*TenantManagement.tab_All)
+        return Action.waitandclick(self, By.XPATH, TenantManagement.tab_All)
 
-    btn_new_tenant = (By.XPATH, "//header//button")
+    def get_all_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, TenantManagement.tab_All)
+
+    btn_new_tenant = "//header//button"
 
     def click_new_tenant(self):
-        return self.driver.find_element(*TenantManagement.btn_new_tenant)
+        return Action.waitandclick(self, By.XPATH, TenantManagement.btn_new_tenant)
 
-    text_slider_title = (By.XPATH, "//div[@class='modal--header']//span")
+    text_slider_title = "//div[@class='modal--header']//span"
 
     def get_slider_title(self):
-        return self.driver.find_element(*TenantManagement.text_slider_title)
+        return Action.getText(self, By.XPATH, TenantManagement.text_slider_title)
 
-    btn_slider_close = (By.XPATH, "//div[@class='modal--header']//i")
+    btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
-        return self.driver.find_element(*TenantManagement.btn_slider_close)
+        return Action.waitandclick(self, By.XPATH, TenantManagement.btn_slider_close)

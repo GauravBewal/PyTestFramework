@@ -24,11 +24,10 @@ class TestSyslogs(Base):
         action = Action(self.driver)
         nav = Navigation(self.driver)
         log.info("Click on Main menu")
-        action.click(nav.click_Admin_Menu())
+        nav.click_Admin_Menu()
         log.info("Click on SysLogs tab from Admin Page")
-        action.click(syslog.click_SysLogs())
+        syslog.click_SysLogs()
         assert action.getTitle() in 'Syslogs | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -39,14 +38,12 @@ class TestSyslogs(Base):
         """
         log = self.getlogger()
         syslog = Syslogs(self.driver)
-        action = Action(self.driver)
         log.info("Click on add syslog button")
-        action.click(syslog.click_new_Syslog())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        syslog.click_new_Syslog()
         log.info("Read the slider title")
-        slider_title = action.getText(syslog.get_slider_title())
+        slider_title = syslog.get_slider_title()
         log.info("Click on close slider button")
-        action.click(syslog.click_slider_close())
+        syslog.click_slider_close()
         assert slider_title == 'Configure Syslog'
 
     @pytest.mark.smoke
@@ -57,12 +54,11 @@ class TestSyslogs(Base):
             Validation - 3. On the basis of tab color
         """
         log = self.getlogger()
-        action = Action(self.driver)
         syslog = Syslogs(self.driver)
         log.info("Click on inactive tab")
-        action.click(syslog.click_inactive_tab())
+        syslog.click_inactive_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(syslog.click_inactive_tab())
+        tab_color = syslog.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
@@ -73,10 +69,9 @@ class TestSyslogs(Base):
             Validation - 3. On the basis of tab color
         """
         log = self.getlogger()
-        action = Action(self.driver)
         syslog = Syslogs(self.driver)
         log.info("Click on inactive tab")
-        action.click(syslog.click_All_tab())
+        syslog.click_All_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(syslog.click_All_tab())
+        tab_color = syslog.get_all_tab_color()
         assert tab_color == '#1a3ee8'

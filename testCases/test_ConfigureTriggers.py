@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.ConfigureTrigger import ConfigureTrigger
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
@@ -21,10 +18,11 @@ class TestConfigureTriggers(Base):
         """
         nav = Navigation(self.driver)
         action = Action(self.driver)
-        action.click(nav.click_Main_Menu())
-        action.click(nav.Navigate_Configure_Event())
-        assert action.getTitle() in 'Configure Triggers | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_10_Sec())
+        config_trigger = ConfigureTrigger(self.driver)
+        nav.click_Main_Menu()
+        nav.Navigate_Configure_Event()
+        page_heading = config_trigger.get_page_heading()
+        assert action.getTitle() == 'Configure Triggers | Cyware Orchestrate' and 'Configure Triggers' in page_heading
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -34,15 +32,13 @@ class TestConfigureTriggers(Base):
           Validation 2: Based on the slider title
         """
         log = self.getlogger()
-        action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on configure new trigger button")
-        action.click(config_trigger.click_configure_trigger())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        config_trigger.click_configure_trigger()
         log.info("Read the slider heading")
-        slider_heading = action.getText(config_trigger.get_slider_heading())
+        slider_heading = config_trigger.get_slider_heading()
         log.info("Click on close slider button")
-        action.click(config_trigger.click_close_slider())
+        config_trigger.click_close_slider()
         log.info("Validating the slider heading")
         assert slider_heading == 'New Configure Event'
 
@@ -55,11 +51,10 @@ class TestConfigureTriggers(Base):
         """
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
-        action = Action(self.driver)
         log.info("Click on inactive tab")
-        action.click(config_trigger.click_inactive_tab())
+        config_trigger.click_inactive_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(config_trigger.click_inactive_tab())
+        tab_color = config_trigger.read_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
@@ -71,9 +66,8 @@ class TestConfigureTriggers(Base):
         """
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
-        action = Action(self.driver)
         log.info("Click on All tab")
-        action.click(config_trigger.click_All_tab())
+        config_trigger.click_All_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(config_trigger.click_All_tab())
+        tab_color = config_trigger.read_all_tab_color()
         assert tab_color == '#1a3ee8'

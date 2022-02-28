@@ -1,32 +1,44 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
-
-class ConfigureTrigger:
+class ConfigureTrigger(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    button_configure_trigger = (By.XPATH, "//header//button")
+    button_configure_trigger = "//header//button"
 
     def click_configure_trigger(self):
-        return self.driver.find_element(*ConfigureTrigger.button_configure_trigger)
+        return Action.waitandclick(self, By.XPATH, ConfigureTrigger.button_configure_trigger)
 
-    text_slider_heading = (By.XPATH, "//div[@class='modal--header']//span")
+    text_page_heading = "//header//h1"
+
+    def get_page_heading(self):
+        return Action.getText(self, By.XPATH, ConfigureTrigger.text_page_heading)
+
+    text_slider_heading = "//div[@class='modal--header']//span"
 
     def get_slider_heading(self):
-        return self.driver.find_element(*ConfigureTrigger.text_slider_heading)
+        return Action.getText(self, By.XPATH, ConfigureTrigger.text_slider_heading)
 
-    button_close_slider = (By.XPATH, "//div[@class='modal--header']//i")
+    button_close_slider = "//div[@class='modal--header']//i"
 
     def click_close_slider(self):
-        return self.driver.find_element(*ConfigureTrigger.button_close_slider)
+        return Action.waitandclick(self, By.XPATH, ConfigureTrigger.button_close_slider)
 
-    tab_inactive = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
+    tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return self.driver.find_element(*ConfigureTrigger.tab_inactive)
+        return Action.waitandclick(self, By.XPATH, ConfigureTrigger.tab_inactive)
 
-    tab_All = (By.XPATH, "//li/a[contains(text(),'All')]")
+    def read_inactive_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, ConfigureTrigger.tab_inactive)
+
+    tab_All = "//li/a[contains(text(),'All')]"
 
     def click_All_tab(self):
-        return self.driver.find_element(*ConfigureTrigger.tab_All)
+        return Action.waitandclick(self, By.XPATH, ConfigureTrigger.tab_All)
+
+    def read_all_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, ConfigureTrigger.tab_All)

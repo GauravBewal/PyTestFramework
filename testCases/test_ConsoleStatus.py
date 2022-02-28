@@ -19,19 +19,18 @@ class TestAdminPanel(Base):
         """
         log = self.getlogger()
         nav = Navigation(self.driver)
-        action = Action(self.driver)
         admin = Admin(self.driver)
         console = ConsoleStatus(self.driver)
-        action.click(nav.click_Admin_Menu())
+        nav.click_Admin_Menu()
         log.info("Click on Admin Menu")
-        action.click(admin.click_Console_Status())
+        admin.click_Console_Status()
         log.info("Click on Console Status and check Overview page listing of servers")
-        assert action.getText(console.get_overview_elastic_search_text()) == 'Elasticsearch'
-        assert action.getText(console.get_overview_my_sql_text()) == 'My SQL'
-        assert action.getText(console.get_overview_redis_text()) == 'Redis'
-        assert action.getText(console.get_overview_celery_text()) == 'Celery'
-        assert action.getText(console.get_overview_gunicorn_text()) == 'Gunicorn'
-        assert action.getText(console.get_overview_ngnix_text()) == 'Nginx'
+        assert console.get_overview_elastic_search_text() == 'Elasticsearch'
+        assert console.get_overview_my_sql_text() == 'My SQL'
+        assert console.get_overview_redis_text() == 'Redis'
+        assert console.get_overview_celery_text() == 'Celery'
+        assert console.get_overview_gunicorn_text() == 'Gunicorn'
+        assert console.get_overview_ngnix_text() == 'Nginx'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -41,12 +40,11 @@ class TestAdminPanel(Base):
             Validation - 1. On the basis of Active text of status
         """
         log = self.getlogger()
-        action = Action(self.driver)
         console = ConsoleStatus(self.driver)
-        action.click(console.click_elastic_search())
+        console.click_elastic_search()
         log.info("Click on Elastic Search from left panel")
-        page_heading = action.getText(console.get_server_page_heading())
-        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Elasticsearch'
+        page_heading = console.get_server_page_heading()
+        assert console.get_server_status() == 'Active' and page_heading == 'Elasticsearch'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -56,12 +54,11 @@ class TestAdminPanel(Base):
             Validation - 1. On the basis of Active text of status
         """
         log = self.getlogger()
-        action = Action(self.driver)
         console = ConsoleStatus(self.driver)
-        action.click(console.click_my_sql())
+        console.click_my_sql()
         log.info("Click on My SQL from left panel")
-        page_heading = action.getText(console.get_server_page_heading())
-        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'MySQL'
+        page_heading = console.get_server_page_heading()
+        assert console.get_server_status() == 'Active' and page_heading == 'MySQL'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -71,12 +68,11 @@ class TestAdminPanel(Base):
             Validation - 1. On the basis of Active text of status
         """
         log = self.getlogger()
-        action = Action(self.driver)
         console = ConsoleStatus(self.driver)
-        action.click(console.click_redis())
+        console.click_redis()
         log.info("Click on redis from left panel")
-        page_heading = action.getText(console.get_server_page_heading())
-        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Redis'
+        page_heading = console.get_server_page_heading()
+        assert console.get_server_status() == 'Active' and page_heading == 'Redis'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -86,12 +82,11 @@ class TestAdminPanel(Base):
             Validation - 1. On the basis of Active text of status
         """
         log = self.getlogger()
-        action = Action(self.driver)
         console = ConsoleStatus(self.driver)
-        action.click(console.click_celery())
+        console.click_celery()
         log.info("Click on Celery from left panel")
-        page_heading = action.getText(console.get_server_page_heading())
-        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Celery'
+        page_heading = console.get_server_page_heading()
+        assert console.get_server_status() == 'Active' and page_heading == 'Celery'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -101,12 +96,11 @@ class TestAdminPanel(Base):
             Validation - 1. On the basis of Active text of status
         """
         log = self.getlogger()
-        action = Action(self.driver)
         console = ConsoleStatus(self.driver)
-        action.click(console.click_gunicorn())
+        console.click_gunicorn()
         log.info("Click on Gunicorn from left panel")
-        page_heading = action.getText(console.get_server_page_heading())
-        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Gunicorn'
+        page_heading = console.get_server_page_heading()
+        assert console.get_server_status() == 'Active' and page_heading == 'Gunicorn'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -116,9 +110,8 @@ class TestAdminPanel(Base):
             Validation - 1. On the basis of Active text of status
         """
         log = self.getlogger()
-        action = Action(self.driver)
         console = ConsoleStatus(self.driver)
-        action.click(console.click_ngnix())
+        console.click_ngnix()
         log.info("Click on Ngnix from left panel")
-        page_heading = action.getText(console.get_server_page_heading())
-        assert action.getText(console.get_server_status()) == 'Active' and page_heading == 'Nginx'
+        page_heading = console.get_server_page_heading()
+        assert console.get_server_status() == 'Active' and page_heading == 'Nginx'

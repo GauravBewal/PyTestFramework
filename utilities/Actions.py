@@ -4,27 +4,42 @@ from datetime import datetime
 
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.color import Color
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
+from utilities.Base import Base
 
-
-
-class Action:
+class Action(Base):
 
     def __init__(self, driver):
         self.driver = driver
 
-    def click(self, element):
+    def waitandclick(self, by, path):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+        ele.click()
+
+    def click(self, by, path):
+        element = self.driver.find_element(by, path)
         element.click()
+
+    def clickifelementfound(self, by, path):
+        log = self.getlogger()
+        try:
+            WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable((by, path))).click()
+        except (NoSuchElementException, TimeoutException):
+            log.info("Automatic walk through was not initiated. Hence passing this testcase")
+            pass
+
 
     def switch_new_window(self, window_number):
         parent_window = self.driver.current_window_handle
         all_windows = self.driver.window_handles
         size = len(all_windows)
         for x in range(size):
-            if(x == window_number):
+            if (x == window_number):
                 self.driver.switch_to.window(all_windows[x])
                 break
         return parent_window
@@ -33,41 +48,48 @@ class Action:
         self.driver.close()
         self.driver.switch_to.window(parent_window)
 
-    def mouse_hover_on_element(self, element):
-        hover = ActionChains(self.driver).move_to_element(element)
+    def mouse_hover_on_element(self, by, path):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        hover = ActionChains(self.driver).move_to_element(ele)
         hover.perform()
 
     def javascript_click_element(self, element):
         self.driver.execute_script("arguments[0].click();", element)
 
-    def getCountfromString(self, element):
-        count = element.text
+    def getCountfromString(self, by, path):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+        count = ele.text
         return int(float(count.split('(')[1].split(')')[0]))
 
-    def get_no_of_walkthrough_and_pagination_count(self, element):
+    def get_no_of_walkthrough_and_pagination_count(self, by, path):
+        element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         count = element.text
         return int(count.split(' ')[2])
 
-    def get_current_page_number(self, element):
+    def get_current_page_number(self, by, path):
+        element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         count = element.text
         return int(count.split(' ')[0])
 
-    def sendKeys(self, inputfield, value):
-        inputfield.send_keys(value)
+    def sendKeys(self, by, path, value):
+        element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        element.send_keys(value)
 
-    def clear_field(self, element):
+    def clear_field(self, by, path):
+        element = self.driver.find_element(by, path)
         while len(element.get_attribute("value")) > 0:
             element.send_keys(Keys.BACK_SPACE)
 
-    def clickEnter(self, inputfield):
-        inputfield.send_keys(Keys.ENTER)
+    def clickEnter(self, by, path):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+        ele.send_keys(Keys.ENTER)
         action1 = ActionChains(self.driver)
         action1.send_keys(Keys.ENTER)
         action1.perform()
 
-    def check_visibility_of_element(self, element):
-
-        if element.is_displayed():
+    def check_visibility_of_element(self, by, path):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        if ele.is_displayed():
             return True
         else:
             return False
@@ -76,31 +98,33 @@ class Action:
         ddelement = Select(dropdown)
         ddelement.select_by_value(value)
 
-    def getText(self, element):
-        return element.text
+    def getText(self, by, path):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        return ele.text
+
+    def ReadSearchResult(self, by, path, value):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.text_to_be_present_in_element((by, path), value))
+        if ele == True:
+            return self.driver.find_element(by, path).text
 
     def getTitle(self):
         return self.driver.title
 
-    def getattribute(self, element, attributeValue):
-        return element.get_attribute(attributeValue)
+    def getattribute(self, by, path, attributeValue):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        return ele.get_attribute(attributeValue)
 
     def currentTime(self):
         return datetime.now().strftime("%B %d, %Y %H:%M:%S")
 
-    def getElementColor(self, element):
-        rgb = element.value_of_css_property('color')
+    def getElementColor(self, by, path):
+        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        rgb = ele.value_of_css_property('color')
         return Color.from_string(rgb).hex
 
     def getRandomDigit(self):
         res = ''.join(random.choices(string.digits, k=4))
         return res
-
-
-    def WebdriverWait(self, element, wait):
-        web_element = WebDriverWait(self.driver, wait).until(
-            EC.presence_of_element_located(element))
-        return web_element
 
     def accept_alert(self):
         alert = self.driver.switch_to_alert()
@@ -109,5 +133,3 @@ class Action:
     def dismiss_alert(self):
         alert = self.driver.switch_to_alert()
         alert.dismiss()
-
-
