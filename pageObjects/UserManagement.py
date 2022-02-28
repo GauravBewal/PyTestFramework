@@ -1,47 +1,55 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
 
-class UserManagement:
+class UserManagement(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    tab_User_Management = (By.XPATH, "//p[contains(text(),'User Management')]/parent::div/parent::div")
+    tab_User_Management = "//p[contains(text(),'User Management')]/parent::div/parent::div"
 
     def click_User_Management(self):
-        return self.driver.find_element(*UserManagement.tab_User_Management)
+        return Action.waitandclick(self, By.XPATH, UserManagement.tab_User_Management)
 
-    tab_inactive = (By.XPATH, "//li/a[contains(text(),'Inactive')]")
+    tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return self.driver.find_element(*UserManagement.tab_inactive)
+        return Action.waitandclick(self, By.XPATH, UserManagement.tab_inactive)
 
-    tab_All = (By.XPATH, "//li/a[contains(text(),'All')]")
+    def get_inactive_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, UserManagement.tab_inactive)
+
+    tab_All = "//li/a[contains(text(),'All')]"
 
     def click_All_tab(self):
-        return self.driver.find_element(*UserManagement.tab_All)
+        return Action.waitandclick(self, By.XPATH, UserManagement.tab_All)
 
-    btn_new_user = (By.XPATH, "//header//div[3]/button")
+    def get_all_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, UserManagement.tab_All)
+
+    btn_new_user = "//header//div[3]/button"
 
     def click_add_user(self):
-        return self.driver.find_element(*UserManagement.btn_new_user)
+        return Action.waitandclick(self, By.XPATH, UserManagement.btn_new_user)
 
-    btn_export_user = (By.XPATH, "//header//div[@class='el-dropdown']/button")
+    btn_export_user = "//header//div[@class='el-dropdown']/button"
 
     def click_export(self):
-        return self.driver.find_element(*UserManagement.btn_export_user)
+        return Action.waitandclick(self, By.XPATH, UserManagement.btn_export_user)
 
-    drpdwn_export_option = (By.XPATH, "//li[text()='CSV']")
+    drpdwn_export_option = "//li[text()='CSV']"
 
     def export_option_visibility(self):
-        return self.driver.find_element(*UserManagement.drpdwn_export_option)
+        return Action.check_visibility_of_element(self, By.XPATH, UserManagement.drpdwn_export_option)
 
-    text_slider_title = (By.XPATH, "//div[text()='User']")
+    text_slider_title = "//div[text()='User']"
 
     def get_slider_title(self):
-        return self.driver.find_element(*UserManagement.text_slider_title)
+        return Action.getText(self, By.XPATH, UserManagement.text_slider_title)
 
-    btn_slider_close = (By.XPATH, "//div[text()='User']/../following-sibling::div/span[2]")
+    btn_slider_close = "//div[text()='User']/../following-sibling::div/span[2]"
 
     def click_slider_close(self):
-        return self.driver.find_element(*UserManagement.btn_slider_close)
+        return Action.waitandclick(self, By.XPATH, UserManagement.btn_slider_close)

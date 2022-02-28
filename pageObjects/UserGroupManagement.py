@@ -1,37 +1,44 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
-
-class UserGroupManagement:
+class UserGroupManagement(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    tab_User_Group_Management = (By.XPATH, "//p[contains(text(),'User Group')]/parent::div/parent::div")
+    tab_User_Group_Management = "//p[contains(text(),'User Group')]/parent::div/parent::div"
 
     def click_User_Group_Management(self):
-        return self.driver.find_element(*UserGroupManagement.tab_User_Group_Management)
+        return Action.waitandclick(self, By.XPATH, UserGroupManagement.tab_User_Group_Management)
 
-    tab_inactive = (By.XPATH, "//div[@class='px-2 tabs--list my-2']//li[3]/a")
+    tab_inactive = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
 
     def click_inactive_tab(self):
-        return self.driver.find_element(*UserGroupManagement.tab_inactive)
+        return Action.waitandclick(self, By.XPATH, UserGroupManagement.tab_inactive)
 
-    tab_All = (By.XPATH, "//div[@class='px-2 tabs--list my-2']//li[3]/a")
+    def get_inactive_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, UserGroupManagement.tab_inactive)
+
+    tab_All = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
 
     def click_All_tab(self):
-        return self.driver.find_element(*UserGroupManagement.tab_All)
+        return Action.waitandclick(self, By.XPATH, UserGroupManagement.tab_All)
 
-    btn_add_user_group = (By.XPATH, "//header//button")
+    def get_all_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, UserGroupManagement.tab_All)
+
+    btn_add_user_group = "//header//button"
 
     def click_add_user_group(self):
-        return self.driver.find_element(*UserGroupManagement.btn_add_user_group)
+        return Action.waitandclick(self, By.XPATH, UserGroupManagement.btn_add_user_group)
 
-    text_slider_title = (By.XPATH, "//div[@class='modal--header']//span")
+    text_slider_title = "//div[@class='modal--header']//span"
 
     def get_slider_title(self):
-        return self.driver.find_element(*UserGroupManagement.text_slider_title)
+        return Action.getText(self, By.XPATH, UserGroupManagement.text_slider_title)
 
-    btn_slider_close = (By.XPATH, "//div[@class='modal--header']//i")
+    btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
-        return self.driver.find_element(*UserGroupManagement.btn_slider_close)
+        return Action.waitandclick(self, By.XPATH, UserGroupManagement.btn_slider_close)

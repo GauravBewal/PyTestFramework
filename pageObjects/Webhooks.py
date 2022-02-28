@@ -1,37 +1,44 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
-
-class Webhooks:
+class Webhooks(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    tab_Webhooks = (By.XPATH, "//p[contains(text(),'Webhook')]/parent::div/parent::div")
+    tab_Webhooks = "//p[contains(text(),'Webhook')]/parent::div/parent::div"
 
     def click_Webhooks(self):
-        return self.driver.find_element(*Webhooks.tab_Webhooks)
+        return Action.waitandclick(self, By.XPATH, Webhooks.tab_Webhooks)
 
-    btn_new_webhook = (By.XPATH, "//header//button")
+    btn_new_webhook = "//header//button"
 
     def click_new_webhook(self):
-        return self.driver.find_element(*Webhooks.btn_new_webhook)
+        return Action.waitandclick(self, By.XPATH, Webhooks.btn_new_webhook)
 
-    text_slider_heading = (By.XPATH, "//div[@class='modal--header']//span")
+    text_slider_heading = "//div[@class='modal--header']//span"
 
     def get_slider_title(self):
-        return self.driver.find_element(*Webhooks.text_slider_heading)
+        return Action.getText(self, By.XPATH, Webhooks.text_slider_heading)
 
-    btn_slider_close = (By.XPATH, "//div[@class='modal--header']//i")
+    btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
-        return self.driver.find_element(*Webhooks.btn_slider_close)
+        return Action.waitandclick(self, By.XPATH, Webhooks.btn_slider_close)
 
-    tab_inactive = (By.XPATH, "//li[3]/a[contains(text(),'Inactive')]")
+    tab_inactive = "//li[3]/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return self.driver.find_element(*Webhooks.tab_inactive)
+        return Action.waitandclick(self, By.XPATH, Webhooks.tab_inactive)
 
-    tab_All = (By.XPATH, "//li/a[contains(text(),'All')]")
+    def get_inactive_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, Webhooks.tab_inactive)
+
+    tab_All = "//li/a[contains(text(),'All')]"
 
     def click_All_tab(self):
-        return self.driver.find_element(*Webhooks.tab_All)
+        return Action.waitandclick(self, By.XPATH, Webhooks.tab_All)
+
+    def get_all_tab_color(self):
+        return Action.getElementColor(self, By.XPATH, Webhooks.tab_All)

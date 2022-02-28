@@ -5,8 +5,10 @@ import os
 import pytest
 
 
+
+
 @pytest.mark.usefixtures("setup")
-class Base:
+class Base():
 
     def getlogger(self):
         loggerName = inspect.stack()[1][3]
@@ -27,3 +29,5 @@ class Base:
         logger.addHandler(filehandler)
         logger.setLevel(logging.INFO)
         return logger
+
+

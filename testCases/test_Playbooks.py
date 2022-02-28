@@ -2,12 +2,13 @@ import time
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
-
+from selenium.common.exceptions import TimeoutException
 from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.Playbooks import Playbooks
 from utilities.Actions import Action
 from utilities.Base import Base
+from selenium.webdriver.common.by import By
 
 
 @pytest.mark.usefixtures("setup")
@@ -25,14 +26,12 @@ class TestPlaybook(Base):
         log = self.getlogger()
         nav = Navigation(self.driver)
         playbooks = Playbooks(self.driver)
-        action = Action(self.driver)
         log.info("Click on Main Menu")
-        action.click(nav.click_Main_Menu())
+        nav.click_Main_Menu()
         log.info("Click on Manage Playbook from Main Menu")
-        action.click(nav.Navigate_Manage_Playbook())
-        read_page_heading = action.getText(playbooks.get_manage_playbook_heading())
+        nav.Navigate_Manage_Playbook()
+        read_page_heading = playbooks.get_manage_playbook_heading()
         assert read_page_heading == 'Manage Playbooks'
-        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
@@ -41,16 +40,9 @@ class TestPlaybook(Base):
             close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        try:
-            log.info("click on the next button")
-            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
-            for i in range(0, tooltip_count):
-                action.click(playbooks.click_on_next_btn())
-        except NoSuchElementException:
-            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
-            pass
+        log.info("Check if walk through is initiated")
+        playbooks.click_on_close_walkthrough()
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -63,8 +55,7 @@ class TestPlaybook(Base):
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Click on Cyware Playbooks for switch tab ")
-        action.click(playbooks.cyware_playbook_tab())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.cyware_playbook_tab()
         assert action.getTitle() == 'Cyware Playbooks | Cyware Orchestrate'
 
     @pytest.mark.readOnly
@@ -74,16 +65,9 @@ class TestPlaybook(Base):
             close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        try:
-            log.info("click on the next button")
-            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
-            for i in range(0, tooltip_count):
-                action.click(playbooks.click_on_next_btn())
-        except NoSuchElementException:
-            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
-            pass
+        log.info("Check if walk through is initiated")
+        playbooks.click_on_close_walkthrough()
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -96,8 +80,7 @@ class TestPlaybook(Base):
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Click on My Playbooks for switch tab")
-        action.click(playbooks.my_playbook_tab())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.my_playbook_tab()
         assert action.getTitle() == 'My Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -111,11 +94,9 @@ class TestPlaybook(Base):
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Click on create new playbook cta")
-        action.click(playbooks.click_on_create_playbook_btn())
+        playbooks.click_on_create_playbook_btn()
         log.info("Read the page title")
-        page_title = action.getTitle()
-        assert page_title == 'Add Playbook | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_3_Sec())
+        assert action.getTitle() == 'Add Playbook | Cyware Orchestrate'
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
@@ -124,16 +105,9 @@ class TestPlaybook(Base):
             close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        try:
-            log.info("click on the next button")
-            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
-            for i in range(0, tooltip_count):
-                action.click(playbooks.click_on_next_btn())
-        except NoSuchElementException:
-            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
-            pass
+        log.info("Check if walk through is initiated")
+        playbooks.click_on_close_walkthrough()
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
@@ -143,12 +117,11 @@ class TestPlaybook(Base):
           Validation : Based on the add node slider title
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Click on add node button")
-        action.click(playbooks.click_add_node_btn())
+        playbooks.click_add_node_btn()
         log.info("Read the add node slider title")
-        slider_text = action.getText(playbooks.get_add_node_slider_text())
+        slider_text = playbooks.get_add_node_slider_text()
         assert slider_text == 'ADD NODES'
 
     @pytest.mark.smoke
@@ -158,18 +131,18 @@ class TestPlaybook(Base):
            Verify user is able to see all the nodes
            Validation: Based on the nodes category title
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Read all the action nodes")
         all_elements = playbooks.get_all_elements()
         nodes_list = ['Action Nodes', 'Condition Nodes', 'Input Node', 'Memory Node']
         log.info("Validate all the node title")
-        for i in range(0, len(all_elements)):
-            node_title = action.getText(all_elements[i])
-            assert node_title == nodes_list[i]
+        for i in range(1, len(all_elements)+1):
+            path = "(//div[@class='content']//h3)["+str(i)+"]"
+            node_title = playbooks.find_element_path_and_get_text(path)
+            assert node_title == nodes_list[i-1]
         log.info("Closing the node slider")
-        action.click(playbooks.click_on_node_close_btn())
+        playbooks.click_on_node_close_btn()
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -178,20 +151,17 @@ class TestPlaybook(Base):
             Verify user is able to see the video walkthough
             Validation: Based on the video walkthrough popup title
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Click on Walkthrough button")
-        action.click(playbooks.click_walkthrough_bulb_btn())
+        playbooks.click_walkthrough_bulb_btn()
         log.info("Click on video walkthrough button")
-        time.sleep(ReadConfig.Wait_3_Sec())
-        action.javascript_click_element(playbooks.click_on_video_walthrough_btn())
+        playbooks.click_on_video_walthrough_btn()
         log.info("Read the video walkthrough popup title")
-        popup_title = action.getText(playbooks.get_video_walkthrough_popup_txt())
+        popup_title = playbooks.get_video_walkthrough_popup_txt()
         log.info("Click on finish button to close the popup")
-        action.click(playbooks.click_on_finish_button())
+        playbooks.click_on_finish_button()
         assert popup_title == 'Creating a New Playbook?'
-        time.sleep(ReadConfig.Wait_3_Sec())
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -200,25 +170,23 @@ class TestPlaybook(Base):
             Verify user is able to see the tooltip walkthough
             Validation: Based on the tooltip walkthrough title
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Click on Walkthrough button")
-        action.click(playbooks.click_walkthrough_bulb_btn())
+        playbooks.click_walkthrough_bulb_btn()
+        log.info("Mouse hover on the tooltip walkthrough button")
+        playbooks.mouse_hover_on_tooltip_walkthrough_btn()
         log.info("Click on the tooltip walkthrough button")
-        action.javascript_click_element(playbooks.click_on_tooltip_walkthrough_btn())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.click_on_tooltip_walkthrough_btn()
         log.info("Reading the no of tooltips available")
-        tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
+        tooltip_count = playbooks.get_tooltip_count()
         log.info("Reading the walkthrough tooltip title")
         tooltip_titles = ['Playbook Overview', 'Add Node', 'Connect Nodes', 'Zoom and Auto-arrange Nodes',
                           'Save and Run']
         for i in range(0, tooltip_count):
-            time.sleep(ReadConfig.Wait_3_Sec())
-            tooltip_text = action.getText(playbooks.get_tooltip_title())
+            tooltip_text = playbooks.get_tooltip_title()
             assert tooltip_text == tooltip_titles[i]
-            action.click(playbooks.click_on_next_btn())
-        time.sleep(ReadConfig.Wait_3_Sec())
+            playbooks.click_on_next_btn()
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -227,13 +195,12 @@ class TestPlaybook(Base):
             Verify user is able to see the save options
             Validation: Based on the save options visibility
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Mouse hover on the save button")
-        action.mouse_hover_on_element(playbooks.mouse_hover_on_save_btn())
-        text_save_and_run = action.getText(playbooks.get_save_and_run_txt())
-        text_save_and_exit = action.getText(playbooks.get_save_and_exit_txt())
+        playbooks.mouse_hover_on_save_btn()
+        text_save_and_run = playbooks.get_save_and_run_txt()
+        text_save_and_exit = playbooks.get_save_and_exit_txt()
         assert text_save_and_exit == 'Save & Exit' and text_save_and_run == 'Save & Run'
 
     @pytest.mark.smoke
@@ -243,14 +210,12 @@ class TestPlaybook(Base):
             Verify user is able to see the playbook overview slider
             Validation: Based on the slider title
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Click on the over view button")
-        action.click(playbooks.click_on_playbook_overview_btn())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.click_on_playbook_overview_btn()
         log.info("Read the playbook overview slider title")
-        slider_title = action.getText(playbooks.get_playbook_overview_slider_title())
+        slider_title = playbooks.get_playbook_overview_slider_title()
         assert slider_title == 'Overview'
 
     @pytest.mark.smoke
@@ -260,19 +225,17 @@ class TestPlaybook(Base):
             Verify whether user is able to click on output parameter
             Validation: Based on the section title and add parameter button visibility
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Close the playbook data slider")
-        action.click(playbooks.click_on_playbook_data())
+        playbooks.click_on_playbook_data()
         log.info("Click on the output parameters section")
-        action.click(playbooks.click_on_output_parameters())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.click_on_output_parameters()
         log.info("Read the section title")
-        section_title = action.getText(playbooks.click_on_output_parameters())
-        log.info("Check for visibility of output parameters button")
-        bool = action.check_visibility_of_element(playbooks.click_on_add_parameter_btn())
-        assert section_title == 'Output Parameters (0)' and bool is True
+        section_title = playbooks.get_output_parameter_section_title()
+        log.info("Check for visibility of add parameters button")
+        visibility = playbooks.visibility_of_add_parameter_btn()
+        assert section_title == 'Output Parameters (0)' and visibility is True
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -281,18 +244,17 @@ class TestPlaybook(Base):
             Verify user is able to add the output parameters
             Validation: Based on the params visibility
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Click on add parameter button")
-        action.javascript_click_element(playbooks.click_on_add_parameter_btn())
+        playbooks.click_on_add_parameter_btn()
         log.info("Check visibility of key field")
-        bool1 = action.check_visibility_of_element(playbooks.check_visibility_of_key_field())
+        visibility1 = playbooks.check_visibility_of_key_field()
         log.info("Check visibility of value field")
-        bool2 = action.check_visibility_of_element(playbooks.check_visibility_of_value_field())
+        visibility2 = playbooks.check_visibility_of_value_field()
         log.info("Deleting the created parameters")
-        action.click(playbooks.click_on_parameter_delete_btn())
-        assert bool1 is True and bool2 is True
+        playbooks.click_on_parameter_delete_btn()
+        assert visibility1 and visibility2 is True
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -301,18 +263,16 @@ class TestPlaybook(Base):
             Verify user is able to switch to associated playbooks section
             Validation: Based on the section title and no state text
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Close the output parameters section")
-        action.click(playbooks.click_on_output_parameters())
+        playbooks.click_on_output_parameters()
         log.info("Click on associated playbooks section")
-        action.click(playbooks.click_on_associated_playbook())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.click_on_associated_playbook()
         log.info("Read the section title")
-        section_title = action.getText(playbooks.click_on_associated_playbook())
+        section_title = playbooks.get_associated_playbooks_section_title()
         log.info("Read the no state text")
-        text = action.getText(playbooks.get_no_state_validation_text())
+        text = playbooks.get_no_state_validation_text()
         assert section_title == 'Associated Playbook (0)' and text == 'No Master Playbooks Available'
 
     @pytest.mark.smoke
@@ -322,14 +282,12 @@ class TestPlaybook(Base):
             Verify whether user is able to switch to sub-playbooks section
             Validation: Based on the subplaybooks tab color
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Switch to sub-playbooks tab")
-        action.click(playbooks.switch_to_sub_playbooks_tab())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.switch_to_sub_playbooks_tab()
         log.info("Read no state text")
-        text = action.getText(playbooks.get_no_state_validation_text())
+        text = playbooks.get_no_state_validation_text()
         assert text == 'No Sub Playbooks Available'
 
     @pytest.mark.smoke
@@ -339,24 +297,21 @@ class TestPlaybook(Base):
             Verify whether user is able to switch apps and actions section
             Validation based on section title and no state text
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Close the associated playbooks section")
-        action.click(playbooks.click_on_associated_playbook())
+        playbooks.click_on_associated_playbook()
         log.info("Click on apps and action section")
-        action.click(playbooks.click_apps_and_actions())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.click_apps_and_actions()
         log.info("Read the section title")
-        section_title = action.getText(playbooks.click_apps_and_actions())
+        section_title = playbooks.get_apps_and_actions_section_title()
         log.info("Read the no state text")
-        text = action.getText(playbooks.get_no_state_validation_text())
+        text = playbooks.get_no_state_validation_text()
         log.info("click on the back button")
-        action.click(playbooks.click_on_back_button())
+        playbooks.click_on_back_button()
         log.info("Click exit without save button")
-        action.click(playbooks.click_exit_without_save())
+        playbooks.click_exit_without_save()
         assert section_title == 'Apps (0) / Actions (0)' and text == 'No App/Actions Available'
-        time.sleep(ReadConfig.Wait_10_Sec())
 
     @pytest.mark.smoke
     def test_19_Click_Customize_Table_btn(self):
@@ -364,16 +319,14 @@ class TestPlaybook(Base):
             Verify whether user is able to click on customize table
             Validation: Based on the slider title
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Click on the customize table button")
-        action.click(playbooks.click_on_customize_table_btn())
+        playbooks.click_on_customize_table_btn()
         log.info("Read the slider title")
-        time.sleep(ReadConfig.Wait_3_Sec())
-        slider_txt = action.getText(playbooks.get_customize_table_txt())
+        slider_txt = playbooks.get_customize_table_txt()
         log.info("close the slider")
-        action.click(playbooks.click_close_customize_table_btn())
+        playbooks.click_close_customize_table_btn()
         assert slider_txt == 'Customize Display Fields'
 
     @pytest.mark.smoke
@@ -383,16 +336,14 @@ class TestPlaybook(Base):
             Verify whether user is able to click on filter button
             Validation: Based on the slider title
         """
-        action = Action(self.driver)
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Click on the filter button")
-        action.click(playbooks.click_filter_btn())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.click_filter_btn()
         log.info("Read the filter slider title")
-        slider_txt = action.getText(playbooks.get_filter_title())
+        slider_txt = playbooks.get_filter_title()
         log.info("Close filter")
-        action.click(playbooks.close_filter_btn())
+        playbooks.close_filter_btn()
         assert slider_txt == 'FILTERS'
 
     @pytest.mark.smoke
@@ -406,17 +357,14 @@ class TestPlaybook(Base):
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Switching to cyware playbook tab")
-        action.click(playbooks.cyware_playbook_tab())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.cyware_playbook_tab()
         log.info("Click on the first playbook")
-        action.click(playbooks.click_first_playbook())
-        time.sleep(ReadConfig.Wait_10_Sec())
+        playbooks.click_first_playbook()
         log.info("Switch to new tab")
         global parent_window
         parent_window = action.switch_new_window(1)
         log.info("Read the window title")
-        page_title = action.getTitle()
-        assert page_title == 'View Playbook | Cyware Orchestrate'
+        assert action.getTitle() == 'View Playbook | Cyware Orchestrate'
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
@@ -425,16 +373,9 @@ class TestPlaybook(Base):
             Close all automatically initiated walkthroughs for new poc
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        try:
-            log.info("click on the next button")
-            tooltip_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_tooltip_count())
-            for i in range(0, tooltip_count):
-                action.click(playbooks.click_on_next_btn())
-        except NoSuchElementException:
-            log.info("Automatic walkthrough was not initiated. Hence passing this testcase")
-            pass
+        log.info("Check if walk through is initiated")
+        playbooks.click_on_close_walkthrough()
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -444,17 +385,15 @@ class TestPlaybook(Base):
             Validation: Based on the export options visibility
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbook = Playbooks(self.driver)
-        log.info("Click on the more options")
-        action.mouse_hover_on_element(playbook.click_playbook_more_options())
+        log.info("mouse hover on the more options")
+        playbook.mouse_hover_on_more_options()
         log.info("Click on the export button")
-        action.click(playbook.mouse_hover_export_btn())
+        playbook.mouse_hover_export_btn()
         log.info("Check visibility of export options ")
-        export_png = action.check_visibility_of_element(playbook.check_visibility_export_as_png())
-        export_json = action.check_visibility_of_element(playbook.check_visibility_export_as_json())
-        assert export_json is True and export_png is True
-        time.sleep(ReadConfig.Wait_3_Sec())
+        export_png = playbook.check_visibility_export_as_png()
+        export_json = playbook.check_visibility_export_as_json()
+        assert export_json and export_png is True
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -464,13 +403,12 @@ class TestPlaybook(Base):
         Validation: Based on the clone button visibility
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbook = Playbooks(self.driver)
-        log.info("Click on the more options")
-        action.mouse_hover_on_element(playbook.click_playbook_more_options())
+        log.info("mouse hover on the more options")
+        playbook.mouse_hover_on_more_options()
         log.info("Check for clone button visibility")
-        assert action.check_visibility_of_element(playbook.check_visibility_of_clone_btn()) is True
-        time.sleep(ReadConfig.Wait_3_Sec())
+        visibility = playbook.check_visibility_of_clone_btn()
+        assert visibility is True
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -483,72 +421,91 @@ class TestPlaybook(Base):
         action = Action(self.driver)
         playbook = Playbooks(self.driver)
         log.info("Click on the more options")
-        action.mouse_hover_on_element(playbook.click_playbook_more_options())
+        playbook.mouse_hover_on_more_options()
         log.info("Click on the test instances button")
-        action.click(playbook.click_on_test_instances_btn())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbook.click_on_test_instances_btn()
         log.info("Read the slider title")
-        slider_title = action.getText(playbook.get_test_instance_slider_text())
+        slider_title = playbook.get_test_instance_slider_text()
         log.info("Close the test instances slider")
-        action.click(playbook.click_test_instance_slider_close_btn())
+        playbook.click_test_instance_slider_close_btn()
         log.info("Switch back to parent window and close child window")
         action.switch_back_parent_window(parent_window)
         assert slider_title == 'Test Instances'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_26_Sort_options_visibility(self):
+    def test_26_Verify_Grid_view_switching(self):
+        """
+        Verify whether user is able to switch to Grid view
+        Validation 1:- Based on the button color visibility
+        """
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Click on Grid button")
+        playbooks.click_on_grid_btn()
+        log.info("Check whether grid view button is selected")
+        grid_button_selected = playbooks.get_grid_icon_color()
+        log.info("Check whether view has been changed to grid")
+        assert grid_button_selected == '#1a3ee8'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_27_Sort_options_visibility(self):
         """
         Verify whether user is able to see all the available sort options
         Validation 1: Based on the options visibility
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbook = Playbooks(self.driver)
         log.info("Switching to my playbooks tab")
-        action.click(playbook.my_playbook_tab())
+        playbook.my_playbook_tab()
         log.info("Click on the sort option")
-        action.mouse_hover_on_element(playbook.mouse_hover_sort_options())
+        playbook.mouse_hover_sort_options()
         sort_options = ['Name', 'Modified', 'Created', 'ID', 'Last Run', 'Total Run']
         log.info("Reading all the visible sort options")
         all_sorting_elements = playbook.read_available_sort_options()
-        for ele in range(1, len(all_sorting_elements) + 1):
+        for ele in range(1, len(all_sorting_elements)+1):
             path = "(//ul[contains(@class,'sort')]/li)[" + str(ele) + "]"
-            read_sort_option = action.getText(playbook.find_element_path(path))
-            assert read_sort_option == sort_options[ele - 1]
+            read_sort_option = playbook.find_element_path_and_get_text(path)
+            assert read_sort_option == sort_options[ele-1]
 
     @pytest.mark.smoke
-    def test_27_Verify_Pagination_increment(self):
+    def test_28_Verify_Pagination_increment(self):
         """
         Verify whether user is able to apply pagination
         Validation 1: Based on the page number
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Reding the no of pages available")
-        pagination_count = action.get_no_of_walkthrough_and_pagination_count(playbooks.get_pagination_count())
         log.info("Change to 2nd page")
-        if (pagination_count > 1):
-            action.click(playbooks.click_on_increment_pagination_btn())
-            time.sleep(ReadConfig.Wait_3_Sec())
-            current_page_number = action.get_current_page_number(playbooks.get_pagination_count())
-            assert current_page_number == 2
+        playbooks.click_on_increment_pagination_btn()
+        page_count_after_change = playbooks.get_current_page_count()
+        assert page_count_after_change == 2
 
     @pytest.mark.smoke
-    def test_28_Verify_Pagination_decrement(self):
+    def test_29_Verify_Pagination_decrement(self):
         """
         Verify whether user is able to apply pagination
         Validation 1: Based on the page number
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Click on the previous page button")
-        action.click(playbooks.click_on_decrement_pagination_btn())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        playbooks.click_on_decrement_pagination_btn()
         log.info("Reding the current page number")
-        current_page_count = action.get_current_page_number(playbooks.get_pagination_count())
-        assert current_page_count == 1
+        current_page_number = playbooks.get_current_page_count()
+        assert current_page_number == 1
+
+
+
+    # @pytest.mark.smoke
+    # def test_30_Verify_mouse_hover_on_playbook_3dots(self):
+    #     """
+    #     Verify whether user is able to mouse hover on the playbook 3 dots
+    #     Validation 1: Based on the options visibility
+    #     """
+    #     log = self.getlogger()
+
 
 

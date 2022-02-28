@@ -21,13 +21,15 @@ class TestTriggerEvents(Base):
         """
         log = self.getlogger()
         nav = Navigation(self.driver)
+        trigger_events = TriggerEvents(self.driver)
         action = Action(self.driver)
         log.info("click on main menu")
-        action.click(nav.click_Main_Menu())
+        nav.click_Main_Menu()
         log.info("click on trigger events")
-        action.click(nav.Navigate_Trigger_Event())
-        assert action.getTitle() in 'Trigger Events | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_10_Sec())
+        nav.Navigate_Trigger_Event()
+        log.info("Read page heading")
+        page_heading = trigger_events.get_page_heading()
+        assert action.getTitle() == 'Trigger Events | Cyware Orchestrate' and 'Triggered Events' in page_heading
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -37,12 +39,10 @@ class TestTriggerEvents(Base):
             Validation 2: Based on slider heading
         """
         log = self.getlogger()
-        action = Action(self.driver)
         trigger_events = TriggerEvents(self.driver)
         log.info("Click on create new event button")
-        action.click(trigger_events.click_create_new_event())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        trigger_events.click_create_new_event()
         log.info("Reading the slider heading")
-        page_title = action.getText(trigger_events.get_slider_text())
-        action.click(trigger_events.click_close_slider())
+        page_title = trigger_events.get_slider_text()
+        trigger_events.click_close_slider()
         assert page_title == 'New Triggered Event'

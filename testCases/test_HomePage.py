@@ -4,6 +4,7 @@ import pytest
 
 from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
+from selenium.webdriver.common.by import By
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -20,9 +21,7 @@ class TestHomePage(Base):
         """
         log = self.getlogger()
         nav = Navigation(self.driver)
-        action = Action(self.driver)
         log.info("Click on the main menu")
-        action.click(nav.click_Main_Menu())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        nav.click_Main_Menu()
         log.info("Check for the visibility of menu synopsis button")
-        assert action.check_visibility_of_element(nav.mouse_hover_menu_synopsis()) is True
+        assert nav.visibility_of_menu_synopsis_btn() is True

@@ -1,42 +1,48 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
-
-class DataSync:
+class DataSync(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    tab_run_history = (By.XPATH, "//a[@href='/soar/data-sync/list/logs']")
+    tab_run_history = "//a[@href='/soar/data-sync/list/logs']"
 
     def click_run_history(self):
-        return self.driver.find_element(*DataSync.tab_run_history)
+        return Action.waitandclick(self, By.XPATH, DataSync.tab_run_history)
 
-    button_create_data_sync = (By.XPATH, "//header//button/i")
+    btn_create_data_sync = "//header//button/i"
 
     def click_create_data_sync(self):
-        return self.driver.find_element(*DataSync.button_create_data_sync)
+        return Action.waitandclick(self, By.XPATH, DataSync.btn_create_data_sync)
 
-    tab_job_details = (By.XPATH, "//a[@href='/soar/data-sync/list/jobs']")
+    page_heading_text = "//header//h1"
+
+    def get_page_heading_text(self):
+        return Action.getText(self, By.XPATH, DataSync.page_heading_text)
+
+    tab_job_details = "//a[@href='/soar/data-sync/list/jobs']"
 
     def click_job_details(self):
-        return self.driver.find_element(*DataSync.tab_job_details)
+        return Action.waitandclick(self, By.XPATH, DataSync.tab_job_details)
 
-    button_back_to_home = (By.XPATH, "//div[contains(@class,'back-button')]/i")
+    button_back_to_home = "//div[contains(@class,'back-button')]/i"
 
     def click_back_button(self):
-        return self.driver.find_element(*DataSync.button_back_to_home)
+        return Action.waitandclick(self, By.XPATH, DataSync.button_back_to_home)
 
-    button_confirm_close = (By.XPATH, "//button[contains(text(),'Close without Saving')]")
+    button_confirm_close = "//button[contains(text(),'Close without Saving')]"
 
     def click_confirm_close(self):
-        return self.driver.find_element(*DataSync.button_confirm_close)
+        return Action.waitandclick(self, By.XPATH, DataSync.button_confirm_close)
 
-    datasync_filter_btn = (By.XPATH, "//div[@class='filters-view']//button")
+    datasync_filter_btn = "//div[@class='filters-view']//button"
 
     def click_on_filter_btn(self):
-        return self.driver.find_element(*DataSync.datasync_filter_btn)
+        return Action.waitandclick(self, By.XPATH, DataSync.datasync_filter_btn)
 
-    filter_slider_title = (By.XPATH, "//span[@class='filters__header__label']")
+    filter_slider_title = "//span[@class='filters__header__label']"
 
     def get_filter_slider_title(self):
-        return self.driver.find_element(*DataSync.filter_slider_title)
+        return Action.getText(self, By.XPATH, DataSync.filter_slider_title)

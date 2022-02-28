@@ -1,329 +1,336 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
-
-class Playbooks:
+class Playbooks(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    tab_cyware_playbooks = (By.XPATH, "//li[contains(@class,'cyware-playbook')]")
+    tab_cyware_playbooks = "//li[contains(@class,'cyware-playbook')]"
 
     def cyware_playbook_tab(self):
-        return self.driver.find_element(*Playbooks.tab_cyware_playbooks)
+        return Action.waitandclick(self, By.XPATH, Playbooks.tab_cyware_playbooks)
 
-    tab_my_playbooks = (By.XPATH, "//li[contains(@class,'my-playbook')]/a")
+    tab_my_playbooks = "//li[contains(@class,'my-playbook')]/a"
 
     def my_playbook_tab(self):
-        return self.driver.find_element(*Playbooks.tab_my_playbooks)
+        return Action.waitandclick(self, By.XPATH, Playbooks.tab_my_playbooks)
 
-    more_options_btn = (By.XPATH, "//div[@class='el-dropdown']/span")
+    more_options_btn = "//div[@class='el-dropdown']/span"
 
-    def click_playbook_more_options(self):
-        return self.driver.find_element(*Playbooks.more_options_btn)
+    def mouse_hover_on_more_options(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.more_options_btn)
 
-    playbook_clone_btn = (By.XPATH, "//i[@class='cyicon-copy']/parent::li")
+    playbook_clone_btn = "//i[@class='cyicon-copy']/parent::li"
 
     def check_visibility_of_clone_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_clone_btn)
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.playbook_clone_btn)
 
-    playbook_test_instances = (By.XPATH, "//i[@class='icon-connect']/parent::li")
+    playbook_test_instances = "//i[@class='icon-connect']/parent::li"
 
     def click_on_test_instances_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_test_instances)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_test_instances)
 
-    playbook_test_instance_slider_text = (
-    By.XPATH, "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div/div")
+    playbook_test_instance_slider_text = "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div/div"
 
     def get_test_instance_slider_text(self):
-        return self.driver.find_element(*Playbooks.playbook_test_instance_slider_text)
+        return Action.getText(self, By.XPATH, Playbooks.playbook_test_instance_slider_text)
 
     instance_connection_result_tabs = (By.XPATH, "//div[@class='px-2 tabs--list']//li")
 
     def get_all_connection_result_tabs(self):
         return self.driver.find_elements(*Playbooks.instance_connection_result_tabs)
 
-    test_instance_no_state_text = (By.XPATH, "//div[@class='h-100']//p")
+    test_instance_no_state_text = "//div[@class='h-100']//p"
 
     def get_test_intance_no_state_text(self):
-        return self.driver.find_element(*Playbooks.test_instance_no_state_text)
+        return Action.getText(self, By.XPATH, Playbooks.test_instance_no_state_text)
 
-    test_instance_slider_close_btn = (By.XPATH, "//span[@data-testaction='slider-close']/parent::div")
+    test_instance_slider_close_btn = "//span[@data-testaction='slider-close']/parent::div"
 
     def click_test_instance_slider_close_btn(self):
-        return self.driver.find_element(*Playbooks.test_instance_slider_close_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.test_instance_slider_close_btn)
 
-    playbook_sort_options = (By.XPATH, "//span[@class='sort-tab']/div")
+    playbook_sort_options = "//span[@class='sort-tab']/div"
 
     def mouse_hover_sort_options(self):
-        return self.driver.find_element(*Playbooks.playbook_sort_options)
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.playbook_sort_options)
 
     available_sort_options = (By.XPATH, "//ul[contains(@class,'sort')]/li")
 
     def read_available_sort_options(self):
         return self.driver.find_elements(*Playbooks.available_sort_options)
 
-    playbook_export_btn = (By.XPATH, "//i[@class='icon-export-boxed']/parent::li")
+    playbook_export_btn = "//i[@class='icon-export-boxed']/parent::li"
 
     def mouse_hover_export_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_export_btn)
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.playbook_export_btn)
 
-    playbook_export_as_png = (By.XPATH, "//li[contains(text(),'PNG')]")
+
+    playbook_export_as_png = "//li[contains(text(),'PNG')]"
 
     def check_visibility_export_as_png(self):
-        return self.driver.find_element(*Playbooks.playbook_export_as_png)
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.playbook_export_as_png)
 
-    playbook_export_as_json = (By.XPATH, "//li[contains(text(),'JSON')]")
+    playbook_export_as_json = "//li[contains(text(),'JSON')]"
 
     def check_visibility_export_as_json(self):
-        return self.driver.find_element(*Playbooks.playbook_export_as_json)
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.playbook_export_as_json)
 
-    btn_first_playbook = (By.XPATH, "//div[3]//tr[1]/td[2]//a")
+    btn_first_playbook = "//div[3]//tr[1]/td[2]//a"
 
     def click_first_playbook(self):
-        return self.driver.find_element(*Playbooks.btn_first_playbook)
+        return Action.waitandclick(self, By.XPATH, Playbooks.btn_first_playbook)
 
-    close_walkthrough_tooltip = (By.XPATH, "//a[@class='introjs-skipbutton']")
+    close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
 
     def click_on_close_walkthrough(self):
-        return self.driver.find_element(*Playbooks.close_walkthrough_tooltip)
+        return Action.clickifelementfound(self, By.XPATH, Playbooks.close_walkthrough_tooltip)
 
-    playbook_page_heading = (By.XPATH, "//header//h1")
+    playbook_page_heading = "//header//h1"
 
     def get_manage_playbook_heading(self):
-        return self.driver.find_element(*Playbooks.playbook_page_heading)
+        return Action.getText(self, By.XPATH, Playbooks.playbook_page_heading)
 
-    playbook_customize_table_btn = (By.XPATH, "//i[@class='cyicon-settings']/parent::div")
+    playbook_customize_table_btn = "//i[@class='cyicon-settings']/parent::div"
 
     def click_on_customize_table_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_customize_table_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_customize_table_btn)
 
-    customize_table_slider_title = (
-    By.XPATH, "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div")
+    customize_table_slider_title = "//span[@data-testaction='slider-close']/parent::div/preceding-sibling::div"
 
     def get_customize_table_txt(self):
-        return self.driver.find_element(*Playbooks.customize_table_slider_title)
+        return Action.getText(self, By.XPATH, Playbooks.customize_table_slider_title)
 
-    close_customize_table = (By.XPATH, "//span[@data-testaction='slider-close']/parent::div")
+    close_customize_table = "//span[@data-testaction='slider-close']/parent::div"
 
     def click_close_customize_table_btn(self):
-        return self.driver.find_element(*Playbooks.close_customize_table)
+        return Action.waitandclick(self, By.XPATH, Playbooks.close_customize_table)
 
-    playbook_filter_btn = (By.XPATH, "//i[@class='icon icon-filter']/parent::button")
+    playbook_filter_btn = "//i[@class='icon icon-filter']/parent::button"
 
     def click_filter_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_filter_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_filter_btn)
 
-    filter_close_btn = (By.XPATH, "//i[contains(@class,'cyicon-cross')]/parent::span")
+    filter_close_btn = "//i[contains(@class,'cyicon-cross')]/parent::span"
 
     def close_filter_btn(self):
-        return self.driver.find_element(*Playbooks.filter_close_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.filter_close_btn)
 
-    playbook_filter_title = (By.XPATH, "//span[@class='filters__header__label']")
+    playbook_filter_title = "//span[@class='filters__header__label']"
 
     def get_filter_title(self):
-        return self.driver.find_element(*Playbooks.playbook_filter_title)
+        return Action.getText(self, By.XPATH, Playbooks.playbook_filter_title)
 
-    playbook_create_btn = (By.XPATH, "//button[contains(@class,'create-playbook')]")
+    playbook_create_btn = "//button[contains(@class,'create-playbook')]"
 
     def click_on_create_playbook_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_create_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_create_btn)
 
-    playbook_back_btn = (By.XPATH, "//div[@class='playbook_header__view']//i")
+    playbook_back_btn = "//div[@class='playbook_header__view']//i"
 
     def click_on_back_button(self):
-        return self.driver.find_element(*Playbooks.playbook_back_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_back_btn)
 
-    playbook_exit_without_save_btn = (By.XPATH, "//button[contains(text(),'Exit without Save')]")
+    playbook_exit_without_save_btn = "//button[contains(text(),'Exit without Save')]"
 
     def click_exit_without_save(self):
-        return self.driver.find_element(*Playbooks.playbook_exit_without_save_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_exit_without_save_btn)
 
-    playbook_add_node_btn = (By.XPATH, "//div[@class='stencil-container walkthrough-stencil']")
+    playbook_add_node_btn = "//div[@class='stencil-container walkthrough-stencil']"
 
     def click_add_node_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_add_node_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_add_node_btn)
 
-    playbook_node_slider_text = (By.XPATH, "//div[@class='stencil-header']")
+    playbook_node_slider_text = "//div[@class='stencil-header']"
 
     def get_add_node_slider_text(self):
-        return self.driver.find_element(*Playbooks.playbook_node_slider_text)
+        return Action.getText(self, By.XPATH, Playbooks.playbook_node_slider_text)
 
     all_Action_nodes_text = (By.XPATH, "//div[@class='content']//h3")
 
     def get_all_elements(self):
         return self.driver.find_elements(*Playbooks.all_Action_nodes_text)
 
-    node_slider_close_btn = (By.XPATH, "//div[@class='stencil-close']")
+    node_slider_close_btn = "//div[@class='stencil-close']"
 
     def click_on_node_close_btn(self):
-        return self.driver.find_element(*Playbooks.node_slider_close_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.node_slider_close_btn)
 
-    playbook_name_field = (By.XPATH, "//input[@placeholder='Enter Name']")
+    playbook_name_field = "//input[@placeholder='Enter Name']"
 
-    def enter_playbook_name(self):
-        return self.driver.find_element(*Playbooks.playbook_name_field)
+    def enter_playbook_name(self, value):
+        return Action.sendKeys(self, By.XPATH, Playbooks.playbook_name_field, value)
 
-    playbook_description_field = (By.XPATH, "//input[@placeholder='Enter Description']")
+    playbook_description_field = "//input[@placeholder='Enter Description']"
 
-    def enter_playbook_description(self):
-        return self.driver.find_element(*Playbooks.playbook_description_field)
+    def enter_playbook_description(self, value):
+        return Action.sendKeys(self, By.XPATH, Playbooks.playbook_description_field, value)
 
-    save_more_options = (By.XPATH, "(//div[@class='el-button-group']/button)[2]")
+    save_more_options = "(//div[@class='el-button-group']/button)[2]"
 
     def mouse_hover_on_save_btn(self):
-        return self.driver.find_element(*Playbooks.save_more_options)
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.save_more_options)
 
-    save_and_run_btn = (By.XPATH, "//i[@class='icon-save-and-run']/parent::li")
+    save_and_run_btn = "//i[@class='icon-save-and-run']/parent::li"
 
     def get_save_and_run_txt(self):
-        return self.driver.find_element(*Playbooks.save_and_run_btn)
+        return Action.getText(self, By.XPATH, Playbooks.save_and_run_btn)
 
-    save_and_exit_btn = (By.XPATH, "//i[@class='icon-save-and-exit']/parent::li")
+    save_and_exit_btn = "//i[@class='icon-save-and-exit']/parent::li"
 
     def get_save_and_exit_txt(self):
-        return self.driver.find_element(*Playbooks.save_and_exit_btn)
+        return Action.getText(self, By.XPATH, Playbooks.save_and_exit_btn)
 
-    playbook_walkthrough_bulb_btn = (By.XPATH, "//div[@class=' el-dropdown-selfdefine']/button")
+    playbook_walkthrough_bulb_btn = "//div[@class=' el-dropdown-selfdefine']/button"
 
     def click_walkthrough_bulb_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_walkthrough_bulb_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_walkthrough_bulb_btn)
 
-    playbook_tooltip_walkthrough = (By.XPATH, "//i[contains(@class,'icon-refresh')]/ancestor::li")
+    playbook_tooltip_walkthrough = "//i[contains(@class,'icon-refresh')]/ancestor::li"
 
     def click_on_tooltip_walkthrough_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_tooltip_walkthrough)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_tooltip_walkthrough)
 
-    walkthrough_tooltip_count = (By.XPATH, "//div[@class='introjs-helperNumberLayer']")
+    def mouse_hover_on_tooltip_walkthrough_btn(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.playbook_tooltip_walkthrough)
+
+    walkthrough_tooltip_count = "//div[@class='introjs-helperNumberLayer']"
 
     def get_tooltip_count(self):
-        return self.driver.find_element(*Playbooks.walkthrough_tooltip_count)
+        return Action.get_no_of_walkthrough_and_pagination_count(self, By.XPATH, Playbooks.walkthrough_tooltip_count)
 
-    walkthrough_tooltip_title = (By.XPATH, "//h1[@class='introjs-tooltip-title']")
+    def find_element_path_and_get_text(self, path):
+        return Action.getText(self, By.XPATH, path)
 
-    def find_element_path(self, path):
-        return self.driver.find_element(By.XPATH, path)
+    page_count = "//div[contains(@class,'footer-box')]//span[contains(text(),'of')]"
 
-    pagination_count = (By.XPATH, "//div[contains(@class,'footer-box')]//span[contains(text(),'of')]")
+    def get_current_page_count(self):
+        return Action.get_current_page_number(self, By.XPATH, Playbooks.page_count)
 
-    def get_pagination_count(self):
-        return self.driver.find_element(*Playbooks.pagination_count)
+    grid_view_btn = "//span[contains(@class,'grid-button')]"
 
-    increment_pagination_btn = (By.XPATH, "//div[contains(@class,'footer-box')]//button[@class='btn-next']")
+    def click_on_grid_btn(self):
+        return Action.waitandclick(self, By.XPATH, Playbooks.grid_view_btn)
+
+    def get_grid_icon_color(self):
+        return Action.getElementColor(self, By.XPATH, Playbooks.grid_view_btn)
+
+    increment_pagination_btn = "//div[contains(@class,'footer-box')]//button[@class='btn-next']"
 
     def click_on_increment_pagination_btn(self):
-        return self.driver.find_element(*Playbooks.increment_pagination_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.increment_pagination_btn)
 
-    decrement_pagination_btn = (By.XPATH, "//div[contains(@class,'footer-box')]//button[@class='btn-prev']")
+    decrement_pagination_btn = "//div[contains(@class,'footer-box')]//button[@class='btn-prev']"
 
     def click_on_decrement_pagination_btn(self):
-        return self.driver.find_element(*Playbooks.decrement_pagination_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.decrement_pagination_btn)
+
+    walkthrough_tooltip_title = "//h1[@class='introjs-tooltip-title']"
 
     def get_tooltip_title(self):
-        return self.driver.find_element(*Playbooks.walkthrough_tooltip_title)
+        return Action.getText(self, By.XPATH, Playbooks.walkthrough_tooltip_title)
 
-    walkthrough_tooltip_next_btn = (By.XPATH, "//a[contains(@class,'introjs-nextbutton')]")
+    walkthrough_tooltip_next_btn = "//a[contains(@class,'introjs-nextbutton')]"
 
     def click_on_next_btn(self):
-        return self.driver.find_element(*Playbooks.walkthrough_tooltip_next_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.walkthrough_tooltip_next_btn)
 
-    walkthrough_finish_btn = (By.XPATH, "//a[contains(@class,'introjs-donebutton')]")
 
-    def click_on_walkthrough_finish_btn(self):
-        return self.driver.find_element(*Playbooks.walkthrough_finish_btn)
-
-    playbook_video_walkthrough_btn = (By.XPATH, "//i[contains(@class,'icon-video')]/ancestor::li")
+    playbook_video_walkthrough_btn = "//i[contains(@class,'icon-video')]/ancestor::li"
 
     def click_on_video_walthrough_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_video_walkthrough_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_video_walkthrough_btn)
 
-    video_walkthrough_popup_title = (By.XPATH, "//h1[@class='introjs-tooltip-title']")
+    video_walkthrough_popup_title = "//h1[@class='introjs-tooltip-title']"
 
     def get_video_walkthrough_popup_txt(self):
-        return self.driver.find_element(*Playbooks.video_walkthrough_popup_title)
+        return Action.getText(self, By.XPATH, Playbooks.video_walkthrough_popup_title)
 
-    video_walkthrough_finish_btn = (By.XPATH, "//div[@class='introjs-tooltipbuttons']/a")
+    video_walkthrough_finish_btn = "//div[@class='introjs-tooltipbuttons']/a"
 
     def click_on_finish_button(self):
-        return self.driver.find_element(*Playbooks.video_walkthrough_finish_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.video_walkthrough_finish_btn)
 
-    table_view_playbook = (By.XPATH, "//*[contains(@class,'el-tooltip list-button')]")
+    textbox_search_playbook = "//header//div[contains(@class,'search-input')]/input"
 
-    def get_table_view_playbook(self):
-        return self.driver.find_element(*Playbooks.table_view_playbook)
+    def search_playbooks(self, value):
+        return Action.sendKeys(self, By.XPATH, Playbooks.textbox_search_playbook, value)
 
-    grid_view_playbook = (By.XPATH, "//*[contains(@class,'el-tooltip grid-button')]")
-
-    def get_grid_view_playbook(self):
-        return self.driver.find_element(*Playbooks.grid_view_playbook)
-
-    textbox_search_playbook = (By.XPATH, "//header//div[contains(@class,'search-input')]/input")
-
-    def search_playbooks(self):
-        return self.driver.find_element(*Playbooks.textbox_search_playbook)
-
-    playbook_overview_btn = (By.XPATH, "//button[contains(@class,'playbook-overview-btn')]")
+    playbook_overview_btn = "//button[contains(@class,'playbook-overview-btn')]"
 
     def click_on_playbook_overview_btn(self):
-        return self.driver.find_element(*Playbooks.playbook_overview_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_overview_btn)
 
-    playbook_overview_slider_title = (By.XPATH, "//div[text()='Overview']")
+    playbook_overview_slider_title = "//div[text()='Overview']"
 
     def get_playbook_overview_slider_title(self):
-        return self.driver.find_element(*Playbooks.playbook_overview_slider_title)
+        return Action.getText(self, By.XPATH, Playbooks.playbook_overview_slider_title)
 
-    overview_output_parameters = (
-    By.XPATH, "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[1]")
+    overview_output_parameters = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[1]"
 
     def click_on_output_parameters(self):
-        return self.driver.find_element(*Playbooks.overview_output_parameters)
+        return Action.waitandclick(self, By.XPATH, Playbooks.overview_output_parameters)
 
-    add_parameters_btn = (By.XPATH, "//div[@class='el-collapse-item is-active']//button")
+    def get_output_parameter_section_title(self):
+        return Action.getText(self, By.XPATH, Playbooks.overview_output_parameters)
+
+    add_parameters_btn = "//div[@class='el-collapse-item is-active']//button"
 
     def click_on_add_parameter_btn(self):
-        return self.driver.find_element(*Playbooks.add_parameters_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.add_parameters_btn)
 
-    parameter_key_field = (By.XPATH, "//textarea[@placeholder='Key']")
+    def visibility_of_add_parameter_btn(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.add_parameters_btn)
+
+    parameter_key_field = "//textarea[@placeholder='Key']"
 
     def check_visibility_of_key_field(self):
-        return self.driver.find_element(*Playbooks.parameter_key_field)
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.parameter_key_field)
 
-    parameter_value_field = (By.XPATH, "//textarea[@placeholder='Value']")
+    parameter_value_field = "//textarea[@placeholder='Value']"
 
     def check_visibility_of_value_field(self):
-        return self.driver.find_element(*Playbooks.parameter_value_field)
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.parameter_value_field)
 
-    parameter_delete_btn = (By.XPATH, "//i[@class='cyicon-trash']/parent::button")
+    parameter_delete_btn = "//i[@class='cyicon-trash']/parent::button"
 
     def click_on_parameter_delete_btn(self):
-        return self.driver.find_element(*Playbooks.parameter_delete_btn)
+        return Action.waitandclick(self, By.XPATH, Playbooks.parameter_delete_btn)
 
-    overview_playbook_data = (By.XPATH, "//div[contains(@class,'playbook-data')]/div[1]/div")
+    overview_playbook_data = "//div[contains(@class,'playbook-data')]/div[1]/div"
 
     def click_on_playbook_data(self):
-        return self.driver.find_element(*Playbooks.overview_playbook_data)
+        return Action.waitandclick(self, By.XPATH, Playbooks.overview_playbook_data)
 
-    associated_playbooks = (By.XPATH, "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[2]")
+    associated_playbooks = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[2]"
 
     def click_on_associated_playbook(self):
-        return self.driver.find_element(*Playbooks.associated_playbooks)
+        return Action.waitandclick(self, By.XPATH, Playbooks.associated_playbooks)
 
-    no_state_validation_txt = (By.XPATH, "//div[@class='el-collapse-item is-active']//h1")
+    def get_associated_playbooks_section_title(self):
+        return Action.getText(self, By.XPATH, Playbooks.associated_playbooks)
+
+    no_state_validation_txt = "//div[@class='el-collapse-item is-active']//h1"
 
     def get_no_state_validation_text(self):
-        return self.driver.find_element(*Playbooks.no_state_validation_txt)
+        return Action.getText(self, By.XPATH, Playbooks.no_state_validation_txt)
 
-    associated_sub_playbooks = (By.XPATH, "//div[@class='el-collapse-item is-active']//label[2]")
+    associated_sub_playbooks = "//div[@class='el-collapse-item is-active']//label[2]"
 
     def switch_to_sub_playbooks_tab(self):
-        return self.driver.find_element(*Playbooks.associated_sub_playbooks)
+        return Action.waitandclick(self, By.XPATH, Playbooks.associated_sub_playbooks)
 
-    playbook_app_and_actions = (
-    By.XPATH, "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[3]")
+    playbook_app_and_actions = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[3]"
 
     def click_apps_and_actions(self):
-        return self.driver.find_element(*Playbooks.playbook_app_and_actions)
+        return Action.waitandclick(self, By.XPATH, Playbooks.playbook_app_and_actions)
 
-    button_import_playbook = (By.XPATH, "//button[contains(@class,'import-playbook')]")
+    def get_apps_and_actions_section_title(self):
+        return Action.getText(self, By.XPATH, Playbooks.playbook_app_and_actions)
+
+    button_import_playbook = "//button[contains(@class,'import-playbook')]"
 
     def click_import_playbook(self):
-        return self.driver.find_element(*Playbooks.button_import_playbook)
+        return Action.waitandclick(self, By.XPATH, Playbooks.button_import_playbook)

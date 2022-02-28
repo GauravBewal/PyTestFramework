@@ -1,3 +1,5 @@
+import logging
+
 import pytest
 
 from pageObjects.Navigation import Navigation
@@ -15,6 +17,9 @@ class TestCywareAgentTask(Base):
         """
         nav = Navigation(self.driver)
         action = Action(self.driver)
-        action.click(nav.click_Main_Menu())
-        action.click(nav.Navigate_Agent_task())
-        assert action.getTitle() in 'Cyware Agent Tasks | Cyware Orchestrate'
+        log = self.getlogger()
+        log.info("click on the main menu")
+        nav.click_Main_Menu()
+        log.info("click on the cyware agent tasks button")
+        nav.Navigate_Agent_task()
+        assert action.getTitle() == 'Cyware Agent Tasks | Cyware Orchestrate'

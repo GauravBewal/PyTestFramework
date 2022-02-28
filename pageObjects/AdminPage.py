@@ -1,67 +1,66 @@
 from selenium.webdriver.common.by import By
+from utilities.Actions import Action
 
 
-class Admin:
+class Admin(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    tab_Configuration = (By.XPATH, "//p[contains(text(),'Configuration')]/parent::div/parent::div")
+    tab_Configuration = "//p[contains(text(),'Configuration')]/parent::div/parent::div"
 
     def click_Configuration(self):
-        return self.driver.find_element(*Admin.tab_Configuration)
+        return Action.waitandclick(self, By.XPATH, Admin.tab_Configuration)
 
-    tab_Authentication = (By.XPATH, "//p[contains(text(),'Authentication')]/parent::div/parent::div")
+    tab_Authentication = "//p[contains(text(),'Authentication')]/parent::div/parent::div"
 
     def click_Authentication(self):
-        return self.driver.find_element(*Admin.tab_Authentication)
+        return Action.waitandclick(self, By.XPATH, Admin.tab_Authentication)
 
-    tab_License_Management = (By.XPATH, "//p[contains(text(),'License Management')]/parent::div/parent::div")
+    tab_License_Management = "//p[contains(text(),'License Management')]/parent::div/parent::div"
 
     def click_License_Management(self):
-        return self.driver.find_element(*Admin.tab_License_Management)
+        return Action.waitandclick(self, By.XPATH, Admin.tab_License_Management)
 
-    tab_Cyware_Agent = (By.XPATH, "//p[contains(text(),'Cyware Agent')]/parent::div/parent::div")
+    tab_Cyware_Agent = "//p[contains(text(),'Cyware Agent')]/parent::div/parent::div"
 
     def click_Cyware_Agent(self):
-        return self.driver.find_element(*Admin.tab_Cyware_Agent)
+        return Action.waitandclick(self, By.XPATH, Admin.tab_Cyware_Agent)
 
-    tab_Console_Status = (By.XPATH, "//p[contains(text(),'Console Status')]/parent::div/parent::div")
+    tab_Console_Status = "//p[contains(text(),'Console Status')]/parent::div/parent::div"
 
     def click_Console_Status(self):
-        return self.driver.find_element(*Admin.tab_Console_Status)
+        return Action.waitandclick(self, By.XPATH, Admin.tab_Console_Status)
 
-    tab_Playbook_tags = (By.XPATH, "//p[contains(text(),'Playbook Tags')]/parent::div/parent::div")
+    tab_Playbook_tags = "//p[contains(text(),'Playbook Tags')]/parent::div/parent::div"
 
     def click_Playbook_tags(self):
-        return self.driver.find_element(*Admin.tab_Playbook_tags)
+        return Action.waitandclick(self, By.XPATH, Admin.tab_Playbook_tags)
 
-    tab_elastic_search = (By.XPATH, "//div[contains(text(),'Elasticsearch')]")
+    tab_elastic_search = "//div[contains(text(),'Elasticsearch')]"
 
     def click_elasticsearch(self):
-        return self.driver.find_element(*Admin.tab_elastic_search)
+        return Action.waitandclick(self, By.XPATH, Admin.tab_elastic_search)
 
-    btn_back_admin = (By.XPATH, "//div[@class='d-flex align-items-center mr-3 el-col el-col-4']/div")
+    btn_back_admin = "//div[@class='d-flex align-items-center mr-3 el-col el-col-4']/div"
 
     def click_Back_Button(self):
-        return self.driver.find_element(*Admin.btn_back_admin)
+        return Action.waitandclick(self, By.XPATH, Admin.btn_back_admin)
 
-    btn_licence_update_button = (By.XPATH, "//button/span[contains(text(),'Update')]")
+    btn_licence_update_button = "//button/span[contains(text(),'Update')]"
 
     def click_licence_update_button(self):
-        return self.driver.find_element(*Admin.btn_licence_update_button)
+        return Action.waitandclick(self, By.XPATH, Admin.btn_licence_update_button)
 
-    text_licence_field = (By.XPATH, "//div[@class='cs-lincese bg-n10']//input")
+    text_licence_field = "//div[@class='cs-lincese bg-n10']//input"
 
-    def field_licence_key(self):
-        return self.driver.find_element(*Admin.text_licence_field)
+    def field_licence_key(self, value):
+        return Action.getattribute(self, By.XPATH, Admin.text_licence_field, value)
 
-    walkthrough_tooltip_count = (By.XPATH, "//div[@class='introjs-helperNumberLayer']")
+    close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
 
-    def get_tooltip_count(self):
-        return self.driver.find_element(*Admin.walkthrough_tooltip_count)
+    def click_on_close_walkthrough(self):
+        return Action.clickifelementfound(self, By.XPATH, Admin.close_walkthrough_tooltip)
 
-    walkthrough_tooltip_next_btn = (By.XPATH, "//a[contains(@class,'introjs-nextbutton')]")
 
-    def click_on_next_btn(self):
-        return self.driver.find_element(*Admin.walkthrough_tooltip_next_btn)

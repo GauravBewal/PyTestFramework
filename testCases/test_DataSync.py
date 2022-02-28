@@ -21,10 +21,11 @@ class TestDataSync(Base):
         """
         nav = Navigation(self.driver)
         action = Action(self.driver)
-        action.click(nav.click_Main_Menu())
-        action.click(nav.Navigate_Data_Sync())
-        assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_10_Sec())
+        dataSync = DataSync(self.driver)
+        nav.click_Main_Menu()
+        nav.Navigate_Data_Sync()
+        page_heading = dataSync.get_page_heading_text()
+        assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate' and page_heading == 'Data Sync Jobs'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -37,13 +38,13 @@ class TestDataSync(Base):
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
         log.info('Click on create data sync button')
-        action.click(dataSync.click_create_data_sync())
+        dataSync.click_create_data_sync()
         log.info('Store the page title in page_title variable for validation')
         page_title = action.getTitle()
         log.info('click on back button to cancel the data sync job creation')
-        action.click(dataSync.click_back_button())
+        dataSync.click_back_button()
         log.info('click on close without saving button to cancel the data sync job creation')
-        action.click(dataSync.click_confirm_close())
+        dataSync.click_confirm_close()
         log.info('validation based on the page title')
         assert page_title == 'Create Data Sync Policy | Cyware Orchestrate'
 
@@ -58,7 +59,7 @@ class TestDataSync(Base):
         action = Action(self.driver)
         log = self.getlogger()
         log.info("Click on the run history button")
-        action.click(dataSync.click_run_history())
+        dataSync.click_run_history()
         assert action.getTitle() == 'Run History Logs | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -70,8 +71,7 @@ class TestDataSync(Base):
         """
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
-        time.sleep(ReadConfig.Wait_3_Sec())
-        action.click(dataSync.click_job_details())
+        dataSync.click_job_details()
         assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -85,8 +85,7 @@ class TestDataSync(Base):
         action = Action(self.driver)
         dataSync = DataSync(self.driver)
         log.info("Click on the filter button")
-        action.click(dataSync.click_on_filter_btn())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        dataSync.click_on_filter_btn()
         log.info("Read slider title")
-        slider_title = action.getText(dataSync.get_filter_slider_title())
+        slider_title = dataSync.get_filter_slider_title()
         assert slider_title == 'FILTERS'

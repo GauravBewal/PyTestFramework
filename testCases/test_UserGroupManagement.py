@@ -24,11 +24,11 @@ class TestUserGroupManagement(Base):
         action = Action(self.driver)
         usergroup = UserGroupManagement(self.driver)
         log.info("Click on Admin menu")
-        action.click(nav.click_Admin_Menu())
+        nav.click_Admin_Menu()
         log.info("Click on User group Management tab from Admin Page")
-        action.click(usergroup.click_User_Group_Management())
-        assert action.getTitle() in 'User Groups Management | Cyware Orchestrate'
-        time.sleep(ReadConfig.Wait_10_Sec())
+        usergroup.click_User_Group_Management()
+        log.info("Read the page heading")
+        assert action.getTitle() == 'User Groups Management | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -39,14 +39,12 @@ class TestUserGroupManagement(Base):
         """
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
-        action = Action(self.driver)
         log.info("Click on add new user button")
-        action.click(usergroup.click_add_user_group())
-        time.sleep(ReadConfig.Wait_3_Sec())
+        usergroup.click_add_user_group()
         log.info("Read the slider title")
-        slider_title = action.getText(usergroup.get_slider_title())
+        slider_title = usergroup.get_slider_title()
         log.info("Click on close slider button")
-        action.click(usergroup.click_slider_close())
+        usergroup.click_slider_close()
         assert slider_title == 'New User Group'
 
     @pytest.mark.smoke
@@ -58,11 +56,10 @@ class TestUserGroupManagement(Base):
         """
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
-        action = Action(self.driver)
         log.info("Click on inactive tab")
-        action.click(usergroup.click_inactive_tab())
+        usergroup.click_inactive_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(usergroup.click_inactive_tab())
+        tab_color = usergroup.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.smoke
@@ -74,9 +71,8 @@ class TestUserGroupManagement(Base):
         """
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
-        action = Action(self.driver)
         log.info("Click on All tab")
-        action.click(usergroup.click_All_tab())
+        usergroup.click_All_tab()
         log.info("Read the tab color after switching")
-        tab_color = action.getElementColor(usergroup.click_All_tab())
+        tab_color = usergroup.get_all_tab_color()
         assert tab_color == '#1a3ee8'
