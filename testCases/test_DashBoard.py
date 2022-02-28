@@ -24,7 +24,7 @@ class TestDashBoard(Base):
         action = Action(self.driver)
         nav.click_Main_Menu()
         nav.Navigate_Dashboard()
-        assert action.getTitle() in 'Dashboard | Cyware Orchestrate'
+        assert action.getTitle() == 'Dashboard | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -70,9 +70,9 @@ class TestDashBoard(Base):
             , 'FREQUENTLY UTILIZED APPS', 'FREQUENTLY UTILIZED INSTANCES', 'TOTAL EVENT COUNT'
             , 'INCOMING SOURCE EVENTS', 'PERCENTAGE OF UNUTILIZED EVENTS',
                          'PERCENTAGE OF EVENTS THAT CAUSE PLAYBOOK EXECUTION ERROR']
-        all_widget_elements = dashboard.get_all_widget_elements()
-        for ele in range(1, len(all_widget_elements) + 1):
-            path = "(//div[contains(@class,'widget-label')]/div)[" + str(ele) + "]"
+        elements_count = dashboard.get_all_widget_elements()
+        for ele in range(1, elements_count+1):
+            path = "(//div[contains(@class,'widget-label')]/div)["+str(ele)+"]"
             title = dashboard.find_element_path_and_get_text(path)
             assert widget_titles[ele - 1] == title
 
@@ -84,15 +84,14 @@ class TestDashBoard(Base):
             Validation - 1. On the basis of Legends button visibility
         """
         dashboard = Dashboard(self.driver)
-        elements_list = dashboard.get_all_viewall_elements()
-        for element in range(1, len(elements_list) + 1):
-            path = "(//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')])[" + str(
-                element) + "]"
+        elements_count = dashboard.get_all_viewall_elements()
+        for element in range(1, elements_count+1):
+            path = "(//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')])["+str(element)+"]"
             dashboard.find_element_path_and_click(path)
-            t = dashboard.visibility_of_legends_btn()
+            visibility = dashboard.visibility_of_legends_btn()
             dashboard.click_on_back_btn()
             time.sleep(ReadConfig.Wait_3_Sec())
-            assert t is True
+            assert visibility is True
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
