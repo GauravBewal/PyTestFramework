@@ -22,8 +22,7 @@ class Action(Base):
         ele.click()
 
     def click(self, by, path):
-        element = self.driver.find_element(by, path)
-        element.click()
+        self.driver.find_element(by, path).click()
 
     def clickifelementfound(self, by, path):
         log = self.getlogger()
@@ -33,6 +32,9 @@ class Action(Base):
             log.info("Automatic walk through was not initiated. Hence passing this testcase")
             pass
 
+    def get_no_of_elements_present(self, by, path):
+        elements = self.driver.find_elements(by, path)
+        return len(elements)
 
     def switch_new_window(self, window_number):
         parent_window = self.driver.current_window_handle

@@ -7,15 +7,15 @@ class Dashboard(Action):
         super().__init__(driver)
         self.driver = driver
 
-    btn_viewall_all = (By.XPATH, "//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')]")
+    btn_viewall_all = "//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')]"
 
     def get_all_viewall_elements(self):
-        return self.driver.find_elements(*Dashboard.btn_viewall_all)
+        return Action.get_no_of_elements_present(self, By.XPATH, Dashboard.btn_viewall_all)
 
-    widget_elements = (By.XPATH, "//div[contains(@class,'widget-label')]/div")
+    widget_elements = "//div[contains(@class,'widget-label')]/div"
 
     def get_all_widget_elements(self):
-        return self.driver.find_elements(*Dashboard.widget_elements)
+        return Action.get_no_of_elements_present(self, By.XPATH, Dashboard.widget_elements)
 
     btn_legend = "//div[contains(text(),'Legends')]"
 
