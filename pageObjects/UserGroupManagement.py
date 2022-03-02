@@ -18,7 +18,7 @@ class UserGroupManagement(Action):
         return Action.waitandclick(self, By.XPATH, UserGroupManagement.tab_inactive)
 
     def get_inactive_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, UserGroupManagement.tab_inactive)
+        return Action.getElementColor(self, By.XPATH, UserGroupManagement.tab_inactive, 'color')
 
     tab_All = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
 
@@ -26,7 +26,7 @@ class UserGroupManagement(Action):
         return Action.waitandclick(self, By.XPATH, UserGroupManagement.tab_All)
 
     def get_all_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, UserGroupManagement.tab_All)
+        return Action.getElementColor(self, By.XPATH, UserGroupManagement.tab_All, 'color')
 
     btn_add_user_group = "//header//button"
 

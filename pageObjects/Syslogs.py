@@ -33,7 +33,7 @@ class Syslogs(Action):
         return Action.waitandclick(self, By.XPATH, Syslogs.tab_inactive)
 
     def get_inactive_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, Syslogs.tab_inactive)
+        return Action.getElementColor(self, By.XPATH, Syslogs.tab_inactive, 'color')
 
     tab_All = "//li/a[contains(text(),'All')]"
 
@@ -41,4 +41,4 @@ class Syslogs(Action):
         return Action.waitandclick(self, By.XPATH, Syslogs.tab_All)
 
     def get_all_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, Syslogs.tab_All)
+        return Action.getElementColor(self, By.XPATH, Syslogs.tab_All, 'color')

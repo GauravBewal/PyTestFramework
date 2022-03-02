@@ -26,6 +26,7 @@ class TestDashBoard(Base):
         nav.Navigate_Dashboard()
         assert action.getTitle() == 'Dashboard | Cyware Orchestrate'
 
+
     @pytest.mark.smoke
     @pytest.mark.readOnly
     def test_02_Switch_dark_mode(self):
@@ -61,20 +62,11 @@ class TestDashBoard(Base):
         """
         log = self.getlogger()
         dashboard = Dashboard(self.driver)
-        dashboard.check_visibility_of_dark_mode_btn()
         log.info("Read all the widget titles")
-        widget_titles = ['PLAYBOOK EXECUTION TIMELINE', 'FREQUENTLY USED PLAYBOOKS',
-                         'PLAYBOOK EXECUTION TIME (ON AVERAGE)'
-            , 'FREQUENTLY USED INSTANCES', 'FREQUENTLY USED APPS', 'FREQUENTLY USED ACTIONS',
-                         'FREQUENTLY EXECUTED ACTIONS'
-            , 'FREQUENTLY UTILIZED APPS', 'FREQUENTLY UTILIZED INSTANCES', 'TOTAL EVENT COUNT'
-            , 'INCOMING SOURCE EVENTS', 'PERCENTAGE OF UNUTILIZED EVENTS',
-                         'PERCENTAGE OF EVENTS THAT CAUSE PLAYBOOK EXECUTION ERROR']
-        elements_count = dashboard.get_all_widget_elements()
-        for ele in range(1, elements_count+1):
-            path = "(//div[contains(@class,'widget-label')]/div)["+str(ele)+"]"
-            title = dashboard.find_element_path_and_get_text(path)
-            assert widget_titles[ele - 1] == title
+        elements_list = dashboard.get_list_of_elements(dashboard.get_all_widget_elements(), dashboard.widget_elements)
+        for element in range(0, len(elements_list)):
+            title = dashboard.find_element_path_and_get_text(elements_list[element])
+            assert dashboard.widget_titles[element] == title
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -84,10 +76,9 @@ class TestDashBoard(Base):
             Validation - 1. On the basis of Legends button visibility
         """
         dashboard = Dashboard(self.driver)
-        elements_count = dashboard.get_all_viewall_elements()
-        for element in range(1, elements_count+1):
-            path = "(//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')])["+str(element)+"]"
-            dashboard.find_element_path_and_click(path)
+        elements_list = dashboard.get_list_of_elements(dashboard.get_all_viewall_elements(), dashboard.btn_viewall_all)
+        for element in range(0, len(elements_list)):
+            dashboard.click_on_view_all_btn(elements_list[element])
             visibility = dashboard.visibility_of_legends_btn()
             dashboard.click_on_back_btn()
             time.sleep(ReadConfig.Wait_3_Sec())
@@ -111,7 +102,7 @@ class TestDashBoard(Base):
         assert visibility is True
 
     @pytest.mark.smoke
-    def test_06_Apply_one_week_in_calendar(self):
+    def test_06_Apply_3days_in_calendar(self):
         """
         Verify whether user is able to enter the date as per his wish
         Validation: Based on the date visibility after entering
@@ -128,4 +119,4 @@ class TestDashBoard(Base):
         dashboard.click_start_date_btn()
         start_date_color = dashboard.get_calendar_start_date_color()
         end_date_color = dashboard.get_calendar_end_date_color()
-        assert start_date_color == '#606266' and end_date_color == '#606266'
+        assert start_date_color == '#1a3ee8' and end_date_color == '#1a3ee8'

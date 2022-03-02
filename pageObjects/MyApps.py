@@ -1,21 +1,17 @@
+import time
+
 from selenium.webdriver.common.by import By
 from utilities.Actions import Action
+from configuration.readConfiguration import ReadConfig
 
 
 class MyApps(Action):
-    count_my_apps = (By.XPATH, "//a[@href='/soar/app/list/my-apps']/span")
-    count_app_store = (By.XPATH, "//a[@href='/soar/app/list/app-store']/span")
-    first_3_dot_icon = (By.XPATH, "(//i[contains(@class,'icon icon-more-vertical color-primary')])[1]")
-    first_app_status = (By.XPATH, "(//span[@class='status'])[1]")
-    first_install_button = (By.XPATH, "(//button[contains(@type,'button')][normalize-space()='Install'])[1]")
-    first_published_app = (By.XPATH, "(//p[@class='font-size-11 color-n300'][normalize-space()='Published By'])[1]")
-    first_created_by = (By.XPATH, "(//p[contains(text(),'Created By')])[1]")
 
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
 
-    tab_app_store = "//a[@href='/soar/app/list/app-store']"
+    tab_app_store = "//span[@class='tab__count']/parent::a[@href='/soar/app/list/app-store']"
 
     def App_Store_Tab(self):
         return Action.waitandclick(self, By.XPATH, MyApps.tab_app_store)
@@ -28,6 +24,7 @@ class MyApps(Action):
     total_app_count = "//a[@href='/soar/app/list/my-apps']/span"
 
     def get_app_count(self):
+        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.getCountfromString(self, By.XPATH, MyApps.total_app_count)
 
     read_search_result_after_uninstall = "//div[@class='apps-container']//h1"
@@ -121,14 +118,16 @@ class MyApps(Action):
     app_name_textbox = "//input[@placeholder='Enter App Name']"
 
     def enter_app_name(self, app_name):
+        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.sendKeys(self, By.XPATH, MyApps.app_name_textbox, app_name)
 
     supported_api_version_textbox = "//input[@placeholder='Enter Supported API Versions']"
 
     def enter_supported_api_version(self, version):
+
         return Action.sendKeys(self, By.XPATH, MyApps.supported_api_version_textbox, version)
 
-    button_app_refresh = "//div[@class='tabs']//div[1]/i"
+    button_app_refresh = "//i[contains(@class,'icon-map-gear')]/parent::div"
 
     def click_app_refresh_button(self):
         return Action.waitandclick(self, By.XPATH, MyApps.button_app_refresh)
@@ -136,14 +135,14 @@ class MyApps(Action):
     tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
 
     def close_tooltip(self):
-        return Action.click(self, By.XPATH, MyApps.tooltip_close)
+        return Action.normalclick(self, By.XPATH, MyApps.tooltip_close)
 
     button_app_save = "//div[@class='app-edit__view']//div[3]/button"
 
     def click_save_app_button(self):
         return Action.waitandclick(self, By.XPATH, MyApps.button_app_save)
 
-    tab_my_apps = "//a[@href='/soar/app/list/my-apps']"
+    tab_my_apps = "//span[@class='tab__count']/parent::a[@href='/soar/app/list/my-apps']"
 
     def My_Apps_Tab(self):
         return Action.waitandclick(self, By.XPATH, MyApps.tab_my_apps)

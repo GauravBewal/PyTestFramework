@@ -18,11 +18,12 @@ class Action(Base):
         self.driver = driver
 
     def waitandclick(self, by, path):
-        ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
-        ele.click()
+        element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+        element.click()
 
-    def click(self, by, path):
+    def normalclick(self, by, path):
         self.driver.find_element(by, path).click()
+
 
     def clickifelementfound(self, by, path):
         log = self.getlogger()
@@ -55,7 +56,8 @@ class Action(Base):
         hover = ActionChains(self.driver).move_to_element(ele)
         hover.perform()
 
-    def javascript_click_element(self, element):
+    def javascript_click_element(self, by, path):
+        element = self.driver.find_element(by, path)
         self.driver.execute_script("arguments[0].click();", element)
 
     def getCountfromString(self, by, path):
@@ -119,9 +121,9 @@ class Action(Base):
     def currentTime(self):
         return datetime.now().strftime("%B %d, %Y %H:%M:%S")
 
-    def getElementColor(self, by, path):
+    def getElementColor(self, by, path, css_property):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
-        rgb = ele.value_of_css_property('color')
+        rgb = ele.value_of_css_property(css_property)
         return Color.from_string(rgb).hex
 
     def getRandomDigit(self):

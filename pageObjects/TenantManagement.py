@@ -18,7 +18,7 @@ class TenantManagement(Action):
         return Action.waitandclick(self, By.XPATH, TenantManagement.tab_inactive)
 
     def get_inactive_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, TenantManagement.tab_inactive)
+        return Action.getElementColor(self, By.XPATH, TenantManagement.tab_inactive, 'color')
 
     tab_All = "//li/a[contains(text(),'Inactive')]"
 
@@ -26,7 +26,7 @@ class TenantManagement(Action):
         return Action.waitandclick(self, By.XPATH, TenantManagement.tab_All)
 
     def get_all_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, TenantManagement.tab_All)
+        return Action.getElementColor(self, By.XPATH, TenantManagement.tab_All, 'color')
 
     btn_new_tenant = "//header//button"
 
