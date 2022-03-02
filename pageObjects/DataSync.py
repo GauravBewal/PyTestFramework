@@ -7,7 +7,7 @@ class DataSync(Action):
         super().__init__(driver)
         self.driver = driver
 
-    tab_run_history = "//a[@href='/soar/data-sync/list/logs']"
+    tab_run_history = "//span[@class='tab__count']/parent::a[@href='/soar/data-sync/list/logs']"
 
     def click_run_history(self):
         return Action.waitandclick(self, By.XPATH, DataSync.tab_run_history)
@@ -22,7 +22,7 @@ class DataSync(Action):
     def get_page_heading_text(self):
         return Action.getText(self, By.XPATH, DataSync.page_heading_text)
 
-    tab_job_details = "//a[@href='/soar/data-sync/list/jobs']"
+    tab_job_details = "//span[@class='tab__count']/parent::a[@href='/soar/data-sync/list/jobs']"
 
     def click_job_details(self):
         return Action.waitandclick(self, By.XPATH, DataSync.tab_job_details)

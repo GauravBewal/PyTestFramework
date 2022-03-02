@@ -33,7 +33,7 @@ class ConfigureTrigger(Action):
         return Action.waitandclick(self, By.XPATH, ConfigureTrigger.tab_inactive)
 
     def read_inactive_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, ConfigureTrigger.tab_inactive)
+        return Action.getElementColor(self, By.XPATH, ConfigureTrigger.tab_inactive, 'color')
 
     tab_All = "//li/a[contains(text(),'All')]"
 
@@ -41,4 +41,4 @@ class ConfigureTrigger(Action):
         return Action.waitandclick(self, By.XPATH, ConfigureTrigger.tab_All)
 
     def read_all_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, ConfigureTrigger.tab_All)
+        return Action.getElementColor(self, By.XPATH, ConfigureTrigger.tab_All, 'color')

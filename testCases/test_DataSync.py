@@ -82,7 +82,6 @@ class TestDataSync(Base):
         Validation: Based on the filter slider title
         """
         log = self.getlogger()
-        action = Action(self.driver)
         dataSync = DataSync(self.driver)
         log.info("Click on the filter button")
         dataSync.click_on_filter_btn()

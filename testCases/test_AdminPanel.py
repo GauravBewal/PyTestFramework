@@ -10,21 +10,10 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestAdminPanel(Base):
 
-    @pytest.mark.readOnly
-    @pytest.mark.smoke
-    def test_01_Dashboard_close_automatic_walkthrough(self):
-        """
-            Close all automatically initiated walkthroughs for new poc
-        """
-        log = self.getlogger()
-        admin = Admin(self.driver)
-        log.info("Check if walk through is initiated")
-        admin.click_on_close_walkthrough()
-
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_02_Verify_Admin_Panel_redirection(self):
+    def test_01_Verify_Admin_Panel_redirection(self):
         """
             Verify redirection of the admin menu
             Validation - 1. On the basis of Window's title
@@ -32,9 +21,12 @@ class TestAdminPanel(Base):
         log = self.getlogger()
         nav = Navigation(self.driver)
         action = Action(self.driver)
-        nav.click_Admin_Menu()
+        admin = Admin(self.driver)
+        log.info("Check if walk through is initiated")
+        admin.click_on_close_walkthrough()
         log.info("Click on Admin Menu")
-        assert action.getTitle() in 'Admin Panel | Cyware Orchestrate'
+        nav.click_Admin_Menu()
+        assert action.getTitle() == 'Admin Panel | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -48,7 +40,7 @@ class TestAdminPanel(Base):
         action = Action(self.driver)
         log.info("Click on Configurations tab from Admin Page")
         admin.click_Configuration()
-        assert action.getTitle() in 'Configurations | Cyware Orchestrate'
+        assert action.getTitle() == 'Configurations | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -64,7 +56,7 @@ class TestAdminPanel(Base):
         admin.click_Back_Button()
         log.info("Click on Authentication tab from Admin Page")
         admin.click_Authentication()
-        assert action.getTitle() in 'Authentication | Cyware Orchestrate'
+        assert action.getTitle() == 'Authentication | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -80,7 +72,7 @@ class TestAdminPanel(Base):
         admin.click_Back_Button()
         log.info("Click on License Management  tab from Admin Page")
         admin.click_License_Management()
-        assert action.getTitle() in 'License Management | Cyware Orchestrate'
+        assert action.getTitle() == 'License Management | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -111,7 +103,7 @@ class TestAdminPanel(Base):
         admin.click_Back_Button()
         log.info("Click on User Cyware Agent tab from Admin Page")
         admin.click_Cyware_Agent()
-        assert action.getTitle() in 'Cyware Agent | Cyware Orchestrate'
+        assert action.getTitle() == 'Cyware Agent | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -127,7 +119,7 @@ class TestAdminPanel(Base):
         admin.click_Back_Button()
         log.info("Click on Console Status tab from Admin Page")
         admin.click_Console_Status()
-        assert action.getTitle() in 'Console Status | Cyware Orchestrate'
+        assert action.getTitle() == 'Console Status | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -143,4 +135,4 @@ class TestAdminPanel(Base):
         admin.click_Back_Button()
         log.info("Click on Playbook Tags tab from Admin Page")
         admin.click_Playbook_tags()
-        assert action.getTitle() in 'Playbook Tags | Cyware Orchestrate'
+        assert action.getTitle() == 'Playbook Tags | Cyware Orchestrate'

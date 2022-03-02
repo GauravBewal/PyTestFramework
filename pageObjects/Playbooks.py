@@ -7,6 +7,11 @@ class Playbooks(Action):
         super().__init__(driver)
         self.driver = driver
 
+    nodes_list = ['Action Nodes', 'Condition Nodes', 'Input Node', 'Memory Node']
+    tooltip_titles = ['Playbook Overview', 'Add Node', 'Connect Nodes', 'Zoom and Auto-arrange Nodes',
+                      'Save and Run']
+    sort_options = ['Name', 'Modified', 'Created', 'ID', 'Last Run', 'Total Run']
+
     tab_cyware_playbooks = "//li[contains(@class,'cyware-playbook')]"
 
     def cyware_playbook_tab(self):
@@ -57,10 +62,13 @@ class Playbooks(Action):
     def mouse_hover_sort_options(self):
         return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.playbook_sort_options)
 
-    available_sort_options = (By.XPATH, "//ul[contains(@class,'sort')]/li")
+    available_sort_options = "//ul[contains(@class,'sort')]/li"
 
     def read_available_sort_options(self):
-        return self.driver.find_elements(*Playbooks.available_sort_options)
+        return Action.get_no_of_elements_present(self, By.XPATH, Playbooks.available_sort_options)
+
+    def get_sort_options_title(self, path):
+        return Action.getText(self, By.XPATH, path)
 
     playbook_export_btn = "//i[@class='icon-export-boxed']/parent::li"
 
@@ -148,10 +156,21 @@ class Playbooks(Action):
     def get_add_node_slider_text(self):
         return Action.getText(self, By.XPATH, Playbooks.playbook_node_slider_text)
 
-    all_Action_nodes_text = (By.XPATH, "//div[@class='content']//h3")
+    all_Action_nodes_text = "//div[@class='content']//h3"
 
-    def get_all_elements(self):
-        return self.driver.find_elements(*Playbooks.all_Action_nodes_text)
+    def get_all_viewall_elements(self):
+        return Action.get_no_of_elements_present(self, By.XPATH, Playbooks.all_Action_nodes_text)
+
+    def get_list_of_elements(self, elements_count, elements):
+        elements_list = []
+        #indexing xpath and storing it in list
+        for value in range(1, elements_count+1):
+            path = "("+elements+")["+str(value)+"]"
+            elements_list.append(path)
+        return elements_list
+
+    def get_node_title(self, path):
+        return Action.getText(self, By.XPATH, path)
 
     node_slider_close_btn = "//div[@class='stencil-close']"
 
@@ -201,9 +220,6 @@ class Playbooks(Action):
     def get_tooltip_count(self):
         return Action.get_no_of_walkthrough_and_pagination_count(self, By.XPATH, Playbooks.walkthrough_tooltip_count)
 
-    def find_element_path_and_get_text(self, path):
-        return Action.getText(self, By.XPATH, path)
-
     page_count = "//div[contains(@class,'footer-box')]//span[contains(text(),'of')]"
 
     def get_current_page_count(self):
@@ -215,7 +231,7 @@ class Playbooks(Action):
         return Action.waitandclick(self, By.XPATH, Playbooks.grid_view_btn)
 
     def get_grid_icon_color(self):
-        return Action.getElementColor(self, By.XPATH, Playbooks.grid_view_btn)
+        return Action.getElementColor(self, By.XPATH, Playbooks.grid_view_btn, 'color')
 
     increment_pagination_btn = "//div[contains(@class,'footer-box')]//button[@class='btn-next']"
 
@@ -231,6 +247,8 @@ class Playbooks(Action):
 
     def get_tooltip_title(self):
         return Action.getText(self, By.XPATH, Playbooks.walkthrough_tooltip_title)
+
+
 
     walkthrough_tooltip_next_btn = "//a[contains(@class,'introjs-nextbutton')]"
 

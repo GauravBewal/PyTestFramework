@@ -67,6 +67,7 @@ class Labels(Action):
     top_label_in_listing = "(//tr//a[contains(text(),'Label_')])[1]"
 
     def top_1_label_name(self):
+        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.getText(self, By.XPATH, Labels.top_label_in_listing)
 
     def click_top_first_label(self):
@@ -88,7 +89,7 @@ class Labels(Action):
         return Action.waitandclick(self, By.XPATH, Labels.tab_inActive)
 
     def get_inactive_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, Labels.tab_inActive)
+        return Action.getElementColor(self, By.XPATH, Labels.tab_inActive, 'color')
 
     tab_All = "//li/a[contains(text(),'All')]"
 
@@ -96,7 +97,7 @@ class Labels(Action):
         return Action.waitandclick(self, By.XPATH, Labels.tab_All)
 
     def get_all_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, Labels.tab_All)
+        return Action.getElementColor(self, By.XPATH, Labels.tab_All, 'color')
 
     tab_active = "//li/a[contains(text(),'Active')]"
 

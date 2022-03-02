@@ -7,10 +7,29 @@ class Dashboard(Action):
         super().__init__(driver)
         self.driver = driver
 
+    widget_titles = ['PLAYBOOK EXECUTION TIMELINE', 'FREQUENTLY USED PLAYBOOKS',
+                     'PLAYBOOK EXECUTION TIME (ON AVERAGE)'
+        , 'FREQUENTLY USED INSTANCES', 'FREQUENTLY USED APPS', 'FREQUENTLY USED ACTIONS',
+                     'FREQUENTLY EXECUTED ACTIONS'
+        , 'FREQUENTLY UTILIZED APPS', 'FREQUENTLY UTILIZED INSTANCES', 'TOTAL EVENT COUNT'
+        , 'INCOMING SOURCE EVENTS', 'PERCENTAGE OF UNUTILIZED EVENTS',
+                     'PERCENTAGE OF EVENTS THAT CAUSE PLAYBOOK EXECUTION ERROR']
+
     btn_viewall_all = "//div[@class='cy-dahsboard-layout__widget']//div[contains(text(),'View all')]"
 
     def get_all_viewall_elements(self):
         return Action.get_no_of_elements_present(self, By.XPATH, Dashboard.btn_viewall_all)
+
+    def get_list_of_elements(self, elements_count, elements):
+        elements_list = []
+        #indexing xpath and storing it in list
+        for value in range(1, elements_count+1):
+            path = "("+elements+")["+str(value)+"]"
+            elements_list.append(path)
+        return elements_list
+
+    def click_on_view_all_btn(self, element):
+        return Action.waitandclick(self, By.XPATH, element)
 
     widget_elements = "//div[contains(@class,'widget-label')]/div"
 
@@ -64,26 +83,26 @@ class Dashboard(Action):
     def click_start_date_btn(self):
         return Action.waitandclick(self, By.XPATH, Dashboard.start_date_btn)
 
-    select_end_date = "(//tr[@class='el-date-table__row']/td[@class='available']//span)[7]"
+    select_end_date = "(//tr[@class='el-date-table__row']/td[contains(@class,'available')]//span)[3]"
 
     def select_calendar_end_date(self):
         return Action.waitandclick(self, By.XPATH, Dashboard.select_end_date)
 
     def get_calendar_end_date_color(self):
-        return Action.getElementColor(self, By.XPATH, Dashboard.select_end_date)
+        return Action.getElementColor(self, By.XPATH, Dashboard.select_end_date, 'background-color')
 
-    select_start_date = "(//tr[@class='el-date-table__row']/td[@class='available']//span)[1]"
+    select_start_date = "(//tr[@class='el-date-table__row']/td[contains(@class,'available')]//span)[1]"
 
     def select_calendar_start_date(self):
         return Action.waitandclick(self, By.XPATH, Dashboard.select_start_date)
 
     def get_calendar_start_date_color(self):
-        return Action.getElementColor(self, By.XPATH, Dashboard.select_start_date)
+        return Action.getElementColor(self, By.XPATH, Dashboard.select_start_date, 'background-color')
 
     cyware_header_section = "//div[contains(@class,'cy-header')]"
 
     def read_header_color(self):
-        return Action.getElementColor(self, By.XPATH, Dashboard.cyware_header_section)
+        return Action.getElementColor(self, By.XPATH, Dashboard.cyware_header_section, 'color')
 
     def find_element_path_and_get_text(self, path):
         return Action.getText(self, By.XPATH, path)
