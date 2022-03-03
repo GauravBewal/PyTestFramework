@@ -121,3 +121,5 @@ class TestDashBoard(Base):
         end_date_color = dashboard.get_calendar_end_date_color()
         assert start_date_color == '#1a3ee8' and end_date_color == '#1a3ee8'
 
+
+
