@@ -41,6 +41,9 @@ class Navigation(Action):
     def click_search_bar(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.nav_search_bar)
 
+    def Enter_string_in_searchbar(self, value):
+        return Action.send_keys(self, By.XPATH, Navigation.nav_search_bar, value)
+
     nav_dashboard = "//div[contains(@class,'menu-dashboard')]"
 
     def navigate_dashboard(self):
@@ -97,3 +100,8 @@ class Navigation(Action):
 
     def navigate_profile_icon(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.profile_settings_icon)
+
+    name_id = "//div[contains(@class,'menu-dashboard')]//div[contains(text(),'Dashboard')]"
+
+    def read_searchbar_result(self):
+        return Action.get_text(self, By.XPATH, Navigation.name_id)
