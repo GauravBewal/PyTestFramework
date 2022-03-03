@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.TenantManagement import TenantManagement
 from utilities.Actions import Action
@@ -23,10 +20,10 @@ class TestTenantManagement(Base):
         nav = Navigation(self.driver)
         tenant = TenantManagement(self.driver)
         log.info("Click on admin menu")
-        nav.click_Admin_Menu()
+        nav.click_admin_menu()
         log.info("Click on Tenant Management tab from Admin Page")
-        tenant.click_Tenant_Management()
-        assert action.getTitle() == 'Tenant Management | Cyware Orchestrate'
+        tenant.click_tenant_management()
+        assert action.get_title() == 'Tenant Management | Cyware Orchestrate'
 
     @pytest.mark.smoke
     def test_02_Click_New_Tenant_btn(self):
@@ -68,7 +65,7 @@ class TestTenantManagement(Base):
         log = self.getlogger()
         tenant = TenantManagement(self.driver)
         log.info("Click on All tab")
-        tenant.click_All_tab()
+        tenant.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = tenant.get_all_tab_color()
         assert tab_color == '#1a3ee8'

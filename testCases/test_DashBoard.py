@@ -1,8 +1,9 @@
 import time
-from selenium.webdriver.common.by import By
 import pytest
+
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
+
 from configuration.readConfiguration import ReadConfig
 from pageObjects.Dashboard import Dashboard
 from pageObjects.Navigation import Navigation
@@ -22,10 +23,9 @@ class TestDashBoard(Base):
         """
         nav = Navigation(self.driver)
         action = Action(self.driver)
-        nav.click_Main_Menu()
-        nav.Navigate_Dashboard()
-        assert action.getTitle() == 'Dashboard | Cyware Orchestrate'
-
+        nav.click_main_menu()
+        nav.navigate_dashboard()
+        assert action.get_title() == 'Dashboard | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -70,13 +70,13 @@ class TestDashBoard(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_04_Click_on_ViewAll_btn(self):
+    def test_04_Click_on_View_All_btn(self):
         """
             Verify that View All button is working as expected or not
             Validation - 1. On the basis of Legends button visibility
         """
         dashboard = Dashboard(self.driver)
-        elements_list = dashboard.get_list_of_elements(dashboard.get_all_viewall_elements(), dashboard.btn_viewall_all)
+        elements_list = dashboard.get_list_of_elements(dashboard.get_all_view_all_elements(), dashboard.btn_view_all)
         for element in range(0, len(elements_list)):
             dashboard.click_on_view_all_btn(elements_list[element])
             visibility = dashboard.visibility_of_legends_btn()
@@ -120,3 +120,4 @@ class TestDashBoard(Base):
         start_date_color = dashboard.get_calendar_start_date_color()
         end_date_color = dashboard.get_calendar_end_date_color()
         assert start_date_color == '#1a3ee8' and end_date_color == '#1a3ee8'
+

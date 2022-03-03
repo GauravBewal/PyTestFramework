@@ -3,7 +3,6 @@ import pytest
 from pageObjects.AdminPage import Admin
 from pageObjects.ConsoleStatus import ConsoleStatus
 from pageObjects.Navigation import Navigation
-from utilities.Actions import Action
 from utilities.Base import Base
 
 
@@ -21,9 +20,9 @@ class TestAdminPanel(Base):
         nav = Navigation(self.driver)
         admin = Admin(self.driver)
         console = ConsoleStatus(self.driver)
-        nav.click_Admin_Menu()
+        nav.click_admin_menu()
         log.info("Click on Admin Menu")
-        admin.click_Console_Status()
+        admin.click_console_status()
         log.info("Click on Console Status and check Overview page listing of servers")
         assert console.get_overview_elastic_search_text() == 'Elasticsearch'
         assert console.get_overview_my_sql_text() == 'My SQL'

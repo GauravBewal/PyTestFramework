@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.TriggerEvents import TriggerEvents
 from utilities.Actions import Action
@@ -24,12 +21,12 @@ class TestTriggerEvents(Base):
         trigger_events = TriggerEvents(self.driver)
         action = Action(self.driver)
         log.info("click on main menu")
-        nav.click_Main_Menu()
+        nav.click_main_menu()
         log.info("click on trigger events")
-        nav.Navigate_Trigger_Event()
+        nav.navigate_trigger_event()
         log.info("Read page heading")
         page_heading = trigger_events.get_page_heading()
-        assert action.getTitle() == 'Trigger Events | Cyware Orchestrate' and 'Triggered Events' in page_heading
+        assert action.get_title() == 'Trigger Events | Cyware Orchestrate' and 'Triggered Events' in page_heading
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

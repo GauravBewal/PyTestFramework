@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.UserGroupManagement import UserGroupManagement
 from utilities.Actions import Action
@@ -24,11 +21,11 @@ class TestUserGroupManagement(Base):
         action = Action(self.driver)
         usergroup = UserGroupManagement(self.driver)
         log.info("Click on Admin menu")
-        nav.click_Admin_Menu()
+        nav.click_admin_menu()
         log.info("Click on User group Management tab from Admin Page")
-        usergroup.click_User_Group_Management()
+        usergroup.click_user_group_management()
         log.info("Read the page heading")
-        assert action.getTitle() == 'User Groups Management | Cyware Orchestrate'
+        assert action.get_title() == 'User Groups Management | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -72,7 +69,7 @@ class TestUserGroupManagement(Base):
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
         log.info("Click on All tab")
-        usergroup.click_All_tab()
+        usergroup.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = usergroup.get_all_tab_color()
         assert tab_color == '#1a3ee8'

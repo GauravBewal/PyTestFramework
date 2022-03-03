@@ -2,30 +2,31 @@ import random
 import string
 from datetime import datetime
 
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.color import Color
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
+
 from utilities.Base import Base
+
 
 class Action(Base):
 
     def __init__(self, driver):
         self.driver = driver
 
-    def waitandclick(self, by, path):
+    def wait_and_click(self, by, path):
         element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
         element.click()
 
-    def normalclick(self, by, path):
+    def normal_click(self, by, path):
         self.driver.find_element(by, path).click()
 
-
-    def clickifelementfound(self, by, path):
+    def click_if_element_found(self, by, path):
         log = self.getlogger()
         try:
             WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable((by, path))).click()
@@ -42,7 +43,7 @@ class Action(Base):
         all_windows = self.driver.window_handles
         size = len(all_windows)
         for x in range(size):
-            if (x == window_number):
+            if x == window_number:
                 self.driver.switch_to.window(all_windows[x])
                 break
         return parent_window
@@ -60,22 +61,22 @@ class Action(Base):
         element = self.driver.find_element(by, path)
         self.driver.execute_script("arguments[0].click();", element)
 
-    def getCountfromString(self, by, path):
+    def get_count_from_string(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
         count = ele.text
         return int(float(count.split('(')[1].split(')')[0]))
 
     def get_no_of_walkthrough_and_pagination_count(self, by, path):
         element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
-        count = element.text
-        return int(count.split(' ')[2])
+        count = element.text.split(' ')[2]
+        return int(count)
 
     def get_current_page_number(self, by, path):
         element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         count = element.text
         return int(count.split(' ')[0])
 
-    def sendKeys(self, by, path, value):
+    def send_keys(self, by, path, value):
         element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         element.send_keys(value)
 
@@ -84,7 +85,7 @@ class Action(Base):
         while len(element.get_attribute("value")) > 0:
             element.send_keys(Keys.BACK_SPACE)
 
-    def clickEnter(self, by, path):
+    def click_enter(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
         ele.send_keys(Keys.ENTER)
         action1 = ActionChains(self.driver)
@@ -98,35 +99,35 @@ class Action(Base):
         else:
             return False
 
-    def selectFromDD(self, dropdown, value):
+    def select_from_drop_down(self, dropdown, value):
         ddelement = Select(dropdown)
         ddelement.select_by_value(value)
 
-    def getText(self, by, path):
+    def get_text(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         return ele.text
 
-    def ReadSearchResult(self, by, path, value):
+    def read_search_result(self, by, path, value):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.text_to_be_present_in_element((by, path), value))
         if ele == True:
             return self.driver.find_element(by, path).text
 
-    def getTitle(self):
+    def get_title(self):
         return self.driver.title
 
-    def getattribute(self, by, path, attributeValue):
+    def get_attribute(self, by, path, attributeValue):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         return ele.get_attribute(attributeValue)
 
-    def currentTime(self):
+    def get_current_time(self):
         return datetime.now().strftime("%B %d, %Y %H:%M:%S")
 
-    def getElementColor(self, by, path, css_property):
+    def get_css_property_value(self, by, path, css_property):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         rgb = ele.value_of_css_property(css_property)
         return Color.from_string(rgb).hex
 
-    def getRandomDigit(self):
+    def get_random_digit(self):
         res = ''.join(random.choices(string.digits, k=4))
         return res
 

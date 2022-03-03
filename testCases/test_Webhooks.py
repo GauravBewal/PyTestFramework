@@ -1,12 +1,9 @@
-import time
-
 import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.Webhooks import Webhooks
 from utilities.Actions import Action
 from utilities.Base import Base
-from configuration.readConfiguration import ReadConfig
 
 
 @pytest.mark.usefixtures("setup")
@@ -24,10 +21,10 @@ class TestWebhooks(Base):
         action = Action(self.driver)
         nav = Navigation(self.driver)
         log.info("Click on Admin menu")
-        nav.click_Admin_Menu()
+        nav.click_admin_menu()
         log.info("Click on Webhooks tab from Admin Page")
-        webhook.click_Webhooks()
-        assert action.getTitle() in 'Webhooks | Cyware Orchestrate'
+        webhook.click_webhooks()
+        assert action.get_title() in 'Webhooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -71,7 +68,7 @@ class TestWebhooks(Base):
         log = self.getlogger()
         webhook = Webhooks(self.driver)
         log.info("Click on All tab")
-        webhook.click_All_tab()
+        webhook.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = webhook.get_all_tab_color()
         assert tab_color == '#1a3ee8'

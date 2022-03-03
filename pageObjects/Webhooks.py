@@ -1,44 +1,45 @@
 from selenium.webdriver.common.by import By
 from utilities.Actions import Action
 
+
 class Webhooks(Action):
 
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
 
-    tab_Webhooks = "//p[contains(text(),'Webhook')]/parent::div/parent::div"
+    tab_webhooks = "//p[contains(text(),'Webhook')]/parent::div/parent::div"
 
-    def click_Webhooks(self):
-        return Action.waitandclick(self, By.XPATH, Webhooks.tab_Webhooks)
+    def click_webhooks(self):
+        return Action.wait_and_click(self, By.XPATH, Webhooks.tab_webhooks)
 
     btn_new_webhook = "//header//button"
 
     def click_new_webhook(self):
-        return Action.waitandclick(self, By.XPATH, Webhooks.btn_new_webhook)
+        return Action.wait_and_click(self, By.XPATH, Webhooks.btn_new_webhook)
 
     text_slider_heading = "//div[@class='modal--header']//span"
 
     def get_slider_title(self):
-        return Action.getText(self, By.XPATH, Webhooks.text_slider_heading)
+        return Action.get_text(self, By.XPATH, Webhooks.text_slider_heading)
 
     btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
-        return Action.waitandclick(self, By.XPATH, Webhooks.btn_slider_close)
+        return Action.wait_and_click(self, By.XPATH, Webhooks.btn_slider_close)
 
     tab_inactive = "//li[3]/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return Action.waitandclick(self, By.XPATH, Webhooks.tab_inactive)
+        return Action.wait_and_click(self, By.XPATH, Webhooks.tab_inactive)
 
     def get_inactive_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, Webhooks.tab_inactive, 'color')
+        return Action.get_css_property_value(self, By.XPATH, Webhooks.tab_inactive, 'color')
 
     tab_All = "//li/a[contains(text(),'All')]"
 
-    def click_All_tab(self):
-        return Action.waitandclick(self, By.XPATH, Webhooks.tab_All)
+    def click_all_tab(self):
+        return Action.wait_and_click(self, By.XPATH, Webhooks.tab_All)
 
     def get_all_tab_color(self):
-        return Action.getElementColor(self, By.XPATH, Webhooks.tab_All, 'color')
+        return Action.get_css_property_value(self, By.XPATH, Webhooks.tab_All, 'color')

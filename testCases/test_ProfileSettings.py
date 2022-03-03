@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.ProfileSettings import ProfileSettings
 from utilities.Actions import Action
@@ -24,11 +21,11 @@ class TestProfileSettings(Base):
         action = Action(self.driver)
         profile = ProfileSettings(self.driver)
         log.info("Click on Profile Settings icon")
-        nav.Navigate_Profile_icon()
+        nav.navigate_profile_icon()
         log.info("Click on Profile Settings dropdown")
-        profile.click_Profile_Settings()
+        profile.click_profile_settings()
         log.info("Check after click page redirects")
-        assert action.getTitle() in 'Profile Settings | Cyware Orchestrate'
+        assert action.get_title() in 'Profile Settings | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -40,11 +37,11 @@ class TestProfileSettings(Base):
         log = self.getlogger()
         profile = ProfileSettings(self.driver)
         log.info("Click on the password change button")
-        profile.click_Change_Password()
+        profile.click_change_password()
         log.info("Read the slider button")
-        slider_text = profile.get_ChangePassword_SliderTitle()
+        slider_text = profile.get_change_password_slider_title()
         log.info("Click on the close button")
-        profile.click_Close_ChangePassword_slider()
+        profile.click_close_change_password_slider()
         assert slider_text in 'Change Password'
 
     @pytest.mark.smoke

@@ -1,14 +1,9 @@
-import time
-
 import pytest
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import TimeoutException
-from configuration.readConfiguration import ReadConfig
+
 from pageObjects.Navigation import Navigation
 from pageObjects.Playbooks import Playbooks
 from utilities.Actions import Action
 from utilities.Base import Base
-from selenium.webdriver.common.by import By
 
 
 @pytest.mark.usefixtures("setup")
@@ -27,9 +22,9 @@ class TestPlaybook(Base):
         nav = Navigation(self.driver)
         playbooks = Playbooks(self.driver)
         log.info("Click on Main Menu")
-        nav.click_Main_Menu()
+        nav.click_main_menu()
         log.info("Click on Manage Playbook from Main Menu")
-        nav.Navigate_Manage_Playbook()
+        nav.navigate_manage_playbook()
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
         read_page_heading = playbooks.get_manage_playbook_heading()
@@ -49,8 +44,7 @@ class TestPlaybook(Base):
         playbooks.cyware_playbook_tab()
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
-        assert action.getTitle() == 'Cyware Playbooks | Cyware Orchestrate'
-
+        assert action.get_title() == 'Cyware Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -64,7 +58,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         log.info("Click on My Playbooks for switch tab")
         playbooks.my_playbook_tab()
-        assert action.getTitle() == 'My Playbooks | Cyware Orchestrate'
+        assert  action.get_title() == 'My Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -81,7 +75,7 @@ class TestPlaybook(Base):
         log.info("Read the page title")
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
-        assert action.getTitle() == 'Add Playbook | Cyware Orchestrate'
+        assert action.get_title() == 'Add Playbook | Cyware Orchestrate'
 
     @pytest.mark.readOnly
     @pytest.mark.smoke
@@ -108,7 +102,8 @@ class TestPlaybook(Base):
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Read all the action nodes")
-        elements_list = playbooks.get_list_of_elements(playbooks.get_all_viewall_elements(), playbooks.all_Action_nodes_text)
+        elements_list = playbooks.get_list_of_elements(playbooks.get_all_viewall_elements(),
+                                                       playbooks.all_Action_nodes_text)
         log.info("Validate all the node title")
         for element in range(0, len(elements_list)):
             node_title = playbooks.get_node_title(elements_list[element])
@@ -336,8 +331,7 @@ class TestPlaybook(Base):
         log.info("Read the window title")
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
-        assert action.getTitle() == 'View Playbook | Cyware Orchestrate'
-
+        assert action.get_title() == 'View Playbook | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -424,7 +418,8 @@ class TestPlaybook(Base):
         log.info("Mouse on the sort options")
         playbook.mouse_hover_sort_options()
         log.info("Reading all the visible sort options")
-        elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(), playbook.available_sort_options)
+        elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),
+                                                      playbook.available_sort_options)
         for element in range(0, len(elements_list)):
             read_sort_option = playbook.get_sort_options_title(elements_list[element])
             assert read_sort_option == playbook.sort_options[element]
@@ -457,7 +452,6 @@ class TestPlaybook(Base):
         current_page_number = playbooks.get_current_page_count()
         assert current_page_number == 1
 
-
     # @pytest.mark.smoke
     # def test_30_Verify_mouse_hover_on_playbook_3dots(self):
     #     """
@@ -465,6 +459,3 @@ class TestPlaybook(Base):
     #     Validation 1: Based on the options visibility
     #     """
     #     log = self.getlogger()
-
-
-

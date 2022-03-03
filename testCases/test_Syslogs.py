@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.Syslogs import Syslogs
 from utilities.Actions import Action
@@ -24,10 +21,10 @@ class TestSyslogs(Base):
         action = Action(self.driver)
         nav = Navigation(self.driver)
         log.info("Click on Main menu")
-        nav.click_Admin_Menu()
+        nav.click_admin_menu()
         log.info("Click on SysLogs tab from Admin Page")
-        syslog.click_SysLogs()
-        assert action.getTitle() in 'Syslogs | Cyware Orchestrate'
+        syslog.click_syslogs()
+        assert action.get_title() in 'Syslogs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -39,7 +36,7 @@ class TestSyslogs(Base):
         log = self.getlogger()
         syslog = Syslogs(self.driver)
         log.info("Click on add syslog button")
-        syslog.click_new_Syslog()
+        syslog.click_new_syslog()
         log.info("Read the slider title")
         slider_title = syslog.get_slider_title()
         log.info("Click on close slider button")
@@ -71,7 +68,7 @@ class TestSyslogs(Base):
         log = self.getlogger()
         syslog = Syslogs(self.driver)
         log.info("Click on inactive tab")
-        syslog.click_All_tab()
+        syslog.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = syslog.get_all_tab_color()
         assert tab_color == '#1a3ee8'

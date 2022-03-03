@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.Runlogs import Runlogs
 from utilities.Actions import Action
@@ -22,10 +19,10 @@ class TestRunLogs(Base):
         log = self.getlogger()
         action = Action(self.driver)
         log.info("Click on the main menu")
-        nav.click_Main_Menu()
+        nav.click_main_menu()
         log.info("Click on runlogs button")
-        nav.Navigate_Run_Logs()
-        assert action.getTitle() in 'Run Logs | Cyware Orchestrate'
+        nav.navigate_run_logs()
+        assert action.get_title() in 'Run Logs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly

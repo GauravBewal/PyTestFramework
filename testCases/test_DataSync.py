@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.DataSync import DataSync
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
@@ -22,10 +19,10 @@ class TestDataSync(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         dataSync = DataSync(self.driver)
-        nav.click_Main_Menu()
-        nav.Navigate_Data_Sync()
+        nav.click_main_menu()
+        nav.navigate_data_sync()
         page_heading = dataSync.get_page_heading_text()
-        assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate' and page_heading == 'Data Sync Jobs'
+        assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate' and page_heading == 'Data Sync Jobs'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -40,7 +37,7 @@ class TestDataSync(Base):
         log.info('Click on create data sync button')
         dataSync.click_create_data_sync()
         log.info('Store the page title in page_title variable for validation')
-        page_title = action.getTitle()
+        page_title = action.get_title()
         log.info('click on back button to cancel the data sync job creation')
         dataSync.click_back_button()
         log.info('click on close without saving button to cancel the data sync job creation')
@@ -60,7 +57,7 @@ class TestDataSync(Base):
         log = self.getlogger()
         log.info("Click on the run history button")
         dataSync.click_run_history()
-        assert action.getTitle() == 'Run History Logs | Cyware Orchestrate'
+        assert action.get_title() == 'Run History Logs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -72,7 +69,7 @@ class TestDataSync(Base):
         dataSync = DataSync(self.driver)
         action = Action(self.driver)
         dataSync.click_job_details()
-        assert action.getTitle() == 'Data Sync Jobs | Cyware Orchestrate'
+        assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -82,6 +79,7 @@ class TestDataSync(Base):
         Validation: Based on the filter slider title
         """
         log = self.getlogger()
+        action = Action(self.driver)
         dataSync = DataSync(self.driver)
         log.info("Click on the filter button")
         dataSync.click_on_filter_btn()
