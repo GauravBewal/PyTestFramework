@@ -19,7 +19,7 @@ class TestCywareAgentTask(Base):
         action = Action(self.driver)
         log = self.getlogger()
         log.info("click on the main menu")
-        nav.click_Main_Menu()
+        nav.click_main_menu()
         log.info("click on the cyware agent tasks button")
-        nav.Navigate_Agent_task()
-        assert action.getTitle() == 'Cyware Agent Tasks | Cyware Orchestrate'
+        nav.navigate_agent_task()
+        assert action.get_title() == 'Cyware Agent Tasks | Cyware Orchestrate'

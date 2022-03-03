@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.UserManagement import UserManagement
 from utilities.Actions import Action
@@ -24,10 +21,10 @@ class TestUserManagement(Base):
         action = Action(self.driver)
         user = UserManagement(self.driver)
         log.info("Click on Admin menu")
-        nav.click_Admin_Menu()
+        nav.click_admin_menu()
         log.info("Click on User Management tab from Admin Page")
-        user.click_User_Management()
-        assert action.getTitle() in 'User Management | Cyware Orchestrate'
+        user.click_user_management()
+        assert action.get_title() in 'User Management | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -86,7 +83,7 @@ class TestUserManagement(Base):
         log = self.getlogger()
         user = UserManagement(self.driver)
         log.info("Click on All tab")
-        user.click_All_tab()
+        user.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = user.get_all_tab_color()
         assert tab_color == '#1a3ee8'

@@ -1,17 +1,15 @@
 import os.path
-import time
 
 import pytest
+from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from configuration.readConfiguration import ReadConfig
 from utilities.webdriver_factory import WebDriverFactory
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import ElementClickInterceptedException
-
 
 webapp_driver = None
 
@@ -25,7 +23,6 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="class", autouse=True)
 def setup(request):
-
     global webapp_driver
     browser_name = request.config.getoption("browser_name")
     base_url = request.config.getoption("url")
@@ -45,23 +42,25 @@ def login(getEmail, getPassword):
     button_login = "//button[contains(text(),'Login')]"
 
     try:
-        #Enter Email value in email field
-        sendKeys(By.XPATH, text_field_emailID, getEmail)
-        #Enter Password value in Password field
-        sendKeys(By.XPATH, text_filed_password, getPassword)
-        #Click on the login button
-        waitandclickelement(By.XPATH, button_login)
+        # Enter Email value in email field
+        send_keys(By.XPATH, text_field_emailID, getEmail)
+        # Enter Password value in Password field
+        send_keys(By.XPATH, text_filed_password, getPassword)
+        # Click on the login button
+        wait_and_click_element(By.XPATH, button_login)
     except (TimeoutException, NoSuchElementException, ElementClickInterceptedException) as e:
         print(e)
 
 
-def waitandclickelement(by, path):
+def wait_and_click_element(by, path):
     element = WebDriverWait(webapp_driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
     element.click()
 
-def sendKeys(by, path, value):
+
+def send_keys(by, path, value):
     element = WebDriverWait(webapp_driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
     element.send_keys(value)
+
 
 def _capture_screenshot(name):
     global webapp_driver
@@ -111,4 +110,3 @@ def pytest_configure(config):
 
 def getUrl(request):
     return request.config.getoption("url")
-

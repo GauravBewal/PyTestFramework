@@ -1,8 +1,5 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Labels import Labels
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
@@ -30,14 +27,14 @@ class TestLabels(Base):
         action = Action(self.driver)
         label = Labels(self.driver)
         log.info("Click on to main menu")
-        nav.click_Main_Menu()
+        nav.click_main_menu()
         log.info("Click on to label module for redirection")
-        nav.Navigate_Labels()
+        nav.navigate_labels()
         log.info("Read the no of active labels available")
         global active_labels
         active_labels = label.get_label_count()
         log.info("Validating the page title")
-        assert action.getTitle() == 'Labels | Cyware Orchestrate'
+        assert action.get_title() == 'Labels | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -67,7 +64,7 @@ class TestLabels(Base):
         log = self.getlogger()
         label = Labels(self.driver)
         log.info("Click on the inactive tab")
-        label.click_All_tab()
+        label.click_all_tab()
         log.info("Read the tab color")
         tab_color = label.get_all_tab_color()
         log.info("Read the no of active labels available")
@@ -84,11 +81,11 @@ class TestLabels(Base):
         log = self.getlogger()
         label = Labels(self.driver)
         log.info("Switch to active tab")
-        label.click_Active_tab()
+        label.click_active_tab()
         log.info("Click on to New Label Button")
-        label.click_New_Label()
+        label.click_new_label()
         log.info("Enter description of a label")
-        label.put_Description("description")
+        label.put_description("description")
         log.info("Click on to create label button")
         label.create_Label()
         error_msg = label.get_label_field_error_msg()
@@ -109,13 +106,13 @@ class TestLabels(Base):
         log.info("Reading the count of total labels before creating a new label")
         before_label_creation_count = label.get_label_count()
         log.info("Click on to create new label")
-        label.click_New_Label()
+        label.click_new_label()
         global label_text
-        label_text = "Label_" + action.currentTime()
+        label_text = "Label_" + action.get_current_time()
         log.info("Entering new label name")
-        label.put_Label_Name(label_text)
+        label.put_label_name(label_text)
         log.info("Entering label description")
-        label.put_Description("Test Description")
+        label.put_description("Test Description")
         log.info("Click on create label button")
         label.create_Label()
         log.info("Click on to close label creation tooltip ")
@@ -136,9 +133,9 @@ class TestLabels(Base):
         log = self.getlogger()
         label = Labels(self.driver)
         log.info("Entering" + label_text + "text for searching")
-        label.put_Search_String(label_text)
+        label.put_search_string(label_text)
         log.info("Click on ENTER")
-        label.click_Enter_for_Search()
+        label.click_enter_for_search()
         read_top_search_result = label.top_1_label_name()
         label.clear_search()
         log.info("Validating search results")
@@ -157,11 +154,11 @@ class TestLabels(Base):
         label.click_top_first_label()
         log.info("Deleting and Entering new name to the existing label")
         label.clear_label_field()
-        new_label_name = "Label_" + action.currentTime()
-        label.put_Label_Name(new_label_name)
+        new_label_name = "Label_" + action.get_current_time()
+        label.put_label_name(new_label_name)
         log.info("Deleting and entering new description the existing label")
-        label.clear_Description_field()
-        label.put_Description("updated description")
+        label.clear_description_field()
+        label.put_description("updated description")
         log.info("Click on update label button")
         label.click_update_label()
         log.info("Click on close tooltip")

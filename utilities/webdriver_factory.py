@@ -27,16 +27,6 @@ class WebDriverFactory:
         self.browser = browser.lower()
         self.baseUrl = baseUrl
 
-    """
-        Set chrome driver and iexplorer environment based on OS
-
-        chromedriver = "C:/.../chromedriver.exe"
-        os.environ["webdriver.chrome.driver"] = chromedriver
-        self.driver = webdriver.Chrome(chromedriver)
-
-        PREFERRED: Set the path on the machine where browser will be executed
-    """
-
     def getWebDriverInstance(self):
         """
         Get WebDriver Instance based on the browser configuration

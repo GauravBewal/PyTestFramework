@@ -1,17 +1,20 @@
 from selenium.webdriver.common.by import By
 
+from utilities.Actions import Action
 
-class FilterAndSort:
+
+class FilterAndSort(Action):
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
-    button_filter = (By.XPATH, "//div[@class='header__top--left d-flex flex-fill']/button")
+    button_filter = "//div[@class='header__top--left d-flex flex-fill']/button"
 
-    def clickOnFilters(self):
-        return self.driver.find_element(*FilterAndSort.button_filter)
+    def click_on_filters(self):
+        return Action.wait_and_click(self, By.XPATH, FilterAndSort.button_filter)
 
-    button_sort = (By.XPATH, "//span[@class='sort-tab']")
+    button_sort = "//span[@class='sort-tab']"
 
-    def clickOnSort(self):
-        return self.driver.find_element(*FilterAndSort.button_sort)
+    def click_on_sort(self):
+        return Action.wait_and_click(self, By.XPATH, FilterAndSort.button_filter)

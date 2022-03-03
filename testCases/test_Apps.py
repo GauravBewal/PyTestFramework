@@ -1,8 +1,7 @@
 import time
 
 import pytest
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import TimeoutException
+
 from configuration.readConfiguration import ReadConfig
 from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
@@ -25,14 +24,14 @@ class TestApps(Base):
         action = Action(self.driver)
         myapps = MyApps(self.driver)
         log.info("Click on Main Menu")
-        nav.click_Main_Menu()
+        nav.click_main_menu()
         log.info("Click on Apps from Menu")
-        nav.Navigate_Apps()
+        nav.navigate_apps()
         log.info("Read page heading")
         page_heading = myapps.get_page_heading()
         log.info("Check if walk through is initiated")
         myapps.click_on_close_walkthrough()
-        assert action.getTitle() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps'
+        assert action.get_title() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -45,11 +44,10 @@ class TestApps(Base):
         action = Action(self.driver)
         myapps = MyApps(self.driver)
         log.info("Click on App Store tab")
-        myapps.App_Store_Tab()
+        myapps.app_store_tab()
         log.info("Check if walk through is initiated")
         myapps.click_on_close_walkthrough()
-        assert action.getTitle() == 'Appstore | Cyware Orchestrate'
-
+        assert action.get_title() == 'Appstore | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -63,7 +61,7 @@ class TestApps(Base):
         myapps = MyApps(self.driver)
         log.info("Click on App Store tab")
         myapps.My_Apps_Tab()
-        assert action.getTitle() == 'My Apps | Cyware Orchestrate'
+        assert action.get_title() == 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.smoke
     def test_04_Create_New_Custom_App(self):
@@ -80,7 +78,7 @@ class TestApps(Base):
         myapps.Create_App_button()
         log.info("Enter app name")
         global new_app_name
-        new_app_name = "newapp" + action.getRandomDigit()
+        new_app_name = "newapp" + action.get_random_digit()
         myapps.enter_app_name(new_app_name)
         log.info("Enter app supported api version")
         myapps.enter_supported_api_version("1.0.0")
@@ -122,7 +120,7 @@ class TestApps(Base):
         app_title_listing = myapps.top_first_search(new_app_name)
         log.info("Click on the searched app")
         myapps.click_first_search_result()
-        page_title = action.getTitle()
+        page_title = action.get_title()
         app_title_summary = myapps.read_app_title()
         assert page_title == 'App Summary | Cyware Orchestrate' and app_title_listing == app_title_summary
 
@@ -137,7 +135,7 @@ class TestApps(Base):
         my_apps = MyApps(self.driver)
         log.info("Click on actions tab")
         my_apps.click_app_actions_tab()
-        page_title = action.getTitle()
+        page_title = action.get_title()
         assert page_title == 'App Actions | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -151,7 +149,7 @@ class TestApps(Base):
         my_apps = MyApps(self.driver)
         log.info("Click on instance tab")
         my_apps.click_app_instance_tab()
-        page_title = action.getTitle()
+        page_title = action.get_title()
         assert page_title == 'App Instances | Cyware Orchestrate'
 
     @pytest.mark.smoke
@@ -180,7 +178,7 @@ class TestApps(Base):
         my_apps = MyApps(self.driver)
         log.info("Click on playbook tab")
         my_apps.click_app_playbooks_tab()
-        page_title = action.getTitle()
+        page_title = action.get_title()
         assert page_title == 'App Playbooks | Cyware Orchestrate'
 
     @pytest.mark.smoke

@@ -24,10 +24,10 @@ class TestOpenApi(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         log.info("Click on back button from Cyware Agent")
-        nav.click_Admin_Menu()
+        nav.click_admin_menu()
         log.info("Click on Open APIs tab from Admin Page")
-        openapi.click_Open_API_tab()
-        assert action.getTitle() == 'Open APIs | Cyware Orchestrate'
+        openapi.click_open_api_tab()
+        assert action.get_title() == 'Open APIs | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -71,7 +71,7 @@ class TestOpenApi(Base):
         log = self.getlogger()
         openapi = OpenApi(self.driver)
         log.info("Click on All tab")
-        openapi.click_All_tab()
+        openapi.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = openapi.get_all_tab_color()
         assert tab_color == '#1a3ee8'

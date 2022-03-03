@@ -19,10 +19,10 @@ class TestConfigureTriggers(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
-        nav.click_Main_Menu()
-        nav.Navigate_Configure_Event()
+        nav.click_main_menu()
+        nav.navigate_configure_event()
         page_heading = config_trigger.get_page_heading()
-        assert action.getTitle() == 'Configure Triggers | Cyware Orchestrate' and 'Configure Triggers' in page_heading
+        assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' and 'Configure Triggers' in page_heading
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
@@ -67,7 +67,7 @@ class TestConfigureTriggers(Base):
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on All tab")
-        config_trigger.click_All_tab()
+        config_trigger.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = config_trigger.read_all_tab_color()
         assert tab_color == '#1a3ee8'
