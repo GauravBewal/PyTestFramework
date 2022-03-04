@@ -11,7 +11,10 @@ class PlaybookTags(Action):
         super().__init__(driver)
         self.driver = driver
 
-    # create_new_playbookTag = "//i[contains(@class,'icon icon-plus')]"
+    close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
+
+    def click_on_close_walkthrough(self):
+        return Action.click_if_element_found(self, By.XPATH, PlaybookTags.close_walkthrough_tooltip)
 
     click_search_bar = "//input[@placeholder='Search Tag(s)']"
 

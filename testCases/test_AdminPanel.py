@@ -19,9 +19,8 @@ class TestAdminPanel(Base):
         log = self.getlogger()
         nav = Navigation(self.driver)
         action = Action(self.driver)
-        admin = Admin(self.driver)
         log.info("Check if walk through is initiated")
-        admin.click_on_close_walkthrough()
+        nav.click_on_close_walkthrough()
         log.info("Click on Admin Menu")
         nav.click_admin_menu()
         assert action.get_title() == 'Admin Panel | Cyware Orchestrate'

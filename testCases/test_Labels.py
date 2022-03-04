@@ -26,6 +26,8 @@ class TestLabels(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         label = Labels(self.driver)
+        log.info("Check if walk through is initiated")
+        nav.click_on_close_walkthrough()
         log.info("Click on to main menu")
         nav.click_main_menu()
         log.info("Click on to label module for redirection")

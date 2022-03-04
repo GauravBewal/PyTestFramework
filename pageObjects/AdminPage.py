@@ -58,8 +58,3 @@ class Admin(Action):
 
     def licence_key_field(self, value):
         return Action.get_attribute(self, By.XPATH, Admin.text_licence_field, value)
-
-    close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
-
-    def click_on_close_walkthrough(self):
-        return Action.click_if_element_found(self, By.XPATH, Admin.close_walkthrough_tooltip)

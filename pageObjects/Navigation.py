@@ -101,10 +101,15 @@ class Navigation(Action):
     def navigate_profile_icon(self):
         return Action.javascript_click(self, By.XPATH, Navigation.profile_settings_icon)
 
-    name_id = "//div[contains(@class,'menu-dashboard')]//div[contains(text(),'Dashboard')]"
+    search_result_txt = "//div[contains(@class,'menu-dashboard')]//div[contains(text(),'Dashboard')]"
 
     def read_searchbar_result(self):
-        return Action.get_text(self, By.XPATH, Navigation.name_id)
+        return Action.get_text(self, By.XPATH, Navigation.search_result_txt)
+
+    btn_clear_search_result = "//i[contains(@class,'search-input__close')]/parent::span"
+
+    def click_clear_search_result_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Navigation.btn_clear_search_result)
 
     def get_list_of_elements(self, elements_count, elements):
         elements_list = []
@@ -126,3 +131,28 @@ class Navigation(Action):
 
     def visibility_of_walkthrough_option(self, element):
         return Action.check_visibility_of_element(self, By.XPATH, element)
+
+    walkthrough_overview_btn = "//a[@href='/soar/walkthrough-overview']"
+
+    def click_on_overview_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Navigation.walkthrough_overview_btn)
+
+    walkthrough_playbook_btn = "//span[contains(text(),'Manage Playbooks')]/parent::div"
+
+    def click_playbook_walkthrough_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Navigation.walkthrough_playbook_btn)
+
+    walkthrough_apps_btn = "//span[contains(text(),'Apps')]/parent::div"
+
+    def click_apps_walkthrough_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Navigation.walkthrough_apps_btn)
+
+    close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
+
+    def visibility_of_walkthrough_close_btn(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Navigation.close_walkthrough_tooltip)
+
+
+    def click_on_close_walkthrough(self):
+        return Action.click_if_element_found(self, By.XPATH, Navigation.close_walkthrough_tooltip)
+
