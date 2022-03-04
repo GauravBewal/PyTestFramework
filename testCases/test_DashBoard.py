@@ -23,7 +23,10 @@ class TestDashBoard(Base):
         """
         nav = Navigation(self.driver)
         action = Action(self.driver)
+        log = self.getlogger()
+        log.info("Click on main menu")
         nav.click_main_menu()
+        log.info("Click on dashboard button")
         nav.navigate_dashboard()
         assert action.get_title() == 'Dashboard | Cyware Orchestrate'
 

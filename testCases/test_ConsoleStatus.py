@@ -20,10 +20,11 @@ class TestAdminPanel(Base):
         nav = Navigation(self.driver)
         admin = Admin(self.driver)
         console = ConsoleStatus(self.driver)
-        nav.click_admin_menu()
         log.info("Click on Admin Menu")
+        nav.click_admin_menu()
+        log.info("Click on Console Status")
         admin.click_console_status()
-        log.info("Click on Console Status and check Overview page listing of servers")
+        log.info("check Overview page listing of servers")
         assert console.get_overview_elastic_search_text() == 'Elasticsearch'
         assert console.get_overview_my_sql_text() == 'My SQL'
         assert console.get_overview_redis_text() == 'Redis'

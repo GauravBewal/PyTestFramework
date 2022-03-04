@@ -19,7 +19,10 @@ class TestDataSync(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         dataSync = DataSync(self.driver)
+        log = self.getlogger()
+        log.info("Click on main menu")
         nav.click_main_menu()
+        log.info("Click on data sync")
         nav.navigate_data_sync()
         page_heading = dataSync.get_page_heading_text()
         assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate' and page_heading == 'Data Sync Jobs'

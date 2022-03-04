@@ -18,8 +18,11 @@ class TestConfigureTriggers(Base):
         """
         nav = Navigation(self.driver)
         action = Action(self.driver)
+        log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
+        log.info("Click on Main menu")
         nav.click_main_menu()
+        log.info("Click on configure event")
         nav.navigate_configure_event()
         page_heading = config_trigger.get_page_heading()
         assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' and 'Configure Triggers' in page_heading
