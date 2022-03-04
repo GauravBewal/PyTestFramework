@@ -105,3 +105,24 @@ class Navigation(Action):
 
     def read_searchbar_result(self):
         return Action.get_text(self, By.XPATH, Navigation.name_id)
+
+    def get_list_of_elements(self, elements_count, elements):
+        elements_list = []
+        # indexing xpath and storing it in list
+        for value in range(1, elements_count + 1):
+            path = "(" + elements + ")[" + str(value) + "]"
+            elements_list.append(path)
+
+        return elements_list
+
+    get_started_btn="//button[contains(text(),'Get Started')]"
+
+    def click_get_started_button(self):
+        return Action.wait_and_click(self, By.XPATH, Navigation.get_started_btn)
+
+    walkthrough_options="//ul/a//span"
+    def get_walkthrough_option_elements(self):
+        return Action.get_no_of_elements_present(self, By.XPATH, Navigation.walkthrough_options)
+
+    def visibility_of_walkthrough_option(self, element):
+        return Action.check_visibility_of_element(self, By.XPATH, element)
