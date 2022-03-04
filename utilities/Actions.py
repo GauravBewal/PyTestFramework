@@ -19,6 +19,10 @@ class Action(Base):
     def __init__(self, driver):
         self.driver = driver
 
+    def javascript_click(self, by, path):
+        element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+        self.driver.execute_script("arguments[0].click();", element)
+
     def wait_and_click(self, by, path):
         element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
         element.click()
@@ -56,10 +60,6 @@ class Action(Base):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         hover = ActionChains(self.driver).move_to_element(ele)
         hover.perform()
-
-    def javascript_click_element(self, by, path):
-        element = self.driver.find_element(by, path)
-        self.driver.execute_script("arguments[0].click();", element)
 
     def get_count_from_string(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))

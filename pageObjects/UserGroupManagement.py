@@ -11,12 +11,12 @@ class UserGroupManagement(Action):
     tab_user_group_management = "//p[contains(text(),'User Group')]/parent::div/parent::div"
 
     def click_user_group_management(self):
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_user_group_management)
+        return Action.javascript_click(self, By.XPATH, UserGroupManagement.tab_user_group_management)
 
     tab_inactive = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
 
     def click_inactive_tab(self):
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_inactive)
+        return Action.javascript_click(self, By.XPATH, UserGroupManagement.tab_inactive)
 
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserGroupManagement.tab_inactive, 'color')
@@ -24,7 +24,7 @@ class UserGroupManagement(Action):
     tab_all = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
 
     def click_all_tab(self):
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_all)
+        return Action.javascript_click(self, By.XPATH, UserGroupManagement.tab_all)
 
     def get_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserGroupManagement.tab_all, 'color')
@@ -32,7 +32,7 @@ class UserGroupManagement(Action):
     btn_add_user_group = "//header//button"
 
     def click_add_user_group(self):
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.btn_add_user_group)
+        return Action.javascript_click(self, By.XPATH, UserGroupManagement.btn_add_user_group)
 
     text_slider_title = "//div[@class='modal--header']//span"
 
@@ -42,4 +42,4 @@ class UserGroupManagement(Action):
     btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.btn_slider_close)
+        return Action.javascript_click(self, By.XPATH, UserGroupManagement.btn_slider_close)

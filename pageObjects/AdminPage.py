@@ -12,47 +12,47 @@ class Admin(Action):
     tab_Configuration = "//p[contains(text(),'Configuration')]/parent::div/parent::div"
 
     def click_configuration(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.tab_Configuration)
+        return Action.javascript_click(self, By.XPATH, Admin.tab_Configuration)
 
     tab_Authentication = "//p[contains(text(),'Authentication')]/parent::div/parent::div"
 
     def click_authentication(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.tab_Authentication)
+        return Action.javascript_click(self, By.XPATH, Admin.tab_Authentication)
 
     tab_License_Management = "//p[contains(text(),'License Management')]/parent::div/parent::div"
 
     def click_license_management(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.tab_License_Management)
+        return Action.javascript_click(self, By.XPATH, Admin.tab_License_Management)
 
     tab_Cyware_Agent = "//p[contains(text(),'Cyware Agent')]/parent::div/parent::div"
 
     def click_cyware_agent(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.tab_Cyware_Agent)
+        return Action.javascript_click(self, By.XPATH, Admin.tab_Cyware_Agent)
 
     tab_Console_Status = "//p[contains(text(),'Console Status')]/parent::div/parent::div"
 
     def click_console_status(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.tab_Console_Status)
+        return Action.javascript_click(self, By.XPATH, Admin.tab_Console_Status)
 
     tab_Playbook_tags = "//p[contains(text(),'Playbook Tags')]/parent::div/parent::div"
 
     def click_playbook_tags(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.tab_Playbook_tags)
+        return Action.javascript_click(self, By.XPATH, Admin.tab_Playbook_tags)
 
     tab_elastic_search = "//div[contains(text(),'Elasticsearch')]"
 
     def click_elastic_search(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.tab_elastic_search)
+        return Action.javascript_click(self, By.XPATH, Admin.tab_elastic_search)
 
     btn_back_admin = "//div[@class='d-flex align-items-center mr-3 el-col el-col-4']/div"
 
     def click_back_button(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.btn_back_admin)
+        return Action.javascript_click(self, By.XPATH, Admin.btn_back_admin)
 
     btn_licence_update_button = "//button/span[contains(text(),'Update')]"
 
     def click_licence_update_button(self):
-        return Action.wait_and_click(self, By.XPATH, Admin.btn_licence_update_button)
+        return Action.javascript_click(self, By.XPATH, Admin.btn_licence_update_button)
 
     text_licence_field = "//div[@class='cs-lincese bg-n10']//input"
 

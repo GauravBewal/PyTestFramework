@@ -4,6 +4,7 @@ from pageObjects.Navigation import Navigation
 from pageObjects.Playbooks import Playbooks
 from utilities.Actions import Action
 from utilities.Base import Base
+from configuration.readConfiguration import ReadConfig
 
 
 @pytest.mark.usefixtures("setup")
@@ -94,26 +95,44 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_06_Verify_All_Nodes_Visibility(self):
+    def test_06_Verify_All_Node_Type_Titles_Visibility(self):
         """
-           Verify user is able to see all the nodes
+           Verify user is able to see all the node types
            Validation: Based on the nodes category title
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Read all the action nodes")
-        elements_list = playbooks.get_list_of_elements(playbooks.get_all_viewall_elements(),
-                                                       playbooks.all_Action_nodes_text)
-        log.info("Validate all the node title")
+        elements_list = playbooks.get_list_of_elements(playbooks.get_all_node_type_elements(),
+                                                       playbooks.all_node_type_title)
+        log.info("Validate all the node type title")
         for element in range(0, len(elements_list)):
-            node_title = playbooks.get_node_title(elements_list[element])
-            assert node_title == playbooks.nodes_list[element]
-        log.info("Closing the node slider")
-        playbooks.click_on_node_close_btn()
+            node_type_title = playbooks.get_node_type_title(elements_list[element])
+            assert node_type_title == playbooks.node_type_list[element]
+
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_07_Check_Video_walkthrough(self):
+    def test_07_Verify_All_Nodes_Visibility(self):
+        """
+        Verify user is able to see all the nodes
+        Validation 1: Based on the nodes visibility
+        """
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Reade the node title")
+        elements_list = playbooks.get_list_of_elements(playbooks.get_all_node_elements(),playbooks.all_nodes_names)
+        log.info("Validate all the node title")
+        for element in range(0, len(elements_list)):
+            node_title = playbooks.get_node_type_title(elements_list[element])
+            assert node_title == playbooks.node_titles_list[element]
+        log.info("Closing the node slider")
+        playbooks.click_on_node_close_btn()
+
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_08_Check_Video_walkthrough(self):
         """
             Verify user is able to see the video walkthough
             Validation: Based on the video walkthrough popup title
@@ -132,7 +151,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_08_Check_Tooltip_walkthrough(self):
+    def test_09_Check_Tooltip_walkthrough(self):
         """
             Verify user is able to see the tooltip walkthough
             Validation: Based on the tooltip walkthrough title
@@ -155,7 +174,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_09_Check_Save_Options(self):
+    def test_10_Check_Save_Options(self):
         """
             Verify user is able to see the save options
             Validation: Based on the save options visibility
@@ -170,7 +189,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_10_Check_Playbook_Overview_Slider(self):
+    def test_11_Check_Playbook_Overview_Slider(self):
         """
             Verify user is able to see the playbook overview slider
             Validation: Based on the slider title
@@ -185,7 +204,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_11_Switch_Output_Parameters_Section(self):
+    def test_12_Switch_Output_Parameters_Section(self):
         """
             Verify whether user is able to click on output parameter
             Validation: Based on the section title and add parameter button visibility
@@ -204,7 +223,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_12_Add_Output_Parameter(self):
+    def test_13_Add_Output_Parameter(self):
         """
             Verify user is able to add the output parameters
             Validation: Based on the params visibility
@@ -223,7 +242,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_13_Verify_Switch_to_Associated_Playbooks(self):
+    def test_14_Verify_Switch_to_Associated_Playbooks(self):
         """
             Verify user is able to switch to associated playbooks section
             Validation: Based on the section title and no state text
@@ -242,7 +261,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_14_Verify_Switch_to_Sub_Playbooks_tab(self):
+    def test_15_Verify_Switch_to_Sub_Playbooks_tab(self):
         """
             Verify whether user is able to switch to sub-playbooks section
             Validation: Based on the subplaybooks tab color
@@ -257,7 +276,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_15_Verify_Switch_App_and_Actions(self):
+    def test_16_Verify_Switch_App_and_Actions(self):
         """
             Verify whether user is able to switch apps and actions section
             Validation based on section title and no state text
@@ -279,7 +298,7 @@ class TestPlaybook(Base):
         assert section_title == 'Apps (0) / Actions (0)' and text == 'No App/Actions Available'
 
     @pytest.mark.smoke
-    def test_16_Click_Customize_Table_btn(self):
+    def test_17_Click_Customize_Table_btn(self):
         """
             Verify whether user is able to click on customize table
             Validation: Based on the slider title
@@ -296,7 +315,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_17_Click_Filter_btn(self):
+    def test_18_Click_Filter_btn(self):
         """
             Verify whether user is able to click on filter button
             Validation: Based on the slider title
@@ -313,7 +332,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_18_View_Playbook(self):
+    def test_19_View_Playbook(self):
         """
             Verify opening playbook in view mode from cyware playbook
             Validation : Based on the window's title
@@ -325,72 +344,69 @@ class TestPlaybook(Base):
         playbooks.cyware_playbook_tab()
         log.info("Click on the first playbook")
         playbooks.click_first_playbook()
-        log.info("Switch to new tab")
-        global parent_window
-        parent_window = action.switch_new_window(1)
-        log.info("Read the window title")
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
+        log.info("Read the window title and validate it")
         assert action.get_title() == 'View Playbook | Cyware Orchestrate'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_19_Check_Export_Options_visibility(self):
+    def test_20_Check_Export_Options_visibility(self):
         """
             Verify whether user is able to seen the export options
             Validation: Based on the export options visibility
         """
         log = self.getlogger()
-        playbook = Playbooks(self.driver)
+        playbooks = Playbooks(self.driver)
         log.info("mouse hover on the more options")
-        playbook.mouse_hover_on_more_options()
+        playbooks.mouse_hover_on_more_options()
         log.info("Click on the export button")
-        playbook.mouse_hover_export_btn()
+        playbooks.mouse_hover_export_btn()
         log.info("Check visibility of export options ")
-        export_png = playbook.check_visibility_export_as_png()
-        export_json = playbook.check_visibility_export_as_json()
+        export_png = playbooks.check_visibility_export_as_png()
+        export_json = playbooks.check_visibility_export_as_json()
         assert export_json and export_png is True
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_20_Check_Clone_btn_Visibility(self):
+    def test_21_Check_Clone_btn_Visibility(self):
         """
         Verify whether user is able to see the clone button
         Validation: Based on the clone button visibility
         """
         log = self.getlogger()
-        playbook = Playbooks(self.driver)
+        playbooks = Playbooks(self.driver)
         log.info("mouse hover on the more options")
-        playbook.mouse_hover_on_more_options()
+        playbooks.mouse_hover_on_more_options()
         log.info("Check for clone button visibility")
-        visibility = playbook.check_visibility_of_clone_btn()
+        visibility = playbooks.check_visibility_of_clone_btn()
+
         assert visibility is True
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_21_Click_on_Test_Instances(self):
+    def test_22_Click_on_Test_Instances(self):
         """
         Verify whether user is able to click on the test connectivity
         Validation:- Based on the slider title
         """
         log = self.getlogger()
-        action = Action(self.driver)
-        playbook = Playbooks(self.driver)
+        playbooks = Playbooks(self.driver)
         log.info("Click on the more options")
-        playbook.mouse_hover_on_more_options()
+        playbooks.mouse_hover_on_more_options()
         log.info("Click on the test instances button")
-        playbook.click_on_test_instances_btn()
+        playbooks.click_on_test_instances_btn()
         log.info("Read the slider title")
-        slider_title = playbook.get_test_instance_slider_text()
+        slider_title = playbooks.get_test_instance_slider_text()
         log.info("Close the test instances slider")
-        playbook.click_test_instance_slider_close_btn()
-        log.info("Switch back to parent window and close child window")
-        action.switch_back_parent_window(parent_window)
+        playbooks.click_test_instance_slider_close_btn()
+        log.info("Click on back button")
+        playbooks.click_on_back_button()
         assert slider_title == 'Test Instances'
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_22_Verify_Grid_view_switching(self):
+    def test_23_Verify_Grid_view_switching(self):
         """
         Verify whether user is able to switch to Grid view
         Validation 1:- Based on the button color visibility
@@ -406,7 +422,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.smoke
     @pytest.mark.readOnly
-    def test_23_Sort_options_visibility(self):
+    def test_24_Sort_options_visibility(self):
         """
         Verify whether user is able to see all the available sort options
         Validation 1: Based on the options visibility
@@ -418,14 +434,13 @@ class TestPlaybook(Base):
         log.info("Mouse on the sort options")
         playbook.mouse_hover_sort_options()
         log.info("Reading all the visible sort options")
-        elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),
-                                                      playbook.available_sort_options)
+        elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),playbook.available_sort_options)
         for element in range(0, len(elements_list)):
             read_sort_option = playbook.get_sort_options_title(elements_list[element])
             assert read_sort_option == playbook.sort_options[element]
 
     @pytest.mark.smoke
-    def test_24_Verify_Pagination_increment(self):
+    def test_25_Verify_Pagination_increment(self):
         """
         Verify whether user is able to apply pagination
         Validation 1: Based on the page number
@@ -439,7 +454,7 @@ class TestPlaybook(Base):
         assert page_count_after_change == 2
 
     @pytest.mark.smoke
-    def test_25_Verify_Pagination_decrement(self):
+    def test_26_Verify_Pagination_decrement(self):
         """
         Verify whether user is able to apply pagination
         Validation 1: Based on the page number
@@ -452,10 +467,3 @@ class TestPlaybook(Base):
         current_page_number = playbooks.get_current_page_count()
         assert current_page_number == 1
 
-    # @pytest.mark.smoke
-    # def test_30_Verify_mouse_hover_on_playbook_3dots(self):
-    #     """
-    #     Verify whether user is able to mouse hover on the playbook 3 dots
-    #     Validation 1: Based on the options visibility
-    #     """
-    #     log = self.getlogger()

@@ -12,9 +12,9 @@ class FilterAndSort(Action):
     button_filter = "//div[@class='header__top--left d-flex flex-fill']/button"
 
     def click_on_filters(self):
-        return Action.wait_and_click(self, By.XPATH, FilterAndSort.button_filter)
+        return Action.javascript_click(self, By.XPATH, FilterAndSort.button_filter)
 
     button_sort = "//span[@class='sort-tab']"
 
     def click_on_sort(self):
-        return Action.wait_and_click(self, By.XPATH, FilterAndSort.button_filter)
+        return Action.javascript_click(self, By.XPATH, FilterAndSort.button_filter)

@@ -116,12 +116,12 @@ class TestApps(Base):
         """
         log = self.getlogger()
         action = Action(self.driver)
-        myapps = MyApps(self.driver)
-        app_title_listing = myapps.top_first_search(new_app_name)
+        my_apps = MyApps(self.driver)
+        app_title_listing = my_apps.top_first_search(new_app_name)
         log.info("Click on the searched app")
-        myapps.click_first_search_result()
+        my_apps.click_first_search_result()
         page_title = action.get_title()
-        app_title_summary = myapps.read_app_title()
+        app_title_summary = my_apps.read_app_title()
         assert page_title == 'App Summary | Cyware Orchestrate' and app_title_listing == app_title_summary
 
     @pytest.mark.smoke
@@ -162,9 +162,14 @@ class TestApps(Base):
         my_apps = MyApps(self.driver)
         log.info("Click on new instance button")
         my_apps.click_on_new_instance()
+        log.info("Enter the instance name")
         my_apps.enter_instance_name('test')
+        log.info("Enter the instance description")
         my_apps.enter_instance_description('test')
+        log.info("Click on instance create button")
         my_apps.click_instance_creation()
+        log.info("Click on close tool tip")
+        my_apps.close_tooltip()
         assert my_apps.read_default_instance() == 'test'
 
     @pytest.mark.smoke
@@ -199,4 +204,6 @@ class TestApps(Base):
         log.info("Validating app uninstalled successfully or not")
         tooltip_message = my_apps.read_app_uninstall_success_message()
         search_result_message = my_apps.get_search_result_after_uninstall()
+        log.info("Click on close tool tip")
+        my_apps.close_tooltip()
         assert tooltip_message == 'App deleted successfully.' and search_result_message == 'No Results Found'

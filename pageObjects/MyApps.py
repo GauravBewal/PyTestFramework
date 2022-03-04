@@ -25,7 +25,7 @@ class MyApps(Action):
     total_app_count = "//a[@href='/soar/app/list/my-apps']/span"
 
     def get_app_count(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_6_Sec())
         return Action.get_count_from_string(self, By.XPATH, MyApps.total_app_count)
 
     read_search_result_after_uninstall = "//div[@class='apps-container']//h1"
@@ -41,7 +41,7 @@ class MyApps(Action):
     confirm_uninstall_app = "(//div[@class='footer float-left']/button)[1]"
 
     def click_confirm_uninstall_app(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.confirm_uninstall_app)
+        return Action.javascript_click(self, By.XPATH, MyApps.confirm_uninstall_app)
 
     more_options_dropdown = "//div[@class='el-dropdown']/span"
 
@@ -51,7 +51,7 @@ class MyApps(Action):
     uninstall_app_button = "//li[text()='Uninstall App']"
 
     def click_on_uninstall_app(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.uninstall_app_button)
+        return Action.javascript_click(self, By.XPATH, MyApps.uninstall_app_button)
 
     default_instance = "//div[contains(text(),'Default Instance')]/preceding-sibling::div"
 
@@ -71,27 +71,27 @@ class MyApps(Action):
     instance_creation_button = "//button[text()='Create']"
 
     def click_instance_creation(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.instance_creation_button)
+        return Action.javascript_click(self, By.XPATH, MyApps.instance_creation_button)
 
     app_actions_tab = "//a[contains(@href,'/action/list')]"
 
     def click_app_actions_tab(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.app_actions_tab)
+        return Action.javascript_click(self, By.XPATH, MyApps.app_actions_tab)
 
     button_new_instance = "//div[@class='app-summary__actions-header--wrapper']//button"
 
     def click_on_new_instance(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.button_new_instance)
+        return Action.javascript_click(self, By.XPATH, MyApps.button_new_instance)
 
     app_instance_tab = "//a[contains(@href,'/instance/list')]"
 
     def click_app_instance_tab(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.app_instance_tab)
+        return Action.javascript_click(self, By.XPATH, MyApps.app_instance_tab)
 
     app_playbooks_tab = "//a[contains(@href,'/playbook/list')]"
 
     def click_app_playbooks_tab(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.app_playbooks_tab)
+        return Action.javascript_click(self, By.XPATH, MyApps.app_playbooks_tab)
 
     app_title = "//div[@class='app-card-v2__header']//h3"
 
@@ -109,7 +109,7 @@ class MyApps(Action):
         return Action.read_search_result(self, By.XPATH, MyApps.top_1_search_result, app_name)
 
     def click_first_search_result(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.top_1_search_result)
+        return Action.javascript_click(self, By.XPATH, MyApps.top_1_search_result)
 
     search_app = "//input[@placeholder='Search App(s)']"
 
@@ -130,7 +130,7 @@ class MyApps(Action):
     button_app_refresh = "//i[contains(@class,'icon-map-gear')]/parent::div"
 
     def click_app_refresh_button(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.button_app_refresh)
+        return Action.javascript_click(self, By.XPATH, MyApps.button_app_refresh)
 
     tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
 
@@ -140,37 +140,37 @@ class MyApps(Action):
     button_app_save = "//div[@class='app-edit__view']//div[3]/button"
 
     def click_save_app_button(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.button_app_save)
+        return Action.javascript_click(self, By.XPATH, MyApps.button_app_save)
 
     tab_my_apps = "//span[@class='tab__count']/parent::a[@href='/soar/app/list/my-apps']"
 
     def My_Apps_Tab(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.tab_my_apps)
+        return Action.javascript_click(self, By.XPATH, MyApps.tab_my_apps)
 
     button_import_package = "(//div[@slot='header']//button)[2]"
 
     def Import_button(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.button_import_package)
+        return Action.javascript_click(self, By.XPATH, MyApps.button_import_package)
 
     button_create_new_app = "(//div[@slot='header']//button)[1]"
 
     def Create_App_button(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.button_create_new_app)
+        return Action.javascript_click(self, By.XPATH, MyApps.button_create_new_app)
 
     button_app_walkthrough = "(//div[@slot='header']//button)[3]"
 
     def Click_walkthrough_button(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.button_app_walkthrough)
+        return Action.javascript_click(self, By.XPATH, MyApps.button_app_walkthrough)
 
     walkthrough_tooltip_count = "//div[@class='introjs-helperNumberLayer']"
 
     def get_tooltip_count(self):
-       return Action.wait_and_click(self, By.XPATH, MyApps.walkthrough_tooltip_count)
+       return Action.javascript_click(self, By.XPATH, MyApps.walkthrough_tooltip_count)
 
     walkthrough_tooltip_next_btn = "//a[contains(@class,'introjs-nextbutton')]"
 
     def click_on_next_btn(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.walkthrough_tooltip_next_btn)
+        return Action.javascript_click(self, By.XPATH, MyApps.walkthrough_tooltip_next_btn)
 
     close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
 

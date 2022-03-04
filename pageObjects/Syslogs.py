@@ -11,12 +11,12 @@ class Syslogs(Action):
     tab_sysLogs = "//p[contains(text(),'Syslogs')]/parent::div/parent::div"
 
     def click_syslogs(self):
-        return Action.wait_and_click(self, By.XPATH, Syslogs.tab_sysLogs)
+        return Action.javascript_click(self, By.XPATH, Syslogs.tab_sysLogs)
 
     btn_new_syslog = "//header//button"
 
     def click_new_syslog(self):
-        return Action.wait_and_click(self, By.XPATH, Syslogs.btn_new_syslog)
+        return Action.javascript_click(self, By.XPATH, Syslogs.btn_new_syslog)
 
     text_slider_heading = "//div[@class='modal--header']//span"
 
@@ -26,12 +26,12 @@ class Syslogs(Action):
     btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
-        return Action.wait_and_click(self, By.XPATH, Syslogs.btn_slider_close)
+        return Action.javascript_click(self, By.XPATH, Syslogs.btn_slider_close)
 
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return Action.wait_and_click(self, By.XPATH, Syslogs.tab_inactive)
+        return Action.javascript_click(self, By.XPATH, Syslogs.tab_inactive)
 
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, Syslogs.tab_inactive, 'color')
@@ -39,7 +39,7 @@ class Syslogs(Action):
     tab_all = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
-        return Action.wait_and_click(self, By.XPATH, Syslogs.tab_all)
+        return Action.javascript_click(self, By.XPATH, Syslogs.tab_all)
 
     def get_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, Syslogs.tab_all, 'color')

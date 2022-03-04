@@ -11,22 +11,22 @@ class ConsoleStatus(Action):
     left_panel_elastic_search = "//div[contains(text(),'Elasticsearch')]"
 
     def click_elastic_search(self):
-        return Action.wait_and_click(self, By.XPATH, ConsoleStatus.left_panel_elastic_search)
+        return Action.javascript_click(self, By.XPATH, ConsoleStatus.left_panel_elastic_search)
 
     left_panel_my_sql = "//div[contains(text(),'MySQL')]"
 
     def click_my_sql(self):
-        return Action.wait_and_click(self, By.XPATH, ConsoleStatus.left_panel_my_sql)
+        return Action.javascript_click(self, By.XPATH, ConsoleStatus.left_panel_my_sql)
 
     left_panel_redis = "//div[contains(text(),'Redis')]"
 
     def click_redis(self):
-        return Action.wait_and_click(self, By.XPATH, ConsoleStatus.left_panel_redis)
+        return Action.javascript_click(self, By.XPATH, ConsoleStatus.left_panel_redis)
 
     left_panel_celery = "//div[contains(text(),'Celery')]"
 
     def click_celery(self):
-        return Action.wait_and_click(self, By.XPATH, ConsoleStatus.left_panel_celery)
+        return Action.javascript_click(self, By.XPATH, ConsoleStatus.left_panel_celery)
 
     text_server_page_heading = "//h1[contains(text(),'Console Status')]/following-sibling::span"
 
@@ -36,12 +36,12 @@ class ConsoleStatus(Action):
     left_panel_gunicorn = "//div[contains(text(),'Gunicorn')]"
 
     def click_gunicorn(self):
-        return Action.wait_and_click(self, By.XPATH, ConsoleStatus.left_panel_gunicorn)
+        return Action.javascript_click(self, By.XPATH, ConsoleStatus.left_panel_gunicorn)
 
     left_panel_ngnix = "//div[contains(text(),'Nginx')]"
 
     def click_ngnix(self):
-        return Action.wait_and_click(self, By.XPATH, ConsoleStatus.left_panel_ngnix)
+        return Action.javascript_click(self, By.XPATH, ConsoleStatus.left_panel_ngnix)
 
     get_status_text_server = "//*[contains(@id,'el-collapse-head')]/div/div[3]"
 
