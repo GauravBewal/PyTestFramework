@@ -11,7 +11,7 @@ class TriggerEvents(Action):
     button_create_event = "//header//button"
 
     def click_create_new_event(self):
-        return Action.wait_and_click(self, By.XPATH, TriggerEvents.button_create_event)
+        return Action.javascript_click(self, By.XPATH, TriggerEvents.button_create_event)
 
     text_page_heading = "//header//h1"
 
@@ -26,4 +26,4 @@ class TriggerEvents(Action):
     button_close_slider = "//div[@class='modal--header']//i"
 
     def click_close_slider(self):
-        return Action.wait_and_click(self, By.XPATH, TriggerEvents.button_close_slider)
+        return Action.javascript_click(self, By.XPATH, TriggerEvents.button_close_slider)

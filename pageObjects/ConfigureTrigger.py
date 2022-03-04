@@ -11,7 +11,7 @@ class ConfigureTrigger(Action):
     button_configure_trigger = "//header//button"
 
     def click_configure_trigger(self):
-        return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.button_configure_trigger)
+        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.button_configure_trigger)
 
     text_page_heading = "//header//h1"
 
@@ -26,12 +26,12 @@ class ConfigureTrigger(Action):
     button_close_slider = "//div[@class='modal--header']//i"
 
     def click_close_slider(self):
-        return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.button_close_slider)
+        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.button_close_slider)
 
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.tab_inactive)
+        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.tab_inactive)
 
     def read_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, ConfigureTrigger.tab_inactive, 'color')
@@ -39,7 +39,7 @@ class ConfigureTrigger(Action):
     tab_All = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
-        return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.tab_All)
+        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.tab_All)
 
     def read_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, ConfigureTrigger.tab_All, 'color')

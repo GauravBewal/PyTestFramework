@@ -11,17 +11,17 @@ class ProfileSettings(Action):
     dd_profile_settings = "//i[contains(@class,'icon-profile')]/parent::div"
 
     def click_profile_settings(self):
-        return Action.wait_and_click(self, By.XPATH, ProfileSettings.dd_profile_settings)
+        return Action.javascript_click(self, By.XPATH, ProfileSettings.dd_profile_settings)
 
     btn_change_password = "//header//div[contains(text(),'Change Password')]"
 
     def click_change_password(self):
-        return Action.wait_and_click(self, By.XPATH, ProfileSettings.btn_change_password)
+        return Action.javascript_click(self, By.XPATH, ProfileSettings.btn_change_password)
 
     btn_edit_profile = "//header//span[contains(text(),'Edit')]//ancestor::button"
 
     def click_on_edit_button(self):
-        return Action.wait_and_click(self, By.XPATH, ProfileSettings.btn_edit_profile)
+        return Action.javascript_click(self, By.XPATH, ProfileSettings.btn_edit_profile)
 
     btn_save_profile = "//button//span[contains(text(),'Save')]"
 
@@ -36,4 +36,4 @@ class ProfileSettings(Action):
     slider_close_tool_tip = ".cy-right-modal-header__icons"
 
     def click_close_change_password_slider(self):
-        return Action.wait_and_click(self, By.CSS_SELECTOR, ProfileSettings.slider_close_tool_tip)
+        return Action.javascript_click(self, By.CSS_SELECTOR, ProfileSettings.slider_close_tool_tip)

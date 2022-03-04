@@ -11,12 +11,12 @@ class TenantManagement(Action):
     tab_tenant_management = "//p[contains(text(),'Tenant Management')]/parent::div/parent::div"
 
     def click_tenant_management(self):
-        return Action.wait_and_click(self, By.XPATH, TenantManagement.tab_tenant_management)
+        return Action.javascript_click(self, By.XPATH, TenantManagement.tab_tenant_management)
 
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return Action.wait_and_click(self, By.XPATH, TenantManagement.tab_inactive)
+        return Action.javascript_click(self, By.XPATH, TenantManagement.tab_inactive)
 
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, TenantManagement.tab_inactive, 'color')
@@ -24,7 +24,7 @@ class TenantManagement(Action):
     tab_all = "//li/a[contains(text(),'Inactive')]"
 
     def click_all_tab(self):
-        return Action.wait_and_click(self, By.XPATH, TenantManagement.tab_all)
+        return Action.javascript_click(self, By.XPATH, TenantManagement.tab_all)
 
     def get_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, TenantManagement.tab_inactive, 'color')
@@ -32,7 +32,7 @@ class TenantManagement(Action):
     btn_new_tenant = "//header//button"
 
     def click_new_tenant(self):
-        return Action.wait_and_click(self, By.XPATH, TenantManagement.btn_new_tenant)
+        return Action.javascript_click(self, By.XPATH, TenantManagement.btn_new_tenant)
 
     text_slider_title = "//div[@class='modal--header']//span"
 
@@ -42,4 +42,4 @@ class TenantManagement(Action):
     btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
-        return Action.wait_and_click(self, By.XPATH, TenantManagement.btn_slider_close)
+        return Action.javascript_click(self, By.XPATH, TenantManagement.btn_slider_close)

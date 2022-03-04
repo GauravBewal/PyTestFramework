@@ -11,12 +11,12 @@ class Webhooks(Action):
     tab_webhooks = "//p[contains(text(),'Webhook')]/parent::div/parent::div"
 
     def click_webhooks(self):
-        return Action.wait_and_click(self, By.XPATH, Webhooks.tab_webhooks)
+        return Action.javascript_click(self, By.XPATH, Webhooks.tab_webhooks)
 
     btn_new_webhook = "//header//button"
 
     def click_new_webhook(self):
-        return Action.wait_and_click(self, By.XPATH, Webhooks.btn_new_webhook)
+        return Action.javascript_click(self, By.XPATH, Webhooks.btn_new_webhook)
 
     text_slider_heading = "//div[@class='modal--header']//span"
 
@@ -26,12 +26,12 @@ class Webhooks(Action):
     btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
-        return Action.wait_and_click(self, By.XPATH, Webhooks.btn_slider_close)
+        return Action.javascript_click(self, By.XPATH, Webhooks.btn_slider_close)
 
     tab_inactive = "//li[3]/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return Action.wait_and_click(self, By.XPATH, Webhooks.tab_inactive)
+        return Action.javascript_click(self, By.XPATH, Webhooks.tab_inactive)
 
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, Webhooks.tab_inactive, 'color')
@@ -39,7 +39,7 @@ class Webhooks(Action):
     tab_All = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
-        return Action.wait_and_click(self, By.XPATH, Webhooks.tab_All)
+        return Action.javascript_click(self, By.XPATH, Webhooks.tab_All)
 
     def get_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, Webhooks.tab_All, 'color')

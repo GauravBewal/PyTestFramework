@@ -11,12 +11,12 @@ class UserManagement(Action):
     tab_user_management = "//p[contains(text(),'User Management')]/parent::div/parent::div"
 
     def click_user_management(self):
-        return Action.wait_and_click(self, By.XPATH, UserManagement.tab_user_management)
+        return Action.javascript_click(self, By.XPATH, UserManagement.tab_user_management)
 
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return Action.wait_and_click(self, By.XPATH, UserManagement.tab_inactive)
+        return Action.javascript_click(self, By.XPATH, UserManagement.tab_inactive)
 
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserManagement.tab_inactive, 'color')
@@ -24,7 +24,7 @@ class UserManagement(Action):
     tab_All = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
-        return Action.wait_and_click(self, By.XPATH, UserManagement.tab_All)
+        return Action.javascript_click(self, By.XPATH, UserManagement.tab_All)
 
     def get_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserManagement.tab_All, 'color')
@@ -32,12 +32,12 @@ class UserManagement(Action):
     btn_new_user = "//header//div[3]/button"
 
     def click_add_user(self):
-        return Action.wait_and_click(self, By.XPATH, UserManagement.btn_new_user)
+        return Action.javascript_click(self, By.XPATH, UserManagement.btn_new_user)
 
     btn_export_user = "//header//div[@class='el-dropdown']/button"
 
     def click_export(self):
-        return Action.wait_and_click(self, By.XPATH, UserManagement.btn_export_user)
+        return Action.javascript_click(self, By.XPATH, UserManagement.btn_export_user)
 
     drpdwn_export_option = "//li[text()='CSV']"
 
@@ -52,4 +52,4 @@ class UserManagement(Action):
     btn_slider_close = "//div[text()='User']/../following-sibling::div/span[2]"
 
     def click_slider_close(self):
-        return Action.wait_and_click(self, By.XPATH, UserManagement.btn_slider_close)
+        return Action.javascript_click(self, By.XPATH, UserManagement.btn_slider_close)

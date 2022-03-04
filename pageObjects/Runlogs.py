@@ -11,7 +11,7 @@ class Runlogs(Action):
     runlog_filter_btn = "//div[@class='filters-view']//button"
 
     def click_on_filter_btn(self):
-        return Action.wait_and_click(self, By.XPATH, Runlogs.runlog_filter_btn)
+        return Action.javascript_click(self, By.XPATH, Runlogs.runlog_filter_btn)
 
     filter_slider_title = "//span[@class='filters__header__label']"
 
