@@ -34,3 +34,19 @@ class TestHomePage(Base):
         nav.Enter_string_in_searchbar("Dashboard")
         name = nav.read_searchbar_result()
         assert name == 'Dashboard'
+
+    @pytest.mark.smoke
+    @pytest.mark.readOnly
+    def test_03_Verify_Get_Started_Functionality(self):
+        """
+        Verify the user is able to Click Get Started Button or not
+        Validation-1 : Based on S
+        """
+        log = self.getlogger()
+        nav = Navigation(self.driver)
+        log.info("clicking on Get Started Button")
+        nav.click_get_started_button()
+        elements_list = nav.get_list_of_elements(nav.get_walkthrough_option_elements(), nav.walkthrough_options)
+        for element in range(0, len(elements_list)):
+            visibility = nav.visibility_of_walkthrough_option(elements_list[element])
+            assert visibility is True
