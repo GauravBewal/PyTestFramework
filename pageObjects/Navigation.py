@@ -31,7 +31,7 @@ class Navigation(Action):
     def disable_menu_synopsis(self):
         return Action.javascript_click(self, By.XPATH, Navigation.deactivate_menu_synopsis)
 
-    nav_admin_menu = "//div[contains(@class,'walkthrough-admin-icon')]"
+    nav_admin_menu = "//a[@href='/soar/admin']"
 
     def click_admin_menu(self):
         return Action.javascript_click(self, By.XPATH, Navigation.nav_admin_menu)
