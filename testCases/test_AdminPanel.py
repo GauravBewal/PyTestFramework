@@ -116,19 +116,3 @@ class TestAdminPanel(Base):
         log.info("Click on Console Status tab from Admin Page")
         admin.click_console_status()
         assert action.get_title() == 'Console Status | Cyware Orchestrate'
-
-    @pytest.mark.smoke
-    @pytest.mark.readOnly
-    def test_08_Verify_Admin_Playbook_Tags_redirection(self):
-        """
-            Verify redirection of Playbook Tags from the admin page
-            Validation - 1. On the basis of Window's title
-        """
-        log = self.getlogger()
-        admin = Admin(self.driver)
-        action = Action(self.driver)
-        log.info("Click on back button from Console Status")
-        admin.click_back_button()
-        log.info("Click on Playbook Tags tab from Admin Page")
-        admin.click_playbook_tags()
-        assert action.get_title() == 'Playbook Tags | Cyware Orchestrate'
