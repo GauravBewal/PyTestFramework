@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestProfileSettings(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Profile_Settings_redirection(self):
         """
@@ -27,7 +27,7 @@ class TestProfileSettings(Base):
         log.info("Check after click page redirects")
         assert action.get_title() in 'Profile Settings | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Verify_Change_Password_redirection(self):
         """
@@ -44,7 +44,7 @@ class TestProfileSettings(Base):
         profile.click_close_change_password_slider()
         assert slider_text in 'Change Password'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Click_on_Edit_Profile_btn(self):
         """

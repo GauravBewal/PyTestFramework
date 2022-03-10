@@ -63,7 +63,7 @@ class Labels(Action):
         return Action.send_keys(self, By.CSS_SELECTOR, Labels.text_box_search, value)
 
     def click_enter_for_search(self):
-        return Action.click_enter(self, By.CSS_SELECTOR, Labels.text_box_search)
+        return Action.click_enter(self)
 
     top_label_in_listing = "(//tr//a[contains(text(),'Label_')])[1]"
 

@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestAdminPanel(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Admin_Panel_redirection(self):
         """
@@ -25,7 +25,7 @@ class TestAdminPanel(Base):
         nav.click_admin_menu()
         assert action.get_title() == 'Admin Panel | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Verify_Admin_Configurations_redirection(self):
         """
@@ -39,7 +39,7 @@ class TestAdminPanel(Base):
         admin.click_configuration()
         assert action.get_title() == 'Configurations | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_Admin_Authentication_redirection(self):
         """
@@ -55,7 +55,7 @@ class TestAdminPanel(Base):
         admin.click_authentication()
         assert action.get_title() == 'Authentication | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Admin_License_Management_redirection(self):
         """
@@ -71,7 +71,7 @@ class TestAdminPanel(Base):
         admin.click_license_management()
         assert action.get_title() == 'License Management | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_05_Click_Update_Licence_Key_btn(self):
         """
@@ -86,7 +86,7 @@ class TestAdminPanel(Base):
         placeholder_text = admin.licence_key_field("placeholder")
         assert placeholder_text == 'Enter License Key *'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_06_Verify_Admin_Cyware_Agent_redirection(self):
         """
             Verify redirection of Cyware Agent from the admin page
@@ -101,7 +101,7 @@ class TestAdminPanel(Base):
         admin.click_cyware_agent()
         assert action.get_title() == 'Cyware Agent | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_07_Verify_Admin_Console_Status_redirection(self):
         """

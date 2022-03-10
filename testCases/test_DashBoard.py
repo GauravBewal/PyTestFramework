@@ -14,7 +14,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestDashBoard(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_dashboard_redirection(self):
         """
@@ -30,7 +30,7 @@ class TestDashBoard(Base):
         nav.navigate_dashboard()
         assert action.get_title() == 'Dashboard | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Switch_dark_mode(self):
         """
@@ -56,7 +56,7 @@ class TestDashBoard(Base):
         dashboard.click_sync_btn()
         assert visibility is True and element_color == '#2c3e50'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Check_all_widgets_visibility(self):
         """
@@ -71,7 +71,7 @@ class TestDashBoard(Base):
             title = dashboard.find_element_path_and_get_text(elements_list[element])
             assert dashboard.widget_titles[element] == title
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Click_on_View_All_btn(self):
         """
@@ -87,7 +87,7 @@ class TestDashBoard(Base):
             time.sleep(ReadConfig.Wait_3_Sec())
             assert visibility is True
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_05_Click_maximize_btn(self):
         """
@@ -104,7 +104,7 @@ class TestDashBoard(Base):
         dashboard.click_minimize_btn()
         assert visibility is True
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_06_Apply_3days_in_calendar(self):
         """
         Verify whether user is able to enter the date as per his wish

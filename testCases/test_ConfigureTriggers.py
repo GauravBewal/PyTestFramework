@@ -10,7 +10,7 @@ from utilities.Base import Base
 class TestConfigureTriggers(Base):
 
     @pytest.mark.readOnly
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_01_Verify_Configure_Triggers_redirection(self):
         """
             Verify Configure Triggers redirection from Main Menu
@@ -27,7 +27,7 @@ class TestConfigureTriggers(Base):
         page_heading = config_trigger.get_page_heading()
         assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' and 'Configure Triggers' in page_heading
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_Configure_New_Trigger_btn(self):
         """
@@ -45,7 +45,7 @@ class TestConfigureTriggers(Base):
         log.info("Validating the slider heading")
         assert slider_heading == 'New Configure Event'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_Switch_Inactive_tab(self):
         """
@@ -60,7 +60,7 @@ class TestConfigureTriggers(Base):
         tab_color = config_trigger.read_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Switch_All_tab(self):
         """

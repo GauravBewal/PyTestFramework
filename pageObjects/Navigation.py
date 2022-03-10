@@ -132,7 +132,7 @@ class Navigation(Action):
     def visibility_of_walkthrough_option(self, element):
         return Action.check_visibility_of_element(self, By.XPATH, element)
 
-    walkthrough_overview_btn = "//a[@href='/soar/walkthrough-overview']"
+    walkthrough_overview_btn = "//span[contains(text(),'Overview')]/parent::div"
 
     def click_on_overview_btn(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.walkthrough_overview_btn)

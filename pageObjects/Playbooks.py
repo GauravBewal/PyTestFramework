@@ -1,3 +1,4 @@
+import time
 from selenium.webdriver.common.by import By
 from utilities.Actions import Action
 
@@ -137,7 +138,7 @@ class Playbooks(Action):
     playbook_create_btn = "//button[contains(@class,'create-playbook')]"
 
     def click_on_create_playbook_btn(self):
-        return Action.javascript_click(self, By.XPATH, Playbooks.playbook_create_btn)
+        return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_create_btn)
 
     playbook_back_btn = "//div[@class='playbook_header__view']//i"
 
@@ -154,10 +155,47 @@ class Playbooks(Action):
     def click_add_node_btn(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_add_node_btn)
 
+    action_app_node_btn = "(//*[@data-type='cy.STENCILSHAPE'])[1]"
+
+    playbook_background = "//div[@class='paper-scroller-background']/div"
+
+    def drag_and_drop_action_app_node_by_position(self, width, height):
+        return Action.drag_and_drap_by_offset(self, By.XPATH, Playbooks.action_app_node_btn, width, height)
+
     playbook_node_slider_text = "//div[@class='stencil-header']"
 
     def get_add_node_slider_text(self):
         return Action.get_text(self, By.XPATH, Playbooks.playbook_node_slider_text)
+
+    input_action_search = "//form/div[1]//input[@placeholder='Search and Select']"
+
+    def put_app_name_to_search(self, value):
+        return Action.send_keys(self, By.XPATH, Playbooks.input_action_search, value)
+
+    def click_on_app_name_search(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.input_action_search)
+
+    playbook_app_search_result = "//div[@class='app-action-picker__apps']/div[1]/div[1]//div[@role='button']//span"
+
+    def click_app_search_result(self):
+        time.sleep(5)
+        return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_app_search_result)
+
+    def select_action_version_based(self, version):
+        version_id = Action.get_app_version_id(self, version)
+        path = "//span[contains(text(),'"+version_id+"')]/parent::div/parent::li//div[contains(text(),'Domain Search')]"
+        return Action.wait_and_click(self, By.XPATH, path)
+
+
+    txt_selected_node_name = "(//*[@model-id='1']/*[@joint-selector='label'])[1]"
+
+    def get_selected_app_name(self, attribute):
+        return Action.get_html_attribute_value(self, By.XPATH, Playbooks.txt_selected_node_name, attribute)
+
+    playbook_node_title = "//div[contains(@class,'playbook-left-modal')]//div[contains(@class,'header__label')]/div"
+
+    def get_playbook_node_title(self):
+        return Action.get_text(self, By.XPATH, Playbooks.playbook_node_title)
 
     all_node_type_title = "//div[@class='content']//h3"
 
@@ -177,6 +215,81 @@ class Playbooks(Action):
             path = "(" + elements + ")[" + str(value) + "]"
             elements_list.append(path)
         return elements_list
+
+    app_instance_field = "//span[contains(text(),'App Instance(s) *')]/following-sibling::div" \
+                         "//div[contains(@class,'menu--label__container')]"
+
+    def mouse_hover_on_instance_tab(self):
+        time.sleep(5)
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.app_instance_field)
+
+    instance_dropdown_icon = "//div[@class='playbook-left-modal__content']//div[contains(@class,'menu--chevron')]"
+
+    def click_on_instance_dropdown(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.instance_dropdown_icon)
+
+    clear_instance_field_btn = "//div[contains(@class,'menu--close-icon')]"
+
+    def click_on_clear_instance_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.clear_instance_field_btn)
+
+    app_instance_search_field = "//div[contains(@class,'search multiple')]/input"
+
+    def put_instance_name(self, instance_name):
+        return Action.send_keys(self, By.XPATH, Playbooks.app_instance_search_field, instance_name)
+
+    instance_search_result = "//div//li[1]/span[contains(@class,'instance-list')]"
+
+    def click_on_searched_instance(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.instance_search_result)
+
+    test_instance_btn = "//span[contains(@class,'test-connectivity')]"
+
+    def click_on_node_test_instance_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.test_instance_btn)
+
+    instance_test_Again_btn = "//button[contains(text(),'Test Again')]"
+
+    def visibility_of_test_again_btn(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.instance_test_Again_btn)
+
+
+    def click_on_instance_connectivity_close_btn(self, instance_name):
+        path = "//span[contains(text(),'" + instance_name + "')]/following-sibling::button"
+        return Action.wait_and_click(self, By.XPATH, path)
+
+    test_connectivity_result = "//div[@class='instance__dialog-label']/span"
+
+    def get_test_connectivity_result(self):
+        return Action.get_text(self, By.XPATH, Playbooks.test_connectivity_result)
+
+    action_input_data_tab = "//div[contains(text(),'Setup Input Data')]"
+
+    def click_on_input_data_tab(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.action_input_data_tab)
+
+    start_node = "//div[@id='playbook']//*[@model-id='start']"
+
+    def mouse_hover_on_start_node(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.start_node)
+
+    start_node_joint_port = "//div[@id='playbook']//*[@model-id='start']/*[@class='joint-port']"
+
+    app_node_joint_port = "(//div[@id='playbook']//*[@model-id='1']/*[@class='joint-port'])[1]"
+
+    def connect_start_node_and_app_node(self):
+        return Action.drag_and_drop_element_by_target(self, By.XPATH, Playbooks.start_node_joint_port,
+                                                      Playbooks.app_node_joint_port)
+
+    action_input_field = "//div[contains(@class,'action-input-params')]//textarea"
+
+    def put_input_data(self, value):
+        return Action.send_keys(self, By.XPATH, Playbooks.action_input_field, value)
+
+    action_node_slider_close_btn = "//span[@data-testaction='slider-close']/parent::div"
+
+    def click_on_slider_close_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.action_node_slider_close_btn)
 
     def get_node_type_title(self, path):
         return Action.get_text(self, By.XPATH, path)

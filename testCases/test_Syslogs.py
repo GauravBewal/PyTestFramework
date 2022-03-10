@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestSyslogs(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Admin_SysLogs_redirection(self):
         """
@@ -26,7 +26,7 @@ class TestSyslogs(Base):
         syslog.click_syslogs()
         assert action.get_title() in 'Syslogs | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_New_Syslogs_btn(self):
         """
@@ -43,7 +43,7 @@ class TestSyslogs(Base):
         syslog.click_slider_close()
         assert slider_title == 'Configure Syslog'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_Switch_Inactive_tab(self):
         """
@@ -58,7 +58,7 @@ class TestSyslogs(Base):
         tab_color = syslog.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Switch_All_tab(self):
         """

@@ -32,6 +32,21 @@ class ReadConfig:
         return Wait
 
     @staticmethod
+    def ctix_baseurl():
+        ctix_base_url = config.get('CTIX_CREDS', 'base_url')
+        return ctix_base_url
+
+    @staticmethod
+    def ctix_access_key():
+        ctix_access_id = config.get('CTIX_CREDS', 'access_key')
+        return ctix_access_id
+
+    @staticmethod
+    def ctix_secret_key():
+        ctix_secret_id = config.get('CTIX_CREDS', 'secret_key')
+        return ctix_secret_id
+
+    @staticmethod
     def Wait_10_Sec():
         wait_10_Sec = config.get('Waits', 'Wait_10_Seconds')
         return int(wait_10_Sec)

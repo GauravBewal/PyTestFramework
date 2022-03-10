@@ -1,7 +1,10 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.Playbooks import Playbooks
+from pageObjects.MyApps import MyApps
 from utilities.Actions import Action
 from utilities.Base import Base
 from configuration.readConfiguration import ReadConfig
@@ -12,7 +15,7 @@ class TestPlaybook(Base):
     global parent
     parent = ''
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Manage_Playbook_redirection(self):
         """
@@ -31,7 +34,8 @@ class TestPlaybook(Base):
         read_page_heading = playbooks.get_manage_playbook_heading()
         assert read_page_heading == 'Manage Playbooks'
 
-    @pytest.mark.smoke
+
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Verify_Cyware_Playbooks_Switch_tab(self):
         """
@@ -47,7 +51,7 @@ class TestPlaybook(Base):
         playbooks.click_on_close_walkthrough()
         assert action.get_title() == 'Cyware Playbooks | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_My_Playbooks_Switch_tab(self):
         """
@@ -59,9 +63,9 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         log.info("Click on My Playbooks for switch tab")
         playbooks.my_playbook_tab()
-        assert  action.get_title() == 'My Playbooks | Cyware Orchestrate'
+        assert action.get_title() == 'My Playbooks | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Click_Create_New_Playbook_btn(self):
         """
@@ -79,7 +83,7 @@ class TestPlaybook(Base):
         assert action.get_title() == 'Add Playbook | Cyware Orchestrate'
 
     @pytest.mark.readOnly
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_05_Verify_Click_Add_Node_btn(self):
         """
           Verify click on add node button
@@ -93,7 +97,7 @@ class TestPlaybook(Base):
         slider_text = playbooks.get_add_node_slider_text()
         assert slider_text == 'ADD NODES'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_06_Verify_All_Node_Type_Titles_Visibility(self):
         """
@@ -111,7 +115,7 @@ class TestPlaybook(Base):
             assert node_type_title == playbooks.node_type_list[element]
 
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_07_Verify_All_Nodes_Visibility(self):
         """
@@ -130,7 +134,7 @@ class TestPlaybook(Base):
         playbooks.click_on_node_close_btn()
 
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_08_Check_Video_walkthrough(self):
         """
@@ -149,7 +153,7 @@ class TestPlaybook(Base):
         playbooks.click_on_finish_button()
         assert popup_title == 'Creating a New Playbook?'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_09_Check_Tooltip_walkthrough(self):
         """
@@ -172,7 +176,7 @@ class TestPlaybook(Base):
             assert tooltip_text == playbooks.tooltip_titles[i]
             playbooks.click_on_next_btn()
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_10_Check_Save_Options(self):
         """
@@ -187,7 +191,7 @@ class TestPlaybook(Base):
         text_save_and_exit = playbooks.get_save_and_exit_txt()
         assert text_save_and_exit == 'Save & Exit' and text_save_and_run == 'Save & Run'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_11_Check_Playbook_Overview_Slider(self):
         """
@@ -202,7 +206,7 @@ class TestPlaybook(Base):
         slider_title = playbooks.get_playbook_overview_slider_title()
         assert slider_title == 'Overview'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_12_Switch_Output_Parameters_Section(self):
         """
@@ -221,7 +225,7 @@ class TestPlaybook(Base):
         visibility = playbooks.visibility_of_add_parameter_btn()
         assert section_title == 'Output Parameters (0)' and visibility is True
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_13_Add_Output_Parameter(self):
         """
@@ -240,7 +244,7 @@ class TestPlaybook(Base):
         playbooks.click_on_parameter_delete_btn()
         assert visibility1 and visibility2 is True
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_14_Verify_Switch_to_Associated_Playbooks(self):
         """
@@ -259,7 +263,7 @@ class TestPlaybook(Base):
         text = playbooks.get_no_state_validation_text()
         assert section_title == 'Associated Playbook (0)' and text == 'No Master Playbooks Available'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_15_Verify_Switch_to_Sub_Playbooks_tab(self):
         """
@@ -274,7 +278,7 @@ class TestPlaybook(Base):
         text = playbooks.get_no_state_validation_text()
         assert text == 'No Sub Playbooks Available'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_16_Verify_Switch_App_and_Actions(self):
         """
@@ -297,7 +301,7 @@ class TestPlaybook(Base):
         playbooks.click_exit_without_save()
         assert section_title == 'Apps (0) / Actions (0)' and text == 'No App/Actions Available'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_17_Click_Customize_Table_btn(self):
         """
             Verify whether user is able to click on customize table
@@ -313,7 +317,7 @@ class TestPlaybook(Base):
         playbooks.click_close_customize_table_btn()
         assert slider_txt == 'Customize Display Fields'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_18_Click_Filter_btn(self):
         """
@@ -330,7 +334,7 @@ class TestPlaybook(Base):
         playbooks.close_filter_btn()
         assert slider_txt == 'FILTERS'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_19_View_Playbook(self):
         """
@@ -344,12 +348,15 @@ class TestPlaybook(Base):
         playbooks.cyware_playbook_tab()
         log.info("Click on the first playbook")
         playbooks.click_first_playbook()
+        log.info("Switch to newly opened playbook tab")
+        global parent_window
+        parent_window = playbooks.switch_new_window(1)
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
         log.info("Read the window title and validate it")
         assert action.get_title() == 'View Playbook | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_20_Check_Export_Options_visibility(self):
         """
@@ -367,7 +374,7 @@ class TestPlaybook(Base):
         export_json = playbooks.check_visibility_export_as_json()
         assert export_json and export_png is True
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_21_Check_Clone_btn_Visibility(self):
         """
@@ -383,7 +390,7 @@ class TestPlaybook(Base):
 
         assert visibility is True
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_22_Click_on_Test_Instances(self):
         """
@@ -400,11 +407,13 @@ class TestPlaybook(Base):
         slider_title = playbooks.get_test_instance_slider_text()
         log.info("Close the test instances slider")
         playbooks.click_test_instance_slider_close_btn()
-        log.info("Click on back button")
-        playbooks.click_on_back_button()
+        # log.info("Click on back button")
+        # playbooks.click_on_back_button()
+        log.info("switch back to parent window")
+        playbooks.switch_back_parent_window(parent_window)
         assert slider_title == 'Test Instances'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_23_Verify_Grid_view_switching(self):
         """
@@ -420,7 +429,7 @@ class TestPlaybook(Base):
         log.info("Check whether view has been changed to grid")
         assert grid_button_selected == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_24_Sort_options_visibility(self):
         """
@@ -439,7 +448,7 @@ class TestPlaybook(Base):
             read_sort_option = playbook.get_sort_options_title(elements_list[element])
             assert read_sort_option == playbook.sort_options[element]
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_25_Verify_Pagination_increment(self):
         """
         Verify whether user is able to apply pagination
@@ -453,7 +462,7 @@ class TestPlaybook(Base):
         page_count_after_change = playbooks.get_current_page_count()
         assert page_count_after_change == 2
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_26_Verify_Pagination_decrement(self):
         """
         Verify whether user is able to apply pagination
@@ -466,4 +475,82 @@ class TestPlaybook(Base):
         log.info("Reding the current page number")
         current_page_number = playbooks.get_current_page_count()
         assert current_page_number == 1
+
+    # @pytest.mark.regression
+    # def test_14_Verify_playbook_execution_flow_with_ctix_action_node(self):
+    #     """
+    #     Install the ctix app to use it for playbook execution
+    #     Validation 1: Based on the ctix app visibility
+    #     """
+    #     log = self.getlogger()
+    #     action = Action(self.driver)
+    #     nav = Navigation(self.driver)
+    #     my_apps = MyApps(self.driver)
+    #     playbooks = Playbooks(self.driver)
+    #     log.info("Click on Main Menu")
+    #     nav.click_main_menu()
+    #     log.info("Click on Apps from Menu")
+    #     nav.navigate_apps()
+    #     log.info("Switch to my app tab")
+    #     my_apps.app_store_tab()
+    #     global app_name
+    #     app_name = "CTIX"
+    #     log.info("Search for ctix app")
+    #     my_apps.search_for_app(app_name)
+    #     search_result = my_apps.top_first_search(app_name)
+    #     assert app_name in search_result
+    #     log.info("Check whether app is installed or not")
+    #     my_apps.Verify_app_installed_or_not()
+    #     my_apps.click_first_search_result()
+    #     log.info("Read the app version")
+    #     app_version = my_apps.get_app_version()
+    #     log.info("Navigate to instance tab")
+    #     my_apps.click_app_instance_tab()
+    #     log.info("create new instance")
+    #     my_apps.click_on_new_instance_btn()
+    #     log.info("Enter Instance name")
+    #     global instance_name
+    #     instance_name = "ui_automation" + action.get_current_time()
+    #     my_apps.enter_instance_name(instance_name)
+    #     log.info("Enter base url")
+    #     my_apps.enter_base_url(ReadConfig.ctix_baseurl())
+    #     log.info("Enter Access key")
+    #     my_apps.enter_access_key(ReadConfig.ctix_access_key())
+    #     log.info("Enter Secret key")
+    #     my_apps.enter_secret_key(ReadConfig.ctix_secret_key())
+    #     log.info("Click on create instance button")
+    #     my_apps.click_slider_instance_create_btn()
+    #     my_apps.close_tooltip()
+    #     nav.click_main_menu()
+    #     nav.navigate_manage_playbook()
+    #     playbooks.my_playbook_tab()
+    #     playbooks.click_on_create_playbook_btn()
+    #     playbooks.click_add_node_btn()
+    #     playbooks.drag_and_drop_action_app_node_by_position(500, 60)
+    #     playbooks.put_app_name_to_search(app_name)
+    #     playbooks.click_app_search_result()
+    #     playbooks.select_action_version_based(app_version)
+    #     selected_app_name = playbooks.get_selected_app_name("text")
+    #     assert app_name in selected_app_name and playbooks.get_playbook_node_title() == '#1 - Action Node (App)'
+    #     playbooks.mouse_hover_on_instance_tab()
+    #     playbooks.click_on_clear_instance_btn()
+    #     playbooks.click_on_instance_dropdown()
+    #     playbooks.put_instance_name(instance_name)
+    #     playbooks.click_on_searched_instance()
+    #     log.info("Close the instance drop down")
+    #     playbooks.click_on_instance_dropdown()
+    #     playbooks.click_on_node_test_instance_btn()
+    #     visibility = playbooks.visibility_of_test_again_btn()
+    #     connectivity_result = playbooks.get_test_connectivity_result()
+    #     assert connectivity_result == 'SUCCESS' and visibility is True
+    #     playbooks.click_on_instance_connectivity_close_btn(instance_name)
+    #     playbooks.click_on_input_data_tab()
+    #     playbooks.put_input_data("cyware.com")
+    #     playbooks.click_on_slider_close_btn()
+    #     playbooks.mouse_hover_on_start_node()
+    #     playbooks.connect_start_node_and_app_node()
+    #     time.sleep(10)
+
+
+
 

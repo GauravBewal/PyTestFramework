@@ -25,8 +25,41 @@ class MyApps(Action):
     total_app_count = "//a[@href='/soar/app/list/my-apps']/span"
 
     def get_app_count(self):
-        time.sleep(ReadConfig.Wait_6_Sec())
         return Action.get_count_from_string(self, By.XPATH, MyApps.total_app_count)
+
+    app_install_btn = "(//button[contains(text(),'Install')])[1]"
+
+    app_store_pagination = "//button[@class='btn-next']"
+
+    def click_on_install_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.app_install_btn)
+
+
+    def scroll_to_install_btn_view(self):
+        return Action.Apply_Pagination_if_element_not_found(self, By.XPATH, MyApps.app_install_btn,
+                                                            MyApps.app_store_pagination)
+
+    txt_app_name = "(//button[contains(text(),'Install')])[1]/ancestor::div[4]" \
+                   "//div[contains(@class,'title--header')]/h3"
+
+    def get_installing_app_name(self):
+        return Action.get_text(self, By.XPATH, MyApps.txt_app_name)
+
+    install_app_slider_title = "//div[contains(@class,'app-update')]//div[@class='ellipsis']"
+
+    def get_install_app_slider_title(self):
+        return Action.get_text(self, By.XPATH, MyApps.install_app_slider_title)
+
+    slider_install_btn = "//div[contains(@class,'app-update')]//button"
+
+    def click_slider_install_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.slider_install_btn)
+
+    install_successful_tooltip_txt = "//div[@class='el-notification__content']//span[contains(text(),'successful')]"
+
+    def get_install_successful_tooltip_txt(self):
+        return Action.get_text(self, By.XPATH, MyApps.install_successful_tooltip_txt)
+
 
     read_search_result_after_uninstall = "//div[@class='apps-container']//h1"
 
@@ -63,15 +96,42 @@ class MyApps(Action):
     def enter_instance_name(self, instance_name):
         return Action.send_keys(self, By.XPATH, MyApps.instance_name_textbox, instance_name)
 
+
+    filter_btn = "//button[contains(@class,'filter')]"
+
+    def click_on_filter_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.filter_btn)
+
+    collapse_expand_btn = "//span[contains(@class,'expand-collapse-button')]"
+
+    def click_collapse_and_expand_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.collapse_expand_btn)
+
+    published_tab = "//div[contains(text(),'Published')]"
+
+    def click_on_published_tab(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.published_tab)
+
+    cyware_published_filter_radio_btn = "//span[contains(text(),'Cyware') and @class='item__title']" \
+                                        "/preceding-sibling::div"
+
+    def click_on_cyware_published_filter(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.cyware_published_filter_radio_btn)
+
+    applied_filter_title = "//div[contains(@class,'applied-filters')]/span"
+
+    def get_applied_filter_title(self):
+        return Action.get_text(self, By.XPATH, MyApps.applied_filter_title)
+
     instance_description_textbox = "//textarea[@placeholder='Enter Instance Description']"
 
     def enter_instance_description(self, description):
         return Action.send_keys(self, By.XPATH, MyApps.instance_description_textbox, description)
 
-    instance_creation_button = "//button[text()='Create']"
+    slider_instance_creation_button = "//button[text()='Create']"
 
-    def click_instance_creation(self):
-        return Action.javascript_click(self, By.XPATH, MyApps.instance_creation_button)
+    def click_slider_instance_create_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.slider_instance_creation_button)
 
     app_actions_tab = "//a[contains(@href,'/action/list')]"
 
@@ -80,8 +140,33 @@ class MyApps(Action):
 
     button_new_instance = "//div[@class='app-summary__actions-header--wrapper']//button"
 
-    def click_on_new_instance(self):
+    def click_on_new_instance_btn(self):
         return Action.javascript_click(self, By.XPATH, MyApps.button_new_instance)
+
+    txt_app_version = "//span[contains(@class,'version-selector__active')]"
+
+    def get_app_version(self):
+        return Action.get_text(self, By.XPATH, MyApps.txt_app_version)
+
+    input_instance_name_field = "//input[@placeholder='Enter Instance Name']"
+
+    def Enter_new_instance(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.input_instance_name_field, value)
+
+    input_base_url_field = "//input[@placeholder='Enter Base URL']"
+
+    def enter_base_url(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.input_base_url_field, value)
+
+    input_access_key = "//input[@placeholder='Enter Access Key']"
+
+    def enter_access_key(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.input_access_key, value)
+
+    input_secret_key = "//input[@placeholder='Enter Secret Key']"
+
+    def enter_secret_key(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.input_secret_key, value)
 
     app_instance_tab = "//a[contains(@href,'/instance/list')]"
 
@@ -98,6 +183,32 @@ class MyApps(Action):
     def read_app_title(self):
         return Action.get_text(self, By.XPATH, MyApps.app_title)
 
+    listing_back_btn = "//div[contains(@class,'back-button')]"
+
+    def click_back_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.listing_back_btn)
+
+    app_listing_more_options = "//div[@class='el-dropdown']//div[contains(@class,'more-options')]"
+
+    def mouse_hover_list_more_options(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, MyApps.app_listing_more_options)
+
+    clone_app_btn = "//li[contains(text(),'Clone App')]"
+
+    def click_clone_app_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.clone_app_btn)
+
+    clone_page_heading_txt = "//h1[contains(text(),'Clone App')]"
+
+    def get_clone_page_heading(self):
+        return Action.get_text(self, By.XPATH, MyApps.clone_page_heading_txt)
+
+    cloned_app_name = "//span[contains(@class,'app-edit__view--title')]"
+
+    def get_cloned_app_name(self):
+        return Action.get_text(self, By.XPATH, MyApps.cloned_app_name)
+
+
     active_app = "//div[@class='app-edit__view']//span//button"
 
     def click_active_app(self):
@@ -111,10 +222,19 @@ class MyApps(Action):
     def click_first_search_result(self):
         return Action.javascript_click(self, By.XPATH, MyApps.top_1_search_result)
 
+    def visibility_of_first_app(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.top_1_search_result)
+
     search_app = "//input[@placeholder='Search App(s)']"
 
-    def click_on_app_search(self, app_name):
+    def search_for_app(self, app_name):
         return Action.send_keys(self, By.XPATH, MyApps.search_app, app_name)
+
+    app_status = "(//span[@class='status__text' and text()='Installed'])[1]"
+
+    def Verify_app_installed_or_not(self):
+        return Action.check_app_is_installed_or_not(self, By.XPATH, MyApps.app_status, MyApps.app_install_btn,
+                                                    MyApps.slider_install_btn)
 
     app_name_textbox = "//input[@placeholder='Enter App Name']"
 
@@ -136,6 +256,11 @@ class MyApps(Action):
 
     def close_tooltip(self):
         return Action.normal_click(self, By.XPATH, MyApps.tooltip_close)
+
+    clear_search_btn = "//i[contains(@class,'search-input__close')]/parent::span"
+
+    def click_clear_search_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.clear_search_btn)
 
     button_app_save = "//div[@class='app-edit__view']//div[3]/button"
 

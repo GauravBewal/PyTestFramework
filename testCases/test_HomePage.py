@@ -10,7 +10,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestHomePage(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Main_Menu_redirection(self):
         """
@@ -24,7 +24,7 @@ class TestHomePage(Base):
         log.info("Check for the visibility of menu synopsis button")
         assert nav.visibility_of_menu_synopsis_btn() is True
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Verify_searchbar_functionality(self):
         """
@@ -40,7 +40,7 @@ class TestHomePage(Base):
         nav.click_clear_search_result_btn()
         assert name == 'Dashboard'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_get_started_functionality(self):
         """
@@ -58,7 +58,7 @@ class TestHomePage(Base):
 
 
     @pytest.mark.readOnly
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_04_Verify_Overview_walkthrough_btn(self):
         """
         Veirfy whether user is able to click on the walkthrough overview button
@@ -74,7 +74,7 @@ class TestHomePage(Base):
         log.info("Click on the close walkthrough button")
         nav.click_on_close_walkthrough()
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_05_Verify_Manage_Playbooks_walkthrough_btn(self):
         """
@@ -93,7 +93,7 @@ class TestHomePage(Base):
         log.info("Close the walkthrough")
         nav.click_on_close_walkthrough()
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_06_Verify_Apps_walkthrough_btn(self):
         """

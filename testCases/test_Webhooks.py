@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestWebhooks(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Admin_Webhooks_redirection(self):
         """
@@ -26,7 +26,7 @@ class TestWebhooks(Base):
         webhook.click_webhooks()
         assert action.get_title() in 'Webhooks | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_New_Webhook_btn(self):
         """
@@ -43,7 +43,7 @@ class TestWebhooks(Base):
         webhook.click_slider_close()
         assert slider_title == 'Add Webhook'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_Switch_Inactive_tab(self):
         """
@@ -58,7 +58,7 @@ class TestWebhooks(Base):
         tab_color = webhook.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Switch_All_tab(self):
         """
