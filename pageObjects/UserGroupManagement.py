@@ -16,15 +16,15 @@ class UserGroupManagement(Action):
     tab_inactive = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
 
     def click_inactive_tab(self):
-        return Action.javascript_click(self, By.XPATH, UserGroupManagement.tab_inactive)
+        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_inactive)
 
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserGroupManagement.tab_inactive, 'color')
 
-    tab_all = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
+    tab_all = "//div[@class='px-2 tabs--list my-2']//li[1]/a"
 
     def click_all_tab(self):
-        return Action.javascript_click(self, By.XPATH, UserGroupManagement.tab_all)
+        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_all)
 
     def get_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserGroupManagement.tab_all, 'color')

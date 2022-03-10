@@ -10,7 +10,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestCywareAgentTask(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_01_Verify_Cyware_Agent_Task_redirection(self):
         """
             Verify Cyware Agent Task redirection from Main Menu

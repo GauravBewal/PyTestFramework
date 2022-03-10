@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestUserManagement(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_User_Management_redirection(self):
         """
@@ -26,7 +26,7 @@ class TestUserManagement(Base):
         user.click_user_management()
         assert action.get_title() in 'User Management | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_Add_User_btn(self):
         """
@@ -43,7 +43,7 @@ class TestUserManagement(Base):
         user.click_slider_close()
         assert slider_title == 'User'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Click_Export_User_btn(self):
         """
@@ -58,7 +58,7 @@ class TestUserManagement(Base):
         visibility = user.export_option_visibility()
         assert visibility is True
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Switch_Inactive_tab(self):
         """
@@ -73,7 +73,7 @@ class TestUserManagement(Base):
         tab_color = user.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_05_Verify_Switch_All_tab(self):
         """

@@ -12,9 +12,9 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestOpenApi(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_1_Verify_Admin_Open_APIs(self):
+    def test_1_Verify_Admin_Open_API_Redirection(self):
         """
             Verify redirection of Open APIs from the admin page
             Validation - 1. On the basis of Window's title
@@ -29,7 +29,7 @@ class TestOpenApi(Base):
         openapi.click_open_api_tab()
         assert action.get_title() == 'Open APIs | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_New_Open_Api_btn(self):
         """
@@ -46,7 +46,7 @@ class TestOpenApi(Base):
         openapi.click_slider_close()
         assert slider_title == 'New Open API'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_Switch_Inactive_tab(self):
         """
@@ -61,7 +61,7 @@ class TestOpenApi(Base):
         tab_color = openapi.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Switch_All_tab(self):
         """

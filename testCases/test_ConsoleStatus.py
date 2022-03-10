@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestAdminPanel(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Check_Console_Status_Overview_Page_listing(self):
         """
@@ -32,7 +32,7 @@ class TestAdminPanel(Base):
         assert console.get_overview_gunicorn_text() == 'Gunicorn'
         assert console.get_overview_ngnix_text() == 'Nginx'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Check_Elastic_Search_Server_Status(self):
         """
@@ -46,7 +46,7 @@ class TestAdminPanel(Base):
         page_heading = console.get_server_page_heading()
         assert console.get_server_status() == 'Active' and page_heading == 'Elasticsearch'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Check_My_SQL_Server_Status(self):
         """
@@ -60,7 +60,7 @@ class TestAdminPanel(Base):
         page_heading = console.get_server_page_heading()
         assert console.get_server_status() == 'Active' and page_heading == 'MySQL'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Check_Redis_Server_Status(self):
         """
@@ -74,7 +74,7 @@ class TestAdminPanel(Base):
         page_heading = console.get_server_page_heading()
         assert console.get_server_status() == 'Active' and page_heading == 'Redis'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_05_Check_Celery_Server_Status(self):
         """
@@ -88,7 +88,7 @@ class TestAdminPanel(Base):
         page_heading = console.get_server_page_heading()
         assert console.get_server_status() == 'Active' and page_heading == 'Celery'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_06_Check_Gunicorn_Server_Status(self):
         """
@@ -102,7 +102,7 @@ class TestAdminPanel(Base):
         page_heading = console.get_server_page_heading()
         assert console.get_server_status() == 'Active' and page_heading == 'Gunicorn'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_07_Check_Ngnix_Server_Status(self):
         """

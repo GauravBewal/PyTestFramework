@@ -15,7 +15,7 @@ class TestLabels(Base):
     global label_text
     label_text = ''
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Labels_redirection(self):
         """
@@ -38,7 +38,7 @@ class TestLabels(Base):
         log.info("Validating the page title")
         assert action.get_title() == 'Labels | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Switch_to_Inactive_tab(self):
         """
@@ -56,7 +56,7 @@ class TestLabels(Base):
         tab_color = label.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Switch_to_All_tab(self):
         """
@@ -73,7 +73,7 @@ class TestLabels(Base):
         all_created_labels = label.get_label_count()
         assert tab_color == '#1a3ee8' and all_created_labels == inactive_labels + active_labels
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Create_Label_Without_Name(self):
         """
@@ -96,7 +96,7 @@ class TestLabels(Base):
         log.info("Validating the error message")
         assert error_msg in 'Label Name is required'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_05_Create_Label(self):
         """
             Verify Label Create functionality
@@ -126,7 +126,7 @@ class TestLabels(Base):
                  "newly created label is listing or not")
         assert label_text == get_created_label_name and before_label_creation_count + 1 == after_label_creation_count
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_06_Search_Label(self):
         """
             Verify Search functionality of the Labels
@@ -143,7 +143,7 @@ class TestLabels(Base):
         log.info("Validating search results")
         assert label_text in read_top_search_result
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_07_Update_Label(self):
         """
           verify user is able to update the label
@@ -169,7 +169,7 @@ class TestLabels(Base):
         log.info("Validating the new label name is updated or not ")
         assert new_label_name == updated_label_name
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_08_Read_Modified_Created_Column_Data(self):
         """
         Verify user is able to see the created by and modified by details after creating and modifying label
@@ -184,7 +184,7 @@ class TestLabels(Base):
         log.info("Validating both created and modified user")
         assert label_created_user_name == label_modified_user_name
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_09_Deactivate_Label(self):
         """
         Verify label is being listed under inactive tab once label was de-activated

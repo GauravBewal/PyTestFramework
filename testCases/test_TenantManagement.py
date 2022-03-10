@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestTenantManagement(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_01_Verify_Tenant_Management_redirection(self):
         """
         Verify redirection of Tenant Management from the admin page
@@ -25,7 +25,7 @@ class TestTenantManagement(Base):
         tenant.click_tenant_management()
         assert action.get_title() == 'Tenant Management | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_02_Click_New_Tenant_btn(self):
         """
         Verify whether user is able to click on new tenant button
@@ -42,7 +42,7 @@ class TestTenantManagement(Base):
         assert slider_text == 'Add Tenant'
 
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_03_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -56,7 +56,7 @@ class TestTenantManagement(Base):
         tab_color = tenant.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_04_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from active tab

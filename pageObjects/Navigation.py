@@ -31,7 +31,7 @@ class Navigation(Action):
     def disable_menu_synopsis(self):
         return Action.javascript_click(self, By.XPATH, Navigation.deactivate_menu_synopsis)
 
-    nav_admin_menu = "//div[contains(@class,'walkthrough-admin-icon')]"
+    nav_admin_menu = "//a[@href='/soar/admin']"
 
     def click_admin_menu(self):
         return Action.javascript_click(self, By.XPATH, Navigation.nav_admin_menu)
@@ -132,7 +132,7 @@ class Navigation(Action):
     def visibility_of_walkthrough_option(self, element):
         return Action.check_visibility_of_element(self, By.XPATH, element)
 
-    walkthrough_overview_btn = "//a[@href='/soar/walkthrough-overview']"
+    walkthrough_overview_btn = "//span[contains(text(),'Overview')]/parent::div"
 
     def click_on_overview_btn(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.walkthrough_overview_btn)

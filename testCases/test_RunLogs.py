@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestRunLogs(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Run_Logs_redirection(self):
         """
@@ -24,7 +24,7 @@ class TestRunLogs(Base):
         nav.navigate_run_logs()
         assert action.get_title() in 'Run Logs | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_on_Filters_btn(self):
         """

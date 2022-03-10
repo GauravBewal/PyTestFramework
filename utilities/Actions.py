@@ -1,9 +1,11 @@
 import random
 import string
+import time
 from datetime import datetime
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
@@ -20,12 +22,18 @@ class Action(Base):
         self.driver = driver
 
     def javascript_click(self, by, path):
-        element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
-        self.driver.execute_script("arguments[0].click();", element)
+        try:
+            element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+            self.driver.execute_script("arguments[0].click();", element)
+        except StaleElementReferenceException:
+            self.wait_and_click(by, path)
 
     def wait_and_click(self, by, path):
-        element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
-        element.click()
+        try:
+            element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+            element.click()
+        except StaleElementReferenceException:
+            self.wait_and_click(by, path)
 
     def normal_click(self, by, path):
         self.driver.find_element(by, path).click()
@@ -38,9 +46,22 @@ class Action(Base):
             log.info("Automatic walk through was not initiated. Hence passing this testcase")
             pass
 
+
+    def Apply_Pagination_if_element_not_found(self, by, element_path, pagination_path):
+
+        try:
+            element = WebDriverWait(self.driver, timeout=20).until(EC.visibility_of_element_located((by, element_path)))
+            self.scroll_to_element_view(element)
+        except (NoSuchElementException, TimeoutException):
+            WebDriverWait(self.driver, timeout=20).until(EC.element_to_be_clickable((by, pagination_path))).click()
+            self.Apply_Pagination_if_element_not_found(by, element_path, pagination_path)
+
     def get_no_of_elements_present(self, by, path):
         elements = self.driver.find_elements(by, path)
         return len(elements)
+
+    def scroll_to_element_view(self, element):
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
     def switch_new_window(self, window_number):
         parent_window = self.driver.current_window_handle
@@ -60,6 +81,9 @@ class Action(Base):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         hover = ActionChains(self.driver).move_to_element(ele)
         hover.perform()
+
+    def get_app_version_id(self, version):
+        return str(version.split(': ')[1])
 
     def get_count_from_string(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
@@ -85,12 +109,22 @@ class Action(Base):
         while len(element.get_attribute("value")) > 0:
             element.send_keys(Keys.BACK_SPACE)
 
-    def click_enter(self, by, path):
-        ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
-        ele.send_keys(Keys.ENTER)
+    def click_enter(self):
         action1 = ActionChains(self.driver)
         action1.send_keys(Keys.ENTER)
         action1.perform()
+
+    def drag_and_drop_element_by_target(self, by, source_path, target_path):
+        source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
+        target = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, target_path)))
+        action = ActionChains(self.driver)
+        action.drag_and_drop(source, target).perform()
+
+    def drag_and_drap_by_offset(self, by, source_path, width, height):
+        source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
+        action = ActionChains(self.driver)
+        action.click_and_hold(source).move_by_offset(width, height).release().perform()
+
 
     def check_visibility_of_element(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
@@ -99,9 +133,20 @@ class Action(Base):
         else:
             return False
 
+
+    def check_app_is_installed_or_not(self, by, installed_path, install_btn_path, slider_install_btn_path):
+
+        try:
+            WebDriverWait(self.driver, timeout=10).until(EC.visibility_of_element_located((by, installed_path)))
+        except(NoSuchElementException, TimeoutException):
+            WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable((by, install_btn_path))).click()
+            WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable((by, slider_install_btn_path))).click()
+
+
     def select_from_drop_down(self, dropdown, value):
         ddelement = Select(dropdown)
         ddelement.select_by_value(value)
+
 
     def get_text(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
@@ -126,6 +171,10 @@ class Action(Base):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
         rgb = ele.value_of_css_property(css_property)
         return Color.from_string(rgb).hex
+
+    def get_html_attribute_value(self, by, path, attribute_name):
+        element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        return element.get_attribute(attribute_name)
 
     def get_random_digit(self):
         res = ''.join(random.choices(string.digits, k=4))

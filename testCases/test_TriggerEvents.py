@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestTriggerEvents(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Trigger_Events_redirection(self):
         """
@@ -28,7 +28,7 @@ class TestTriggerEvents(Base):
         page_heading = trigger_events.get_page_heading()
         assert action.get_title() == 'Trigger Events | Cyware Orchestrate' and 'Triggered Events' in page_heading
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_New_Event_btn(self):
         """

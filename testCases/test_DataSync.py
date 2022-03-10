@@ -9,7 +9,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestDataSync(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_Data_Sync_redirection(self):
         """
@@ -27,7 +27,7 @@ class TestDataSync(Base):
         page_heading = dataSync.get_page_heading_text()
         assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate' and page_heading == 'Data Sync Jobs'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_Create_Data_Sync_btn(self):
         """
@@ -48,7 +48,7 @@ class TestDataSync(Base):
         log.info('validation based on the page title')
         assert page_title == 'Create Data Sync Policy | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_Switch_Run_History(self):
         """
@@ -62,7 +62,7 @@ class TestDataSync(Base):
         dataSync.click_run_history()
         assert action.get_title() == 'Run History Logs | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Switch_Data_Sync_Job_Details(self):
         """
@@ -74,7 +74,7 @@ class TestDataSync(Base):
         dataSync.click_job_details()
         assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_05_Click_on_Filter_btn(self):
         """

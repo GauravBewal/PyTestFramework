@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
@@ -9,7 +11,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestUserGroupManagement(Base):
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Verify_User_Group_Management_redirection(self):
         """
@@ -27,7 +29,7 @@ class TestUserGroupManagement(Base):
         log.info("Read the page heading")
         assert action.get_title() == 'User Groups Management | Cyware Orchestrate'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_New_User_Group_btn(self):
         """
@@ -44,7 +46,7 @@ class TestUserGroupManagement(Base):
         usergroup.click_slider_close()
         assert slider_title == 'New User Group'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_Switch_Inactive_tab(self):
         """
@@ -59,7 +61,7 @@ class TestUserGroupManagement(Base):
         tab_color = usergroup.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_04_Verify_Switch_All_tab(self):
         """
@@ -73,3 +75,4 @@ class TestUserGroupManagement(Base):
         log.info("Read the tab color after switching")
         tab_color = usergroup.get_all_tab_color()
         assert tab_color == '#1a3ee8'
+        time.sleep(10)
