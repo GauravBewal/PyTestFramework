@@ -18,3 +18,21 @@ class FilterAndSort(Action):
 
     def click_on_sort(self):
         return Action.javascript_click(self, By.XPATH, FilterAndSort.button_filter)
+
+    sort_position = "//span[@class='sort-type el-dropdown-selfdefine']"
+
+    def mouse_over_on_sort(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, FilterAndSort.sort_position)
+
+    def get_name_sorted_filter(self):
+        return Action.get_text(self, By.XPATH, FilterAndSort.sort_position)
+
+    created_sort = "(//ul[@class='el-dropdown-menu el-popper filters-sort-dropdown']//li[@class='el-dropdown-menu__item'])[2]"
+
+    def click_on_created(self):
+        return Action.javascript_click(self, By.XPATH, FilterAndSort.created_sort)
+
+    sort_order = "//span[@class='sort-tab']//span[@class='el-tooltip sort-button']"
+
+    def changing_sort_to_descending_order(self):
+        return Action.javascript_click(self, By.XPATH, FilterAndSort.sort_order)
