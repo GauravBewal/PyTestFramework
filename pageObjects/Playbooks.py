@@ -89,10 +89,15 @@ class Playbooks(Action):
     def check_visibility_export_as_json(self):
         return Action.check_visibility_of_element(self, By.XPATH, Playbooks.playbook_export_as_json)
 
-    btn_first_playbook = "//div[3]//tr[1]/td[2]//a"
+    btn_first_cyware_playbook = "//div[3]//tr[1]/td[2]//a"
 
     def click_first_playbook(self):
-        return Action.wait_and_click(self, By.XPATH, Playbooks.btn_first_playbook)
+        return Action.wait_and_click(self, By.XPATH, Playbooks.btn_first_cyware_playbook)
+
+    btn_first_my_playbook = "//div[3]//tr[1]/td[3]//a"
+
+    def visibility_of_first_playbook(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.btn_first_my_playbook)
 
     close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
 
