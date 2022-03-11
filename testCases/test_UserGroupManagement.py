@@ -27,7 +27,8 @@ class TestUserGroupManagement(Base):
         log.info("Click on User group Management tab from Admin Page")
         usergroup.click_user_group_management()
         log.info("Read the page heading")
-        assert action.get_title() == 'User Groups Management | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'User Groups Management | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly

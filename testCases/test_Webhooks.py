@@ -24,7 +24,8 @@ class TestWebhooks(Base):
         nav.click_admin_menu()
         log.info("Click on Webhooks tab from Admin Page")
         webhook.click_webhooks()
-        assert action.get_title() in 'Webhooks | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() in 'Webhooks | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly

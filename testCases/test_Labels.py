@@ -2,6 +2,7 @@ import pytest
 
 from pageObjects.Labels import Labels
 from pageObjects.Navigation import Navigation
+from pageObjects.Playbooks import Playbooks
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -36,7 +37,8 @@ class TestLabels(Base):
         global active_labels
         active_labels = label.get_label_count()
         log.info("Validating the page title")
-        assert action.get_title() == 'Labels | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Labels | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -156,6 +158,7 @@ class TestLabels(Base):
         label.click_top_first_label()
         log.info("Deleting and Entering new name to the existing label")
         label.clear_label_field()
+        global new_label_name
         new_label_name = "Label_" + action.get_current_time()
         label.put_label_name(new_label_name)
         log.info("Deleting and entering new description the existing label")
@@ -185,13 +188,59 @@ class TestLabels(Base):
         assert label_created_user_name == label_modified_user_name
 
     @pytest.mark.regression
-    def test_09_Deactivate_Label(self):
+    def test_09_create_playbook_with_label(self):
+        """
+        Verify whether user is able to see the created label in playbook
+        Validation-1: Based on the label visibility
+        """
+        log = self.getlogger()
+        playbook = Playbooks(self.driver)
+        action = Action(self.driver)
+        nav = Navigation(self.driver)
+        log.info("Click on main menu")
+        nav.click_main_menu()
+        log.info("Navigate to playbook module")
+        nav.navigate_manage_playbook()
+        log.info("Click on create new playbook")
+        playbook.click_on_create_playbook_btn()
+        log.info("Clear default name")
+        playbook.remove_default_playbook_name()
+        log.info("Enter playbook name")
+        global playbook_name
+        playbook_name = "label_test" + action.get_current_time()
+        playbook.enter_playbook_name(playbook_name)
+        log.info("Click on labels dropdown")
+        playbook.click_on_label_field()
+        log.info("Enter the label name")
+        playbook.put_label_name(new_label_name)
+        visibility = playbook.visibility_of_label(new_label_name)
+        assert visibility is True
+        playbook.click_on_top_searched_label()
+        log.info("Click on label field to close")
+        playbook.click_on_label_field()
+        log.info("Mouse hover on the save button")
+        playbook.mouse_hover_on_save_btn()
+        log.info("Click on save and exit button")
+        playbook.click_save_and_exit_btn()
+        log.info("Read the playbook created successful message")
+        successful_msg = playbook.get_playbook_created_successful_txt()
+        playbook.close_tooltip()
+        playbook.click_on_back_button()
+        assert successful_msg == 'Playbook created successfully.'
+
+    @pytest.mark.regression
+    def test_10_Deactivate_Label(self):
         """
         Verify label is being listed under inactive tab once label was de-activated
         TC_ID: Label-TC-003
         """
         log = self.getlogger()
         label = Labels(self.driver)
+        nav = Navigation(self.driver)
+        log.info("Click on main menu")
+        nav.click_main_menu()
+        log.info("Navigate to playbook module")
+        nav.navigate_labels()
         label_name_before_deactivating = label.top_1_label_name()
         log.info("Click on label present at top in listing")
         label.click_top_first_label()

@@ -65,7 +65,7 @@ class PlaybookTags(Action):
     playbooktag_name = "//div[contains(@class,'csol-table')]/div/div[3]//tr[1]//span[contains(@class,'__title')]"
 
     def get_playbooktag_name(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(ReadConfig.Wait_6_Sec())
         return Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
 
     def click_playbooktag_name(self):
@@ -97,3 +97,8 @@ class PlaybookTags(Action):
 
     def get_second_playbookTag(self):
         return Action.get_text(self, By.XPATH, PlaybookTags.second_tag_name)
+
+    tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
+
+    def close_tooltip(self):
+        return Action.normal_click(self, By.XPATH, PlaybookTags.tooltip_close)

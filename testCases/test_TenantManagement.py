@@ -23,7 +23,8 @@ class TestTenantManagement(Base):
         nav.click_admin_menu()
         log.info("Click on Tenant Management tab from Admin Page")
         tenant.click_tenant_management()
-        assert action.get_title() == 'Tenant Management | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Tenant Management | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     def test_02_Click_New_Tenant_btn(self):
