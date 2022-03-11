@@ -1,11 +1,7 @@
-import time
-
 import pytest
 
 from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
-from pageObjects.Playbooks import Playbooks
-from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -198,7 +194,6 @@ class TestApps(Base):
         log.info("Click on confirm button to uninstall app")
         my_apps.click_confirm_uninstall_app()
 
-
     @pytest.mark.regression
     def test_09_Uninstall_Custom_Created_App(self):
         """
@@ -243,7 +238,6 @@ class TestApps(Base):
         myapps.click_on_close_walkthrough()
         assert action.get_title() == 'Appstore | Cyware Orchestrate'
 
-
     @pytest.mark.regression
     def test_11_install_app_from_app_store(self):
         """
@@ -285,7 +279,6 @@ class TestApps(Base):
         myapps.visibility_of_first_app()
         assert action.get_title() == 'My Apps | Cyware Orchestrate'
 
-
     @pytest.mark.regression
     def test_13_Verify_installed_app(self):
         """
@@ -302,9 +295,3 @@ class TestApps(Base):
         log.info("Clear the search result")
         my_apps.click_clear_search_btn()
         assert app_name == search_result
-
-
-
-
-
-

@@ -15,7 +15,6 @@ class Playbooks(Action):
                       'Save and Run']
     sort_options = ['Name', 'Modified', 'Created', 'ID', 'Last Run', 'Total Run']
 
-
     tab_cyware_playbooks = "//li[contains(@class,'cyware-playbook')]"
 
     def cyware_playbook_tab(self):
@@ -120,21 +119,6 @@ class Playbooks(Action):
     def click_close_customize_table_btn(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.close_customize_table)
 
-    playbook_filter_btn = "//i[@class='icon icon-filter']/parent::button"
-
-    def click_filter_btn(self):
-        return Action.javascript_click(self, By.XPATH, Playbooks.playbook_filter_btn)
-
-    filter_close_btn = "//i[contains(@class,'cyicon-cross')]/parent::span"
-
-    def close_filter_btn(self):
-        return Action.wait_and_click(self, By.XPATH, Playbooks.filter_close_btn)
-
-    playbook_filter_title = "//span[@class='filters__header__label']"
-
-    def get_filter_title(self):
-        return Action.get_text(self, By.XPATH, Playbooks.playbook_filter_title)
-
     playbook_create_btn = "//button[contains(@class,'create-playbook')]"
 
     def click_on_create_playbook_btn(self):
@@ -183,9 +167,8 @@ class Playbooks(Action):
 
     def select_action_version_based(self, version):
         version_id = Action.get_app_version_id(self, version)
-        path = "//span[contains(text(),'"+version_id+"')]/parent::div/parent::li//div[contains(text(),'Domain Search')]"
+        path = "//span[contains(text(),'" + version_id + "')]/parent::div/parent::li//div[contains(text(),'Domain Search')]"
         return Action.wait_and_click(self, By.XPATH, path)
-
 
     txt_selected_node_name = "(//*[@model-id='1']/*[@joint-selector='label'])[1]"
 
@@ -206,7 +189,6 @@ class Playbooks(Action):
 
     def get_all_node_elements(self):
         return Action.get_no_of_elements_present(self, By.XPATH, Playbooks.all_nodes_names)
-
 
     def get_list_of_elements(self, elements_count, elements):
         elements_list = []
@@ -253,7 +235,6 @@ class Playbooks(Action):
     def visibility_of_test_again_btn(self):
         return Action.check_visibility_of_element(self, By.XPATH, Playbooks.instance_test_Again_btn)
 
-
     def click_on_instance_connectivity_close_btn(self, instance_name):
         path = "//span[contains(text(),'" + instance_name + "')]/following-sibling::button"
         return Action.wait_and_click(self, By.XPATH, path)
@@ -273,9 +254,9 @@ class Playbooks(Action):
     def mouse_hover_on_start_node(self):
         return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.start_node)
 
-    start_node_joint_port = "//div[@id='playbook']//*[@model-id='start']/*[@class='joint-port']"
+    start_node_joint_port = "//*[@model-id='start']/*[@class='joint-port']"
 
-    app_node_joint_port = "(//div[@id='playbook']//*[@model-id='1']/*[@class='joint-port'])[1]"
+    app_node_joint_port = "//*[@model-id='1']//*[@class='joint-port']"
 
     def connect_start_node_and_app_node(self):
         return Action.drag_and_drop_element_by_target(self, By.XPATH, Playbooks.start_node_joint_port,
@@ -354,16 +335,6 @@ class Playbooks(Action):
 
     def get_grid_icon_color(self):
         return Action.get_css_property_value(self, By.XPATH, Playbooks.grid_view_btn, 'color')
-
-    increment_pagination_btn = "//div[contains(@class,'footer-box')]//button[@class='btn-next']"
-
-    def click_on_increment_pagination_btn(self):
-        return Action.javascript_click(self, By.XPATH, Playbooks.increment_pagination_btn)
-
-    decrement_pagination_btn = "//div[contains(@class,'footer-box')]//button[@class='btn-prev']"
-
-    def click_on_decrement_pagination_btn(self):
-        return Action.javascript_click(self, By.XPATH, Playbooks.decrement_pagination_btn)
 
     walkthrough_tooltip_title = "//h1[@class='introjs-tooltip-title']"
 

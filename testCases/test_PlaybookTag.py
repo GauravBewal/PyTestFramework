@@ -19,6 +19,7 @@ class TestPlaybookTags(Base):
         """
             Verify PlaybookTag Page redirection from Main Menu
             TC_ID: PlaybookTag-TC-001
+            Validations 1 :-
         """
         log = self.getlogger()
         admin = Admin(self.driver)
@@ -33,9 +34,9 @@ class TestPlaybookTags(Base):
     @pytest.mark.regression
     def test_02_Create_New_Playbook_Tag(self):
         """
-                    Verify PlaybookTag Create functionality
-                    TC_ID: PlaybookTag-TC-002
-                """
+            Verify PlaybookTag Create functionality
+            TC_ID: PlaybookTag-TC-002
+        """
         log = self.getlogger()
         action = Action(self.driver)
         tag = PlaybookTags(self.driver)
@@ -67,7 +68,7 @@ class TestPlaybookTags(Base):
         tag = PlaybookTags(self.driver)
         filter_sort = FilterAndSort(self.driver)
         log.info("Mouse overing the sort Option")
-        filter_sort.mouse_over_on_sort()
+        filter_sort.mouse_hover_on_sort()
         log.info("Changing sort to the Created")
         filter_sort.click_on_created()
         log.info("Changing sort to Descending Order")

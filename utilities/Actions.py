@@ -46,9 +46,7 @@ class Action(Base):
             log.info("Automatic walk through was not initiated. Hence passing this testcase")
             pass
 
-
     def Apply_Pagination_if_element_not_found(self, by, element_path, pagination_path):
-
         try:
             element = WebDriverWait(self.driver, timeout=20).until(EC.visibility_of_element_located((by, element_path)))
             self.scroll_to_element_view(element)
@@ -115,16 +113,36 @@ class Action(Base):
         action1.perform()
 
     def drag_and_drop_element_by_target(self, by, source_path, target_path):
-        source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
-        target = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, target_path)))
-        action = ActionChains(self.driver)
-        action.drag_and_drop(source, target).perform()
+        try:
+            source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
+            target = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, target_path)))
+            action = ActionChains(self.driver)
+            action.move_to_element(source)
+            action.click_and_hold(source)
+            action.perform()
+            time.sleep(10)
+            action.move_to_element(target)
+            #action.drag_and_drop(source, target)
+            action.release()
+            action.perform()
+        except:
+            source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
+            target = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, target_path)))
+            action = ActionChains(self.driver)
+            action.move_to_element(source)
+            action.click_and_hold(source)
+            action.perform()
+            time.sleep(10)
+            action.move_to_element(target)
+            # action.drag_and_drop(source, target)
+            action.release()
+            action.perform()
+
 
     def drag_and_drap_by_offset(self, by, source_path, width, height):
         source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
         action = ActionChains(self.driver)
         action.click_and_hold(source).move_by_offset(width, height).release().perform()
-
 
     def check_visibility_of_element(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
@@ -133,20 +151,18 @@ class Action(Base):
         else:
             return False
 
-
     def check_app_is_installed_or_not(self, by, installed_path, install_btn_path, slider_install_btn_path):
 
         try:
             WebDriverWait(self.driver, timeout=10).until(EC.visibility_of_element_located((by, installed_path)))
         except(NoSuchElementException, TimeoutException):
             WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable((by, install_btn_path))).click()
-            WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable((by, slider_install_btn_path))).click()
-
+            WebDriverWait(self.driver, timeout=10).until(
+                EC.element_to_be_clickable((by, slider_install_btn_path))).click()
 
     def select_from_drop_down(self, dropdown, value):
         ddelement = Select(dropdown)
         ddelement.select_by_value(value)
-
 
     def get_text(self, by, path):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
