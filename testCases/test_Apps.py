@@ -160,7 +160,6 @@ class TestApps(Base):
         assert page_title == 'App Playbooks | Cyware Orchestrate'
 
     @pytest.mark.regression
-    @pytest.mark.readOnly
     def test_09_clone_custom_app_and_uninstall(self):
         """
         Verify user is able to clone the custom app
