@@ -206,6 +206,7 @@ class TestLabels(Base):
         log.info("Click on create new playbook")
         playbook.click_on_create_playbook_btn()
         log.info("Clear default name")
+        playbook.click_on_close_walkthrough()
         playbook.remove_default_playbook_name()
         log.info("Enter playbook name")
         global playbook_name
