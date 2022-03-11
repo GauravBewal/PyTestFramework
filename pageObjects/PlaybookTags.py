@@ -76,10 +76,6 @@ class PlaybookTags(Action):
     def click_on_Edit_Button(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.edit_button)
 
-    Tagname_sort = "(//ul[contains(@class,'filters-sort-dropdown')]//li[@class='el-dropdown-menu__item'])[1]"
-
-    def click_on_Tagname(self):
-        return Action.get_text(self, By.XPATH, PlaybookTags.Tagname_sort)
 
     created_time1 = "(//div[contains(@class,'csol-table')]/div/div[3]//tr[1]//span[contains(@class,'d-block ')])[1]"
 
