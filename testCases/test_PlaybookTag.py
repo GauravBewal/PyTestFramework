@@ -28,7 +28,8 @@ class TestPlaybookTags(Base):
         nav.click_admin_menu()
         log.info("Click on Playbook Tags tab from Admin Page")
         admin.click_playbook_tags()
-        assert action.get_title() == 'Playbook Tags | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Playbook Tags | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
