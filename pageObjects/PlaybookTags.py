@@ -65,7 +65,7 @@ class PlaybookTags(Action):
     playbooktag_name = "//div[contains(@class,'csol-table')]/div/div[3]//tr[1]//span[contains(@class,'__title')]"
 
     def get_playbooktag_name(self):
-        time.sleep(ReadConfig.Wait_6_Sec())
+        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
 
     def click_playbooktag_name(self):
@@ -76,11 +76,10 @@ class PlaybookTags(Action):
     def click_on_Edit_Button(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.edit_button)
 
-    Tagname_sort = "(//ul[@class='el-dropdown-menu el-popper filters-sort-dropdown']" \
-                   "//li[@class='el-dropdown-menu__item'])[1]"
+    Tagname_sort = "(//ul[contains(@class,'filters-sort-dropdown')]//li[@class='el-dropdown-menu__item'])[1]"
 
     def click_on_Tagname(self):
-        return Action.javascript_click(self, By.XPATH, PlaybookTags.Tagname_sort)
+        return Action.get_text(self, By.XPATH, PlaybookTags.Tagname_sort)
 
     created_time1 = "(//div[contains(@class,'csol-table')]/div/div[3]//tr[1]//span[contains(@class,'d-block ')])[1]"
 
@@ -98,7 +97,20 @@ class PlaybookTags(Action):
     def get_second_playbookTag(self):
         return Action.get_text(self, By.XPATH, PlaybookTags.second_tag_name)
 
+    slider_name = "//div[contains(@class,'cy-right-modal-header__label')]//div//div"
+
+    def get_slider_name(self):
+        return Action.get_text(self, By.XPATH, PlaybookTags.slider_name)
+
+    slider_close = "(//div[@class='cy-right-modal-header__icons']//span[@class='cyicon-cross'])[2]"
+
+    def close_slider_btn(self):
+        return Action.javascript_click(self, By.XPATH, PlaybookTags.slider_close)
+
     tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
 
     def close_tooltip(self):
         return Action.normal_click(self, By.XPATH, PlaybookTags.tooltip_close)
+
+
+
