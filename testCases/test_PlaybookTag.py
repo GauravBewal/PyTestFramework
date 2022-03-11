@@ -29,7 +29,8 @@ class TestPlaybookTags(Base):
         nav.click_admin_menu()
         log.info("Click on Playbook Tags tab from Admin Page")
         admin.click_playbook_tags()
-        assert action.get_title() == 'Playbook Tags | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Playbook Tags | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     def test_02_Create_New_Playbook_Tag(self):
@@ -52,6 +53,7 @@ class TestPlaybookTags(Base):
         tag.put_playbooktag_description("Test Description")
         log.info("Click on Save PlaybookTag button")
         tag.save_playbookTag()
+        tag.close_tooltip()
         log.info("Reading count of total labels after creating a new playbookTag")
         after_playbookTag_creation_count = tag.get_playbookTag_count()
         log.info("Validating total count of PlaybookTag before and after creation of new label, also checking the "
@@ -104,16 +106,16 @@ class TestPlaybookTags(Base):
         log.info("Clicking on Editing Button in Slider")
         tag.click_on_Edit_Button()
         tag.clear_playbooktag_title()
-        new_playbooktag_title = "PlaybookTag_" + action.get_current_time()
+        updated_playbooktag_title = "PlaybookTag_" + action.get_current_time()
         log.info("Adding New playbookTag Title")
-        tag.put_playbooktag_title(new_playbooktag_title)
+        tag.put_playbooktag_title(updated_playbooktag_title)
         log.info("Updating the PlaybookTag Title")
         tag.clear_playbooktag_description()
         tag.put_playbooktag_description("Updated Description")
         log.info("Click on Save/update PlaybookTag button")
         tag.save_playbookTag()
-        updated_playbook_title = tag.get_playbooktag_name()
-        assert updated_playbook_title == new_playbooktag_title
+        tag.close_tooltip()
+        assert tag.get_playbooktag_name() == updated_playbooktag_title
 
     @pytest.mark.regression
     def test_06_Check_Descending_Order(self):

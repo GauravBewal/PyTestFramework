@@ -28,7 +28,9 @@ class TestApps(Base):
         page_heading = my_apps.get_page_heading()
         log.info("Check if walk through is initiated")
         my_apps.click_on_close_walkthrough()
-        assert action.get_title() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps' \
+               and error_msg_visibility is False
 
     @pytest.mark.regression
     def test_02_Create_New_Custom_App(self):
@@ -39,6 +41,7 @@ class TestApps(Base):
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
+        nav = Navigation(self.driver)
         log.info("Get the count of total apps before app creation")
         count_of_app_before_creation = my_apps.get_app_count()
         log.info("Click on App create button")
@@ -193,6 +196,8 @@ class TestApps(Base):
         my_apps.click_on_uninstall_app()
         log.info("Click on confirm button to uninstall app")
         my_apps.click_confirm_uninstall_app()
+        log.info("Click on close tool tip")
+        my_apps.close_tooltip()
 
     @pytest.mark.regression
     def test_09_Uninstall_Custom_Created_App(self):
@@ -232,11 +237,13 @@ class TestApps(Base):
         log = self.getlogger()
         action = Action(self.driver)
         myapps = MyApps(self.driver)
+        nav = Navigation(self.driver)
         log.info("Click on App Store tab")
         myapps.app_store_tab()
         log.info("Check if walk through is initiated")
         myapps.click_on_close_walkthrough()
-        assert action.get_title() == 'Appstore | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Appstore | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     def test_11_install_app_from_app_store(self):

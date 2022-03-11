@@ -25,7 +25,9 @@ class TestConfigureTriggers(Base):
         log.info("Click on configure event")
         nav.navigate_configure_event()
         page_heading = config_trigger.get_page_heading()
-        assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' and 'Configure Triggers' in page_heading
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' \
+               and 'Configure Triggers' in page_heading and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly

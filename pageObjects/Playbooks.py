@@ -124,7 +124,7 @@ class Playbooks(Action):
     def click_on_create_playbook_btn(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_create_btn)
 
-    playbook_back_btn = "//div[@class='playbook_header__view']//i"
+    playbook_back_btn = "//div[@class='playbook_header__view']//i[contains(@class,'icon-arrow-back')]"
 
     def click_on_back_button(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.playbook_back_btn)
@@ -144,7 +144,7 @@ class Playbooks(Action):
     playbook_background = "//div[@class='paper-scroller-background']/div"
 
     def drag_and_drop_action_app_node_by_position(self, width, height):
-        return Action.drag_and_drap_by_offset(self, By.XPATH, Playbooks.action_app_node_btn, width, height)
+        return Action.drag_and_drop_by_offset(self, By.XPATH, Playbooks.action_app_node_btn, width, height)
 
     playbook_node_slider_text = "//div[@class='stencil-header']"
 
@@ -167,7 +167,8 @@ class Playbooks(Action):
 
     def select_action_version_based(self, version):
         version_id = Action.get_app_version_id(self, version)
-        path = "//span[contains(text(),'" + version_id + "')]/parent::div/parent::li//div[contains(text(),'Domain Search')]"
+        path = "//span[contains(text(),'" + version_id + "')]/parent::div/parent::li//div[contains(text()," \
+                                                         "'Domain Search')]"
         return Action.wait_and_click(self, By.XPATH, path)
 
     txt_selected_node_name = "(//*[@model-id='1']/*[@joint-selector='label'])[1]"
@@ -202,7 +203,7 @@ class Playbooks(Action):
                          "//div[contains(@class,'menu--label__container')]"
 
     def mouse_hover_on_instance_tab(self):
-        time.sleep(5)
+        time.sleep(8)
         return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.app_instance_field)
 
     instance_dropdown_icon = "//div[@class='playbook-left-modal__content']//div[contains(@class,'menu--chevron')]"
@@ -249,18 +250,18 @@ class Playbooks(Action):
     def click_on_input_data_tab(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.action_input_data_tab)
 
-    start_node = "//div[@id='playbook']//*[@model-id='start']"
+    start_node = "//div[@id='playbook']//*[contains(text(),'Start')]"
 
     def mouse_hover_on_start_node(self):
         return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.start_node)
 
-    start_node_joint_port = "//*[@model-id='start']/*[@class='joint-port']"
+    start_node_joint_port = "//div[@id='playbook']//*[@model-id='start']/*[@class='joint-port']"
 
-    app_node_joint_port = "//*[@model-id='1']//*[@class='joint-port']"
+    app_node_joint_port = "(//div[@id='playbook']//*[@model-id='1']//*[@class='joint-port'])[1]"
 
     def connect_start_node_and_app_node(self):
-        return Action.drag_and_drop_element_by_target(self, By.XPATH, Playbooks.start_node_joint_port,
-                                                      Playbooks.app_node_joint_port)
+        return Action.click_and_hold_and_release_element(self, By.XPATH, Playbooks.start_node_joint_port,
+                                                         Playbooks.app_node_joint_port)
 
     action_input_field = "//div[contains(@class,'action-input-params')]//textarea"
 
@@ -285,6 +286,9 @@ class Playbooks(Action):
     def enter_playbook_name(self, value):
         return Action.send_keys(self, By.XPATH, Playbooks.playbook_name_field, value)
 
+    def remove_default_playbook_name(self):
+        return Action.clear_field(self, By.XPATH, Playbooks.playbook_name_field)
+
     playbook_description_field = "//input[@placeholder='Enter Description']"
 
     def enter_playbook_description(self, value):
@@ -304,6 +308,9 @@ class Playbooks(Action):
 
     def get_save_and_exit_txt(self):
         return Action.get_text(self, By.XPATH, Playbooks.save_and_exit_btn)
+
+    def click_save_and_exit_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.save_and_exit_btn)
 
     playbook_walkthrough_bulb_btn = "//div[@class=' el-dropdown-selfdefine']/button"
 
@@ -442,3 +449,32 @@ class Playbooks(Action):
 
     def click_import_playbook(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.button_import_playbook)
+
+    label_field = "//div[@name='labels']//span[contains(@class,'cyicon-chevron-down')]"
+
+    def click_on_label_field(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.label_field)
+
+    label_input_field = "//div[@name='labels']//input[@type='text']"
+
+    def put_label_name(self, value):
+        return Action.send_keys(self, By.XPATH, Playbooks.label_input_field, value)
+
+    def visibility_of_label(self, label_name):
+        path = "//div[@name='labels']//li[1]//div[contains(text(),'" + label_name + "')]"
+        return Action.check_visibility_of_element(self, By.XPATH, path)
+
+    top_first_searched_label = "//div[@name='labels']//li[1]/div[2]"
+
+    def click_on_top_searched_label(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.top_first_searched_label)
+
+    playbook_created_successful_txt = "//div[@class='el-notification__content']//span[contains(text(),'Playbook')]"
+
+    def get_playbook_created_successful_txt(self):
+        return Action.get_text(self, By.XPATH, Playbooks.playbook_created_successful_txt)
+
+    tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
+
+    def close_tooltip(self):
+        return Action.normal_click(self, By.XPATH, Playbooks.tooltip_close)

@@ -22,4 +22,5 @@ class TestCywareAgentTask(Base):
         nav.click_main_menu()
         log.info("click on the cyware agent tasks button")
         nav.navigate_agent_task()
-        assert action.get_title() == 'Cyware Agent Tasks | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Cyware Agent Tasks | Cyware Orchestrate' and error_msg_visibility is False

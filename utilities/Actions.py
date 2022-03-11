@@ -1,11 +1,11 @@
 import random
 import string
-import time
 from datetime import datetime
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
@@ -23,35 +23,38 @@ class Action(Base):
 
     def javascript_click(self, by, path):
         try:
-            element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+            element = self.Webdriver_Wait_until_element_clickable(by, path)
             self.driver.execute_script("arguments[0].click();", element)
-        except StaleElementReferenceException:
-            self.wait_and_click(by, path)
+        except (StaleElementReferenceException, ElementClickInterceptedException):
+            self.javascript_click(by, path)
 
     def wait_and_click(self, by, path):
         try:
-            element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+            element = self.Webdriver_Wait_until_element_clickable(by, path)
             element.click()
-        except StaleElementReferenceException:
+        except (StaleElementReferenceException, ElementClickInterceptedException):
             self.wait_and_click(by, path)
 
     def normal_click(self, by, path):
-        self.driver.find_element(by, path).click()
+        try:
+            self.driver.find_element(by, path).click()
+        except (StaleElementReferenceException, ElementClickInterceptedException):
+            self.normal_click(by, path)
 
     def click_if_element_found(self, by, path):
         log = self.getlogger()
         try:
-            WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable((by, path))).click()
+            self.Webdriver_Wait_until_element_clickable(by, path).click()
         except (NoSuchElementException, TimeoutException):
             log.info("Automatic walk through was not initiated. Hence passing this testcase")
             pass
 
     def Apply_Pagination_if_element_not_found(self, by, element_path, pagination_path):
         try:
-            element = WebDriverWait(self.driver, timeout=20).until(EC.visibility_of_element_located((by, element_path)))
+            element = self.Webdriver_Wait_until_element_visible(by, element_path)
             self.scroll_to_element_view(element)
         except (NoSuchElementException, TimeoutException):
-            WebDriverWait(self.driver, timeout=20).until(EC.element_to_be_clickable((by, pagination_path))).click()
+            self.Webdriver_Wait_until_element_clickable(by, pagination_path).click()
             self.Apply_Pagination_if_element_not_found(by, element_path, pagination_path)
 
     def get_no_of_elements_present(self, by, path):
@@ -76,7 +79,7 @@ class Action(Base):
         self.driver.switch_to.window(parent_window)
 
     def mouse_hover_on_element(self, by, path):
-        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        ele = self.Webdriver_Wait_until_element_visible(by, path)
         hover = ActionChains(self.driver).move_to_element(ele)
         hover.perform()
 
@@ -84,22 +87,22 @@ class Action(Base):
         return str(version.split(': ')[1])
 
     def get_count_from_string(self, by, path):
-        ele = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+        ele = self.Webdriver_Wait_until_element_clickable(by, path)
         count = ele.text
         return int(float(count.split('(')[1].split(')')[0]))
 
     def get_no_of_walkthrough_and_pagination_count(self, by, path):
-        element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        element = self.Webdriver_Wait_until_element_visible(by, path)
         count = element.text.split(' ')[2]
         return int(count)
 
     def get_current_page_number(self, by, path):
-        element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        element = self.Webdriver_Wait_until_element_visible(by, path)
         count = element.text
         return int(count.split(' ')[0])
 
     def send_keys(self, by, path, value):
-        element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        element = self.Webdriver_Wait_until_element_visible(by, path)
         element.send_keys(value)
 
     def clear_field(self, by, path):
@@ -113,83 +116,84 @@ class Action(Base):
         action1.perform()
 
     def drag_and_drop_element_by_target(self, by, source_path, target_path):
-        try:
-            source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
-            target = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, target_path)))
-            action = ActionChains(self.driver)
-            action.move_to_element(source)
-            action.click_and_hold(source)
-            action.perform()
-            time.sleep(10)
-            action.move_to_element(target)
-            #action.drag_and_drop(source, target)
-            action.release()
-            action.perform()
-        except:
-            source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
-            target = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, target_path)))
-            action = ActionChains(self.driver)
-            action.move_to_element(source)
-            action.click_and_hold(source)
-            action.perform()
-            time.sleep(10)
-            action.move_to_element(target)
-            # action.drag_and_drop(source, target)
-            action.release()
-            action.perform()
+        source = self.Webdriver_Wait_until_element_visible(by, source_path)
+        target = self.Webdriver_Wait_until_element_visible(by, target_path)
+        action = ActionChains(self.driver)
+        action.drag_and_drop(source, target).perform()
 
-
-    def drag_and_drap_by_offset(self, by, source_path, width, height):
-        source = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, source_path)))
+    def drag_and_drop_by_offset(self, by, source_path, width, height):
+        source = self.Webdriver_Wait_until_element_visible(by, source_path)
         action = ActionChains(self.driver)
         action.click_and_hold(source).move_by_offset(width, height).release().perform()
 
+    def click_and_hold_and_release_element(self, by, source_path, destination_path):
+        try:
+            source = self.Webdriver_Wait_until_element_visible(by, source_path)
+            destination = self.Webdriver_Wait_until_element_visible(by, destination_path)
+            action = ActionChains(self.driver)
+            action.click_and_hold(source).move_to_element(destination).release(source).perform()
+        except StaleElementReferenceException:
+            self.click_and_hold_and_release_element(by, source_path, destination_path)
+
+    def Webdriver_Wait_until_element_visible(self, by, path):
+        try:
+            element = WebDriverWait(self.driver, timeout=20).until(EC.visibility_of_element_located((by, path)))
+            return element
+        except TimeoutException:
+            raise TimeoutException("Element not visible with locator" + path)
+
+    def Webdriver_Wait_until_element_clickable(self, by, path):
+        try:
+            element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
+            return element
+        except TimeoutException:
+            raise TimeoutException("Element not found/clickable with locator" + path)
+
     def check_visibility_of_element(self, by, path):
-        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
-        if ele.is_displayed():
-            return True
-        else:
+        try:
+            ele = self.Webdriver_Wait_until_element_visible(by, path)
+            if ele.is_displayed():
+                return True
+        except (NoSuchElementException, TimeoutException):
             return False
 
     def check_app_is_installed_or_not(self, by, installed_path, install_btn_path, slider_install_btn_path):
-
         try:
-            WebDriverWait(self.driver, timeout=10).until(EC.visibility_of_element_located((by, installed_path)))
+            self.Webdriver_Wait_until_element_visible(by, installed_path)
         except(NoSuchElementException, TimeoutException):
-            WebDriverWait(self.driver, timeout=10).until(EC.element_to_be_clickable((by, install_btn_path))).click()
-            WebDriverWait(self.driver, timeout=10).until(
-                EC.element_to_be_clickable((by, slider_install_btn_path))).click()
+            self.Webdriver_Wait_until_element_clickable(by, install_btn_path).click()
+            self.Webdriver_Wait_until_element_clickable(by, slider_install_btn_path).click()
 
     def select_from_drop_down(self, dropdown, value):
         ddelement = Select(dropdown)
         ddelement.select_by_value(value)
 
     def get_text(self, by, path):
-        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        ele = self.Webdriver_Wait_until_element_visible(by, path)
         return ele.text
 
     def read_search_result(self, by, path, value):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.text_to_be_present_in_element((by, path), value))
-        if ele == True:
+        if ele is True:
             return self.driver.find_element(by, path).text
 
     def get_title(self):
         return self.driver.title
 
-    def get_attribute(self, by, path, attributeValue):
-        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
-        return ele.get_attribute(attributeValue)
+    def get_attribute(self, by, path, attribute_value):
+        ele = self.Webdriver_Wait_until_element_visible(by, path)
+        return ele.get_attribute(attribute_value)
 
     def get_current_time(self):
         return datetime.now().strftime("%B %d, %Y %H:%M:%S")
 
     def get_css_property_value(self, by, path, css_property):
-        ele = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        ele = self.Webdriver_Wait_until_element_visible(by, path)
         rgb = ele.value_of_css_property(css_property)
         return Color.from_string(rgb).hex
 
     def get_html_attribute_value(self, by, path, attribute_name):
-        element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, path)))
+        element = self.Webdriver_Wait_until_element_visible(by, path)
         return element.get_attribute(attribute_name)
 
     def get_random_digit(self):

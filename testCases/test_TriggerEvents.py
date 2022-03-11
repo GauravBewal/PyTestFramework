@@ -26,7 +26,9 @@ class TestTriggerEvents(Base):
         nav.navigate_trigger_event()
         log.info("Read page heading")
         page_heading = trigger_events.get_page_heading()
-        assert action.get_title() == 'Trigger Events | Cyware Orchestrate' and 'Triggered Events' in page_heading
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Trigger Events | Cyware Orchestrate' \
+               and 'Triggered Events' in page_heading and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly

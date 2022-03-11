@@ -24,7 +24,8 @@ class TestSyslogs(Base):
         nav.click_admin_menu()
         log.info("Click on SysLogs tab from Admin Page")
         syslog.click_syslogs()
-        assert action.get_title() in 'Syslogs | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() in 'Syslogs | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
