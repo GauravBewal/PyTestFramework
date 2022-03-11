@@ -68,8 +68,11 @@ class Labels(Action):
     top_label_in_listing = "(//tr//a[contains(text(),'Label_')])[1]"
 
     def top_1_label_name(self):
-        time.sleep(ReadConfig.Wait_6_Sec())
+        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_text(self, By.XPATH, Labels.top_label_in_listing)
+
+    def visibility_of_first_label(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Labels.top_label_in_listing)
 
     def click_top_first_label(self):
         return Action.javascript_click(self, By.XPATH, Labels.top_label_in_listing)

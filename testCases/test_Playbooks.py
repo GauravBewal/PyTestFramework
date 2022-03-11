@@ -3,6 +3,8 @@ import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.Playbooks import Playbooks
+from pageObjects.FilterandSort import FilterAndSort
+from pageObjects.Pagination import Pagination
 from pageObjects.MyApps import MyApps
 from utilities.Actions import Action
 from utilities.Base import Base
@@ -325,12 +327,13 @@ class TestPlaybook(Base):
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
+        filterandsort = FilterAndSort(self.driver)
         log.info("Click on the filter button")
-        playbooks.click_filter_btn()
+        filterandsort.click_on_filters()
         log.info("Read the filter slider title")
-        slider_txt = playbooks.get_filter_title()
+        slider_txt = filterandsort.get_filters_slider_title()
         log.info("Close filter")
-        playbooks.close_filter_btn()
+        filterandsort.close_filter_btn()
         assert slider_txt == 'FILTERS'
 
     @pytest.mark.regression
@@ -453,9 +456,10 @@ class TestPlaybook(Base):
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
+        pagination = Pagination(self.driver)
         log.info("Reding the no of pages available")
         log.info("Change to 2nd page")
-        playbooks.click_on_increment_pagination_btn()
+        pagination.click_on_increment_pagination_btn()
         page_count_after_change = playbooks.get_current_page_count()
         assert page_count_after_change == 2
 
@@ -467,83 +471,84 @@ class TestPlaybook(Base):
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
+        pagination = Pagination(self.driver)
         log.info("Click on the previous page button")
-        playbooks.click_on_decrement_pagination_btn()
+        pagination.click_on_decrement_pagination_btn()
         log.info("Reding the current page number")
         current_page_number = playbooks.get_current_page_count()
         assert current_page_number == 1
 
-    @pytest.mark.regression
-    def test_27_Verify_playbook_execution_flow_with_ctix_action_node(self):
-        """
-        Install the ctix app to use it for playbook execution
-        Validation 1: Based on the ctix app visibility
-        """
-        log = self.getlogger()
-        action = Action(self.driver)
-        nav = Navigation(self.driver)
-        my_apps = MyApps(self.driver)
-        playbooks = Playbooks(self.driver)
-        log.info("Click on Main Menu")
-        nav.click_main_menu()
-        log.info("Click on Apps from Menu")
-        nav.navigate_apps()
-        log.info("Switch to my app tab")
-        my_apps.app_store_tab()
-        global app_name
-        app_name = "CTIX"
-        log.info("Search for ctix app")
-        my_apps.search_for_app(app_name)
-        search_result = my_apps.top_first_search(app_name)
-        assert app_name in search_result
-        log.info("Check whether app is installed or not")
-        my_apps.Verify_app_installed_or_not()
-        my_apps.click_first_search_result()
-        log.info("Read the app version")
-        app_version = my_apps.get_app_version()
-        log.info("Navigate to instance tab")
-        my_apps.click_app_instance_tab()
-        log.info("create new instance")
-        my_apps.click_on_new_instance_btn()
-        log.info("Enter Instance name")
-        global instance_name
-        instance_name = "ui_automation" + action.get_current_time()
-        my_apps.enter_instance_name(instance_name)
-        log.info("Enter base url")
-        my_apps.enter_base_url(ReadConfig.ctix_baseurl())
-        log.info("Enter Access key")
-        my_apps.enter_access_key(ReadConfig.ctix_access_key())
-        log.info("Enter Secret key")
-        my_apps.enter_secret_key(ReadConfig.ctix_secret_key())
-        log.info("Click on create instance button")
-        my_apps.click_slider_instance_create_btn()
-        my_apps.close_tooltip()
-        nav.click_main_menu()
-        nav.navigate_manage_playbook()
-        playbooks.my_playbook_tab()
-        playbooks.click_on_create_playbook_btn()
-        playbooks.click_add_node_btn()
-        playbooks.drag_and_drop_action_app_node_by_position(500, 60)
-        playbooks.put_app_name_to_search(app_name)
-        playbooks.click_app_search_result()
-        playbooks.select_action_version_based(app_version)
-        selected_app_name = playbooks.get_selected_app_name("text")
-        assert app_name in selected_app_name and playbooks.get_playbook_node_title() == '#1 - Action Node (App)'
-        playbooks.mouse_hover_on_instance_tab()
-        playbooks.click_on_clear_instance_btn()
-        playbooks.click_on_instance_dropdown()
-        playbooks.put_instance_name(instance_name)
-        playbooks.click_on_searched_instance()
-        log.info("Close the instance drop down")
-        playbooks.click_on_instance_dropdown()
-        playbooks.click_on_node_test_instance_btn()
-        visibility = playbooks.visibility_of_test_again_btn()
-        connectivity_result = playbooks.get_test_connectivity_result()
-        assert connectivity_result == 'SUCCESS' and visibility is True
-        playbooks.click_on_instance_connectivity_close_btn(instance_name)
-        playbooks.click_on_input_data_tab()
-        playbooks.put_input_data("cyware.com")
-        playbooks.click_on_slider_close_btn()
-        playbooks.mouse_hover_on_start_node()
-        playbooks.connect_start_node_and_app_node()
-        time.sleep(10)
+    # @pytest.mark.regression
+    # def test_27_Verify_playbook_execution_flow_with_ctix_action_node(self):
+    #     """
+    #     Install the ctix app to use it for playbook execution
+    #     Validation 1: Based on the ctix app visibility
+    #     """
+    #     log = self.getlogger()
+    #     action = Action(self.driver)
+    #     nav = Navigation(self.driver)
+    #     my_apps = MyApps(self.driver)
+    #     playbooks = Playbooks(self.driver)
+    #     log.info("Click on Main Menu")
+    #     nav.click_main_menu()
+    #     log.info("Click on Apps from Menu")
+    #     nav.navigate_apps()
+    #     log.info("Switch to my app tab")
+    #     my_apps.app_store_tab()
+    #     global app_name
+    #     app_name = "CTIX"
+    #     log.info("Search for ctix app")
+    #     my_apps.search_for_app(app_name)
+    #     search_result = my_apps.top_first_search(app_name)
+    #     assert app_name in search_result
+    #     log.info("Check whether app is installed or not")
+    #     my_apps.Verify_app_installed_or_not()
+    #     my_apps.click_first_search_result()
+    #     log.info("Read the app version")
+    #     app_version = my_apps.get_app_version()
+    #     log.info("Navigate to instance tab")
+    #     my_apps.click_app_instance_tab()
+    #     log.info("create new instance")
+    #     my_apps.click_on_new_instance_btn()
+    #     log.info("Enter Instance name")
+    #     global instance_name
+    #     instance_name = "ui_automation" + action.get_current_time()
+    #     my_apps.enter_instance_name(instance_name)
+    #     log.info("Enter base url")
+    #     my_apps.enter_base_url(ReadConfig.ctix_baseurl())
+    #     log.info("Enter Access key")
+    #     my_apps.enter_access_key(ReadConfig.ctix_access_key())
+    #     log.info("Enter Secret key")
+    #     my_apps.enter_secret_key(ReadConfig.ctix_secret_key())
+    #     log.info("Click on create instance button")
+    #     my_apps.click_slider_instance_create_btn()
+    #     my_apps.close_tooltip()
+    #     nav.click_main_menu()
+    #     nav.navigate_manage_playbook()
+    #     playbooks.my_playbook_tab()
+    #     playbooks.click_on_create_playbook_btn()
+    #     playbooks.click_add_node_btn()
+    #     playbooks.drag_and_drop_action_app_node_by_position(500, 60)
+    #     playbooks.put_app_name_to_search(app_name)
+    #     playbooks.click_app_search_result()
+    #     playbooks.select_action_version_based(app_version)
+    #     selected_app_name = playbooks.get_selected_app_name("text")
+    #     assert app_name in selected_app_name and playbooks.get_playbook_node_title() == '#1 - Action Node (App)'
+    #     playbooks.mouse_hover_on_instance_tab()
+    #     playbooks.click_on_clear_instance_btn()
+    #     playbooks.click_on_instance_dropdown()
+    #     playbooks.put_instance_name(instance_name)
+    #     playbooks.click_on_searched_instance()
+    #     log.info("Close the instance drop down")
+    #     playbooks.click_on_instance_dropdown()
+    #     playbooks.click_on_node_test_instance_btn()
+    #     visibility = playbooks.visibility_of_test_again_btn()
+    #     connectivity_result = playbooks.get_test_connectivity_result()
+    #     assert connectivity_result == 'SUCCESS' and visibility is True
+    #     playbooks.click_on_instance_connectivity_close_btn(instance_name)
+    #     playbooks.click_on_input_data_tab()
+    #     playbooks.put_input_data("cyware.com")
+    #     playbooks.click_on_slider_close_btn()
+    #     playbooks.mouse_hover_on_start_node()
+    #     playbooks.connect_start_node_and_app_node()
+    #     time.sleep(10)
