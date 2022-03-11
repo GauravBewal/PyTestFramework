@@ -24,7 +24,8 @@ class TestUserManagement(Base):
         nav.click_admin_menu()
         log.info("Click on User Management tab from Admin Page")
         user.click_user_management()
-        assert action.get_title() in 'User Management | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() in 'User Management | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly

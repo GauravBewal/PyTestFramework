@@ -22,7 +22,8 @@ class TestRunLogs(Base):
         nav.click_main_menu()
         log.info("Click on runlogs button")
         nav.navigate_run_logs()
-        assert action.get_title() in 'Run Logs | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() in 'Run Logs | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly

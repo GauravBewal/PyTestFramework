@@ -21,7 +21,7 @@ class FilterAndSort(Action):
 
     sort_position = "//span[@class='sort-type el-dropdown-selfdefine']"
 
-    def mouse_over_on_sort(self):
+    def mouse_hover_on_sort(self):
         return Action.mouse_hover_on_element(self, By.XPATH, FilterAndSort.sort_position)
 
     def get_name_sorted_filter(self):

@@ -27,7 +27,8 @@ class TestOpenApi(Base):
         nav.click_admin_menu()
         log.info("Click on Open APIs tab from Admin Page")
         openapi.click_open_api_tab()
-        assert action.get_title() == 'Open APIs | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Open APIs | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly

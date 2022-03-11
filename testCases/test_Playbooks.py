@@ -32,7 +32,8 @@ class TestPlaybook(Base):
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
         read_page_heading = playbooks.get_manage_playbook_heading()
-        assert read_page_heading == 'Manage Playbooks'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert read_page_heading == 'Manage Playbooks' and error_msg_visibility is False
 
 
     @pytest.mark.regression
@@ -407,8 +408,6 @@ class TestPlaybook(Base):
         slider_title = playbooks.get_test_instance_slider_text()
         log.info("Close the test instances slider")
         playbooks.click_test_instance_slider_close_btn()
-        # log.info("Click on back button")
-        # playbooks.click_on_back_button()
         log.info("switch back to parent window")
         playbooks.switch_back_parent_window(parent_window)
         assert slider_title == 'Test Instances'
@@ -477,7 +476,7 @@ class TestPlaybook(Base):
         assert current_page_number == 1
 
     # @pytest.mark.regression
-    # def test_14_Verify_playbook_execution_flow_with_ctix_action_node(self):
+    # def test_27_Verify_playbook_execution_flow_with_ctix_action_node(self):
     #     """
     #     Install the ctix app to use it for playbook execution
     #     Validation 1: Based on the ctix app visibility

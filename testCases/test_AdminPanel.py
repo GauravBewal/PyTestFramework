@@ -23,7 +23,8 @@ class TestAdminPanel(Base):
         nav.click_on_close_walkthrough()
         log.info("Click on Admin Menu")
         nav.click_admin_menu()
-        assert action.get_title() == 'Admin Panel | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Admin Panel | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -34,10 +35,12 @@ class TestAdminPanel(Base):
         """
         log = self.getlogger()
         admin = Admin(self.driver)
+        nav = Navigation(self.driver)
         action = Action(self.driver)
         log.info("Click on Configurations tab from Admin Page")
         admin.click_configuration()
-        assert action.get_title() == 'Configurations | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Configurations | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -49,11 +52,13 @@ class TestAdminPanel(Base):
         log = self.getlogger()
         admin = Admin(self.driver)
         action = Action(self.driver)
+        nav = Navigation(self.driver)
         log.info("Click on back button from Configurations")
         admin.click_back_button()
         log.info("Click on Authentication tab from Admin Page")
         admin.click_authentication()
-        assert action.get_title() == 'Authentication | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Authentication | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -65,11 +70,13 @@ class TestAdminPanel(Base):
         log = self.getlogger()
         admin = Admin(self.driver)
         action = Action(self.driver)
+        nav = Navigation(self.driver)
         log.info("Click on back button from Authentication")
         admin.click_back_button()
         log.info("Click on License Management  tab from Admin Page")
         admin.click_license_management()
-        assert action.get_title() == 'License Management | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'License Management | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -95,11 +102,13 @@ class TestAdminPanel(Base):
         log = self.getlogger()
         admin = Admin(self.driver)
         action = Action(self.driver)
+        nav = Navigation(self.driver)
         log.info("Click on back button from User Groups Management")
         admin.click_back_button()
         log.info("Click on User Cyware Agent tab from Admin Page")
         admin.click_cyware_agent()
-        assert action.get_title() == 'Cyware Agent | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Cyware Agent | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -111,8 +120,10 @@ class TestAdminPanel(Base):
         log = self.getlogger()
         admin = Admin(self.driver)
         action = Action(self.driver)
+        nav = Navigation(self.driver)
         log.info("Click on back button from SysLogs")
         admin.click_back_button()
         log.info("Click on Console Status tab from Admin Page")
         admin.click_console_status()
-        assert action.get_title() == 'Console Status | Cyware Orchestrate'
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        assert action.get_title() == 'Console Status | Cyware Orchestrate' and error_msg_visibility is False
