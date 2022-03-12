@@ -65,10 +65,10 @@ class Labels(Action):
     def click_enter_for_search(self):
         return Action.click_enter(self)
 
-    top_label_in_listing = "(//tr//a[contains(text(),'Label_')])[1]"
+    top_label_in_listing = "(//tr//a)[1]"
 
-    def top_1_label_name(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
+    def get_top_1_label_name(self):
+        time.sleep(3)
         return Action.get_text(self, By.XPATH, Labels.top_label_in_listing)
 
     def visibility_of_first_label(self):

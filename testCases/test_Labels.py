@@ -123,7 +123,7 @@ class TestLabels(Base):
         label.click_close_tooltip()
         log.info("Reading count of total labels after creating a new label")
         after_label_creation_count = label.get_label_count()
-        get_created_label_name = label.top_1_label_name()
+        get_created_label_name = label.get_top_1_label_name()
         log.info("Validating total count of labels before and after creation of new label, also checking the "
                  "newly created label is listing or not")
         assert label_text == get_created_label_name and before_label_creation_count + 1 == after_label_creation_count
@@ -140,7 +140,8 @@ class TestLabels(Base):
         label.put_search_string(label_text)
         log.info("Click on ENTER")
         label.click_enter_for_search()
-        read_top_search_result = label.top_1_label_name()
+        label.visibility_of_first_label()
+        read_top_search_result = label.get_top_1_label_name()
         label.clear_search()
         log.info("Validating search results")
         assert label_text in read_top_search_result
@@ -168,7 +169,8 @@ class TestLabels(Base):
         label.click_update_label()
         log.info("Click on close tooltip")
         label.click_close_tooltip()
-        updated_label_name = label.top_1_label_name()
+        label.visibility_of_first_label()
+        updated_label_name = label.get_top_1_label_name()
         log.info("Validating the new label name is updated or not ")
         assert new_label_name == updated_label_name
 
@@ -205,7 +207,9 @@ class TestLabels(Base):
         playbook.visibility_of_first_playbook()
         log.info("Click on create new playbook")
         playbook.click_on_create_playbook_btn()
+        log.info("Check if walk through is initiated")
         playbook.click_on_close_walkthrough()
+        log.info("Click on the playbook overview button")
         playbook.click_on_playbook_overview_btn()
         log.info("Clear default name")
         playbook.remove_default_playbook_name()
@@ -247,7 +251,7 @@ class TestLabels(Base):
         nav.navigate_labels()
         log.info("Check for visibility of first label")
         label.visibility_of_first_label()
-        label_name_before_deactivating = label.top_1_label_name()
+        label_name_before_deactivating = label.get_top_1_label_name()
         log.info("Click on label present at top in listing")
         label.click_top_first_label()
         log.info("Click on label inactive toggle")
@@ -258,7 +262,7 @@ class TestLabels(Base):
         log.info("Click on inactive button")
         # navigating inactive tab to check whether the label is de-activated or not
         label.click_inactive_tab()
-        label_name_after_deactivating = label.top_1_label_name()
+        label_name_after_deactivating = label.get_top_1_label_name()
         log.info("Validating label name before and after deactivating")
         # checking whether same label is visible in inactive tab listing after deactivating it
         assert label_name_before_deactivating == label_name_after_deactivating

@@ -196,6 +196,12 @@ class Action(Base):
         element = self.Webdriver_Wait_until_element_visible(by, path)
         return element.get_attribute(attribute_name)
 
+    def convert_12to24hrs_time_format(self, time):
+        return datetime.strptime(time, '%b %d, %Y, %I:%M %p')
+
+    def convert_string_to_lower(self, string):
+        return string.lower()
+
     def get_random_digit(self):
         res = ''.join(random.choices(string.digits, k=4))
         return res

@@ -18,7 +18,6 @@ class TestPlaybookTags(Base):
             Verify PlaybookTag Page redirection from Main Menu
             Validation-1: Based on the Page Name
             TC_ID: PlaybookTag-TC-001
-            Validations 1 :-
         """
         log = self.getlogger()
         admin = Admin(self.driver)
@@ -77,7 +76,7 @@ class TestPlaybookTags(Base):
         assert before_playbookTag_creation_count + 1 == after_playbookTag_creation_count
 
     @pytest.mark.regression
-    def test_04_Verify_Default_TagName_Ascending_Sort(self):
+    def test_06_Verify_Default_TagName_Ascending_Sort(self):
         """
             Check the Sorting based on the Tag Name in Ascending
             Validation Based On the Names
@@ -87,10 +86,10 @@ class TestPlaybookTags(Base):
         tag = PlaybookTags(self.driver)
         log.info("Checking The sort based on Tag Name")
         log.info("Verify the Ascending Order of the Tag Name")
-        assert tag.get_playbooktag_name() < tag.get_second_playbookTag()
+        assert tag.get_first_tagname() < tag.get_second_playbookTag()
 
     @pytest.mark.regression
-    def test_05_Check_Sort_Based_On_Created(self):
+    def test_07_Check_Sort_Based_On_Created(self):
         """
                 Verify User is able to sort based on Created Time of Playbook
                 Validatio-1: Validation Based on the Button Name of Selected
@@ -108,7 +107,7 @@ class TestPlaybookTags(Base):
         assert filter_sort.get_name_sorted_filter() == "Created"
 
     @pytest.mark.regression
-    def test_06_Search_Playbook_Tag(self):
+    def test_04_Search_Playbook_Tag(self):
         """
         Verify User is able to search Created PLaybookTag
         Validation-1: Validation Based on the Top one Tag Name
@@ -124,7 +123,7 @@ class TestPlaybookTags(Base):
         assert tag_name == playbook_tag_text
 
     @pytest.mark.regression
-    def test_07_Update_PlaybookTag(self):
+    def test_05_Update_PlaybookTag(self):
         """
             Update the PlaybookTag
             Validation-1: Validated Based on new Updated Name
@@ -148,6 +147,8 @@ class TestPlaybookTags(Base):
         tag.save_playbookTag()
         tag.close_tooltip()
         assert tag.get_playbooktag_name() == updated_playbooktag_title
+
+
 
     @pytest.mark.regression
     def test_08_Check_Created_Descending_Order(self):

@@ -200,7 +200,7 @@ class TestApps(Base):
         my_apps.close_tooltip()
 
     @pytest.mark.regression
-    def test_09_Uninstall_Custom_Created_App(self):
+    def test_10_Uninstall_Custom_Created_App(self):
         """
             Verify user is able to uninstall app
             Validation - 1. On the basis of search same app
@@ -229,7 +229,7 @@ class TestApps(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_10_Verify_App_Store_switch_tab(self):
+    def test_11_Verify_App_Store_switch_tab(self):
         """
             Verify user is able to switch from My apps to App Store
             Validation - 1. On the basis of Window's title
@@ -246,7 +246,7 @@ class TestApps(Base):
         assert action.get_title() == 'Appstore | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
-    def test_11_install_app_from_app_store(self):
+    def test_12_install_app_from_app_store(self):
         """
         Verify user is able to install the cyware published app or not
         Validation 1: Based on the installed text visibility
@@ -272,7 +272,7 @@ class TestApps(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_12_Verify_My_Apps_switch_tab(self):
+    def test_13_Verify_My_Apps_switch_tab(self):
         """
             Verify user is able to switch from App Store to My Apps
             Validation - 1. On the basis of Window's title
@@ -287,7 +287,7 @@ class TestApps(Base):
         assert action.get_title() == 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.regression
-    def test_13_Verify_installed_app(self):
+    def test_14_Verify_installed_app(self):
         """
         Verify whether installed app is coming under my apps tab
         Validation: Based on the search result
