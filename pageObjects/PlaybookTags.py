@@ -62,11 +62,17 @@ class PlaybookTags(Action):
     def save_playbookTag(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.button_save)
 
-    playbooktag_name = "//div[contains(@class,'csol-table')]/div/div[3]//tr[1]//span[contains(@class,'__title')]"
+    playbooktag_name = "(//tbody/tr[1]/td[1]//span)[1]"
 
     def get_playbooktag_name(self):
         time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
+
+
+    def get_first_tagname(self):
+        time.sleep(ReadConfig.Wait_3_Sec())
+        text = Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
+        return Action.convert_string_to_lower(self, text)
 
     def click_playbooktag_name(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.playbooktag_name)
@@ -77,21 +83,23 @@ class PlaybookTags(Action):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.edit_button)
 
 
-    created_time1 = "(//div[contains(@class,'csol-table')]/div/div[3]//tr[1]//span[contains(@class,'d-block ')])[1]"
+    created_time1 = "(//tbody/tr[1]/td[4]//span)[1]"
 
     def get_created_time1(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
-        return Action.get_text(self, By.XPATH, PlaybookTags.created_time1)
+        time1 = Action.get_text(self, By.XPATH, PlaybookTags.created_time1)
+        return Action.convert_12to24hrs_time_format(self, time1)
 
-    created_time2 = "(//div[contains(@class,'csol-table')]/div/div[3]//tr[2]//span[contains(@class,'d-block ')])[1]"
+    created_time2 = "(//tbody/tr[2]/td[4]//span)[1]"
 
     def get_created_time2(self):
-        return Action.get_text(self, By.XPATH, PlaybookTags.created_time2)
+        time2 = Action.get_text(self, By.XPATH, PlaybookTags.created_time2)
+        return Action.convert_12to24hrs_time_format(self, time2)
 
-    second_tag_name = "//div[contains(@class,'csol-table')]/div/div[3]//tr[2]//span[contains(@class,'__title')]"
+    second_tag_name = "(//tbody/tr[2]/td[1]//span)[1]"
 
     def get_second_playbookTag(self):
-        return Action.get_text(self, By.XPATH, PlaybookTags.second_tag_name)
+        second_playbooktag = Action.get_text(self, By.XPATH, PlaybookTags.second_tag_name)
+        return Action.convert_string_to_lower(self, second_playbooktag)
 
     slider_name = "//div[contains(@class,'cy-right-modal-header__label')]//div//div"
 
