@@ -54,7 +54,7 @@ class MyApps(Action):
     def click_slider_install_btn(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.slider_install_btn)
 
-    install_successful_tooltip_txt = "//div[@class='el-notification__content']//span[contains(text(),'successful')]"
+    install_successful_tooltip_txt = "//div[@role='alert']//span[2]/span[1]"
 
     def get_install_successful_tooltip_txt(self):
         return Action.get_text(self, By.XPATH, MyApps.install_successful_tooltip_txt)
