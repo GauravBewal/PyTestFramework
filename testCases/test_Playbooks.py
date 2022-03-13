@@ -115,7 +115,6 @@ class TestPlaybook(Base):
             node_type_title = playbooks.get_node_type_title(elements_list[element])
             assert node_type_title == playbooks.node_type_list[element]
 
-
     @pytest.mark.regression
     @pytest.mark.readOnly
     def test_07_Verify_All_Nodes_Visibility(self):
@@ -126,14 +125,13 @@ class TestPlaybook(Base):
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Reade the node title")
-        elements_list = playbooks.get_list_of_elements(playbooks.get_all_node_elements(),playbooks.all_nodes_names)
+        elements_list = playbooks.get_list_of_elements(playbooks.get_all_node_elements(), playbooks.all_nodes_names)
         log.info("Validate all the node title")
         for element in range(0, len(elements_list)):
             node_title = playbooks.get_node_type_title(elements_list[element])
             assert node_title == playbooks.node_titles_list[element]
         log.info("Closing the node slider")
         playbooks.click_on_node_close_btn()
-
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -443,7 +441,8 @@ class TestPlaybook(Base):
         log.info("Mouse on the sort options")
         playbook.mouse_hover_sort_options()
         log.info("Reading all the visible sort options")
-        elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),playbook.available_sort_options)
+        elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),
+                                                      playbook.available_sort_options)
         for element in range(0, len(elements_list)):
             read_sort_option = playbook.get_sort_options_title(elements_list[element])
             assert read_sort_option == playbook.sort_options[element]

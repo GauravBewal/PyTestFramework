@@ -1,9 +1,6 @@
-import time
-
 import pytest
 
 from pageObjects.Navigation import Navigation
-from pageObjects.Playbooks import Playbooks
 from utilities.Base import Base
 
 
@@ -55,7 +52,6 @@ class TestHomePage(Base):
         for element in range(0, len(elements_list)):
             visibility = nav.visibility_of_walkthrough_option(elements_list[element])
             assert visibility is True
-
 
     @pytest.mark.readOnly
     @pytest.mark.regression
@@ -113,10 +109,3 @@ class TestHomePage(Base):
         assert visibility is True
         log.info("Close the walkthrough")
         nav.click_on_close_walkthrough()
-
-
-
-
-
-
-

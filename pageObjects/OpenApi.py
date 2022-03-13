@@ -3,6 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 from utilities.Actions import Action
 
+
 class OpenApi(Action):
 
     def __init__(self, driver):
@@ -18,7 +19,6 @@ class OpenApi(Action):
 
     def click_new_open_api(self):
         return Action.javascript_click(self, By.XPATH, OpenApi.btn_new_open_api)
-
 
     field_open_api_title = "//input[@aria-placeholder='API Title *']"
 
@@ -42,7 +42,6 @@ class OpenApi(Action):
 
     def select_on_today_in_calendar(self):
         return Action.wait_and_click(self, By.XPATH, OpenApi.calendar_current_date)
-
 
     field_bot_user = "//span[contains(@class,'cyicon-chevron-down ')]/parent::div"
 
@@ -167,7 +166,6 @@ class OpenApi(Action):
 
     def click_access_id_copy_btn(self):
         return Action.wait_and_click(self, By.XPATH, OpenApi.access_id_copy_btn)
-
 
     api_url_copy_btn = "(//i[contains(@class,'icon-documents')]/parent::span)[1]"
 

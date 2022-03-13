@@ -68,7 +68,6 @@ class PlaybookTags(Action):
         time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
 
-
     def get_first_tagname(self):
         time.sleep(ReadConfig.Wait_3_Sec())
         text = Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
@@ -81,7 +80,6 @@ class PlaybookTags(Action):
 
     def click_on_Edit_Button(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.edit_button)
-
 
     created_time1 = "(//tbody/tr[1]/td[4]//span)[1]"
 
@@ -115,6 +113,3 @@ class PlaybookTags(Action):
 
     def close_tooltip(self):
         return Action.normal_click(self, By.XPATH, PlaybookTags.tooltip_close)
-
-
-

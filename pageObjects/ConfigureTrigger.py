@@ -112,6 +112,3 @@ class ConfigureTrigger(Action):
 
     def clear_input_field(self):
         return Action.clear_field(self, By.XPATH, ConfigureTrigger.main_input)
-
-
-

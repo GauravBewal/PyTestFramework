@@ -64,7 +64,8 @@ class Navigation(Action):
     def navigate_run_logs(self):
         return Action.javascript_click(self, By.XPATH, Navigation.nav_run_logs)
 
-    nav_trigger_event = "//div[@class='cs-menu-item--title color-n500 font-size-14'][normalize-space()='Triggered Events']"
+    nav_trigger_event = "//div[@class='cs-menu-item--title color-n500 font-size-14']" \
+                        "[normalize-space()='Triggered Events']"
 
     def navigate_trigger_event(self):
         return Action.javascript_click(self, By.XPATH, Navigation.nav_trigger_event)
@@ -120,12 +121,13 @@ class Navigation(Action):
 
         return elements_list
 
-    get_started_btn="//button[contains(text(),'Get Started')]"
+    get_started_btn = "//button[contains(text(),'Get Started')]"
 
     def click_get_started_button(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.get_started_btn)
 
     walkthrough_options = "//ul/a//span"
+
     def get_walkthrough_option_elements(self):
         return Action.get_no_of_elements_present(self, By.XPATH, Navigation.walkthrough_options)
 
@@ -152,7 +154,6 @@ class Navigation(Action):
     def visibility_of_walkthrough_close_btn(self):
         return Action.check_visibility_of_element(self, By.XPATH, Navigation.close_walkthrough_tooltip)
 
-
     def click_on_close_walkthrough(self):
         return Action.click_if_element_found(self, By.XPATH, Navigation.close_walkthrough_tooltip)
 
@@ -160,6 +161,3 @@ class Navigation(Action):
 
     def verify_error_msg_after_navigation(self):
         return Action.check_visibility_of_element(self, By.XPATH, Navigation.navigation_error_msg)
-
-
-
