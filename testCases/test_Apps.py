@@ -267,7 +267,7 @@ class TestApps(Base):
         tooltip_msg = my_apps.get_install_successful_tooltip_txt()
         log.info("Close successful tooltip")
         my_apps.close_tooltip()
-        assert 'success' or 'Successful' in tooltip_msg
+        assert tooltip_msg == 'Success'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
