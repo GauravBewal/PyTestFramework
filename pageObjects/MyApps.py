@@ -20,7 +20,7 @@ class MyApps(Action):
     text_page_heading = "//header//h1"
 
     def get_page_heading(self):
-        return  Action.get_text(self, By.XPATH, MyApps.text_page_heading)
+        return Action.get_text(self, By.XPATH, MyApps.text_page_heading)
 
     total_app_count = "//a[@href='/soar/app/list/my-apps']/span"
 
@@ -33,7 +33,6 @@ class MyApps(Action):
 
     def click_on_install_btn(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.app_install_btn)
-
 
     def scroll_to_install_btn_view(self):
         return Action.Apply_Pagination_if_element_not_found(self, By.XPATH, MyApps.app_install_btn,
@@ -59,7 +58,6 @@ class MyApps(Action):
 
     def get_install_successful_tooltip_txt(self):
         return Action.get_text(self, By.XPATH, MyApps.install_successful_tooltip_txt)
-
 
     read_search_result_after_uninstall = "//div[@class='apps-container']//h1"
 
@@ -95,7 +93,6 @@ class MyApps(Action):
 
     def enter_instance_name(self, instance_name):
         return Action.send_keys(self, By.XPATH, MyApps.instance_name_textbox, instance_name)
-
 
     filter_btn = "//button[contains(@class,'filter')]"
 
@@ -208,7 +205,6 @@ class MyApps(Action):
     def get_cloned_app_name(self):
         return Action.get_text(self, By.XPATH, MyApps.cloned_app_name)
 
-
     active_app = "//div[@class='app-edit__view']//span//button"
 
     def click_active_app(self):
@@ -290,7 +286,7 @@ class MyApps(Action):
     walkthrough_tooltip_count = "//div[@class='introjs-helperNumberLayer']"
 
     def get_tooltip_count(self):
-       return Action.javascript_click(self, By.XPATH, MyApps.walkthrough_tooltip_count)
+        return Action.javascript_click(self, By.XPATH, MyApps.walkthrough_tooltip_count)
 
     walkthrough_tooltip_next_btn = "//a[contains(@class,'introjs-nextbutton')]"
 

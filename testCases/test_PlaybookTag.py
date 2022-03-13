@@ -148,8 +148,6 @@ class TestPlaybookTags(Base):
         tag.close_tooltip()
         assert tag.get_playbooktag_name() == updated_playbooktag_title
 
-
-
     @pytest.mark.regression
     def test_08_Check_Created_Descending_Order(self):
         """

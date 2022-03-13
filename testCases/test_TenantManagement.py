@@ -42,7 +42,6 @@ class TestTenantManagement(Base):
         tenant.click_slider_close()
         assert slider_text == 'Add Tenant'
 
-
     @pytest.mark.regression
     def test_03_Verify_Switch_Inactive_tab(self):
         """

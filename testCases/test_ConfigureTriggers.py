@@ -33,7 +33,7 @@ class TestConfigureTriggers(Base):
         nav.navigate_configure_event()
         page_heading = config_trigger.get_page_heading()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
-        assert action.get_title() == 'Configure Triggers | Cyware Orchestrate'\
+        assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' \
                and 'Configure Triggers' in page_heading and error_msg_visibility is False
 
     @pytest.mark.regression
@@ -103,19 +103,19 @@ class TestConfigureTriggers(Base):
         config_trigger.click_configure_trigger()
         log.info("Enter the data into Input Fields")
         global source_app
-        source_app = "TestSource_App"+action.get_current_time()
+        source_app = "TestSource_App" + action.get_current_time()
         config_trigger.put_source_app_name(source_app)
         count = config_trigger.get_configure_trigger_count()
         global Event_Type
         log.info("Enter the SourceEvent Data")
-        Event_Type = "TestSourceEvent_Type"+action.get_current_time()
+        Event_Type = "TestSourceEvent_Type" + action.get_current_time()
         config_trigger.put_source_event_type(Event_Type)
         config_trigger.list_labels()
         log.info("Select the top most label")
         config_trigger.select_label()
         log.info("Enter the Create Button")
         config_trigger.click_create_btn()
-        assert count+1 == config_trigger.get_configure_trigger_count()
+        assert count + 1 == config_trigger.get_configure_trigger_count()
 
     @pytest.mark.regression
     def test_06_Search_bar_Configure_Trigger(self):
@@ -135,7 +135,6 @@ class TestConfigureTriggers(Base):
         config_trigger.clear_input_field()
         assert source_app == search_result
 
-
     @pytest.mark.regression
     def test_07_Update_Status_Configure_Trigger(self):
         """
@@ -154,7 +153,7 @@ class TestConfigureTriggers(Base):
         log.info("Click on Update Button")
         config_trigger.click_on_update()
         config_trigger.click_inactive_tab()
-        assert inactive_count+1 == config_trigger.get_configure_trigger_count()
+        assert inactive_count + 1 == config_trigger.get_configure_trigger_count()
 
     @pytest.mark.regression
     def test_08_Update_Configure_Trigger_Name(self):
@@ -172,21 +171,9 @@ class TestConfigureTriggers(Base):
         config_trigger.click_first_configure_trigger()
         log.info("Clear The previous Name")
         config_trigger.clear_source_app_name()
-        new_config_name = "TestConfig_Trigger"+action.get_current_time()
+        new_config_name = "TestConfig_Trigger" + action.get_current_time()
         log.info("Add a New Configure Trigger Source App Name")
         config_trigger.put_source_app_name(new_config_name)
         log.info("Click On Update")
         config_trigger.click_on_update()
         assert new_config_name == config_trigger.get_name_first_configure_trigger()
-
-
-
-
-
-
-
-
-
-
-
-

@@ -41,7 +41,6 @@ class TestApps(Base):
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
-        nav = Navigation(self.driver)
         log.info("Get the count of total apps before app creation")
         count_of_app_before_creation = my_apps.get_app_count()
         log.info("Click on App create button")
