@@ -8,12 +8,6 @@ from utilities.Base import Base
 
 @pytest.mark.usefixtures("setup")
 class TestConfigureTriggers(Base):
-    global source_app
-    global Event_Type
-    global inactive_count
-    source_app = ''
-    Event_Type = ''
-    inactive_count = 0
 
     @pytest.mark.readOnly
     @pytest.mark.regression
@@ -36,6 +30,7 @@ class TestConfigureTriggers(Base):
         assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' \
                and 'Configure Triggers' in page_heading and error_msg_visibility is False
 
+
     @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Click_Configure_New_Trigger_btn(self):
@@ -47,7 +42,7 @@ class TestConfigureTriggers(Base):
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on configure new trigger button")
-        config_trigger.click_configure_trigger()
+        config_trigger.click_new_configure_trigger_btn()
         log.info("Read the slider heading")
         slider_heading = config_trigger.get_slider_heading()
         log.info("Click on close slider button")
@@ -99,64 +94,46 @@ class TestConfigureTriggers(Base):
         log = self.getlogger()
         action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
+        config_trigger.click_active_tab()
+        count = config_trigger.get_configure_trigger_count()
         log.info("Creating a New Configure Trigger")
-        config_trigger.click_configure_trigger()
+        config_trigger.click_new_configure_trigger_btn()
         log.info("Enter the data into Input Fields")
         global source_app
         source_app = "TestSource_App" + action.get_current_time()
         config_trigger.put_source_app_name(source_app)
-        count = config_trigger.get_configure_trigger_count()
         global Event_Type
         log.info("Enter the SourceEvent Data")
         Event_Type = "TestSourceEvent_Type" + action.get_current_time()
         config_trigger.put_source_event_type(Event_Type)
-        config_trigger.list_labels()
+        config_trigger.click_on_label_field()
         log.info("Select the top most label")
-        config_trigger.select_label()
+        config_trigger.click_first_label()
         log.info("Enter the Create Button")
         config_trigger.click_create_btn()
+        log.info("click on close toop tip")
+        config_trigger.click_close_tooltip()
         assert count + 1 == config_trigger.get_configure_trigger_count()
 
     @pytest.mark.regression
-    def test_06_Search_bar_Configure_Trigger(self):
+    def test_06_Search_Configured_Trigger(self):
         """
             Verify the Searchbar Functionality is working.
             Validation-1: On basis of the Name Comparison.
             TC-CT-006
         """
         log = self.getlogger()
-        action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Search Functionality of Configure Triggers")
         config_trigger.search_input_string(source_app)
-        action.click_enter()
+        config_trigger.click_enter_for_search()
         search_result = config_trigger.get_name_first_configure_trigger()
         log.info("Clearing the Search Field")
-        config_trigger.clear_input_field()
+        config_trigger.clear_search()
         assert source_app == search_result
 
     @pytest.mark.regression
-    def test_07_Update_Status_Configure_Trigger(self):
-        """
-            Verify the Update Functionality of  Configure Trigger
-            Validation-1 : Validate On basis on of the count in Inactive Tab
-            TC-CT-007
-        """
-        log = self.getlogger()
-        config_trigger = ConfigureTrigger(self.driver)
-        log.info("Update Trigger Status")
-        config_trigger.click_active_tab()
-        log.info("Click on Active Tab and select first configure trigger")
-        config_trigger.click_first_configure_trigger()
-        log.info("Deactivate the Configure Trigger")
-        config_trigger.deactive_configure_trigger()
-        log.info("Click on Update Button")
-        config_trigger.click_on_update()
-        config_trigger.click_inactive_tab()
-        assert inactive_count + 1 == config_trigger.get_configure_trigger_count()
-
-    @pytest.mark.regression
-    def test_08_Update_Configure_Trigger_Name(self):
+    def test_07_Update_Configured_Trigger(self):
         """
             Verify the Update Functionality by Updating the Name
             Validation-1 : Validate on comparison of the First Configure Trigger Name and Input Name
@@ -166,8 +143,6 @@ class TestConfigureTriggers(Base):
         action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Updating the Name of the Configure Trigger Source Name")
-        config_trigger.click_inactive_tab()
-        log.info("Click On First Configure Trigger ")
         config_trigger.click_first_configure_trigger()
         log.info("Clear The previous Name")
         config_trigger.clear_source_app_name()
@@ -176,4 +151,27 @@ class TestConfigureTriggers(Base):
         config_trigger.put_source_app_name(new_config_name)
         log.info("Click On Update")
         config_trigger.click_on_update()
-        assert new_config_name == config_trigger.get_name_first_configure_trigger()
+        log.info("click on close toop tip")
+        config_trigger.click_close_tooltip()
+        top_first_event_name = config_trigger.get_name_first_configure_trigger()
+        assert new_config_name == top_first_event_name
+
+
+    @pytest.mark.regression
+    def test_08_Deactivate_Configured_Trigger(self):
+        """
+            Verify the Update Functionality of  Configure Trigger
+            Validation-1 : Validate On basis on of the count in Inactive Tab
+            TC-CT-007
+        """
+        log = self.getlogger()
+        config_trigger = ConfigureTrigger(self.driver)
+        log.info("Click on Active Tab and select first configure trigger")
+        config_trigger.click_first_configure_trigger()
+        log.info("Deactivate the Configure Trigger")
+        config_trigger.deactive_configure_trigger()
+        log.info("Click on Update Button")
+        config_trigger.click_on_update()
+        config_trigger.click_inactive_tab()
+        assert inactive_count + 1 == config_trigger.get_configure_trigger_count()
+

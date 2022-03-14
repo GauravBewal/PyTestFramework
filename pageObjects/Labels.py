@@ -42,6 +42,11 @@ class Labels(Action):
     def get_label_field_error_msg(self):
         return Action.get_text(self, By.XPATH, Labels.label_field_error_msg)
 
+    label_slider_title = "//div[@class='modal--header']//span"
+
+    def get_label_slider_title(self):
+        return Action.get_text(self, By.XPATH, Labels.label_slider_title)
+
     click_customizable_button = (By.XPATH, "//i[@class='cyicon-settings']")
 
     def click_customize_table(self):
@@ -134,10 +139,10 @@ class Labels(Action):
     def clear_description_field(self):
         return Action.clear_field(self, By.XPATH, Labels.text_box_Description)
 
-    click_close_tooltip_xpath = "//div[contains(@class,'notification__closeBtn')]"
+    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
 
     def click_close_tooltip(self):
-        return Action.javascript_click(self, By.XPATH, Labels.click_close_tooltip_xpath)
+        return Action.normal_click(self, By.XPATH, Labels.close_tooltip_btn)
 
     get_labels_count = "//h1[contains(text(),'Labels (')]"
 

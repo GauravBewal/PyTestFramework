@@ -13,8 +13,7 @@ from configuration.readConfiguration import ReadConfig
 
 @pytest.mark.usefixtures("setup")
 class TestPlaybook(Base):
-    global parent
-    parent = ''
+
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -324,7 +323,6 @@ class TestPlaybook(Base):
             Validation: Based on the slider title
         """
         log = self.getlogger()
-        playbooks = Playbooks(self.driver)
         filterandsort = FilterAndSort(self.driver)
         log.info("Click on the filter button")
         filterandsort.click_on_filters()

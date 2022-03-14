@@ -17,3 +17,7 @@ class Runlogs(Action):
 
     def get_filter_slider_title(self):
         return Action.get_text(self, By.XPATH, Runlogs.filter_slider_title)
+
+    def verify_playbook_visibility_in_runlog(self, playbook_name):
+        path = "//h3[contains(text(),'" + playbook_name + "')]"
+        return Action.check_visibility_of_element(self, By.XPATH, path)
