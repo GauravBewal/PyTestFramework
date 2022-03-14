@@ -291,6 +291,9 @@ class Playbooks(Action):
     def enter_playbook_name(self, value):
         return Action.send_keys(self, By.XPATH, Playbooks.playbook_name_field, value)
 
+    def click_on_playbook_name_field(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_name_field)
+
     def remove_default_playbook_name(self):
         return Action.clear_field(self, By.XPATH, Playbooks.playbook_name_field)
 
