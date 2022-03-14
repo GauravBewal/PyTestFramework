@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pageObjects.Labels import Labels
@@ -254,6 +256,7 @@ class TestLabels(Base):
         nav.click_main_menu()
         log.info("Navigate to triggered events module")
         nav.navigate_trigger_event()
+        time.sleep(10)
         log.info("CLick on create new event button")
         trigger_events.click_create_new_event()
         global event_name

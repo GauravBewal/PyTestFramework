@@ -70,13 +70,14 @@ class ConfigureTrigger(Action):
     def put_label_name(self, value):
         return Action.send_keys(self, By.XPATH, ConfigureTrigger.input_field_labels, value)
 
-    first_label = "//li[1]/div[2]"
+    first_label = "//li[1]//div[contains(@class,'option-label-main')]"
 
     def click_first_label(self):
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.first_label)
 
     def get_top_label(self):
         return Action.get_text(self, By.XPATH, ConfigureTrigger.first_label)
+
 
     create_btn = "//div[contains(@class,'px-5 text-right')]//button"
 

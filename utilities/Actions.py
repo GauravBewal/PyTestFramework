@@ -22,24 +22,17 @@ class Action(Base):
         self.driver = driver
 
     def javascript_click(self, by, locator):
-        try:
-            element = self.Webdriver_Wait_until_element_clickable(by, locator)
-            self.driver.execute_script("arguments[0].click();", element)
-        except (StaleElementReferenceException, ElementClickInterceptedException):
-            self.javascript_click(by, locator)
+        element = self.Webdriver_Wait_until_element_clickable(by, locator)
+        self.driver.execute_script("arguments[0].click();", element)
+
 
     def wait_and_click(self, by, locator):
-        try:
-            element = self.Webdriver_Wait_until_element_clickable(by, locator)
-            element.click()
-        except (StaleElementReferenceException, ElementClickInterceptedException):
-            self.wait_and_click(by, locator)
+        element = self.Webdriver_Wait_until_element_clickable(by, locator)
+        element.click()
+
 
     def normal_click(self, by, locator):
-        try:
-            self.driver.find_element(by, locator).click()
-        except (StaleElementReferenceException, ElementClickInterceptedException):
-            self.normal_click(by, locator)
+        self.driver.find_element(by, locator).click()
 
     def click_if_element_found(self, by, locator):
         log = self.getlogger()
@@ -137,7 +130,7 @@ class Action(Base):
 
     def Webdriver_Wait_until_element_visible(self, by, locator):
         try:
-            element = WebDriverWait(self.driver, timeout=20).until(EC.visibility_of_element_located((by, locator)))
+            element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, locator)))
             return element
         except TimeoutException:
             raise TimeoutException("Element not visible with locator" + locator)
