@@ -45,3 +45,51 @@ class TestTriggerEvents(Base):
         page_title = trigger_events.get_slider_text()
         trigger_events.click_close_slider()
         assert page_title == 'New Triggered Event'
+
+    @pytest.mark.regression
+    def test_03_Create_trigger_event(self):
+        """
+        Verify whether user is able to create new trigger event
+        Validation 1: Based on the count increased and successful msg
+        """
+        log = self.getlogger()
+        trigger_events = TriggerEvents(self.driver)
+        action = Action(self.driver)
+        log.info("Read the events count")
+        events_count_before_creation = trigger_events.get_events_count()
+        log.info("Click on the create new button")
+        trigger_events.click_create_new_event()
+        global event_name
+        event_name = "ui_automation_event " + action.get_current_time()
+        log.info("Enter the trigger name")
+        trigger_events.put_event_name(event_name)
+        log.info("Click on the label field")
+        trigger_events.click_on_labels_field()
+        log.info("Select the first label")
+        trigger_events.click_on_top_label()
+        log.info("Click on create button")
+        trigger_events.click_on_create_button()
+        log.info("Read the successful message")
+        creation_msg = trigger_events.get_successful_tooltip_txt()
+        log.info("Close the tool tip")
+        trigger_events.close_tooltip()
+        events_count_after_creation = trigger_events.get_events_count()
+        assert creation_msg == 'Success' and events_count_before_creation+1 == events_count_after_creation
+
+    @pytest.mark.regression
+    def test_04_search_trigger_event(self):
+        """
+        Verify user is able to search the created event
+        Validation 1: Based on the event name visibility
+        """
+        log = self.getlogger()
+        trigger_events = TriggerEvents(self.driver)
+        log.info("click on the search bar")
+        trigger_events.put_string_to_search(event_name)
+        log.info("Click on ENTER")
+        trigger_events.click_enter_for_search()
+        read_top_search_result = trigger_events.get_first_event_name()
+        trigger_events.clear_search()
+        log.info("Validating search results")
+        assert event_name in read_top_search_result
+

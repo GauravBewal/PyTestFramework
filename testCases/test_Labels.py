@@ -2,19 +2,16 @@ import pytest
 
 from pageObjects.Labels import Labels
 from pageObjects.Navigation import Navigation
+from pageObjects.ConfigureTrigger import ConfigureTrigger
 from pageObjects.Playbooks import Playbooks
+from pageObjects.Runlogs import Runlogs
+from pageObjects.TriggerEvents import TriggerEvents
 from utilities.Actions import Action
 from utilities.Base import Base
 
 
 @pytest.mark.usefixtures("setup")
 class TestLabels(Base):
-    global active_labels
-    active_labels = 0
-    global inactive_labels
-    inactive_labels = 0
-    global label_text
-    label_text = ''
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -39,6 +36,7 @@ class TestLabels(Base):
         log.info("Validating the page title")
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert action.get_title() == 'Labels | Cyware Orchestrate' and error_msg_visibility is False
+
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -77,7 +75,7 @@ class TestLabels(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_04_Create_Label_Without_Name(self):
+    def test_04_Click_on_create_label_btn(self):
         """
             Verify user is able to get error message when tried to create a label without any name
             TC_ID: Label-TC-002
@@ -88,18 +86,13 @@ class TestLabels(Base):
         label.click_active_tab()
         log.info("Click on to New Label Button")
         label.click_new_label()
-        log.info("Enter description of a label")
-        label.put_description("description")
-        log.info("Click on to create label button")
-        label.create_Label()
-        error_msg = label.get_label_field_error_msg()
+        slider_title = label.get_label_slider_title()
         log.info("Click on to close label slider button")
         label.close_label_slider()
-        log.info("Validating the error message")
-        assert error_msg in 'Label Name is required'
+        assert slider_title == 'New Label'
 
     @pytest.mark.regression
-    def test_05_Create_Label(self):
+    def test_05_Create_new_Label(self):
         """
             Verify Label Create functionality
             TC_ID: Label-TC-002
@@ -112,7 +105,7 @@ class TestLabels(Base):
         log.info("Click on to create new label")
         label.click_new_label()
         global label_text
-        label_text = "Label_" + action.get_current_time()
+        label_text = "ui_automation_label" + action.get_current_time()
         log.info("Entering new label name")
         label.put_label_name(label_text)
         log.info("Entering label description")
@@ -140,7 +133,6 @@ class TestLabels(Base):
         label.put_search_string(label_text)
         log.info("Click on ENTER")
         label.click_enter_for_search()
-        label.visibility_of_first_label()
         read_top_search_result = label.get_top_1_label_name()
         label.clear_search()
         log.info("Validating search results")
@@ -160,7 +152,7 @@ class TestLabels(Base):
         log.info("Deleting and Entering new name to the existing label")
         label.clear_label_field()
         global new_label_name
-        new_label_name = "Label_" + action.get_current_time()
+        new_label_name = "ui_automation_label" + action.get_current_time()
         label.put_label_name(new_label_name)
         log.info("Deleting and entering new description the existing label")
         label.clear_description_field()
@@ -170,9 +162,9 @@ class TestLabels(Base):
         log.info("Click on close tooltip")
         label.click_close_tooltip()
         label.visibility_of_first_label()
-        updated_label_name = label.get_top_1_label_name()
+        top_label = label.get_top_1_label_name()
         log.info("Validating the new label name is updated or not ")
-        assert new_label_name == updated_label_name
+        assert new_label_name == top_label
 
     @pytest.mark.regression
     def test_08_Read_Modified_Created_Column_Data(self):
@@ -190,7 +182,29 @@ class TestLabels(Base):
         assert label_created_user_name == label_modified_user_name
 
     @pytest.mark.regression
-    def test_09_create_playbook_with_label(self):
+    def test_09_Verify_Label_listing_while_configuring_event(self):
+        """
+        Verify whether created label is getting listed while configuring event
+        Validation 1: Based on the label visibility
+        """
+        log = self.getlogger()
+        configure_event = ConfigureTrigger(self.driver)
+        nav = Navigation(self.driver)
+        log.info("Click on main menu")
+        nav.click_main_menu()
+        log.info("Navigate to configure events")
+        nav.navigate_configure_event()
+        log.info("Click on new button")
+        configure_event.click_new_configure_trigger_btn()
+        log.info("Click on the label field")
+        configure_event.click_on_label_field()
+        configure_event.put_label_name(new_label_name)
+        top_label = configure_event.get_top_label()
+        assert top_label == new_label_name
+        configure_event.click_close_slider()
+
+    @pytest.mark.regression
+    def test_10_Trigger_label_linked_playbook(self):
         """
         Verify whether user is able to see the created label in playbook
         Validation-1: Based on the label visibility
@@ -199,6 +213,8 @@ class TestLabels(Base):
         playbook = Playbooks(self.driver)
         action = Action(self.driver)
         nav = Navigation(self.driver)
+        runlogs = Runlogs(self.driver)
+        trigger_events = TriggerEvents(self.driver)
         log.info("Click on main menu")
         nav.click_main_menu()
         log.info("Navigate to playbook module")
@@ -235,9 +251,34 @@ class TestLabels(Base):
         playbook.close_tooltip()
         playbook.click_on_back_button()
         assert successful_msg == 'Playbook created successfully.'
+        nav.click_main_menu()
+        log.info("Navigate to triggered events module")
+        nav.navigate_trigger_event()
+        log.info("CLick on create new event button")
+        trigger_events.click_create_new_event()
+        global event_name
+        event_name = "ui_automation" + action.get_current_time()
+        log.info("Enter the event title")
+        trigger_events.put_event_name(event_name)
+        log.info("Click on the labels field")
+        trigger_events.click_on_labels_field()
+        trigger_events.enter_label_name_to_search(new_label_name)
+        label_visibility = trigger_events.visibility_of_label(new_label_name)
+        assert label_visibility is True
+        trigger_events.click_on_top_label()
+        log.info("close the label field")
+        trigger_events.click_on_labels_field()
+        trigger_events.click_on_create_button()
+        trigger_events.close_tooltip()
+        log.info("Navigate to run logs")
+        nav.click_main_menu()
+        nav.navigate_run_logs()
+        visibility = runlogs.verify_playbook_visibility_in_runlog(playbook_name)
+        assert visibility is True
+
 
     @pytest.mark.regression
-    def test_10_Deactivate_Label(self):
+    def test_11_Deactivate_Label(self):
         """
         Verify label is being listed under inactive tab once label was de-activated
         TC_ID: Label-TC-003
