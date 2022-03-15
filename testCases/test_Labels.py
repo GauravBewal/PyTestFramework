@@ -250,14 +250,14 @@ class TestLabels(Base):
         playbook.click_save_and_exit_btn()
         log.info("Read the playbook created successful message")
         successful_msg = playbook.get_playbook_created_successful_txt()
+        assert successful_msg == 'Playbook created successfully.'
         playbook.close_tooltip()
         playbook.click_on_back_button()
-        assert successful_msg == 'Playbook created successfully.'
+        playbook.visibility_of_first_playbook()
         nav.click_main_menu()
         log.info("Navigate to triggered events module")
         nav.navigate_trigger_event()
-        time.sleep(10)
-        log.info("CLick on create new event button")
+        log.info("Click on create new event button")
         trigger_events.click_create_new_event()
         global event_name
         event_name = "ui_automation" + action.get_current_time()
