@@ -68,7 +68,7 @@ class Navigation(Action):
                         "[normalize-space()='Triggered Events']"
 
     def navigate_trigger_event(self):
-        return Action.javascript_click(self, By.XPATH, Navigation.nav_trigger_event)
+        return Action.wait_and_click(self, By.XPATH, Navigation.nav_trigger_event)
 
     nav_configure_event = "//div[contains(@class,'walkthrough-menu-event-label')]"
 
