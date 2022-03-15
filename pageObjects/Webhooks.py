@@ -136,3 +136,24 @@ class Webhooks(Action):
 
     def clear_input_field(self):
         return Action.clear_field(self, By.XPATH, Webhooks.main_input)
+
+    three_dot = "(//div[contains(@class,'el-dropdown')]//span//i[contains(@class,'icon icon-more-vertical ')])[1]"
+
+    def check_drop_down(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, Webhooks.three_dot)
+
+    edit_button = "(//ul//li[@class='el-dropdown-menu__item'][normalize-space()='Edit'])[1]"
+
+    def click_edit_button(self):
+        return Action.wait_and_click(self, By.XPATH, Webhooks.edit_button)
+
+    copy_token = "(//ul//li[@class='el-dropdown-menu__item'][normalize-space()='Copy Token'])[1]"
+
+    def click_copy_token_button(self):
+        return Action.wait_and_click(self, By.XPATH, Webhooks.copy_token)
+
+    success_toast_message = "(//div[@role='alert']//span[contains(text(),'Success')])[1]"
+
+    def check_success_copy_token(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Webhooks.success_toast_message)
+
