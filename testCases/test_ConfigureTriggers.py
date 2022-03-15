@@ -30,29 +30,9 @@ class TestConfigureTriggers(Base):
         assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' \
                and 'Configure Triggers' in page_heading and error_msg_visibility is False
 
-
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_02_Click_Configure_New_Trigger_btn(self):
-        """
-          Verify configuration of new trigger
-          Validation 2: Based on the slider title
-          TC-CT-002
-        """
-        log = self.getlogger()
-        config_trigger = ConfigureTrigger(self.driver)
-        log.info("Click on configure new trigger button")
-        config_trigger.click_new_configure_trigger_btn()
-        log.info("Read the slider heading")
-        slider_heading = config_trigger.get_slider_heading()
-        log.info("Click on close slider button")
-        config_trigger.click_close_slider()
-        log.info("Validating the slider heading")
-        assert slider_heading == 'New Configure Event'
-
-    @pytest.mark.regression
-    @pytest.mark.readOnly
-    def test_03_Verify_Switch_Inactive_tab(self):
+    def test_02_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -70,7 +50,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_04_Verify_Switch_All_tab(self):
+    def test_03_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 1. On the basis of tab color
@@ -85,6 +65,26 @@ class TestConfigureTriggers(Base):
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_04_Click_Configure_New_Trigger_btn(self):
+        """
+          Verify configuration of new trigger
+          Validation 2: Based on the slider title
+          TC-CT-002
+        """
+        log = self.getlogger()
+        config_trigger = ConfigureTrigger(self.driver)
+        config_trigger.click_active_tab()
+        log.info("Click on configure new trigger button")
+        config_trigger.click_new_configure_trigger_btn()
+        log.info("Read the slider heading")
+        slider_heading = config_trigger.get_slider_heading()
+        log.info("Click on close slider button")
+        config_trigger.click_close_slider()
+        log.info("Validating the slider heading")
+        assert slider_heading == 'New Configure Event'
+
+    @pytest.mark.regression
     def test_05_Create_New_Configure_Trigger(self):
         """
             Verify Create New Configure Trigger
@@ -94,7 +94,6 @@ class TestConfigureTriggers(Base):
         log = self.getlogger()
         action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
-        config_trigger.click_active_tab()
         count = config_trigger.get_configure_trigger_count()
         log.info("Creating a New Configure Trigger")
         config_trigger.click_new_configure_trigger_btn()
