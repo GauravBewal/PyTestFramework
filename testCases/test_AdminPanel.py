@@ -94,7 +94,47 @@ class TestAdminPanel(Base):
         assert placeholder_text == 'Enter License Key *'
 
     @pytest.mark.regression
-    def test_06_Verify_Admin_Cyware_Agent_redirection(self):
+    @pytest.mark.readOnly
+    def test_06_Visiblity_of_User_Accounts_Card(self):
+        """
+            Verify visiblity of User Account card
+            Validation - 1. On the basis of Card's title
+        """
+        log = self.getlogger()
+        admin = Admin(self.driver)
+        log.info("Read User Accounts card title")
+        title = admin.get_text_from_user_accounts_card()
+        assert title == 'User Accounts'
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_07_Visiblity_of_Open_APIs_Card(self):
+        """
+            Verify visiblity of Open APIs card
+            Validation - 1. On the basis of Card's title
+        """
+        log = self.getlogger()
+        admin = Admin(self.driver)
+        log.info("Read Open API card title")
+        title = admin.get_text_from_Open_APIs_card()
+        assert title == 'Open APIs'
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_08_Visiblity_of_Webhooks_Card(self):
+        """
+            Verify visiblity of Webhooks card
+            Validation - 1. On the basis of Card's title
+        """
+        log = self.getlogger()
+        admin = Admin(self.driver)
+        log.info("Read Webhooks card title")
+        title = admin.get_text_from_Webhooks_card()
+        assert title == 'Webhooks'
+
+
+    @pytest.mark.regression
+    def test_09_Verify_Admin_Cyware_Agent_redirection(self):
         """
             Verify redirection of Cyware Agent from the admin page
             Validation - 1. On the basis of Window's title
@@ -112,7 +152,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_07_Verify_Admin_Console_Status_redirection(self):
+    def test_10_Verify_Admin_Console_Status_redirection(self):
         """
             Verify redirection of Console Status from the admin page
             Validation - 1. On the basis of Window's title
