@@ -41,7 +41,8 @@ class TestLicenseManagement(Base):
         license.click_licence_update_button()
         log.info("Read licence field placeholder text")
         placeholder_text = license.licence_key_field("placeholder")
-        assert placeholder_text == 'Enter License Key *'
+        cross_and_tick_button_visible = license.check_cross_and_tick_btn()
+        assert placeholder_text == 'Enter License Key *' and cross_and_tick_button_visible
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -81,3 +82,55 @@ class TestLicenseManagement(Base):
         log.info("Read Webhooks card title")
         title = license.get_text_from_Webhooks_card()
         assert title == 'Webhooks'
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_06_Days_left_for_expiration(self):
+        """
+            Verify number of days left for expiration is more than 10 days
+            Validation - 1. On the basis of number of days left
+        """
+        log = self.getlogger()
+        license = LicenseManagement(self.driver)
+        log.info("Read Number of days left for expiration")
+        number_of_days_left = license.get_number_of_days_left()
+        assert int(number_of_days_left) > 10
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_07_Tenant_Name_visiblity(self):
+        """
+            Verify if the name of the tenant is visible
+            Validation - 1. On the basis of visiblity of name
+        """
+        log = self.getlogger()
+        license = LicenseManagement(self.driver)
+        log.info("Read Name of the tenant Name")
+        tenant_name = license.get_name_of_Tenant()
+        assert len(tenant_name) > 0
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_08_Tenant_code_visiblity(self):
+        """
+            Verify if the name of the tenant code is visible
+            Validation - 1. On the basis of visiblity of code name
+        """
+        log = self.getlogger()
+        license = LicenseManagement(self.driver)
+        log.info("Read Name of the tenant code")
+        tenant_code = license.get_name_of_Tenant_code()
+        assert len(tenant_code) > 0
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_09_Tenant_version_visiblity(self):
+        """
+            Verify if the name of the tenant version is visible
+            Validation - 1. On the basis of visiblity of version name
+        """
+        log = self.getlogger()
+        license = LicenseManagement(self.driver)
+        log.info("Read Name of the tenant version")
+        tenant_version = license.get_name_of_Tenant_version()
+        assert len(tenant_version) > 0

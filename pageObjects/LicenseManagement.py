@@ -33,3 +33,28 @@ class LicenseManagement(Action):
 
     def get_text_from_Webhooks_card(self):
         return Action.get_text(self, By.XPATH, LicenseManagement.Webhooks_card_text)
+
+    Number_of_days_left = "//div//div[@class='d-flex align-items-end']//div[1]"
+
+    def get_number_of_days_left(self):
+        return Action.get_text(self, By.XPATH, LicenseManagement.Number_of_days_left)
+
+    name_of_tenant = "(//div[@class='d-flex']//div//div//child::div[2])[1]"
+
+    def get_name_of_Tenant(self):
+        return Action.get_text(self, By.XPATH, LicenseManagement.name_of_tenant)
+
+    name_of_tenant_code = "(//div[@class='d-flex']//div//div//child::div[2])[2]"
+
+    def get_name_of_Tenant_code(self):
+        return Action.get_text(self, By.XPATH, LicenseManagement.name_of_tenant_code)
+
+    name_of_tenant_version = "(//div[@class='d-flex']//div//div//child::div[2])[3]"
+
+    def get_name_of_Tenant_version(self):
+        return Action.get_text(self, By.XPATH, LicenseManagement.name_of_tenant_version)
+
+    tick_cross_btn = "//span[@class='el-input__suffix']"
+
+    def check_cross_and_tick_btn(self):
+        return Action.check_visibility_of_element(self, By.XPATH, LicenseManagement.tick_cross_btn)
