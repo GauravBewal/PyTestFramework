@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+
 from utilities.Actions import Action
 
 
@@ -17,7 +18,6 @@ class TriggerEvents(Action):
 
     def put_event_name(self, value):
         return Action.send_keys(self, By.XPATH, TriggerEvents.field_event_title, value)
-
 
     field_labels = "//div[@name='labels']//span[contains(@class,'cyicon-chevron-down')]"
 
@@ -62,7 +62,6 @@ class TriggerEvents(Action):
     def click_on_first_event(self):
         return Action.wait_and_click(self, By.XPATH, TriggerEvents.first_event_in_listing)
 
-
     click_clear_search = "//div[contains(@class,'clear-button')]/i"
 
     def clear_search(self):
@@ -92,4 +91,3 @@ class TriggerEvents(Action):
 
     def get_successful_tooltip_txt(self):
         return Action.get_text(self, By.XPATH, TriggerEvents.successful_tooltip_txt)
-

@@ -1,8 +1,9 @@
-from selenium.webdriver.common.by import By
-from utilities.Actions import Action
-from configuration.readConfiguration import ReadConfig
-
 import time
+
+from selenium.webdriver.common.by import By
+
+from configuration.readConfiguration import ReadConfig
+from utilities.Actions import Action
 
 
 class Webhooks(Action):
@@ -54,6 +55,7 @@ class Webhooks(Action):
 
     def clear_webhook_title(self):
         return Action.clear_field(self, By.XPATH, Webhooks.webhook_title)
+
     expiry_calendar = "//i[contains(@class,'cyicon-calendar')]"
 
     def open_calendar(self):
@@ -79,7 +81,6 @@ class Webhooks(Action):
 
     def put_description_webhook(self, value):
         return Action.send_keys(self, By.XPATH, Webhooks.description, value)
-
 
     generate_btn = "//div[contains(@class,'px-5 text-right')]//button"
 
@@ -156,4 +157,3 @@ class Webhooks(Action):
 
     def check_success_copy_token(self):
         return Action.check_visibility_of_element(self, By.XPATH, Webhooks.success_toast_message)
-

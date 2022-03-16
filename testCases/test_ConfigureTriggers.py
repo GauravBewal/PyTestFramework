@@ -155,7 +155,6 @@ class TestConfigureTriggers(Base):
         top_first_event_name = config_trigger.get_name_first_configure_trigger()
         assert new_config_name == top_first_event_name
 
-
     @pytest.mark.regression
     def test_08_Deactivate_Configured_Trigger(self):
         """
@@ -173,4 +172,3 @@ class TestConfigureTriggers(Base):
         config_trigger.click_on_update()
         config_trigger.click_inactive_tab()
         assert inactive_count + 1 == config_trigger.get_configure_trigger_count()
-

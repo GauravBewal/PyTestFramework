@@ -1,19 +1,15 @@
-import time
 import pytest
 
-from pageObjects.Navigation import Navigation
-from pageObjects.Playbooks import Playbooks
 from pageObjects.FilterandSort import FilterAndSort
+from pageObjects.Navigation import Navigation
 from pageObjects.Pagination import Pagination
-from pageObjects.MyApps import MyApps
+from pageObjects.Playbooks import Playbooks
 from utilities.Actions import Action
 from utilities.Base import Base
-from configuration.readConfiguration import ReadConfig
 
 
 @pytest.mark.usefixtures("setup")
 class TestPlaybook(Base):
-
 
     @pytest.mark.regression
     @pytest.mark.readOnly

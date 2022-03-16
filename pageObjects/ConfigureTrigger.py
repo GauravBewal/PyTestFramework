@@ -1,8 +1,9 @@
-from selenium.webdriver.common.by import By
-from utilities.Actions import Action
-from configuration.readConfiguration import ReadConfig
-
 import time
+
+from selenium.webdriver.common.by import By
+
+from configuration.readConfiguration import ReadConfig
+from utilities.Actions import Action
 
 
 class ConfigureTrigger(Action):
@@ -78,7 +79,6 @@ class ConfigureTrigger(Action):
     def get_top_label(self):
         return Action.get_text(self, By.XPATH, ConfigureTrigger.first_label)
 
-
     create_btn = "//div[contains(@class,'px-5 text-right')]//button"
 
     def click_create_btn(self):
@@ -94,7 +94,6 @@ class ConfigureTrigger(Action):
 
     def click_first_configure_trigger(self):
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.first_config_trigger)
-
 
     def get_name_first_configure_trigger(self):
         time.sleep(ReadConfig.Wait_3_Sec())

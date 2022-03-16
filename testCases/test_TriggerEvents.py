@@ -74,7 +74,7 @@ class TestTriggerEvents(Base):
         log.info("Close the tool tip")
         trigger_events.close_tooltip()
         events_count_after_creation = trigger_events.get_events_count()
-        assert creation_msg == 'Success' and events_count_before_creation+1 == events_count_after_creation
+        assert creation_msg == 'Success' and events_count_before_creation + 1 == events_count_after_creation
 
     @pytest.mark.regression
     def test_04_search_trigger_event(self):
@@ -92,4 +92,3 @@ class TestTriggerEvents(Base):
         trigger_events.clear_search()
         log.info("Validating search results")
         assert event_name in read_top_search_result
-

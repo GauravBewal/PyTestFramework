@@ -54,23 +54,18 @@ class MyApps(Action):
     def click_slider_install_btn(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.slider_install_btn)
 
-    install_toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
+    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
 
-    def get_install_successful_tooltip_txt(self):
-        return Action.get_text(self, By.XPATH, MyApps.install_toast_msg_txt)
+    def get_tooltip_msg(self):
+        return Action.get_text(self, By.XPATH, MyApps.toast_msg_txt)
 
     def verify_error_msg_visibility(self):
-        return Action.check_visibility_of_element(self, By.XPATH, MyApps.install_toast_msg_txt)
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.toast_msg_txt)
 
     read_search_result_after_uninstall = "//div[@class='apps-container']//h1"
 
     def get_search_result_after_uninstall(self):
         return Action.get_text(self, By.XPATH, MyApps.read_search_result_after_uninstall)
-
-    app_uninstalled_success_message = "//span[text()='App deleted successfully.']"
-
-    def read_app_uninstall_success_message(self):
-        return Action.get_text(self, By.XPATH, MyApps.app_uninstalled_success_message)
 
     confirm_uninstall_app = "(//div[@class='footer float-left']/button)[1]"
 
@@ -187,8 +182,6 @@ class MyApps(Action):
     def click_app_instance_tab(self):
         return Action.javascript_click(self, By.XPATH, MyApps.app_instance_tab)
 
-
-
     def mouse_hover_on_created_instance(self, instance_name):
         path = "//div[contains(text(),'" + instance_name + "')]"
         return Action.mouse_hover_on_element(self, By.XPATH, path)
@@ -295,7 +288,15 @@ class MyApps(Action):
     def close_tooltip(self):
         return Action.normal_click(self, By.XPATH, MyApps.tooltip_close)
 
+    list_view_btn = "//span[contains(@class,'list-button')]"
 
+    def click_on_list_view_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.list_view_btn)
+
+    first_app_in_list_view = "(//div[contains(@class,'list-layout')]//h3)[1]"
+
+    def visibility_of_app_in_list_view(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.first_app_in_list_view)
 
     clear_search_btn = "//i[contains(@class,'search-input__close')]/parent::span"
 
@@ -307,10 +308,21 @@ class MyApps(Action):
     def click_save_app_button(self):
         return Action.javascript_click(self, By.XPATH, MyApps.button_app_save)
 
-    dd_edit_btn = "//i[@class='cyicon-edit']/parent::li"
+    dd_edit_btn = "//ul[@x-placement='bottom-end']//li[contains(text(),'Edit App')]"
 
     def click_on_edit_btn(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.dd_edit_btn)
+
+    def visibility_of_edit_button(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.dd_edit_btn)
+
+    dd_export_btn = "//ul[@x-placement='bottom-end']//li[contains(text(),'Export App')]"
+
+    def visibility_of_export_btn(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.dd_export_btn)
+
+    def click_on_export_btn(self):
+        return Action.javascript_click(self, By.XPATH, MyApps.dd_export_btn)
 
     run_btn = "//i[contains(@class,'cyicon-play')]/parent::div"
 
@@ -363,19 +375,13 @@ class MyApps(Action):
     debug_console_status = "//div[contains(@class,'debug-console')]//div"
 
     def get_debug_console_status(self):
-        time.sleep(30)
+        time.sleep(20)
         return Action.get_text(self, By.XPATH, MyApps.debug_console_status)
 
     debug_result_data = "//div[contains(@class,'debug-console')]//pre"
 
     def get_debug_result_data(self):
         return Action.get_text(self, By.XPATH, MyApps.debug_result_data)
-
-
-    tooltip_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_tooltip_txt(self):
-        return Action.get_text(self, By.XPATH, MyApps.tooltip_txt)
 
     tab_my_apps = "//span[@class='tab__count']/parent::a[@href='/soar/app/list/my-apps']"
 

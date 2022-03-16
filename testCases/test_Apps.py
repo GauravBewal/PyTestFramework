@@ -2,10 +2,10 @@ import time
 
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
-from configuration.readConfiguration import ReadConfig
 from utilities.Base import Base
 
 
@@ -35,9 +35,8 @@ class TestApps(Base):
         assert action.get_title() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps' \
                and error_msg_visibility is False
 
-
     @pytest.mark.regression
-    def test_02_Create_New_Custom_App(self):
+    def test_02_Create_new_custom_app(self):
         """
             Verify user is able to create a new app manually
             Validation - 1. By check count increase under My apps
@@ -71,7 +70,7 @@ class TestApps(Base):
         assert count_of_app_before_creation + 1 == count_of_app_after_creation
 
     @pytest.mark.regression
-    def test_03_Search_Manual_Created_App(self):
+    def test_03_Search_for_app(self):
         """
             Verify user is able to search new manually created app.
             Validation - 1. search the app which is created new manually.
@@ -83,7 +82,7 @@ class TestApps(Base):
         assert new_app_name == my_apps.top_first_search(new_app_name)
 
     @pytest.mark.regression
-    def test_04_App_Detail_for_Custom_Created(self):
+    def test_04_Verify_app_detail_page_navigation(self):
         """
             Verify the app detail page redirection
             Validation - 1. On the basis of Window's title
@@ -100,7 +99,7 @@ class TestApps(Base):
         assert page_title == 'App Summary | Cyware Orchestrate' and searched_app_title == app_title_summary
 
     @pytest.mark.regression
-    def test_05_Verify_Switch_App_Actions_tab(self):
+    def test_05_Verify_switch_app_actions_tab(self):
         """
             Verify user is able to switch app action tab
             Validation - 1. On the basis of Window's title
@@ -174,6 +173,8 @@ class TestApps(Base):
         my_apps.click_back_btn()
         log.info("Mouse hover on the more options button")
         my_apps.mouse_hover_list_more_options()
+        log.info("Check for visibility of clone app button")
+        my_apps.visibility_of_clone_app_btn()
         log.info("Click on the clone button")
         my_apps.click_clone_app_btn()
         log.info("Read page heading")
@@ -203,11 +204,10 @@ class TestApps(Base):
         my_apps.close_tooltip()
 
     @pytest.mark.regression
-    def test_10_Uninstall_Custom_Created_App(self):
+    def test_10_verify_custom_app_edit(self):
         """
-            Verify user is able to uninstall app
-            Validation - 1. On the basis of search same app
-                         2. On the basis of tooltip after successful uninstall
+        Verify user is able to edit the custom app
+        Validation -1: Based on the page title
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
@@ -217,22 +217,62 @@ class TestApps(Base):
         my_apps.search_for_app(new_app_name)
         log.info("Mouse hover to more options")
         my_apps.mouse_hover_list_more_options()
+        log.info("Visibility of edit app button")
+        my_apps.visibility_of_edit_button()
+        log.info("Click on the edit app button")
+        my_apps.click_on_edit_btn()
+        page_heading = my_apps.get_page_heading()
+        assert 'Edit App' in page_heading
+        my_apps.click_save_app_button()
+        log.info("Close tool tip")
+        my_apps.close_tooltip()
+
+    @pytest.mark.regression
+    def test_11_export_custom_created_app(self):
+        """
+        Verify user is able to export the app or not
+        Validation -1: Based on the file downloaded
+        """
+        log = self.getlogger()
+        my_apps = MyApps(self.driver)
+        log.info("Mouse hover to more options")
+        my_apps.mouse_hover_list_more_options()
+        log.info("Visibility of export app button")
+        my_apps.visibility_of_export_btn()
+        log.info("Click on the edit app button")
+        my_apps.click_on_export_btn()
+        log.info("Read the successfully exported message")
+        tooltip_msg = my_apps.get_tooltip_msg()
+        assert tooltip_msg == 'Success'
+        my_apps.close_tooltip()
+
+    @pytest.mark.regression
+    def test_11_Uninstall_custom_created_app(self):
+        """
+            Verify user is able to uninstall app
+            Validation - 1. On the basis of search same app
+                         2. On the basis of tooltip after successful uninstall
+        """
+        log = self.getlogger()
+        my_apps = MyApps(self.driver)
+        log.info("Mouse hover to more options")
+        my_apps.mouse_hover_list_more_options()
         log.info("Click on uninstall app")
         my_apps.click_on_uninstall_app()
         log.info("Click on confirm button to uninstall app")
         my_apps.click_confirm_uninstall_app()
         log.info("Validating app uninstalled successfully or not")
-        tooltip_message = my_apps.read_app_uninstall_success_message()
+        tooltip_message = my_apps.get_tooltip_msg()
         search_result_message = my_apps.get_search_result_after_uninstall()
+        assert tooltip_message == 'Success' and search_result_message == 'No Results Found'
         log.info("Click on close tool tip")
         my_apps.close_tooltip()
         log.info("Clear the search result")
         my_apps.click_clear_search_btn()
-        assert tooltip_message == 'App deleted successfully.' and search_result_message == 'No Results Found'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_11_Verify_App_Store_switch_tab(self):
+    def test_13_Verify_App_Store_switch_tab(self):
         """
             Verify user is able to switch from My apps to App Store
             Validation - 1. On the basis of Window's title
@@ -246,11 +286,11 @@ class TestApps(Base):
         log.info("Check if walk through is initiated")
         myapps.click_on_close_walkthrough()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
-        assert action.get_title() == 'Appstore | Cyware Orchestrate'\
+        assert action.get_title() == 'Appstore | Cyware Orchestrate' \
                and error_msg_visibility is False
 
     @pytest.mark.regression
-    def test_12_clone_virus_total_app(self):
+    def test_14_clone_virus_total_app_to_debug(self):
         """
         Verify user is able to clone the cyware published app
         Validation-1: Based on the app visibility and success message
@@ -287,7 +327,7 @@ class TestApps(Base):
         my_apps.click_active_app()
         log.info("CLick on save button")
         my_apps.click_save_app_button()
-        creation_msg = my_apps.get_tooltip_txt()
+        creation_msg = my_apps.get_tooltip_msg()
         assert 'Success' in creation_msg
         log.info("Close the tool tip")
         my_apps.close_tooltip()
@@ -296,9 +336,8 @@ class TestApps(Base):
         log.info("Search the app which is created new manually")
         assert cloned_cyware_app_name == my_apps.top_first_search(cloned_cyware_app_name)
 
-
     @pytest.mark.regression
-    def test_13_verify_debugging_app(self):
+    def test_15_verify_debugging_app(self):
         """
         Verify user is able to debug the cyware published app by cloning it
         Validation 1: Based on the result
@@ -359,41 +398,27 @@ class TestApps(Base):
         debug_result_data = my_apps.get_debug_result_data()
         assert 'SUCCESS' == debug_console_data and '"status_code": 200' in debug_result_data
         my_apps.click_save_app_button()
-        app_updation_msg = my_apps.get_tooltip_txt()
+        app_updation_msg = my_apps.get_tooltip_msg()
         assert 'Success' in app_updation_msg
         log.info("Close the tool tip")
         my_apps.close_tooltip()
 
     @pytest.mark.regression
-    def test_14_uninstall_debugged_app(self):
+    def test_16_uninstall_debugged_app(self):
         """
         Verify whether user is able to uninstall the debugged app
         Validation-1: Based on
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
-        log.info("Mouse hover on the more options button")
-        my_apps.mouse_hover_list_more_options()
-        log.info("Check visibility of uninstall button")
-        my_apps.visibility_of_uninstall_btn()
-        log.info("Click on the clone button")
-        my_apps.click_on_uninstall_app()
-        log.info("Click on confirm button to uninstall app")
-        my_apps.click_confirm_uninstall_app()
-        uninstall_msg = my_apps.get_tooltip_txt()
-        assert 'Success' in uninstall_msg
-        log.info("Close the tool tip")
-        my_apps.close_tooltip()
-        log.info("Clear the search bar")
-        my_apps.click_clear_search_btn()
+        self.test_11_Uninstall_custom_created_app()
         my_apps.app_store_tab()
         my_apps.visibility_of_first_app()
         log.info("Clear the search bar")
         my_apps.click_clear_search_btn()
 
-
     @pytest.mark.regression
-    def test_15_install_app_from_app_store(self):
+    def test_17_install_app_from_app_store(self):
         """
         Verify user is able to install the cyware published app or not
         Validation 1: Based on the installed text visibility
@@ -412,15 +437,14 @@ class TestApps(Base):
         log.info("Click on install button in slider")
         my_apps.click_slider_install_btn()
         log.info("Verify whether success tooltip is visible after installing")
-        tooltip_msg = my_apps.get_install_successful_tooltip_txt()
+        tooltip_msg = my_apps.get_tooltip_msg()
         log.info("Close successful tooltip")
         my_apps.close_tooltip()
         assert tooltip_msg == 'Success'
 
-
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_16_Verify_My_Apps_switch_tab(self):
+    def test_18_Verify_My_Apps_switch_tab(self):
         """
             Verify user is able to switch from App Store to My Apps
             Validation - 1. On the basis of Window's title
@@ -435,7 +459,7 @@ class TestApps(Base):
         assert action.get_title() == 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.regression
-    def test_17_Verify_installed_app(self):
+    def test_19_Verify_installed_app(self):
         """
         Verify whether installed app is coming under my apps tab
         Validation: Based on the search result
@@ -449,25 +473,34 @@ class TestApps(Base):
         assert app_name == search_result
 
     @pytest.mark.regression
-    def test_18_uninstall_installed_cyware_app(self):
+    def test_20_export_cyware_app(self):
+        """
+        Verify whether user is able to export the cyware app
+        Validation-1: Based on the successful message
+        """
+        log = self.getlogger()
+        log.info("Export the cyware app")
+        self.test_11_export_custom_created_app()
+
+    @pytest.mark.regression
+    def test_21_uninstall_installed_cyware_app(self):
         """
         Verify whether user is able to uninstall the cyware installed app
         Validation-1: Based on the uninstallation successful message
         """
         log = self.getlogger()
-        my_apps = MyApps(self.driver)
-        log.info("Mouse hover on the more options button")
-        my_apps.mouse_hover_list_more_options()
-        log.info("Check visibility of uninstall button")
-        my_apps.visibility_of_uninstall_btn()
-        log.info("Click on the clone button")
-        my_apps.click_on_uninstall_app()
-        log.info("Click on confirm button to uninstall app")
-        my_apps.click_confirm_uninstall_app()
-        uninstall_msg = my_apps.get_tooltip_txt()
-        assert 'Success' in uninstall_msg
-        log.info("Close the tool tip")
-        my_apps.close_tooltip()
-        log.info("Clear the search bar")
-        my_apps.click_clear_search_btn()
+        log.info("Uninstalling the installed cyware app")
+        self.test_11_Uninstall_custom_created_app()
 
+    @pytest.mark.regression
+    def test_22_Switch_to_list_view(self):
+        """
+        Verify user is able to switch to list view
+        Validation-1: Based on the app view visibility
+        """
+        log = self.getlogger()
+        my_apps = MyApps(self.driver)
+        log.info("click on the list view button")
+        my_apps.click_on_list_view_btn()
+        list_view_visibility = my_apps.visibility_of_app_in_list_view()
+        assert list_view_visibility is True
