@@ -47,6 +47,11 @@ class ReadConfig:
         return ctix_secret_id
 
     @staticmethod
+    def virus_total_api_key():
+        api_id = config.get('VIRUS_TOTAL_CREDS', 'api_key')
+        return api_id
+
+    @staticmethod
     def Wait_10_Sec():
         wait_10_Sec = config.get('Waits', 'Wait_10_Seconds')
         return int(wait_10_Sec)

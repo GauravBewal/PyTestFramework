@@ -91,5 +91,5 @@ class TriggerEvents(Action):
     successful_tooltip_txt = "//div[@role='alert']//span[2]/span[1]"
 
     def get_successful_tooltip_txt(self):
-        return Action.get_text(self, By.XPATH,TriggerEvents.successful_tooltip_txt)
+        return Action.get_text(self, By.XPATH, TriggerEvents.successful_tooltip_txt)
 

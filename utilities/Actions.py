@@ -166,8 +166,8 @@ class Action(Base):
             self.Webdriver_Wait_until_element_clickable(by, install_btn_path).click()
             self.Webdriver_Wait_until_element_clickable(by, slider_install_btn_path).click()
 
-    def select_from_drop_down(self, dropdown, value):
-        ddelement = Select(dropdown)
+    def select_from_drop_down(self, by, path, value):
+        ddelement = Select(self.driver.find_element(by, path))
         ddelement.select_by_value(value)
 
     def get_text(self, by, locator):
