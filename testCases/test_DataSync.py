@@ -26,7 +26,7 @@ class TestDataSync(Base):
         nav.navigate_data_sync()
         page_heading = dataSync.get_page_heading_text()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
-        assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate'\
+        assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate' \
                and page_heading == 'Data Sync Jobs' and error_msg_visibility is False
 
     @pytest.mark.regression

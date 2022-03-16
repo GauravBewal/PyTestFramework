@@ -1,10 +1,8 @@
-import time
-
 import pytest
 
+from pageObjects.ConfigureTrigger import ConfigureTrigger
 from pageObjects.Labels import Labels
 from pageObjects.Navigation import Navigation
-from pageObjects.ConfigureTrigger import ConfigureTrigger
 from pageObjects.Playbooks import Playbooks
 from pageObjects.Runlogs import Runlogs
 from pageObjects.TriggerEvents import TriggerEvents
@@ -38,7 +36,6 @@ class TestLabels(Base):
         log.info("Validating the page title")
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert action.get_title() == 'Labels | Cyware Orchestrate' and error_msg_visibility is False
-
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -278,7 +275,6 @@ class TestLabels(Base):
         nav.navigate_run_logs()
         visibility = runlogs.verify_playbook_visibility_in_runlog(playbook_name)
         assert visibility is True
-
 
     @pytest.mark.regression
     def test_11_Deactivate_Label(self):

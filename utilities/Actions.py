@@ -1,11 +1,13 @@
 import random
 import string
+import time
+import os
 from datetime import datetime
 
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
@@ -34,7 +36,6 @@ class Action(Base):
             element.click()
         except (StaleElementReferenceException, ElementClickInterceptedException):
             self.wait_and_click(by, locator)
-
 
     def normal_click(self, by, locator):
         try:
@@ -169,6 +170,7 @@ class Action(Base):
     def select_from_drop_down(self, by, path, value):
         ddelement = Select(self.driver.find_element(by, path))
         ddelement.select_by_value(value)
+
 
     def get_text(self, by, locator):
         ele = self.Webdriver_Wait_until_element_visible(by, locator)

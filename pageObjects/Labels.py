@@ -1,8 +1,9 @@
 import time
 
 from selenium.webdriver.common.by import By
-from utilities.Actions import Action
+
 from configuration.readConfiguration import ReadConfig
+from utilities.Actions import Action
 
 
 class Labels(Action):

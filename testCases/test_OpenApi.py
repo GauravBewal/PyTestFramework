@@ -248,11 +248,3 @@ class TestOpenApi(Base):
         top_openapi_name = openapi.get_top_1_openapi_name()
         log.info("Validating the new label name is updated or not ")
         assert top_openapi_name == updated_openapi_name
-
-
-
-
-
-
-
-

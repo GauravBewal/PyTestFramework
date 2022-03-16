@@ -1,11 +1,11 @@
 import pytest
 
-from pageObjects.PlaybookTags import PlaybookTags
 from pageObjects.AdminPage import Admin
+from pageObjects.FilterandSort import FilterAndSort
 from pageObjects.Navigation import Navigation
+from pageObjects.PlaybookTags import PlaybookTags
 from utilities.Actions import Action
 from utilities.Base import Base
-from pageObjects.FilterandSort import FilterAndSort
 
 
 @pytest.mark.usefixtures("setup")
