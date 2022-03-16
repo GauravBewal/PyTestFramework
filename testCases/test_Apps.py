@@ -1,8 +1,11 @@
+import time
+
 import pytest
 
 from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
+from configuration.readConfiguration import ReadConfig
 from utilities.Base import Base
 
 
@@ -31,6 +34,7 @@ class TestApps(Base):
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert action.get_title() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps' \
                and error_msg_visibility is False
+
 
     @pytest.mark.regression
     def test_02_Create_New_Custom_App(self):
@@ -242,10 +246,154 @@ class TestApps(Base):
         log.info("Check if walk through is initiated")
         myapps.click_on_close_walkthrough()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
-        assert action.get_title() == 'Appstore | Cyware Orchestrate' and error_msg_visibility is False
+        assert action.get_title() == 'Appstore | Cyware Orchestrate'\
+               and error_msg_visibility is False
 
     @pytest.mark.regression
-    def test_12_install_app_from_app_store(self):
+    def test_12_clone_virus_total_app(self):
+        """
+        Verify user is able to clone the cyware published app
+        Validation-1: Based on the app visibility and success message
+        """
+        log = self.getlogger()
+        my_apps = MyApps(self.driver)
+        action = Action(self.driver)
+        global app_name
+        app_name = "Virus Total"
+        log.info("Search for app")
+        my_apps.search_for_app(app_name)
+        search_result = my_apps.top_first_search(app_name)
+        assert app_name in search_result
+        log.info("Check whether app is installed or not")
+        my_apps.Verify_app_installed_or_not()
+        log.info("Mouse hover on the more options button")
+        my_apps.mouse_hover_list_more_options()
+        my_apps.visibility_of_clone_app_btn()
+        log.info("Click on the clone button")
+        my_apps.click_clone_app_btn()
+        log.info("Click on slider clone button")
+        my_apps.click_clone_btn_on_slider()
+        log.info("Read page heading")
+        page_heading = my_apps.get_clone_page_heading()
+        assert action.get_title() == 'Clone App | Cyware Orchestrate' and 'Clone App' in page_heading
+        log.info("Read cloned app name")
+        global cloned_cyware_app_name
+        cloned_cyware_app_name = my_apps.get_cloned_app_name()
+        log.info("Click on refresh button")
+        my_apps.click_app_refresh_button()
+        log.info("Close the tool tip")
+        my_apps.close_tooltip()
+        log.info("Click on active app")
+        my_apps.click_active_app()
+        log.info("CLick on save button")
+        my_apps.click_save_app_button()
+        creation_msg = my_apps.get_tooltip_txt()
+        assert 'Success' in creation_msg
+        log.info("Close the tool tip")
+        my_apps.close_tooltip()
+        log.info("Search the cloned app")
+        my_apps.search_for_app(cloned_cyware_app_name)
+        log.info("Search the app which is created new manually")
+        assert cloned_cyware_app_name == my_apps.top_first_search(cloned_cyware_app_name)
+
+
+    @pytest.mark.regression
+    def test_13_verify_debugging_app(self):
+        """
+        Verify user is able to debug the cyware published app by cloning it
+        Validation 1: Based on the result
+        """
+        log = self.getlogger()
+        my_apps = MyApps(self.driver)
+        action = Action(self.driver)
+        log.info("Click on the cloned app")
+        my_apps.click_first_search_result()
+        log.info("Navigate to instance tab and create the instance")
+        log.info("Navigate to instance tab")
+        my_apps.click_app_instance_tab()
+        log.info("create new instance")
+        my_apps.click_on_new_instance_btn()
+        log.info("Enter Instance name")
+        global instance_name
+        instance_name = "ui_automation" + action.get_current_time()
+        my_apps.enter_instance_name(instance_name)
+        log.info("Enter api key")
+        my_apps.enter_virus_total_api_key(ReadConfig.virus_total_api_key())
+        log.info("Click on create instance button")
+        my_apps.click_slider_instance_create_btn()
+        log.info("Close the tool tip")
+        my_apps.close_tooltip()
+        log.info("Mouse hover on the created instance")
+        my_apps.mouse_hover_on_created_instance(instance_name)
+        log.info("Click on test instance button")
+        my_apps.click_on_test_instance_btn()
+        log.info("Check visibility of successful test connectivity")
+        successful_visibility = my_apps.visibility_of_successful_test_connectivity()
+        assert successful_visibility is True
+        log.info("Click ont instance connectivity slider close")
+        my_apps.click_instance_connectivity_slider_close()
+        log.info("Mouser hover on the more actions")
+        my_apps.mouse_hover_on_more_Actions()
+        log.info("Click on the edit button")
+        my_apps.click_on_edit_btn()
+        log.info("Click on the run button")
+        my_apps.click_on_run_btn()
+        log.info("Click on the instance field")
+        my_apps.click_on_instance_field()
+        my_apps.put_instance_name(instance_name)
+        instance = my_apps.visibility_of_first_instance(instance_name)
+        assert instance == instance_name
+        log.info("Click on the first instance")
+        my_apps.select_first_instance()
+        log.info("Close the instance field")
+        global action_name
+        action_name = "Get URL details"
+        my_apps.click_on_action_field()
+        my_apps.put_action_name(action_name)
+        action_listing = my_apps.visibility_of_first_action(action_name)
+        assert action_listing == action_name
+        my_apps.select_first_action()
+        my_apps.put_url_field_value("https://www.cyware.com")
+        my_apps.click_on_debug_test_btn()
+        debug_console_data = my_apps.get_debug_console_status()
+        debug_result_data = my_apps.get_debug_result_data()
+        assert 'SUCCESS' == debug_console_data and '"status_code": 200' in debug_result_data
+        my_apps.click_save_app_button()
+        app_updation_msg = my_apps.get_tooltip_txt()
+        assert 'Success' in app_updation_msg
+        log.info("Close the tool tip")
+        my_apps.close_tooltip()
+
+    @pytest.mark.regression
+    def test_14_uninstall_debugged_app(self):
+        """
+        Verify whether user is able to uninstall the debugged app
+        Validation-1: Based on
+        """
+        log = self.getlogger()
+        my_apps = MyApps(self.driver)
+        log.info("Mouse hover on the more options button")
+        my_apps.mouse_hover_list_more_options()
+        log.info("Check visibility of uninstall button")
+        my_apps.visibility_of_uninstall_btn()
+        log.info("Click on the clone button")
+        my_apps.click_on_uninstall_app()
+        log.info("Click on confirm button to uninstall app")
+        my_apps.click_confirm_uninstall_app()
+        uninstall_msg = my_apps.get_tooltip_txt()
+        assert 'Success' in uninstall_msg
+        log.info("Close the tool tip")
+        my_apps.close_tooltip()
+        log.info("Clear the search bar")
+        my_apps.click_clear_search_btn()
+        my_apps.app_store_tab()
+        my_apps.visibility_of_first_app()
+        log.info("Clear the search bar")
+        my_apps.click_clear_search_btn()
+
+
+    @pytest.mark.regression
+    def test_15_install_app_from_app_store(self):
         """
         Verify user is able to install the cyware published app or not
         Validation 1: Based on the installed text visibility
@@ -269,9 +417,10 @@ class TestApps(Base):
         my_apps.close_tooltip()
         assert tooltip_msg == 'Success'
 
+
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_13_Verify_My_Apps_switch_tab(self):
+    def test_16_Verify_My_Apps_switch_tab(self):
         """
             Verify user is able to switch from App Store to My Apps
             Validation - 1. On the basis of Window's title
@@ -286,18 +435,39 @@ class TestApps(Base):
         assert action.get_title() == 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.regression
-    def test_14_Verify_installed_app(self):
+    def test_17_Verify_installed_app(self):
         """
         Verify whether installed app is coming under my apps tab
         Validation: Based on the search result
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
-        my_apps.My_Apps_Tab()
         log.info("Search for the app")
         my_apps.search_for_app(app_name)
         log.info("Search the app which is installed")
         search_result = my_apps.top_first_search(app_name)
-        log.info("Clear the search result")
-        my_apps.click_clear_search_btn()
         assert app_name == search_result
+
+    @pytest.mark.regression
+    def test_18_uninstall_installed_cyware_app(self):
+        """
+        Verify whether user is able to uninstall the cyware installed app
+        Validation-1: Based on the uninstallation successful message
+        """
+        log = self.getlogger()
+        my_apps = MyApps(self.driver)
+        log.info("Mouse hover on the more options button")
+        my_apps.mouse_hover_list_more_options()
+        log.info("Check visibility of uninstall button")
+        my_apps.visibility_of_uninstall_btn()
+        log.info("Click on the clone button")
+        my_apps.click_on_uninstall_app()
+        log.info("Click on confirm button to uninstall app")
+        my_apps.click_confirm_uninstall_app()
+        uninstall_msg = my_apps.get_tooltip_txt()
+        assert 'Success' in uninstall_msg
+        log.info("Close the tool tip")
+        my_apps.close_tooltip()
+        log.info("Clear the search bar")
+        my_apps.click_clear_search_btn()
+

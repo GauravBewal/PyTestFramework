@@ -54,10 +54,13 @@ class MyApps(Action):
     def click_slider_install_btn(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.slider_install_btn)
 
-    install_successful_tooltip_txt = "//div[@role='alert']//span[2]/span[1]"
+    install_toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
 
     def get_install_successful_tooltip_txt(self):
-        return Action.get_text(self, By.XPATH, MyApps.install_successful_tooltip_txt)
+        return Action.get_text(self, By.XPATH, MyApps.install_toast_msg_txt)
+
+    def verify_error_msg_visibility(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.install_toast_msg_txt)
 
     read_search_result_after_uninstall = "//div[@class='apps-container']//h1"
 
@@ -74,15 +77,19 @@ class MyApps(Action):
     def click_confirm_uninstall_app(self):
         return Action.javascript_click(self, By.XPATH, MyApps.confirm_uninstall_app)
 
-    more_options_dropdown = "//div[@class='el-dropdown']/span"
+    more_options_dropdown = "//div[@class='el-dropdown']/span/i"
 
     def mouse_hover_on_more_Actions(self):
+        time.sleep(3)
         return Action.mouse_hover_on_element(self, By.XPATH, MyApps.more_options_dropdown)
 
     uninstall_app_button = "//li[text()='Uninstall App']"
 
     def click_on_uninstall_app(self):
         return Action.javascript_click(self, By.XPATH, MyApps.uninstall_app_button)
+
+    def visibility_of_uninstall_btn(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.uninstall_app_button)
 
     default_instance = "//div[contains(text(),'Default Instance')]/preceding-sibling::div"
 
@@ -93,6 +100,16 @@ class MyApps(Action):
 
     def enter_instance_name(self, instance_name):
         return Action.send_keys(self, By.XPATH, MyApps.instance_name_textbox, instance_name)
+
+    virus_total_api_key_field = "//input[@placeholder='Enter API Key']"
+
+    def enter_virus_total_api_key(self, api_key):
+        return Action.send_keys(self, By.XPATH, MyApps.virus_total_api_key_field, api_key)
+
+    instance_connectivity_slider_close = "//span[@data-testaction='slider-close']"
+
+    def click_instance_connectivity_slider_close(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.instance_connectivity_slider_close)
 
     filter_btn = "//button[contains(@class,'filter')]"
 
@@ -170,6 +187,23 @@ class MyApps(Action):
     def click_app_instance_tab(self):
         return Action.javascript_click(self, By.XPATH, MyApps.app_instance_tab)
 
+
+
+    def mouse_hover_on_created_instance(self, instance_name):
+        path = "//div[contains(text(),'" + instance_name + "')]"
+        return Action.mouse_hover_on_element(self, By.XPATH, path)
+
+    test_instance_btn = "//button[contains(text(),' Test Instance')]"
+
+    def click_on_test_instance_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.test_instance_btn)
+
+    test_connectivity_msg = "//img[@src='/soar/test-connection-success.svg']"
+
+    def visibility_of_successful_test_connectivity(self):
+        time.sleep(10)
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.test_connectivity_msg)
+
     app_playbooks_tab = "//a[contains(@href,'/playbook/list')]"
 
     def click_app_playbooks_tab(self):
@@ -185,15 +219,23 @@ class MyApps(Action):
     def click_back_btn(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.listing_back_btn)
 
-    app_listing_more_options = "//div[@class='el-dropdown']//div[contains(@class,'more-options')]"
+    app_listing_more_options = "(//div[@class='el-dropdown']//div[contains(@class,'more-options')])[1]"
 
     def mouse_hover_list_more_options(self):
         return Action.mouse_hover_on_element(self, By.XPATH, MyApps.app_listing_more_options)
 
-    clone_app_btn = "//li[contains(text(),'Clone App')]"
+    clone_app_btn = "//ul[@x-placement='bottom-end']//li[contains(text(),'Clone App')]"
 
     def click_clone_app_btn(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.clone_app_btn)
+
+    def visibility_of_clone_app_btn(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.clone_app_btn)
+
+    clone_slider_button = "//div[contains(@class,'app-export')]//button[contains(text(),'Clone App')]"
+
+    def click_clone_btn_on_slider(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.clone_slider_button)
 
     clone_page_heading_txt = "//h1[contains(text(),'Clone App')]"
 
@@ -253,6 +295,8 @@ class MyApps(Action):
     def close_tooltip(self):
         return Action.normal_click(self, By.XPATH, MyApps.tooltip_close)
 
+
+
     clear_search_btn = "//i[contains(@class,'search-input__close')]/parent::span"
 
     def click_clear_search_btn(self):
@@ -262,6 +306,76 @@ class MyApps(Action):
 
     def click_save_app_button(self):
         return Action.javascript_click(self, By.XPATH, MyApps.button_app_save)
+
+    dd_edit_btn = "//i[@class='cyicon-edit']/parent::li"
+
+    def click_on_edit_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.dd_edit_btn)
+
+    run_btn = "//i[contains(@class,'cyicon-play')]/parent::div"
+
+    def click_on_run_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.run_btn)
+
+    dd_instance_field = "(//span[contains(@class,'cyicon-chevron-down')]/parent::div)[1]"
+
+    def click_on_instance_field(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.dd_instance_field)
+
+    dd_action_field = "(//span[contains(@class,'cyicon-chevron-down')]/parent::div)[2]"
+
+    def click_on_action_field(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.dd_action_field)
+
+    input_field = "//input[contains(@placeholder,'Search')]"
+
+    def put_instance_name(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.input_field, value)
+
+    def put_action_name(self, value):
+        time.sleep(3)
+        return Action.send_keys(self, By.XPATH, MyApps.input_field, value)
+
+    debug_app_first_option_in_list = "(//form//ul/li)[1]"
+
+    def select_first_instance(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.debug_app_first_option_in_list)
+
+    def visibility_of_first_instance(self, value):
+        return Action.read_search_result(self, By.XPATH, MyApps.debug_app_first_option_in_list, value)
+
+    def visibility_of_first_action(self, value):
+        return Action.read_search_result(self, By.XPATH, MyApps.debug_app_first_option_in_list, value)
+
+    def select_first_action(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.debug_app_first_option_in_list)
+
+    debug_url_input_field = "//textarea[@placeholder='URL']"
+
+    def put_url_field_value(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.debug_url_input_field, value)
+
+    debug_button_test = "//button[contains(text(),'Test')]"
+
+    def click_on_debug_test_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.debug_button_test)
+
+    debug_console_status = "//div[contains(@class,'debug-console')]//div"
+
+    def get_debug_console_status(self):
+        time.sleep(30)
+        return Action.get_text(self, By.XPATH, MyApps.debug_console_status)
+
+    debug_result_data = "//div[contains(@class,'debug-console')]//pre"
+
+    def get_debug_result_data(self):
+        return Action.get_text(self, By.XPATH, MyApps.debug_result_data)
+
+
+    tooltip_txt = "//div[@role='alert']//span[2]/span[1]"
+
+    def get_tooltip_txt(self):
+        return Action.get_text(self, By.XPATH, MyApps.tooltip_txt)
 
     tab_my_apps = "//span[@class='tab__count']/parent::a[@href='/soar/app/list/my-apps']"
 
