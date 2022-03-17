@@ -58,3 +58,8 @@ class LicenseManagement(Action):
 
     def check_cross_and_tick_btn(self):
         return Action.check_visibility_of_element(self, By.XPATH, LicenseManagement.tick_cross_btn)
+
+    sync_now_btn = "//header//span"
+
+    def visiblity_of_Sync_Now_btn(self):
+        return Action.check_visibility_of_element(self, By.XPATH, LicenseManagement.sync_now_btn)
