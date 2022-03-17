@@ -27,6 +27,17 @@ class MyApps(Action):
     def get_app_count(self):
         return Action.get_count_from_string(self, By.XPATH, MyApps.total_app_count)
 
+    items_per_page_arrow_btn = "//i[contains(@class,'icon-arrow-up')]/parent::span/parent::span"
+
+    def click_on_items_per_page_arrow(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.items_per_page_arrow_btn)
+
+    dd_100_items_per_page_option = "//span[text()='100/page']/parent::li"
+
+    def click_on_100_items_per_page_option(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.dd_100_items_per_page_option)
+
+
     app_install_btn = "(//button[contains(text(),'Install')])[1]"
 
     app_store_pagination = "//button[@class='btn-next']"
@@ -44,6 +55,9 @@ class MyApps(Action):
     def get_installing_app_name(self):
         return Action.get_text(self, By.XPATH, MyApps.txt_app_name)
 
+    def scroll_to_install_app_heading(self):
+        return Action.scroll_to_element_view(self, self.driver.find_element(By.XPATH, MyApps.txt_app_name))
+
     install_app_slider_title = "//div[contains(@class,'app-update')]//div[@class='ellipsis']"
 
     def get_install_app_slider_title(self):
@@ -58,6 +72,10 @@ class MyApps(Action):
 
     def get_tooltip_msg(self):
         return Action.get_text(self, By.XPATH, MyApps.toast_msg_txt)
+
+    def get_first_3_letter_of_downloaded_app(self, downloaded_app_name):
+        first_3_letters = downloaded_app_name.lower()
+        return first_3_letters[0:3]
 
     def verify_error_msg_visibility(self):
         return Action.check_visibility_of_element(self, By.XPATH, MyApps.toast_msg_txt)
@@ -96,10 +114,22 @@ class MyApps(Action):
     def enter_instance_name(self, instance_name):
         return Action.send_keys(self, By.XPATH, MyApps.instance_name_textbox, instance_name)
 
-    virus_total_api_key_field = "//input[@placeholder='Enter API Key']"
+    cftr_base_url_field = "//input[@placeholder='Enter Base URL']"
 
-    def enter_virus_total_api_key(self, api_key):
-        return Action.send_keys(self, By.XPATH, MyApps.virus_total_api_key_field, api_key)
+    def enter_cftr_base_url(self, base_url):
+        return Action.send_keys(self, By.XPATH, MyApps.cftr_base_url_field, base_url)
+
+    cftr_access_id_field = "//input[@placeholder='Enter Access ID']"
+
+    def enter_cftr_access_key(self, access_key):
+        return Action.send_keys(self, By.XPATH, MyApps.cftr_access_id_field, access_key)
+
+    cftr_secret_key_field = "//input[@placeholder='Enter Secret Key']"
+
+    def enter_cftr_secret_key(self, secret_key):
+        return Action.send_keys(self, By.XPATH, MyApps.cftr_secret_key_field, secret_key)
+
+
 
     instance_connectivity_slider_close = "//span[@data-testaction='slider-close']"
 
@@ -353,19 +383,37 @@ class MyApps(Action):
     def select_first_instance(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.debug_app_first_option_in_list)
 
-    def visibility_of_first_instance(self, value):
+    def get_first_instance_name_after_search(self, value):
         return Action.read_search_result(self, By.XPATH, MyApps.debug_app_first_option_in_list, value)
 
-    def visibility_of_first_action(self, value):
-        return Action.read_search_result(self, By.XPATH, MyApps.debug_app_first_option_in_list, value)
+    def get_first_action_name_after_search(self, action_name):
+        return Action.read_search_result(self, By.XPATH, MyApps.debug_app_first_option_in_list, action_name)
 
     def select_first_action(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.debug_app_first_option_in_list)
 
-    debug_url_input_field = "//textarea[@placeholder='URL']"
+    debug_incident_title_input_field = "//div[contains(@class,'action-input')]" \
+                                       "//textarea[contains(@placeholder,'title')]"
 
-    def put_url_field_value(self, value):
-        return Action.send_keys(self, By.XPATH, MyApps.debug_url_input_field, value)
+    def put_incident_title_field_value(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.debug_incident_title_input_field, value)
+
+    debug_incident_description_field_value = "//div[contains(@class,'action-input')]" \
+                                             "//textarea[contains(@placeholder,'escription')]"
+
+    def put_incident_description(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.debug_incident_description_field_value, value)
+
+    debug_incident_status_field = "//div[contains(@class,'action-input')]//textarea[contains(@placeholder,'status')]"
+
+    def put_incident_status(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.debug_incident_status_field, value)
+
+    debug_incident_severity_level_field = "//div[contains(@class,'action-input')]" \
+                                          "//textarea[contains(@placeholder,'level')]"
+
+    def put_incident_severity_level(self, value):
+        return Action.send_keys(self, By.XPATH, MyApps.debug_incident_severity_level_field, value)
 
     debug_button_test = "//button[contains(text(),'Test')]"
 
@@ -388,12 +436,17 @@ class MyApps(Action):
     def My_Apps_Tab(self):
         return Action.javascript_click(self, By.XPATH, MyApps.tab_my_apps)
 
-    button_import_package = "(//div[@slot='header']//button)[2]"
+    button_import_package = "//i[contains(@class,'icon-import')]/parent::button"
 
-    def Import_button(self):
-        return Action.javascript_click(self, By.XPATH, MyApps.button_import_package)
+    def click_on_import_button(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.button_import_package)
 
-    button_create_new_app = "(//div[@slot='header']//button)[1]"
+    app_input_field = "//input[@type='file']"
+
+    def send_app_path_to_upload_input_field(self, file_path):
+        return Action.send_keys_to_hidden_upload_element(self, By.XPATH, MyApps.app_input_field, file_path)
+
+    button_create_new_app = "//i[contains(@class,'icon-plus')]/parent::button"
 
     def Create_App_button(self):
         return Action.javascript_click(self, By.XPATH, MyApps.button_create_new_app)

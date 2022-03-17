@@ -47,9 +47,21 @@ class ReadConfig:
         return ctix_secret_id
 
     @staticmethod
-    def virus_total_api_key():
-        api_id = config.get('VIRUS_TOTAL_CREDS', 'api_key')
-        return api_id
+    def cftr_baseurl():
+        cftr_base_url = config.get('CFTR_CREDS', 'base_url')
+        return cftr_base_url
+
+    @staticmethod
+    def cftr_access_key():
+        cftr_access_id = config.get('CFTR_CREDS', 'access_key')
+        return cftr_access_id
+
+    @staticmethod
+    def cftr_secret_key():
+        cftr_secret_id = config.get('CFTR_CREDS', 'secret_key')
+        return cftr_secret_id
+
+
 
     @staticmethod
     def Wait_10_Sec():

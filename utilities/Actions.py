@@ -1,4 +1,6 @@
+import json
 import random
+import zipfile
 import string
 import time
 import os
@@ -99,6 +101,26 @@ class Action(Base):
         count = element.text.split(' ')[2]
         return int(count)
 
+    def check_file_downloaded_and_get_app_name(self, app_name):
+        global downloaded_app_name
+        global download_path
+        time.sleep(10)
+        current_folder = os.path.dirname(os.path.abspath(__file__))
+        download_path = os.path.join(current_folder, '../', 'testCases')
+        list_of_files = os.listdir(download_path)
+        for each_file in list_of_files:
+            if each_file.startswith(app_name):
+                downloaded_app_name = each_file
+                return downloaded_app_name
+
+    def delete_downloaded_file(self):
+        downloaded_app_path = os.path.join(download_path, downloaded_app_name)
+        if os.path.isfile(downloaded_app_path):
+            os.remove(downloaded_app_path)
+        else:
+            raise ValueError("File Not found".format(downloaded_app_path))
+
+
     def get_current_page_number(self, by, locator):
         element = self.Webdriver_Wait_until_element_visible(by, locator)
         count = element.text
@@ -107,6 +129,12 @@ class Action(Base):
     def send_keys(self, by, locator, value):
         element = self.Webdriver_Wait_until_element_visible(by, locator)
         element.send_keys(value)
+
+    def send_keys_to_hidden_upload_element(self, by, locator, file_path):
+        self.driver.execute_script("document.getElementById('appUpload').style.visibility='visible'")
+        ele = self.driver.find_element(by, locator)
+        ele.send_keys(file_path)
+
 
     def clear_field(self, by, locator):
         element = self.driver.find_element(by, locator)
@@ -221,3 +249,6 @@ class Action(Base):
     def check_status(self, by, locator):
         ele = self.driver.find_element(by, locator)
         return ele.is_selected()
+
+    def convert_json_to_txt(self, json_data):
+        return json.dumps(json_data)
