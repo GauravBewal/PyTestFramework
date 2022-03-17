@@ -50,10 +50,6 @@ class WebDriverFactory:
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--disable-dev-shm-usage")
             chrome_options.add_argument("--window-size=1920x1080")
-            # current_folder = os.path.dirname(os.path.abspath(__file__))
-            # download_path = os.path.join(current_folder, '../', 'testData', 'ExportedApps')
-            # prefs = {"download.default_directory": download_path}
-            # chrome_options.add_experimental_option("prefs", prefs)
             driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=chrome_options)
         else:
             driver = webdriver.Edge(EdgeChromiumDriverManager().install())
