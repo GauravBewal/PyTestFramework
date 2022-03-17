@@ -42,7 +42,7 @@ class TestLicenseManagement(Base):
         log.info("Read licence field placeholder text")
         placeholder_text = license.licence_key_field("placeholder")
         cross_and_tick_button_visible = license.check_cross_and_tick_btn()
-        assert placeholder_text == 'Enter License Key *' and cross_and_tick_button_visible
+        assert placeholder_text == 'Enter License Key *' and cross_and_tick_button_visible is True
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -134,3 +134,16 @@ class TestLicenseManagement(Base):
         log.info("Read Name of the tenant version")
         tenant_version = license.get_name_of_Tenant_version()
         assert len(tenant_version) > 0
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_10_Visiblity_of_Sync_Now_button(self):
+        """
+            Verify visiblity of Sync Now Button
+            Validation - 1. On the basis of presence of button
+        """
+        log = self.getlogger()
+        license = LicenseManagement(self.driver)
+        log.info("Visiblity of Sync Now Button")
+        Sync_Now_btn = license.visiblity_of_Sync_Now_btn()
+        assert Sync_Now_btn is True
