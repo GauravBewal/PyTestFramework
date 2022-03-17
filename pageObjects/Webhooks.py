@@ -157,3 +157,9 @@ class Webhooks(Action):
 
     def check_success_copy_token(self):
         return Action.check_visibility_of_element(self, By.XPATH, Webhooks.success_toast_message)
+
+    deactivate = "(//ul//li[@class='el-dropdown-menu__item'][normalize-space()='Deactivate'])[1]"
+
+    def click_deactive_webhook(self):
+        return Action.wait_and_click(self, By.XPATH, Webhooks.deactivate)
+
