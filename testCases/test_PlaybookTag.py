@@ -1,11 +1,12 @@
 import pytest
 
-from pageObjects.AdminPage import Admin
-from pageObjects.FilterandSort import FilterAndSort
-from pageObjects.Navigation import Navigation
 from pageObjects.PlaybookTags import PlaybookTags
+from pageObjects.AdminPage import Admin
+from pageObjects.Navigation import Navigation
+from pageObjects.Dashboard import Dashboard
 from utilities.Actions import Action
 from utilities.Base import Base
+from pageObjects.FilterandSort import FilterAndSort
 
 
 @pytest.mark.usefixtures("setup")
@@ -76,11 +77,11 @@ class TestPlaybookTags(Base):
         assert before_playbookTag_creation_count + 1 == after_playbookTag_creation_count
 
     @pytest.mark.regression
-    def test_06_Verify_Default_TagName_Ascending_Sort(self):
+    def test_04_Verify_Default_TagName_Ascending_Sort(self):
         """
             Check the Sorting based on the Tag Name in Ascending
             Validation Based On the Names
-            Tc_ID : PlaybookTAg-Tc-003
+            Tc_ID : PlaybookTAg-Tc-004
         """
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
@@ -89,11 +90,11 @@ class TestPlaybookTags(Base):
         assert tag.get_first_tagname() < tag.get_second_playbookTag()
 
     @pytest.mark.regression
-    def test_07_Check_Sort_Based_On_Created(self):
+    def test_05_Check_Sort_Based_On_Created(self):
         """
                 Verify User is able to sort based on Created Time of Playbook
                 Validatio-1: Validation Based on the Button Name of Selected
-                TC_ID: PlaybookTag-TC-004
+                TC_ID: PlaybookTag-TC-005
         """
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
@@ -107,11 +108,11 @@ class TestPlaybookTags(Base):
         assert filter_sort.get_name_sorted_filter() == "Created"
 
     @pytest.mark.regression
-    def test_04_Search_Playbook_Tag(self):
+    def test_06_Search_Playbook_Tag(self):
         """
         Verify User is able to search Created PLaybookTag
         Validation-1: Validation Based on the Top one Tag Name
-        TC_ID: PlaybookTag-TC-005
+        TC_ID: PlaybookTag-TC-006
         """
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
@@ -123,11 +124,11 @@ class TestPlaybookTags(Base):
         assert tag_name == playbook_tag_text
 
     @pytest.mark.regression
-    def test_05_Update_PlaybookTag(self):
+    def test_07_Update_PlaybookTag(self):
         """
             Update the PlaybookTag
             Validation-1: Validated Based on new Updated Name
-            TC_ID: PlaybookTag-TC-006
+            TC_ID: PlaybookTag-TC-007
         """
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
@@ -153,23 +154,70 @@ class TestPlaybookTags(Base):
         """
                 Check the descending order for the created date of playbook
                 Validation-1: Validate Based on created Date.
-                TC_ID: PlaybookTag-TC-007
+                TC_ID: PlaybookTag-TC-008
         """
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
         log.info("Checking Descending of created data")
         assert tag.get_created_time1() > tag.get_created_time2()
 
-    # @pytest.mark.regression
-    # def test_08_Apply_Filter(self):
-    #     """
-    #     Check the descending order for the created date of playbook
-    #     TC_ID: PlaybookTag-TC-006
-    #     """
-    #     log = self.getlogger()
-    #     tag = PlaybookTags(self.driver)
-    #     filter = FilterAndSort(self.driver)
-    #     log.info("Clicking on the filter Button")
-    #     filter.click_on_filters()
-    #     filter.click_on_last_week_filter()
-    #     assert filter.check_radiobtn_status()
+    @pytest.mark.regression
+    def test_09_Apply_Last_Week_Filter(self):
+        """
+            Verify the filters for last week
+            Validation -1: Validate based on the Status of the radio button
+            TC_ID : PlaybookTag-TC-009
+        """
+        log = self.getlogger()
+        filter = FilterAndSort(self.driver)
+        log.info("Clicking on the filter Button")
+        filter.click_on_filters()
+        log.info("Click on the last week Filter")
+        filter.select_last_week_filter()
+        log.info("Close the Filter Slider")
+        filter.close_filter_btn()
+        log.info("Click on the Filters Again")
+        filter.click_on_filters()
+        assert filter.check_last_week_radio_status() == True
+
+    @pytest.mark.regression
+    def test_10_Apply_Last_Month_Filter(self):
+        """
+        Check the Filter for the Last Month
+        Validation-1: Validate based on the radio button
+        TC_ID: PlaybookTag-TC-010
+        """
+        log = self.getlogger()
+        filter = FilterAndSort(self.driver)
+        log.info("Clicking on the last month filter Button")
+        filter.select_last_month_filter()
+        log.info("Click on the close Button")
+        filter.close_filter_btn()
+        log.info("Click on the Filter Button")
+        filter.click_on_filters()
+        assert filter.check_last_month_radio_status() == True
+
+    @pytest.mark.regression
+    def test_11_Apply_3days_in_calendar(self):
+        """
+        Check the Filter for the Last 3 days
+        Validation-1: Validate based on the radio button
+        TC_ID: PlaybookTag-TC-011
+        """
+        log = self.getlogger()
+        dashboard = Dashboard(self.driver)
+        filter = FilterAndSort(self.driver)
+        log.info("Click on the start date button")
+        dashboard.click_start_date_btn()
+        log.info("Select start date from calendar")
+        dashboard.select_calendar_start_date()
+        log.info("select end date from calendar")
+        dashboard.select_calendar_end_date()
+        log.info("Click on the start date button to check whether date is selected or not")
+        dashboard.click_start_date_btn()
+        start_date_color = dashboard.get_calendar_start_date_color()
+        end_date_color = dashboard.get_calendar_end_date_color()
+        assert start_date_color == '#1a3ee8' and end_date_color == '#1a3ee8'
+
+
+

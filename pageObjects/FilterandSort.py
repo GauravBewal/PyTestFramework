@@ -1,6 +1,10 @@
 from selenium.webdriver.common.by import By
 
 from utilities.Actions import Action
+from configuration.readConfiguration import ReadConfig
+
+import time
+
 
 
 class FilterAndSort(Action):
@@ -47,3 +51,25 @@ class FilterAndSort(Action):
 
     def get_filters_slider_title(self):
         return Action.get_text(self, By.XPATH, FilterAndSort.playbook_filter_title)
+
+    last_week = "(//div[contains(@class,'cy-radio__btn--default')]//div)[1]"
+
+    def select_last_week_filter(self):
+        return Action.javascript_click(self, By.XPATH, FilterAndSort.last_week)
+
+    input_status = "(//div[contains(@class,'cy-radio__btn--default')]//div//input)[1]"
+
+    def check_last_week_radio_status(self):
+        time.sleep(ReadConfig.Wait_6_Sec())
+        return Action.check_status(self, By.XPATH, FilterAndSort.input_status)
+
+    last_month = "(//div[contains(@class,'cy-radio__btn--default')]//div)[3]"
+
+    def select_last_month_filter(self):
+        return Action.javascript_click(self, By.XPATH, FilterAndSort.last_month)
+
+    last_month_input = "(//div[contains(@class,'cy-radio__btn--default')]//div//input)[2]"
+
+    def check_last_month_radio_status(self):
+        time.sleep(ReadConfig.Wait_6_Sec())
+        return Action.check_status(self, By.XPATH, FilterAndSort.last_month_input)

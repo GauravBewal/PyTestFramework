@@ -217,3 +217,7 @@ class Action(Base):
     def dismiss_alert(self):
         alert = self.driver.switch_to_alert()
         alert.dismiss()
+
+    def check_status(self, by, locator):
+        ele = self.driver.find_element(by, locator)
+        return ele.is_selected()

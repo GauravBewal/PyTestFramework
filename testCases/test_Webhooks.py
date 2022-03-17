@@ -1,10 +1,10 @@
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.Webhooks import Webhooks
 from utilities.Actions import Action
 from utilities.Base import Base
+from configuration.readConfiguration import ReadConfig
 
 
 @pytest.mark.usefixtures("setup")
@@ -97,7 +97,7 @@ class TestWebhooks(Base):
         global webhook_title
         global token
         log.info("Generating the new Webhook title")
-        webhook_title = "test_webhook_" + action.get_current_time()
+        webhook_title = "test_webhook_"+action.get_current_time()
         log.info("Get the Webhook count before the create function")
         count = webhook.get_webhook_count()
         log.info("Click on the create new button")
@@ -122,31 +122,14 @@ class TestWebhooks(Base):
         webhook.click_slider_close()
         assert count + 1 == webhook.get_webhook_count()
 
-    @pytest.mark.regression
-    def test_06_deactive_webhook(self):
-        """
-            Verify the deactivate the Webhook
-            Validation 1: Based on the Count of the Inactive Webhook
-            TC_ID : 007
-        """
-        webhook = Webhooks(self.driver)
-        log = self.getlogger()
-        log.info("Click on first Webhook listing")
-        webhook.click_on_first_webhook()
-        log.info("Click on Deactivate button")
-        webhook.deactive_webhook()
-        log.info("Click on Update Button")
-        webhook.update_webhook()
-        log.info("Click/ Switch on the inactive Tab")
-        webhook.click_inactive_tab()
-        assert count + 1 == webhook.get_webhook_count()
+
 
     @pytest.mark.regression
-    def test_07_check_generated_token(self):
+    def test_06_check_generated_token(self):
         """
             Verify the Generated Token
             Validation -1 : Verify the data / Token shown in the webhook and the token generated during
-            TC_ID : 008
+            TC_ID : 006
         """
         webhook = Webhooks(self.driver)
         log = self.getlogger()
@@ -155,24 +138,24 @@ class TestWebhooks(Base):
         assert token == webhook.get_token_data()
 
     @pytest.mark.regression
-    def test_08_check_base_url(self):
+    def test_07_check_base_url(self):
         """
             Verify the Base Url generated for the Webhook
             Validation -1: Compare the Url generated while creating the Webhook
-            TC_ID : 008
+            TC_ID : 007
         """
         webhook = Webhooks(self.driver)
         log = self.getlogger()
         log.info("Comparing the base url with the Generated Webhook Base Url")
-        baseurl = ReadConfig.getAppURL() + "api/webhooks_auth/events/"
+        baseurl = ReadConfig.getAppURL()+"api/webhooks_auth/events/"
         assert baseurl == webhook.get_base_webhook_url()
 
     @pytest.mark.regression
-    def test_09_search_webhook(self):
+    def test_08_search_webhook(self):
         """
              Verify the search bar functionality
              Validation -1 : Compare the result with the searched/Updated webhook
-             TC_ID : 009
+             TC_ID : 008
         """
         webhook = Webhooks(self.driver)
         log = self.getlogger()
@@ -189,22 +172,21 @@ class TestWebhooks(Base):
         assert searched_name == webhook_title
 
     @pytest.mark.regression
-    def test_10_update_webhook_name(self):
+    def test_09_update_webhook_name(self):
         """
             Update New Webhook Name
             Validation -1 : Comparing the Name the updated Webhook Name.
-            TC_ID : 10
+            TC_ID : 009
         """
         webhook = Webhooks(self.driver)
         log = self.getlogger()
         action = Action(self.driver)
-        webhook.click_inactive_tab()
         log.info("Click on the first Webhook in list")
         webhook.click_on_first_webhook()
         log.info("Clear the old name of Webhook")
         webhook.clear_webhook_title()
         log.info("Generating the New Webhook Name")
-        updated_webhook = "test_webhook_" + action.get_current_time()
+        updated_webhook = "test_webhook_"+action.get_current_time()
         log.info("Update a New Name to Webhook")
         webhook.put_webhook_title(updated_webhook)
         log.info("Click Update/Save Button")
@@ -215,11 +197,11 @@ class TestWebhooks(Base):
         assert updated_webhook == webhook.get_first_webhhook_name()
 
     @pytest.mark.regression
-    def test_11_check_the_dropdown_Edit_visibility(self):
+    def test_10_check_the_dropdown_Edit_visibility(self):
         """
             Verify the dropdown button Visibility.
             Validation -1 : Check The Edit Slider Title
-            TC_ID:11
+            TC_ID:010
         """
         webhook = Webhooks(self.driver)
         log = self.getlogger()
@@ -234,11 +216,11 @@ class TestWebhooks(Base):
         assert slider_title == "Edit Webhook"
 
     @pytest.mark.regression
-    def test_12_copy_token(self):
+    def test_11_copy_token(self):
         """
             Verify user is able to copy the token
             Validation -1 : Verify by the notification status
-            TC_ID :12
+            TC_ID :011
         """
         webhook = Webhooks(self.driver)
         log = self.getlogger()
@@ -249,3 +231,29 @@ class TestWebhooks(Base):
         log.info("Get the toast message Information")
         toast_message = webhook.check_success_copy_token()
         assert toast_message is True
+
+    @pytest.mark.regression
+    def test_12_deactive_webhook(self):
+        """
+            Verify the deactivate the Webhook
+            Validation 1: Based on the Count of the Inactive Webhook
+            TC_ID : 012
+        """
+        webhook = Webhooks(self.driver)
+        log = self.getlogger()
+        webhook.clear_input_field()
+        log.info("Click on dropdown")
+        webhook.check_drop_down()
+        webhook.click_deactive_webhook()
+        log.info("Click/ Switch on the inactive Tab")
+        webhook.click_inactive_tab()
+        assert count + 1 == webhook.get_webhook_count()
+
+
+
+
+
+
+
+
+
