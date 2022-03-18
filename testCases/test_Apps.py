@@ -555,7 +555,7 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         log.info("Get the exact app location")
-        app_name = my_apps.check_file_downloaded_and_get_app_name("cisco", 'zip')
+        app_name = my_apps.check_file_downloaded_and_get_app_name(first_3_app_letters, 'zip')
         app_path = my_apps.get_app_downloaded_path(app_name)
         log.info("send app file location to import button")
         my_apps.send_app_path_to_upload_input_field(app_path)
