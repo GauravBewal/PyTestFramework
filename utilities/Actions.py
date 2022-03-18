@@ -1,3 +1,4 @@
+import glob
 import json
 import random
 import zipfile
@@ -101,24 +102,21 @@ class Action(Base):
         count = element.text.split(' ')[2]
         return int(count)
 
-    def check_file_downloaded_and_get_app_name(self, app_name):
-        global downloaded_app_name
-        global download_path
+    def check_file_downloaded_and_get_app_name(self, app_name, file_type):
         time.sleep(10)
-        current_folder = os.path.dirname(os.path.abspath(__file__))
-        download_path = os.path.join(current_folder, '../', 'testCases')
-        list_of_files = os.listdir(download_path)
-        for each_file in list_of_files:
-            if each_file.startswith(app_name):
-                downloaded_app_name = each_file
-                return downloaded_app_name
+        files_list = glob.glob('**/'+app_name+'*.'+file_type+'', recursive=True)
+        downloaded_app_name = str(files_list[0])
+        return downloaded_app_name
 
-    def delete_downloaded_file(self):
-        downloaded_app_path = os.path.join(download_path, downloaded_app_name)
+    def get_app_downloaded_path(self, app_name):
+        return os.path.abspath(app_name)
+
+    def delete_downloaded_file(self, downloaded_app_path):
         if os.path.isfile(downloaded_app_path):
             os.remove(downloaded_app_path)
         else:
             raise ValueError("File Not found".format(downloaded_app_path))
+
 
 
     def get_current_page_number(self, by, locator):
