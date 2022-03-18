@@ -249,7 +249,7 @@ class TestApps(Base):
         tooltip_msg = my_apps.get_tooltip_msg()
         assert tooltip_msg == 'Success'
         my_apps.close_tooltip()
-        assert new_app_name in my_apps.check_file_downloaded_and_get_app_name(new_app_name)
+        assert new_app_name in my_apps.check_file_downloaded_and_get_app_name(new_app_name, 'zip')
 
 
     @pytest.mark.regression
@@ -285,15 +285,14 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         log.info("Get the exact app location")
-        app_name = my_apps.check_file_downloaded_and_get_app_name(new_app_name)
-        current_folder = os.path.dirname(os.path.abspath(__file__))
-        app_path = os.path.join(current_folder, app_name)
+        app_name = my_apps.check_file_downloaded_and_get_app_name(new_app_name, 'zip')
+        app_path = my_apps.get_app_downloaded_path(app_name)
         log.info("send app file location to import button")
         my_apps.send_app_path_to_upload_input_field(app_path)
         assert my_apps.get_tooltip_msg() == 'Success'
         my_apps.close_tooltip()
         log.info("Deleting the downloaded file")
-        my_apps.delete_downloaded_file()
+        my_apps.delete_downloaded_file(app_path)
 
 
     @pytest.mark.regression
@@ -534,7 +533,7 @@ class TestApps(Base):
         my_apps.close_tooltip()
         global first_3_app_letters
         first_3_app_letters = my_apps.get_first_3_letter_of_downloaded_app(downloaded_app_name)
-        assert first_3_app_letters in my_apps.check_file_downloaded_and_get_app_name(first_3_app_letters)
+        assert first_3_app_letters in my_apps.check_file_downloaded_and_get_app_name(first_3_app_letters, 'zip')
 
 
     @pytest.mark.regression
@@ -556,15 +555,14 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         log.info("Get the exact app location")
-        app_name = my_apps.check_file_downloaded_and_get_app_name(first_3_app_letters)
-        current_folder = os.path.dirname(os.path.abspath(__file__))
-        app_path = os.path.join(current_folder, app_name)
+        app_name = my_apps.check_file_downloaded_and_get_app_name("cisco", 'zip')
+        app_path = my_apps.get_app_downloaded_path(app_name)
         log.info("send app file location to import button")
         my_apps.send_app_path_to_upload_input_field(app_path)
         assert my_apps.get_tooltip_msg() == 'Success'
         my_apps.close_tooltip()
         log.info("Deleting the downloaded file")
-        my_apps.delete_downloaded_file()
+        my_apps.delete_downloaded_file(app_path)
 
     @pytest.mark.regression
     def test_24_Switch_to_list_view(self):
@@ -577,4 +575,5 @@ class TestApps(Base):
         log.info("click on the list view button")
         my_apps.click_on_list_view_btn()
         list_view_visibility = my_apps.visibility_of_app_in_list_view()
+        time.sleep(30)
         assert list_view_visibility is True
