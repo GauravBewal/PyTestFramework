@@ -7,6 +7,7 @@ from pageObjects.Dashboard import Dashboard
 from utilities.Actions import Action
 from utilities.Base import Base
 from pageObjects.FilterandSort import FilterAndSort
+from pageObjects.Playbooks import Playbooks
 
 
 @pytest.mark.usefixtures("setup")
@@ -130,6 +131,7 @@ class TestPlaybookTags(Base):
             Validation-1: Validated Based on new Updated Name
             TC_ID: PlaybookTag-TC-007
         """
+        global updated_playbooktag_title
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
         action = Action(self.driver)
@@ -198,7 +200,7 @@ class TestPlaybookTags(Base):
         assert filter.check_last_month_radio_status() == True
 
     @pytest.mark.regression
-    def test_11_Apply_3days_in_calendar(self):
+    def test_11_Apply_3days_Filter_in_calendar(self):
         """
         Check the Filter for the Last 3 days
         Validation-1: Validate based on the radio button
@@ -206,7 +208,6 @@ class TestPlaybookTags(Base):
         """
         log = self.getlogger()
         dashboard = Dashboard(self.driver)
-        filter = FilterAndSort(self.driver)
         log.info("Click on the start date button")
         dashboard.click_start_date_btn()
         log.info("Select start date from calendar")
@@ -218,6 +219,72 @@ class TestPlaybookTags(Base):
         start_date_color = dashboard.get_calendar_start_date_color()
         end_date_color = dashboard.get_calendar_end_date_color()
         assert start_date_color == '#1a3ee8' and end_date_color == '#1a3ee8'
+
+    @pytest.mark.regression
+    def test_12_visibility_of_playbooktag_in_playbooks(self):
+        """
+            Verify the Visibility of the created Playbook Tag in the Playbooks Module Listing
+            Validation -1: Validation Based on the Visibility of the Tag in Listing division
+            TC_ID : 012
+        """
+        log = self.getlogger()
+        nav = Navigation(self.driver)
+        playbook = Playbooks(self.driver)
+        tag = PlaybookTags(self.driver)
+        log.info("Click on the main menu button")
+        nav.click_main_menu()
+        log.info("Navigate to the Manage Playbook Module")
+        nav.navigate_manage_playbook()
+        log.info("Click on create a New Playbook Button")
+        playbook.click_on_create_playbook_btn()
+        log.info("Verify and Close the Walk through")
+        playbook.click_on_close_walkthrough()
+        log.info("Click on the Overview Button")
+        playbook.click_on_playbook_overview_btn()
+        log.info("Click on the Playbook Tag Field")
+        tag.check_tag_field()
+        log.info("Enter the playbook tag name to verify it is present/ visible in listing")
+        tag.put_created_tag(updated_playbooktag_title)
+        assert updated_playbooktag_title == tag.check_listed_playbook_tag()
+
+    @pytest.mark.regression
+    def test_13_delete_playbooktag(self):
+        """
+            Verify the Deletion Functionality of the PlaybookTag
+            Validation -1: Based on the count of the Playbook Tag
+            TC_ID : 013
+        """
+        log = self.getlogger()
+        tag = PlaybookTags(self.driver)
+        admin = Admin(self.driver)
+        playbook = Playbooks(self.driver)
+        filter = FilterAndSort(self.driver)
+        nav = Navigation(self.driver)
+        log.info("Click on the Admin Button")
+        nav.click_admin_menu()
+        log.info("Click on Close the Playbook without saving")
+        playbook.click_exit_without_save()
+        log.info("Navigate to the Playbook Tag Module")
+        admin.click_playbook_tags()
+        log.info("Clear the Applied filters in the Playbook Tags")
+        tag.click_clear_filter()
+        log.info("Close the Filter Slider")
+        filter.close_filter_btn()
+        log.info("Click on the Searchbar")
+        tag.click_on_searchbar()
+        log.info("Search functionality ")
+        tag.put_string_in_searchbar(updated_playbooktag_title)
+        log.info("Get the Count of Playbook Tags before delete the Tag")
+        tag_count = tag.get_playbookTag_count()
+        log.info("Mouse HOver on the first element on Listing")
+        tag.mouse_hover_on_first_elemen()
+        log.info("Move Hover on the More options")
+        tag.mouse_hover_on_more_options()
+        log.info("Click on the delete Button displayed on the Dropdown")
+        tag.delete_playbooktag()
+        log.info("Confirm the deletion of the Playbook Tag")
+        tag.click_confirm_delete()
+        assert tag_count - 1 == tag.get_playbookTag_count()
 
 
 

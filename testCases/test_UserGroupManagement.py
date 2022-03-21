@@ -17,6 +17,7 @@ class TestUserGroupManagement(Base):
         """
             Verify redirection to user group management from admin menu
             Validation 1: On the basis of window's title
+            TC_ID : 001
         """
         log = self.getlogger()
         nav = Navigation(self.driver)
@@ -36,6 +37,7 @@ class TestUserGroupManagement(Base):
         """
             Verify creation of new user group
             Validation - 1. On the basis of slider title
+            TC_ID : 002
         """
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
@@ -53,6 +55,7 @@ class TestUserGroupManagement(Base):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
+            TC_ID :003
         """
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
@@ -68,6 +71,7 @@ class TestUserGroupManagement(Base):
         """
             Verify switch to All tab from inactive tab
             Validation - 1. On the basis of tab color
+            TC_ID : 004
         """
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
@@ -76,4 +80,133 @@ class TestUserGroupManagement(Base):
         log.info("Read the tab color after switching")
         tab_color = usergroup.get_all_tab_color()
         assert tab_color == '#1a3ee8'
-        time.sleep(10)
+
+    @pytest.mark.regression
+    def test_05_Create_New_User_Group(self):
+        """
+            Verify creation of new user group
+            Validation - 1. On the basis of Created Name
+            TC_ID : 005
+        """
+        log = self.getlogger()
+        usergroup = UserGroupManagement(self.driver)
+        action = Action(self.driver)
+        global UsergroupName
+        UsergroupName = "Ui_Automation" + action.get_current_time()
+        log.info("Add the User Group Count")
+        count = usergroup.get_usergroup_count()
+        log.info("Click on add new user button")
+        usergroup.click_add_user_group()
+        log.info("Add the User Group Name")
+        usergroup.put_usergroup_name(UsergroupName)
+        log.info("Add the User Group Description")
+        usergroup.put_usergroup_description("New Test User Group")
+        #usergroup.click_dropdown_users()
+        #usergroup.search_user_in_dropdown("Prabhat")
+        #usergroup.click_top_user()
+        #usergroup.click_dropdown_users()
+        log.info("Click on the activate toggle button")
+        usergroup.click_activate_toggle()
+        log.info("Click on Create button")
+        usergroup.click_create_button()
+        log.info("Validate the creation based on the Count")
+        assert count + 1 == usergroup.get_usergroup_count()
+
+    @pytest.mark.regression
+
+    def test_06_search_usergroup(self):
+        """
+            Verify the Search functionality of the user group
+            Validation -1 : On the basis name of the creation
+            TC_ID : 006
+        """
+        log =  self.getlogger()
+        usergroup = UserGroupManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Input the searching string/ Name of the User Group")
+        usergroup.search_button(UsergroupName)
+        log.info("To get the results click Enter")
+        action.click_enter()
+        log.info("Validating based on the showed name")
+        assert UsergroupName == usergroup.get_User_Group_Name()
+
+    @pytest.mark.regression
+    def test_07_update_usergroup(self):
+        """
+            Verify the Update functionality of the User Group
+            Validation -1 : Based on the Name comparison of the updated name and input name.
+            TC_ID : 007
+        """
+        log = self.getlogger()
+        usergroup = UserGroupManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Click on the More Option")
+        usergroup.click_more_option()
+        log.info("Click on the Edit Option")
+        usergroup.click_edit_option()
+        log.info("Clear the Old User Group Name")
+        usergroup.clear_usergroup_name()
+        updated_user_group = "Ui_Automation"+action.get_current_time()
+        log.info("Updating the New Name of the user Group")
+        usergroup.put_usergroup_name(updated_user_group)
+        log.info("Clearing the Old Description")
+        usergroup.clear_usergroup_description()
+        log.info("Adding New Description")
+        usergroup.put_usergroup_description("Updated description")
+        log.info("Click on the deactivate User Group Button")
+        usergroup.click_deactivate_usergroup()
+        log.info("Click on Enable All Permission Button")
+        usergroup.click_enable_all_permissions()
+        log.info("Verifying based on the Button Status")
+        assert usergroup.check_permission_status() == "ON"
+        log.info("Click on the Update Button")
+        usergroup.click_update_button()
+        log.info("Clearing the search field")
+        usergroup.clear_search_field()
+        log.info("Entering the New updated User Group Name for searching ")
+        usergroup.search_button(updated_user_group)
+        action.click_enter()
+        assert updated_user_group == usergroup.get_User_Group_Name()
+
+    @pytest.mark.regression
+    def test_08_clone_existing_usergroup(self):
+        """
+            Verify the clone Functionality based on the Button in more options
+            Validation-1: Verify the Button functionality and also able get the same features of the Cloned User Group
+            TC_ID : 008
+        """
+        usergroup = UserGroupManagement(self.driver)
+        action = Action(self.driver)
+        log = self.getlogger()
+        log.info("Click on the more Option")
+        usergroup.click_more_option()
+        log.info("Click on the clone Button in dropdown")
+        usergroup.click_clone_usergroup()
+        log.info("Clearing the Default name")
+        usergroup.clear_usergroup_name()
+        cloned_usergroup = "Ui_Automation_Clone"+action.get_current_time()
+        log.info("Update the New Created Name")
+        usergroup.put_usergroup_name(cloned_usergroup)
+        log.info("Clear the Description")
+        usergroup.clear_usergroup_description()
+        log.info("Update the New description")
+        usergroup.put_usergroup_description("Cloned")
+        log.info("Deactivate the User Group")
+        usergroup.click_deactivate_usergroup()
+        log.info("Click on the create button")
+        usergroup.click_create_button()
+        usergroup.clear_search_field()
+        log.info("Searching based on changed name")
+        usergroup.search_button(cloned_usergroup)
+        action.click_enter()
+        assert cloned_usergroup == usergroup.get_User_Group_Name()
+
+
+
+
+
+
+
+
+
+
