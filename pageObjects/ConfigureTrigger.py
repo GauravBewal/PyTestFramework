@@ -15,6 +15,7 @@ class ConfigureTrigger(Action):
     button_configure_trigger = "//header//button"
 
     def click_new_configure_trigger_btn(self):
+        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.button_configure_trigger)
 
     text_page_heading = "//header//h1"
@@ -129,3 +130,6 @@ class ConfigureTrigger(Action):
 
     def clear_search(self):
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.click_clear_search)
+
+    def select_test_syslog_label(self, value):
+        return Action.wait_and_click(self, By.XPATH, value)

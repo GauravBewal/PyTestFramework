@@ -16,6 +16,7 @@ class Labels(Action):
     create_new_Label = "//header//button"
 
     def click_new_label(self):
+        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.javascript_click(self, By.XPATH, Labels.create_new_Label)
 
     click_clear_search = "//div[contains(@class,'clear-button')]/i"

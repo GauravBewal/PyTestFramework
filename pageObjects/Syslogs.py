@@ -37,6 +37,11 @@ class Syslogs(Action):
     def click_inactive_tab(self):
         return Action.javascript_click(self, By.XPATH, Syslogs.tab_inactive)
 
+    tab_active = "//li/a[contains(text(),'Active')]"
+
+    def click_active_tab(self):
+        return Action.javascript_click(self, By.XPATH, Syslogs.tab_active)
+
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, Syslogs.tab_inactive, 'color')
 
@@ -70,10 +75,16 @@ class Syslogs(Action):
         time.sleep(ReadConfig.Wait_3_Sec())
         return Action.wait_and_click(self, By.XPATH, Syslogs.list_source_event_apps)
 
-    test_syslog_source_event_app = "//ul[@id='dropdown-list']//li//div//div//div[text()='test_syslog']"
+    search_source_event_app = "//div[contains(@class,'cy-select-search')]"
 
-    def select_test_syslog_source_event_app(self):
-        return Action.wait_and_click(self, By.XPATH, Syslogs.test_syslog_source_event_app)
+    def put_source_event_app(self, value):
+        return Action.send_keys(self, By.XPATH, Syslogs.search_source_event_app, value)
+
+    first_source_event_app = "(//div//ul[@id='dropdown-list']//div)[1]"
+
+    def select_first_source_event_app(self):
+        time.sleep(ReadConfig.Wait_3_Sec())
+        return Action.wait_and_click(self, By.XPATH, Syslogs.first_source_event_app)
 
     list_source_event_type = "(//div[contains(@class,'cy-select__menu--chevron-transform')])[2]"
 
@@ -81,10 +92,10 @@ class Syslogs(Action):
         time.sleep(ReadConfig.Wait_3_Sec())
         return Action.wait_and_click(self, By.XPATH, Syslogs.list_source_event_type)
 
-    top_1_user = "(//div//ul[@id='dropdown-list']//div)[1]"
+    first_event_type = "(//div//ul[@id='dropdown-list']//div)[1]"
 
-    def select_test_syslog_source_event_type(self):
-        return Action.wait_and_click(self, By.XPATH, Syslogs.top_1_user)
+    def select_first_source_event_type(self):
+        return Action.wait_and_click(self, By.XPATH, Syslogs.first_event_type)
 
     save_btn = "//div[contains(@class,'px-5 text-right')]//button"
 
@@ -105,3 +116,45 @@ class Syslogs(Action):
 
     def click_delete_button(self):
         return Action.wait_and_click(self, By.XPATH, Syslogs.delete_button)
+
+    deactivate_button = "(//ul//li[@class='el-dropdown-menu__item'][normalize-space()='Deactivate'])[1]"
+
+    def click_deactivate_button(self):
+        return Action.wait_and_click(self, By.XPATH, Syslogs.deactivate_button)
+
+    activate_button = "(//ul//li[@class='el-dropdown-menu__item'][normalize-space()='Activate'])[1]"
+
+    def click_activate_button(self):
+        return Action.wait_and_click(self, By.XPATH, Syslogs.activate_button)
+
+    main_input = "//input[@id='main-input']"
+
+    def search_input_string(self, value):
+        return Action.send_keys(self, By.XPATH, Syslogs.main_input, value)
+
+    def click_enter_for_search(self):
+        return Action.click_enter(self)
+
+    first_syslog_name = "(//tr[contains(@class, 'el-table__row')]//div//span//a)[1]"
+
+    def get_name_first_syslog(self):
+        time.sleep(ReadConfig.Wait_3_Sec())
+        return Action.get_text(self, By.XPATH, Syslogs.first_syslog_name)
+
+    click_clear_search = "//div[contains(@class,'clear-button')]/i"
+
+    def clear_search(self):
+        return Action.javascript_click(self, By.XPATH, Syslogs.click_clear_search)
+
+    syslog_status = "(//tr[@class='el-table__row']//td[7]//span[2])[1]"
+
+    def get_status_of_syslog(self):
+        return Action.get_text(self, By.XPATH, Syslogs.syslog_status)
+
+    def select_test_syslog_source_event_app(self, value):
+        return Action.wait_and_click(self, By.XPATH, value)
+
+    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
+
+    def click_close_tooltip(self):
+        return Action.normal_click(self, By.XPATH, Syslogs.close_tooltip_btn)
