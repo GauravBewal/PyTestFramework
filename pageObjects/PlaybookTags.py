@@ -1,9 +1,8 @@
 import time
 
 from selenium.webdriver.common.by import By
-
-from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
+from configuration.readConfiguration import ReadConfig
 
 
 class PlaybookTags(Action):
@@ -114,3 +113,45 @@ class PlaybookTags(Action):
 
     def close_tooltip(self):
         return Action.normal_click(self, By.XPATH, PlaybookTags.tooltip_close)
+
+    more_options_btn = "(//div[@class='el-dropdown']/span)[3]"
+
+    def mouse_hover_on_more_options(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, PlaybookTags.more_options_btn)
+
+    delete_option = "(//ul//li[contains(@class,'el-dropdown-menu__item')][normalize-space()='Delete'])[2]"
+
+    def delete_playbooktag(self):
+        return Action.javascript_click(self, By.XPATH, PlaybookTags.delete_option)
+
+    def mouse_hover_on_first_elemen(self):
+        return Action.mouse_hover_on_element(self,By.XPATH, PlaybookTags.playbooktag_name)
+
+    confirm_delete = "//div[contains(@class,'float-left')]/button[normalize-space()='Yes, Delete']"
+
+    def click_confirm_delete(self):
+        return Action.wait_and_click(self, By.XPATH, PlaybookTags.confirm_delete)
+
+    filter_clearall = "//div[contains(@class,'filters__header')]//span[contains(@class,'filters__header__clear-all')]"
+
+    def click_clear_filter(self):
+        return Action.wait_and_click(self, By.XPATH, PlaybookTags.filter_clearall)
+
+    tag_field = "//div[@name='tags']//span[contains(@class,'cyicon-chevron-down')]"
+
+    def check_tag_field(self):
+        return Action.wait_and_click(self, By.XPATH, PlaybookTags.tag_field)
+
+    input_tag_field = "//div[@name='tags']//input[@type='text']"
+
+    def put_created_tag(self,value):
+        return Action.send_keys(self, By.XPATH, PlaybookTags.input_tag_field, value)
+
+    top_1_palybooktag = "(//ul[contains(@id,'dropdown-list')]/li//div[contains(@class,'cy-select-menu-option-label-main')])[1]"
+
+    def check_listed_playbook_tag(self):
+        time.sleep(ReadConfig.Wait_3_Sec())
+        return Action.get_text(self, By.XPATH, PlaybookTags.top_1_palybooktag)
+
+
+
