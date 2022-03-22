@@ -1,6 +1,3 @@
-import os
-import time
-
 import pytest
 
 from configuration.readConfiguration import ReadConfig
@@ -30,12 +27,11 @@ class TestApps(Base):
         nav.navigate_apps()
         log.info("Read page heading")
         page_heading = my_apps.get_page_heading()
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
         log.info("Check if walk through is initiated")
         my_apps.click_on_close_walkthrough()
-        error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert action.get_title() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps' \
                and error_msg_visibility is False
-
 
     @pytest.mark.regression
     def test_02_Create_new_custom_app(self):
@@ -249,8 +245,7 @@ class TestApps(Base):
         tooltip_msg = my_apps.get_tooltip_msg()
         assert tooltip_msg == 'Success'
         my_apps.close_tooltip()
-        assert new_app_name in my_apps.check_file_downloaded_and_get_app_name(new_app_name, 'zip')
-
+        assert new_app_name in my_apps.check_file_downloaded_and_get_file_name(new_app_name, 'zip')
 
     @pytest.mark.regression
     def test_12_Uninstall_custom_created_app(self):
@@ -285,15 +280,14 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         log.info("Get the exact app location")
-        app_name = my_apps.check_file_downloaded_and_get_app_name(new_app_name, 'zip')
-        app_path = my_apps.get_app_downloaded_path(app_name)
+        app_name = my_apps.check_file_downloaded_and_get_file_name(new_app_name, 'zip')
+        app_path = my_apps.get_file_downloaded_path(app_name)
         log.info("send app file location to import button")
-        my_apps.send_app_path_to_upload_input_field(app_path)
+        my_apps.send_file_path_to_upload_input_field(app_path)
         assert my_apps.get_tooltip_msg() == 'Success'
         my_apps.close_tooltip()
         log.info("Deleting the downloaded file")
         my_apps.delete_downloaded_file(app_path)
-
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -313,7 +307,6 @@ class TestApps(Base):
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert action.get_title() == 'Appstore | Cyware Orchestrate' \
                and error_msg_visibility is False
-
 
     @pytest.mark.regression
     def test_15_clone_cftr_app_to_debug(self):
@@ -341,7 +334,7 @@ class TestApps(Base):
         my_apps.click_clone_btn_on_slider()
         log.info("Read page heading")
         page_heading = my_apps.get_clone_page_heading()
-        assert action.get_title() == 'Clone App | Cyware Orchestrate'\
+        assert action.get_title() == 'Clone App | Cyware Orchestrate' \
                and 'Clone App' in page_heading
         log.info("Read cloned app name")
         global cloned_cyware_app_name
@@ -533,8 +526,7 @@ class TestApps(Base):
         my_apps.close_tooltip()
         global first_3_app_letters
         first_3_app_letters = my_apps.get_first_3_letter_of_downloaded_app(downloaded_app_name)
-        assert first_3_app_letters in my_apps.check_file_downloaded_and_get_app_name(first_3_app_letters, 'zip')
-
+        assert first_3_app_letters in my_apps.check_file_downloaded_and_get_file_name(first_3_app_letters, 'zip')
 
     @pytest.mark.regression
     def test_22_uninstall_installed_cyware_app(self):
@@ -555,10 +547,10 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         log.info("Get the exact app location")
-        app_name = my_apps.check_file_downloaded_and_get_app_name(first_3_app_letters, 'zip')
-        app_path = my_apps.get_app_downloaded_path(app_name)
+        app_name = my_apps.check_file_downloaded_and_get_file_name(first_3_app_letters, 'zip')
+        app_path = my_apps.get_file_downloaded_path(app_name)
         log.info("send app file location to import button")
-        my_apps.send_app_path_to_upload_input_field(app_path)
+        my_apps.send_file_path_to_upload_input_field(app_path)
         assert my_apps.get_tooltip_msg() == 'Success'
         my_apps.close_tooltip()
         log.info("Deleting the downloaded file")
@@ -575,5 +567,4 @@ class TestApps(Base):
         log.info("click on the list view button")
         my_apps.click_on_list_view_btn()
         list_view_visibility = my_apps.visibility_of_app_in_list_view()
-        time.sleep(30)
         assert list_view_visibility is True

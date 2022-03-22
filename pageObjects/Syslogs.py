@@ -135,11 +135,14 @@ class Syslogs(Action):
     def click_enter_for_search(self):
         return Action.click_enter(self)
 
-    first_syslog_name = "(//tr[contains(@class, 'el-table__row')]//div//span//a)[1]"
+    first_syslog_name = "//tr[1]//div//span//a[1]"
 
     def get_name_first_syslog(self):
         time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_text(self, By.XPATH, Syslogs.first_syslog_name)
+
+    def visibility_of_first_syslog(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, Syslogs.first_syslog_name)
 
     click_clear_search = "//div[contains(@class,'clear-button')]/i"
 

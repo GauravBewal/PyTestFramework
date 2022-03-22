@@ -1,12 +1,13 @@
-import matplotlib.pyplot as plotter
-import glob
-import xml.etree.ElementTree as et
-import re
-import os
-import sys
-import getopt
-import pandas as pd
 import datetime
+import getopt
+import glob
+import os
+import re
+import sys
+import xml.etree.ElementTree as et
+
+import matplotlib.pyplot as plotter
+import pandas as pd
 
 report_name = '../reports/simplified_html.html'
 reports_path = '../reports'
@@ -88,6 +89,7 @@ def find_between(start, end, filepath=None, data=None):
     except Exception as z:
         return ""
 
+
 passed_table = \
     "<b><u>Passed</u></b><table style='border:1px solid black;width: 100%;border-collapse: collapse;'><tr>" \
     "<th style='border:1px solid black;'>Module</th><th style='border:1px solid black;'>Unit Test</th>" \
@@ -99,12 +101,11 @@ failed_table = \
     "<th style='border:1px solid black;'>Status</th><th style='border:1px solid black;'>Comments</th>" \
     "<th style='border:1px solid black;'>Author</th></tr>"
 
-single_table =\
+single_table = \
     "<table style='width: 100%;border-collapse: collapse;'>" \
     "<tr style='background: #E6E6FA;font-family: sans-serif;'><th style='border:1px solid #ccc;'>Module</th>" \
     "<th style='border:1px solid #ccc;'>Unit Test</th><th style='border:1px solid #ccc;'>Status</th>" \
     "<th style='border:1px solid #ccc;'>Comments</th><th style='border:1px solid #ccc;'>POC</th></tr>"
-
 
 try:
     total_cases = 0
@@ -128,17 +129,18 @@ try:
                 testfailed = False
                 for z in y.findall('failure'):
                     testfailed = True
-                    #info_line = find_between("*** " + str(y.attrib['name']), "***", filepath=xmlpath)
+                    # info_line = find_between("*** " + str(y.attrib['name']), "***", filepath=xmlpath)
                     info_line = ""
-                    #print("info line: " + info_line)
-                    #print(find_between("::author::", "::", data=info_line))
+                    # print("info line: " + info_line)
+                    # print(find_between("::author::", "::", data=info_line))
                     single_table = single_table + \
-                    "<tr>" \
-                    "<td style='border:1px solid #ccc;'>" + str(y.attrib['classname']) + "</td>" \
-                    "<td style='border:1px solid #ccc;'>" + str(y.attrib['name']) + "</td>" \
-                    "<td style='border:1px solid #ccc; color:#ff0000;'> Failed </td>" \
-                    "<td style='border:1px solid #ccc;'>"
-                    #temp = find_known_issue(str(y.attrib['name']), xmlpath)
+                                   "<tr>" \
+                                   "<td style='border:1px solid #ccc;'>" + str(y.attrib['classname']) + "</td>" \
+                                                                                                        "<td style='border:1px solid #ccc;'>" + str(
+                        y.attrib['name']) + "</td>" \
+                                            "<td style='border:1px solid #ccc; color:#ff0000;'> Failed </td>" \
+                                            "<td style='border:1px solid #ccc;'>"
+                    # temp = find_known_issue(str(y.attrib['name']), xmlpath)
                     temp = ""
                     strtemp = ""
                     if len(temp) > 0:
@@ -146,26 +148,29 @@ try:
                         temp = temp.replace(",", "")
                         bugs = temp.split()
                         for i in range(2, len(bugs)):
-                            strtemp = strtemp + " " + '<a href="https://cyware.atlassian.net/browse/' + bugs[i] + '" target="_blank">' + bugs[i] + "</a>"
+                            strtemp = strtemp + " " + '<a href="https://cyware.atlassian.net/browse/' + bugs[
+                                i] + '" target="_blank">' + bugs[i] + "</a>"
 
                     single_table = single_table + \
-                    strtemp + deduce_reason("") + "</td>" \
-                    "<td style='border:1px solid #ccc;'>" + find_between("::author::", "::", data=info_line) + "</td>" \
-                    "</tr>"
+                                   strtemp + deduce_reason("") + "</td>" \
+                                                                 "<td style='border:1px solid #ccc;'>" + find_between(
+                        "::author::", "::", data=info_line) + "</td>" \
+                                                              "</tr>"
                     print("Test Suite:" + str(y.attrib['classname']) + " - Failed Test: " + str(y.attrib['name']))
                     # print(str(z.attrib['type']))
                 if not testfailed:
                     single_table = single_table + \
-                    "<tr>" \
-                    "<td style='border:1px solid #ccc;'>" + str(y.attrib['classname']) + "</td>" \
-                    "<td style='border:1px solid #ccc;'>" + str(y.attrib['name']) + "</td>" \
-                    "<td style='border:1px solid #ccc; color:#008000;'> Passed </td>" \
-                    "<td style='border:1px solid #ccc;'></td>" \
-                    "<td style='border:1px solid #ccc;'></td>" \
-                    "</tr>"
+                                   "<tr>" \
+                                   "<td style='border:1px solid #ccc;'>" + str(y.attrib['classname']) + "</td>" \
+                                                                                                        "<td style='border:1px solid #ccc;'>" + str(
+                        y.attrib['name']) + "</td>" \
+                                            "<td style='border:1px solid #ccc; color:#008000;'> Passed </td>" \
+                                            "<td style='border:1px solid #ccc;'></td>" \
+                                            "<td style='border:1px solid #ccc;'></td>" \
+                                            "</tr>"
                     print("Test Suite:" + str(y.attrib['classname']) + " - Passed Test: " + str(y.attrib['name']))
-    #ofailed_table = failed_table + "</table>"
-    #opassed_table = passed_table + "</table><br>"
+    # ofailed_table = failed_table + "</table>"
+    # opassed_table = passed_table + "</table><br>"
     single_table = single_table + "</table><br>"
     # print(failed)
     # print(total_cases)
@@ -184,10 +189,10 @@ try:
         writer.write(('<b>Passed:</b> ' + str(total_cases - failed - skipped) + "<br>").encode())
         writer.write(('<b>Skipped:</b> ' + str(skipped) + "<br>").encode())
         writer.write(('<b>Failed:</b> ' + str(failed) + "<br><br>").encode())
-        #writer.write(emailcontent.encode())
+        # writer.write(emailcontent.encode())
         writer.write(single_table.encode())
-        #writer.write(passed_table.encode())
-        #if failed > 0:
+        # writer.write(passed_table.encode())
+        # if failed > 0:
         #    writer.write(failed_table.encode())
 except Exception as e:
     print("Error: Some issue occurred while preparing email report, details:" + str(e))

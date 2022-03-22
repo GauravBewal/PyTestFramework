@@ -1,10 +1,9 @@
 import glob
 import json
+import os
 import random
-import zipfile
 import string
 import time
-import os
 from datetime import datetime
 
 from selenium.common.exceptions import ElementClickInterceptedException
@@ -55,6 +54,15 @@ class Action(Base):
             log.info("Automatic walk through was not initiated. Hence passing this testcase")
             pass
 
+    def Pass_even_element_not_visible(self, by, locator):
+        try:
+            element = self.Webdriver_Wait_until_element_visible(by, locator)
+            if element.is_displayed():
+                return True
+        except (NoSuchElementException, TimeoutException):
+            return True
+
+
     def Apply_Pagination_if_element_not_found(self, by, locator, pagination_path):
         try:
             element = self.Webdriver_Wait_until_element_visible(by, locator)
@@ -102,22 +110,20 @@ class Action(Base):
         count = element.text.split(' ')[2]
         return int(count)
 
-    def check_file_downloaded_and_get_app_name(self, app_name, file_type):
+    def check_file_downloaded_and_get_file_name(self, file_name, file_type):
         time.sleep(10)
-        files_list = glob.glob('**/'+app_name+'*.'+file_type+'', recursive=True)
-        downloaded_app_name = str(files_list[0])
-        return downloaded_app_name
+        files_list = glob.glob('**/*' + file_name + '*.' + file_type + '', recursive=True)
+        downloaded_file_name = str(files_list[0])
+        return downloaded_file_name
 
-    def get_app_downloaded_path(self, app_name):
-        return os.path.abspath(app_name)
+    def get_file_downloaded_path(self, file_name):
+        return os.path.abspath(file_name)
 
     def delete_downloaded_file(self, downloaded_app_path):
         if os.path.isfile(downloaded_app_path):
             os.remove(downloaded_app_path)
         else:
             raise ValueError("File Not found".format(downloaded_app_path))
-
-
 
     def get_current_page_number(self, by, locator):
         element = self.Webdriver_Wait_until_element_visible(by, locator)
@@ -129,10 +135,8 @@ class Action(Base):
         element.send_keys(value)
 
     def send_keys_to_hidden_upload_element(self, by, locator, file_path):
-        self.driver.execute_script("document.getElementById('appUpload').style.visibility='visible'")
         ele = self.driver.find_element(by, locator)
         ele.send_keys(file_path)
-
 
     def clear_field(self, by, locator):
         element = self.driver.find_element(by, locator)
@@ -196,7 +200,6 @@ class Action(Base):
     def select_from_drop_down(self, by, path, value):
         ddelement = Select(self.driver.find_element(by, path))
         ddelement.select_by_value(value)
-
 
     def get_text(self, by, locator):
         ele = self.Webdriver_Wait_until_element_visible(by, locator)

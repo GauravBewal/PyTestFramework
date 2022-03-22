@@ -61,8 +61,6 @@ class ReadConfig:
         cftr_secret_id = config.get('CFTR_CREDS', 'secret_key')
         return cftr_secret_id
 
-
-
     @staticmethod
     def Wait_10_Sec():
         wait_10_Sec = config.get('Waits', 'Wait_10_Seconds')

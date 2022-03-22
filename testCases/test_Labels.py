@@ -30,11 +30,11 @@ class TestLabels(Base):
         nav.click_main_menu()
         log.info("Click on to label module for redirection")
         nav.navigate_labels()
+        log.info("Validating the page title")
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
         log.info("Read the no of active labels available")
         global active_labels
         active_labels = label.get_label_count()
-        log.info("Validating the page title")
-        error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert action.get_title() == 'Labels | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
@@ -48,11 +48,13 @@ class TestLabels(Base):
         label = Labels(self.driver)
         log.info("Click on the inactive tab")
         label.click_inactive_tab()
+        log.info("Read the tab color")
+        tab_color = label.get_inactive_tab_color()
+        log.info("Check visibility of first label")
+        label.visibility_of_first_label()
         log.info("Read the no of inactive labels available")
         global inactive_labels
         inactive_labels = label.get_label_count()
-        log.info("Read the tab color")
-        tab_color = label.get_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.regression
@@ -68,6 +70,8 @@ class TestLabels(Base):
         label.click_all_tab()
         log.info("Read the tab color")
         tab_color = label.get_all_tab_color()
+        log.info("Check visibility of first label")
+        label.visibility_of_first_label()
         log.info("Read the no of active labels available")
         all_created_labels = label.get_label_count()
         assert tab_color == '#1a3ee8' and all_created_labels == inactive_labels + active_labels
@@ -83,6 +87,8 @@ class TestLabels(Base):
         label = Labels(self.driver)
         log.info("Switch to active tab")
         label.click_active_tab()
+        log.info("Check visibility of first label")
+        label.visibility_of_first_label()
         log.info("Click on to New Label Button")
         label.click_new_label()
         slider_title = label.get_label_slider_title()
@@ -99,8 +105,12 @@ class TestLabels(Base):
         log = self.getlogger()
         action = Action(self.driver)
         label = Labels(self.driver)
+        log.info("Check visibility of first label")
+        label.visibility_of_first_label()
         log.info("Reading the count of total labels before creating a new label")
         before_label_creation_count = label.get_label_count()
+        log.info("Check visibility of first label")
+        label.visibility_of_first_label()
         log.info("Click on to create new label")
         label.click_new_label()
         global label_text
@@ -113,6 +123,8 @@ class TestLabels(Base):
         label.create_Label()
         log.info("Click on to close label creation tooltip ")
         label.click_close_tooltip()
+        log.info("Check visibility of first label")
+        label.visibility_of_first_label()
         log.info("Reading count of total labels after creating a new label")
         after_label_creation_count = label.get_label_count()
         get_created_label_name = label.get_top_1_label_name()
@@ -193,6 +205,8 @@ class TestLabels(Base):
         nav.click_main_menu()
         log.info("Navigate to configure events")
         nav.navigate_configure_event()
+        log.info("Check for visibility of first configure event")
+        configure_event.visibility_of_first_configure_trigger()
         log.info("Click on new button")
         configure_event.click_new_configure_trigger_btn()
         log.info("Click on the label field")
@@ -219,7 +233,7 @@ class TestLabels(Base):
         log.info("Navigate to playbook module")
         nav.navigate_manage_playbook()
         log.info("Visibility of first playbook")
-        playbook.visibility_of_first_playbook()
+        playbook.visibility_of_first_my_playbook()
         log.info("Click on create new playbook")
         playbook.click_on_create_playbook_btn()
         log.info("Check if walk through is initiated")
@@ -250,7 +264,7 @@ class TestLabels(Base):
         assert successful_msg == 'Playbook created successfully.'
         playbook.close_tooltip()
         playbook.click_on_back_button()
-        playbook.visibility_of_first_playbook()
+        playbook.visibility_of_first_my_playbook()
         nav.click_main_menu()
         log.info("Navigate to triggered events module")
         nav.navigate_trigger_event()
@@ -302,7 +316,6 @@ class TestLabels(Base):
         log.info("Click on inactive button")
         # navigating inactive tab to check whether the label is de-activated or not
         label.click_inactive_tab()
-        label_name_after_deactivating = label.get_top_1_label_name()
         log.info("Validating label name before and after deactivating")
         # checking whether same label is visible in inactive tab listing after deactivating it
-        assert label_name_before_deactivating == label_name_after_deactivating
+        assert label_name_before_deactivating == label.visibility_of_label_by_name(label_name_before_deactivating)

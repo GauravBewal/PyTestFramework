@@ -15,7 +15,6 @@ class ConfigureTrigger(Action):
     button_configure_trigger = "//header//button"
 
     def click_new_configure_trigger_btn(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.button_configure_trigger)
 
     text_page_heading = "//header//h1"
@@ -88,7 +87,6 @@ class ConfigureTrigger(Action):
     text_configure_trigger_count = "//h1[contains(text(),'Configure Triggers (')]"
 
     def get_configure_trigger_count(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_count_from_string(self, By.XPATH, ConfigureTrigger.text_configure_trigger_count)
 
     first_config_trigger = "(//tr[contains(@class, 'el-table__row')]//div//span//a)[1]"
@@ -96,9 +94,15 @@ class ConfigureTrigger(Action):
     def click_first_configure_trigger(self):
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.first_config_trigger)
 
-    def get_name_first_configure_trigger(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
+    def visibility_of_first_configure_trigger(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, ConfigureTrigger.first_config_trigger)
+
+    def get_first_configure_trigger(self):
         return Action.get_text(self, By.XPATH, ConfigureTrigger.first_config_trigger)
+
+    def get_first_configure_trigger_by_name(self, trigger_name):
+        return Action.read_search_result(self, By.XPATH, ConfigureTrigger.first_config_trigger, trigger_name)
+
 
     active_btn = "//span[@class='cyicon-check']"
 

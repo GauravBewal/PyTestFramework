@@ -1,8 +1,9 @@
 import time
 
 from selenium.webdriver.common.by import By
-from utilities.Actions import Action
+
 from configuration.readConfiguration import ReadConfig
+from utilities.Actions import Action
 
 
 class PlaybookTags(Action):
@@ -21,10 +22,9 @@ class PlaybookTags(Action):
     def click_on_searchbar(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.click_search_bar)
 
-    click_close_button = "//i[@class='cursor-pointer el-input__icon icon icon-cross-o-active search-input__close']"
+    click_close_button = "//i[contains(@class,'search-input__close')]/parent::span"
 
-    def click_on_close_button(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
+    def click_clear_search_btn(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.click_close_button)
 
     def put_string_in_searchbar(self, value):
@@ -57,6 +57,7 @@ class PlaybookTags(Action):
         time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_count_from_string(self, By.XPATH, PlaybookTags.text_playbookTag_count)
 
+
     button_save = "//div[@class='text-right']//button[contains(text(),'Save')]"
 
     def save_playbookTag(self):
@@ -65,11 +66,12 @@ class PlaybookTags(Action):
     playbooktag_name = "(//tbody/tr[1]/td[1]//span)[1]"
 
     def get_playbooktag_name(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
 
+    def visibility_of_first_playbook_tag(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, PlaybookTags.playbooktag_name)
+
     def get_first_tagname(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
         text = Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
         return Action.convert_string_to_lower(self, text)
 
@@ -124,8 +126,8 @@ class PlaybookTags(Action):
     def delete_playbooktag(self):
         return Action.javascript_click(self, By.XPATH, PlaybookTags.delete_option)
 
-    def mouse_hover_on_first_elemen(self):
-        return Action.mouse_hover_on_element(self,By.XPATH, PlaybookTags.playbooktag_name)
+    def mouse_hover_on_first_element(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, PlaybookTags.playbooktag_name)
 
     confirm_delete = "//div[contains(@class,'float-left')]/button[normalize-space()='Yes, Delete']"
 
@@ -139,19 +141,19 @@ class PlaybookTags(Action):
 
     tag_field = "//div[@name='tags']//span[contains(@class,'cyicon-chevron-down')]"
 
-    def check_tag_field(self):
+    def click_on_tag_field(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.tag_field)
 
     input_tag_field = "//div[@name='tags']//input[@type='text']"
 
-    def put_created_tag(self,value):
+    def put_created_tag(self, value):
         return Action.send_keys(self, By.XPATH, PlaybookTags.input_tag_field, value)
 
-    top_1_palybooktag = "(//ul[contains(@id,'dropdown-list')]/li//div[contains(@class,'cy-select-menu-option-label-main')])[1]"
+    def visibility_of_playbook_tag(self, playbooktag_name):
+        path = "//div[@name='tags']//li[1]//div[contains(text(),'" + playbooktag_name + "')]"
+        return Action.check_visibility_of_element(self, By.XPATH, path)
 
-    def check_listed_playbook_tag(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
-        return Action.get_text(self, By.XPATH, PlaybookTags.top_1_palybooktag)
+    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
 
-
-
+    def get_tooltip_msg(self):
+        return Action.get_text(self, By.XPATH, PlaybookTags.toast_msg_txt)

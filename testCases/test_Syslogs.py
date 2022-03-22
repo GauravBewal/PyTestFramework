@@ -195,7 +195,6 @@ class TestSyslogs(Base):
         syslog.click_slider_close()
         assert slider_title == "Edit Syslog"
 
-
     @pytest.mark.regression
     def test_08_deactivating_syslog(self):
         """

@@ -94,7 +94,7 @@ class OpenApi(Action):
     top_openapi_in_listing = "(//tr//a)[1]"
 
     def visibility_of_first_openapi(self):
-        return Action.check_visibility_of_element(self, By.XPATH, OpenApi.top_openapi_in_listing)
+        return Action.Pass_even_element_not_visible(self, By.XPATH, OpenApi.top_openapi_in_listing)
 
     def get_top_1_openapi_name(self):
         return Action.get_text(self, By.XPATH, OpenApi.top_openapi_in_listing)

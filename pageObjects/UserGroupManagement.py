@@ -1,8 +1,9 @@
+import time
+
 from selenium.webdriver.common.by import By
 
-from utilities.Actions import Action
 from configuration.readConfiguration import ReadConfig
-import time
+from utilities.Actions import Action
 
 
 class UserGroupManagement(Action):
@@ -16,6 +17,12 @@ class UserGroupManagement(Action):
     def click_user_group_management(self):
         return Action.javascript_click(self, By.XPATH, UserGroupManagement.tab_user_group_management)
 
+    tab_active = "//div[contains(@class,'tabs--list')]//li[2]/a"
+
+    def click_on_active_tab(self):
+        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_active)
+
+
     tab_inactive = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
 
     def click_inactive_tab(self):
@@ -24,7 +31,7 @@ class UserGroupManagement(Action):
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserGroupManagement.tab_inactive, 'color')
 
-    tab_all = "//div[@class='px-2 tabs--list my-2']//li[1]/a"
+    tab_all = "//div[contains(@class,'tabs--list')]//li[1]/a"
 
     def click_all_tab(self):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_all)
@@ -58,20 +65,20 @@ class UserGroupManagement(Action):
     def click_update_button(self):
         return Action.javascript_click(self, By.XPATH, UserGroupManagement.btn_update)
 
-    btn_Edit = "//div[@class='modal--header']//i[1]"
-
-    def click_Edit_button(self):
-        time.sleep(ReadConfig.Wait_6_Sec())
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.btn_Edit)
-
-    header = "(//h3[@class='text-size-3 my-1 ellipsis-2'])[1]"
+    usergroup_title = "(//div[@class='user-group__list']//div[contains(@class,'app-card-body')])[1]//h3"
 
     def click_on_header(self):
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.header)
+        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.usergroup_title)
 
     def get_User_Group_Name(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
-        return Action.get_text(self, By.XPATH, UserGroupManagement.header)
+        return Action.get_text(self, By.XPATH, UserGroupManagement.usergroup_title)
+
+    def check_visibility_of_first_group(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, UserGroupManagement.usergroup_title)
+
+    def check_visibility_of_first_group_by_name(self, group_name):
+        return Action.read_search_result(self, By.XPATH, UserGroupManagement.usergroup_title,group_name)
+
 
     user_title = "//input[@aria-placeholder='Title *']"
 
@@ -91,9 +98,10 @@ class UserGroupManagement(Action):
     def search_button(self, value):
         return Action.send_keys(self, By.XPATH, UserGroupManagement.main_searchbar, value)
 
-    def clear_search_field(self):
-        return Action.clear_field(self, By.XPATH, UserGroupManagement.main_searchbar)
+    search_bar_clear_btn = "//div[contains(@class,'clear-button')]"
 
+    def click_on_search_clear_btn(self):
+        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.search_bar_clear_btn)
 
     toggle_active = "(//div[@class='el-form-item__content'])[4]//span[@class='cyicon-cross']"
 
@@ -108,7 +116,6 @@ class UserGroupManagement(Action):
     Usergroup_count = "// h1[contains(text(), 'User Group Management (')]"
 
     def get_usergroup_count(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_count_from_string(self, By.XPATH, UserGroupManagement.Usergroup_count)
 
     description = "//div[contains(@class,'cy-textarea')]/textarea"
@@ -128,12 +135,6 @@ class UserGroupManagement(Action):
 
     def search_user_in_dropdown(self, value):
         return Action.send_keys(self, By.XPATH, UserGroupManagement.search_user, value)
-
-    select_top_user = "(//div[contains(@class,'cy-select__menu---expanded')]/ul/li)[1]"
-
-    def click_top_user(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.select_top_user)
 
     toggle_enable = "//div[contains(@class,'justify-content-end')]//span[@class='cyicon-cross']"
 
@@ -165,3 +166,12 @@ class UserGroupManagement(Action):
     def click_deactivate_usergroup(self):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.deactive_toggle)
 
+    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
+
+    def click_close_tooltip(self):
+        return Action.normal_click(self, By.XPATH, UserGroupManagement.close_tooltip_btn)
+
+    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
+
+    def get_tooltip_msg(self):
+        return Action.get_text(self, By.XPATH, UserGroupManagement.toast_msg_txt)

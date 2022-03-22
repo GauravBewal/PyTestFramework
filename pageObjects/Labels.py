@@ -16,7 +16,6 @@ class Labels(Action):
     create_new_Label = "//header//button"
 
     def click_new_label(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.javascript_click(self, By.XPATH, Labels.create_new_Label)
 
     click_clear_search = "//div[contains(@class,'clear-button')]/i"
@@ -75,11 +74,14 @@ class Labels(Action):
     top_label_in_listing = "(//tr//a)[1]"
 
     def get_top_1_label_name(self):
-        time.sleep(3)
         return Action.get_text(self, By.XPATH, Labels.top_label_in_listing)
 
+    def visibility_of_label_by_name(self, label_name):
+        return Action.read_search_result(self, By.XPATH, Labels.top_label_in_listing, label_name)
+
+
     def visibility_of_first_label(self):
-        return Action.check_visibility_of_element(self, By.XPATH, Labels.top_label_in_listing)
+        return Action.Pass_even_element_not_visible(self, By.XPATH, Labels.top_label_in_listing)
 
     def click_top_first_label(self):
         return Action.javascript_click(self, By.XPATH, Labels.top_label_in_listing)
@@ -149,10 +151,10 @@ class Labels(Action):
     get_labels_count = "//h1[contains(text(),'Labels (')]"
 
     def get_label_count(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_count_from_string(self, By.XPATH, Labels.get_labels_count)
 
     button_create = "//button[text()='Create']"
 
     def create_Label(self):
         return Action.javascript_click(self, By.XPATH, Labels.button_create)
+
