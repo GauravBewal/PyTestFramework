@@ -37,7 +37,7 @@ class TestOpenApi(Base):
         log = self.getlogger()
         openapi = OpenApi(self.driver)
         log.info("Click on add openapi button")
-        openapi.click_new_open_api()
+        openapi.click_new_open_api_btn()
         log.info("Read the slider title")
         slider_title = openapi.get_slider_title()
         log.info("Click on close slider button")
@@ -84,8 +84,10 @@ class TestOpenApi(Base):
         log = self.getlogger()
         openapi = OpenApi(self.driver)
         action = Action(self.driver)
+        log.info("Switch to active tab")
+        openapi.click_active_tab()
         log.info("Click on the open api button")
-        openapi.click_new_open_api()
+        openapi.click_new_open_api_btn()
         log.info("Enter the openapi name")
         global openapi_name
         openapi_name = "OpenAPI " + action.get_current_time()
@@ -192,7 +194,7 @@ class TestOpenApi(Base):
         log.info("Click Enter")
         openapi.click_enter_for_search()
         openapi.visibility_of_first_openapi()
-        read_top_search_result = openapi.get_top_1_openapi_name()
+        read_top_search_result = openapi.get_top_1_openapi()
         openapi.clear_search()
         log.info("Validating search results")
         assert openapi_name in read_top_search_result
@@ -220,7 +222,7 @@ class TestOpenApi(Base):
         openapi.close_tooltip()
         log.info("check visibility of first openapi")
         openapi.visibility_of_first_openapi()
-        top_openapi_name = openapi.get_top_1_openapi_name()
+        top_openapi_name = openapi.get_top_1_openapi()
         log.info("Validating the new label name is updated or not ")
         assert top_openapi_name == updated_openapi_name
 
@@ -243,8 +245,6 @@ class TestOpenApi(Base):
         openapi.close_tooltip()
         log.info("Click on inactive tab")
         openapi.click_inactive_tab()
-        log.info("check visibility of first openapi")
-        openapi.visibility_of_first_openapi()
-        top_openapi_name = openapi.get_top_1_openapi_name()
+        top_openapi_name = openapi.get_top_1_openapi_by_name(updated_openapi_name)
         log.info("Validating the new label name is updated or not ")
         assert top_openapi_name == updated_openapi_name

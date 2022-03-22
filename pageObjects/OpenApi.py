@@ -14,9 +14,9 @@ class OpenApi(Action):
     def click_open_api_tab(self):
         return Action.javascript_click(self, By.XPATH, OpenApi.tab_open_API)
 
-    btn_new_open_api = "//button[contains(@aria-describedby,'el-tooltip')]"
+    btn_new_open_api = "//header//i[contains(@class,'icon-plus')]/parent::button"
 
-    def click_new_open_api(self):
+    def click_new_open_api_btn(self):
         return Action.javascript_click(self, By.XPATH, OpenApi.btn_new_open_api)
 
     field_open_api_title = "//input[@aria-placeholder='API Title *']"
@@ -75,6 +75,11 @@ class OpenApi(Action):
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, OpenApi.tab_inactive, 'color')
 
+    tab_Active = "//li/a[contains(text(),'Active')]"
+
+    def click_active_tab(self):
+        return Action.wait_and_click(self, By.XPATH, OpenApi.tab_Active)
+
     tab_All = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
@@ -96,8 +101,11 @@ class OpenApi(Action):
     def visibility_of_first_openapi(self):
         return Action.Pass_even_element_not_visible(self, By.XPATH, OpenApi.top_openapi_in_listing)
 
-    def get_top_1_openapi_name(self):
+    def get_top_1_openapi(self):
         return Action.get_text(self, By.XPATH, OpenApi.top_openapi_in_listing)
+
+    def get_top_1_openapi_by_name(self, openapi_name):
+        return Action.read_search_result(self, By.XPATH, OpenApi.top_openapi_in_listing, openapi_name)
 
     def click_on_first_openapi(self):
         return Action.wait_and_click(self, By.XPATH, OpenApi.top_openapi_in_listing)

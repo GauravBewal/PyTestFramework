@@ -93,6 +93,7 @@ class TestSyslogs(Base):
         nav.click_main_menu()
         log.info("Click on to label module for redirection")
         nav.navigate_labels()
+        label.visibility_of_first_label()
         label.click_new_label()
         global label_text
         label_text = "test_syslog" + action.get_current_time()
@@ -108,6 +109,7 @@ class TestSyslogs(Base):
         nav.click_main_menu()
         log.info("Click on configure event")
         nav.navigate_configure_event()
+        config_trigger.visibility_of_first_configure_trigger()
         log.info("Creating a New Configure Trigger")
         config_trigger.click_new_configure_trigger_btn()
         log.info("Enter the data into Input Fields")
