@@ -28,10 +28,9 @@ class TestApps(Base):
         log.info("Read page heading")
         page_heading = my_apps.get_page_heading()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
-        log.info("Check if walk through is initiated")
-        my_apps.click_on_close_walkthrough()
-        assert action.get_title() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps' \
+        assert action.get_title() == 'My Apps | Cyware Orchestrate' and page_heading == 'Apps'\
                and error_msg_visibility is False
+
 
     @pytest.mark.regression
     def test_02_Create_new_custom_app(self):
@@ -42,6 +41,8 @@ class TestApps(Base):
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
+        log.info("Check if walk through is initiated")
+        my_apps.click_on_close_walkthrough()
         log.info("Get the count of total apps before app creation")
         count_of_app_before_creation = my_apps.get_app_count()
         log.info("Click on App create button")
