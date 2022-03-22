@@ -38,13 +38,11 @@ class TestConfigureTriggers(Base):
             Validation - 1. On the basis of tab color
             TC-CT-003
         """
-        global inactive_count
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on inactive tab")
         config_trigger.click_inactive_tab()
         log.info("Read the tab color after switching")
-        inactive_count = config_trigger.get_configure_trigger_count()
         tab_color = config_trigger.read_inactive_tab_color()
         assert tab_color == '#1a3ee8'
 
@@ -75,6 +73,8 @@ class TestConfigureTriggers(Base):
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
         config_trigger.click_active_tab()
+        log.info("Check for visibility of first configure event")
+        config_trigger.visibility_of_first_configure_trigger()
         log.info("Click on configure new trigger button")
         config_trigger.click_new_configure_trigger_btn()
         log.info("Read the slider heading")
@@ -94,7 +94,11 @@ class TestConfigureTriggers(Base):
         log = self.getlogger()
         action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
+        log.info("Check for visibility of first configure event")
+        config_trigger.visibility_of_first_configure_trigger()
         count = config_trigger.get_configure_trigger_count()
+        log.info("Check for visibility of first configure event")
+        config_trigger.visibility_of_first_configure_trigger()
         log.info("Creating a New Configure Trigger")
         config_trigger.click_new_configure_trigger_btn()
         log.info("Enter the data into Input Fields")
@@ -112,6 +116,8 @@ class TestConfigureTriggers(Base):
         config_trigger.click_create_btn()
         log.info("click on close toop tip")
         config_trigger.click_close_tooltip()
+        log.info("Check for visibility of first configure event")
+        config_trigger.visibility_of_first_configure_trigger()
         assert count + 1 == config_trigger.get_configure_trigger_count()
 
     @pytest.mark.regression
@@ -126,7 +132,7 @@ class TestConfigureTriggers(Base):
         log.info("Search Functionality of Configure Triggers")
         config_trigger.search_input_string(source_app)
         config_trigger.click_enter_for_search()
-        search_result = config_trigger.get_name_first_configure_trigger()
+        search_result = config_trigger.get_first_configure_trigger_by_name(source_app)
         log.info("Clearing the Search Field")
         config_trigger.clear_search()
         assert source_app == search_result
@@ -152,7 +158,9 @@ class TestConfigureTriggers(Base):
         config_trigger.click_on_update()
         log.info("click on close toop tip")
         config_trigger.click_close_tooltip()
-        top_first_event_name = config_trigger.get_name_first_configure_trigger()
+        log.info("Check for visibility of first configure event")
+        config_trigger.visibility_of_first_configure_trigger()
+        top_first_event_name = config_trigger.get_first_configure_trigger()
         assert new_config_name == top_first_event_name
 
     @pytest.mark.regression
@@ -164,6 +172,7 @@ class TestConfigureTriggers(Base):
         """
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
+        tirgger_name_before_deactivating = config_trigger.get_first_configure_trigger()
         log.info("Click on Active Tab and select first configure trigger")
         config_trigger.click_first_configure_trigger()
         log.info("Deactivate the Configure Trigger")
@@ -171,4 +180,7 @@ class TestConfigureTriggers(Base):
         log.info("Click on Update Button")
         config_trigger.click_on_update()
         config_trigger.click_inactive_tab()
-        assert inactive_count + 1 == config_trigger.get_configure_trigger_count()
+        log.info("Check for visibility of first configure event")
+        config_trigger.visibility_of_first_configure_trigger()
+        trigger_name_after_deactivated = config_trigger.get_first_configure_trigger()
+        assert tirgger_name_before_deactivating == trigger_name_after_deactivated

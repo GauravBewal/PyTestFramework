@@ -29,6 +29,9 @@ class TestUserGroupManagement(Base):
         usergroup.click_user_group_management()
         log.info("Read the page heading")
         error_msg_visibility = nav.verify_error_msg_after_navigation()
+        global count
+        log.info("Get the User Group Count")
+        count = usergroup.get_usergroup_count()
         assert action.get_title() == 'User Groups Management | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
@@ -91,44 +94,49 @@ class TestUserGroupManagement(Base):
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
+        usergroup.click_on_active_tab()
+        log.info("Check visibility of first group")
+        usergroup.check_visibility_of_first_group()
         global UsergroupName
         UsergroupName = "Ui_Automation" + action.get_current_time()
-        log.info("Add the User Group Count")
-        count = usergroup.get_usergroup_count()
         log.info("Click on add new user button")
         usergroup.click_add_user_group()
         log.info("Add the User Group Name")
         usergroup.put_usergroup_name(UsergroupName)
         log.info("Add the User Group Description")
         usergroup.put_usergroup_description("New Test User Group")
-        #usergroup.click_dropdown_users()
-        #usergroup.search_user_in_dropdown("Prabhat")
-        #usergroup.click_top_user()
-        #usergroup.click_dropdown_users()
         log.info("Click on the activate toggle button")
         usergroup.click_activate_toggle()
         log.info("Click on Create button")
         usergroup.click_create_button()
-        log.info("Validate the creation based on the Count")
-        assert count + 1 == usergroup.get_usergroup_count()
+        log.info("Get the toast message")
+        toast_msg = usergroup.get_tooltip_msg()
+        log.info("Close the tool tip")
+        usergroup.click_close_tooltip()
+        log.info("Check visibility of first group")
+        usergroup.check_visibility_of_first_group()
+        log.info("Validate the creation based on the Count and toast message")
+        assert count + 1 == usergroup.get_usergroup_count() and 'Success' in toast_msg
 
     @pytest.mark.regression
-
     def test_06_search_usergroup(self):
         """
             Verify the Search functionality of the user group
             Validation -1 : On the basis name of the creation
             TC_ID : 006
         """
-        log =  self.getlogger()
+        log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
         log.info("Input the searching string/ Name of the User Group")
         usergroup.search_button(UsergroupName)
         log.info("To get the results click Enter")
         action.click_enter()
+        log.info("Check visibility of first group")
+        usergroup.check_visibility_of_first_group()
         log.info("Validating based on the showed name")
         assert UsergroupName == usergroup.get_User_Group_Name()
+
 
     @pytest.mark.regression
     def test_07_update_usergroup(self):
@@ -146,7 +154,7 @@ class TestUserGroupManagement(Base):
         usergroup.click_edit_option()
         log.info("Clear the Old User Group Name")
         usergroup.clear_usergroup_name()
-        updated_user_group = "Ui_Automation"+action.get_current_time()
+        updated_user_group = "Ui_Automation" + action.get_current_time()
         log.info("Updating the New Name of the user Group")
         usergroup.put_usergroup_name(updated_user_group)
         log.info("Clearing the Old Description")
@@ -161,12 +169,20 @@ class TestUserGroupManagement(Base):
         assert usergroup.check_permission_status() == "ON"
         log.info("Click on the Update Button")
         usergroup.click_update_button()
-        log.info("Clearing the search field")
-        usergroup.clear_search_field()
+        log.info("Get the toast message")
+        toast_msg = usergroup.get_tooltip_msg()
+        log.info("Close the tool tip")
+        usergroup.click_close_tooltip()
+        log.info("Click on search button")
+        usergroup.click_on_search_clear_btn()
+        log.info("Switch to inactive tab")
+        usergroup.click_inactive_tab()
+        log.info("Check visibility of first group")
+        usergroup.check_visibility_of_first_group()
         log.info("Entering the New updated User Group Name for searching ")
         usergroup.search_button(updated_user_group)
         action.click_enter()
-        assert updated_user_group == usergroup.get_User_Group_Name()
+        assert updated_user_group == usergroup.get_User_Group_Name() and 'Success' in toast_msg
 
     @pytest.mark.regression
     def test_08_clone_existing_usergroup(self):
@@ -184,29 +200,25 @@ class TestUserGroupManagement(Base):
         usergroup.click_clone_usergroup()
         log.info("Clearing the Default name")
         usergroup.clear_usergroup_name()
-        cloned_usergroup = "Ui_Automation_Clone"+action.get_current_time()
+        cloned_usergroup = "Ui_Automation_Clone" + action.get_current_time()
         log.info("Update the New Created Name")
         usergroup.put_usergroup_name(cloned_usergroup)
         log.info("Clear the Description")
         usergroup.clear_usergroup_description()
         log.info("Update the New description")
         usergroup.put_usergroup_description("Cloned")
-        log.info("Deactivate the User Group")
-        usergroup.click_deactivate_usergroup()
+        # log.info("Deactivate the User Group")
+        # usergroup.click_deactivate_usergroup()
         log.info("Click on the create button")
         usergroup.click_create_button()
-        usergroup.clear_search_field()
+        log.info("Get the toast message")
+        toast_msg = usergroup.get_tooltip_msg()
+        log.info("Close the tool tip")
+        usergroup.click_close_tooltip()
+        log.info("Click on search button")
+        usergroup.click_on_search_clear_btn()
         log.info("Searching based on changed name")
         usergroup.search_button(cloned_usergroup)
         action.click_enter()
-        assert cloned_usergroup == usergroup.get_User_Group_Name()
-
-
-
-
-
-
-
-
-
-
+        assert cloned_usergroup == usergroup.check_visibility_of_first_group_by_name(cloned_usergroup) \
+               and 'Success' in toast_msg

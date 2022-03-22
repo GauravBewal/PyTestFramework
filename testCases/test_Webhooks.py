@@ -1,10 +1,10 @@
 import pytest
 
+from configuration.readConfiguration import ReadConfig
 from pageObjects.Navigation import Navigation
 from pageObjects.Webhooks import Webhooks
 from utilities.Actions import Action
 from utilities.Base import Base
-from configuration.readConfiguration import ReadConfig
 
 
 @pytest.mark.usefixtures("setup")
@@ -97,7 +97,7 @@ class TestWebhooks(Base):
         global webhook_title
         global token
         log.info("Generating the new Webhook title")
-        webhook_title = "test_webhook_"+action.get_current_time()
+        webhook_title = "test_webhook_" + action.get_current_time()
         log.info("Get the Webhook count before the create function")
         count = webhook.get_webhook_count()
         log.info("Click on the create new button")
@@ -122,8 +122,6 @@ class TestWebhooks(Base):
         webhook.click_slider_close()
         assert count + 1 == webhook.get_webhook_count()
 
-
-
     @pytest.mark.regression
     def test_06_check_generated_token(self):
         """
@@ -147,7 +145,7 @@ class TestWebhooks(Base):
         webhook = Webhooks(self.driver)
         log = self.getlogger()
         log.info("Comparing the base url with the Generated Webhook Base Url")
-        baseurl = ReadConfig.getAppURL()+"api/webhooks_auth/events/"
+        baseurl = ReadConfig.getAppURL() + "api/webhooks_auth/events/"
         assert baseurl == webhook.get_base_webhook_url()
 
     @pytest.mark.regression
@@ -186,7 +184,7 @@ class TestWebhooks(Base):
         log.info("Clear the old name of Webhook")
         webhook.clear_webhook_title()
         log.info("Generating the New Webhook Name")
-        updated_webhook = "test_webhook_"+action.get_current_time()
+        updated_webhook = "test_webhook_" + action.get_current_time()
         log.info("Update a New Name to Webhook")
         webhook.put_webhook_title(updated_webhook)
         log.info("Click Update/Save Button")
@@ -248,12 +246,3 @@ class TestWebhooks(Base):
         log.info("Click/ Switch on the inactive Tab")
         webhook.click_inactive_tab()
         assert count + 1 == webhook.get_webhook_count()
-
-
-
-
-
-
-
-
-

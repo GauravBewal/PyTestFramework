@@ -1,5 +1,3 @@
-import glob
-import os
 import time
 
 from selenium.webdriver.common.by import By
@@ -38,7 +36,6 @@ class MyApps(Action):
 
     def click_on_100_items_per_page_option(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.dd_100_items_per_page_option)
-
 
     app_install_btn = "(//button[contains(text(),'Install')])[1]"
 
@@ -130,8 +127,6 @@ class MyApps(Action):
 
     def enter_cftr_secret_key(self, secret_key):
         return Action.send_keys(self, By.XPATH, MyApps.cftr_secret_key_field, secret_key)
-
-
 
     instance_connectivity_slider_close = "//span[@data-testaction='slider-close']"
 
@@ -260,7 +255,7 @@ class MyApps(Action):
     clone_slider_button = "//div[contains(@class,'app-export')]//button[contains(text(),'Clone App')]"
 
     def click_clone_btn_on_slider(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.clone_slider_button)
+        return Action.click_if_element_found(self, By.XPATH, MyApps.clone_slider_button)
 
     clone_page_heading_txt = "//h1[contains(text(),'Clone App')]"
 
@@ -286,7 +281,7 @@ class MyApps(Action):
         return Action.javascript_click(self, By.XPATH, MyApps.top_1_search_result)
 
     def visibility_of_first_app(self):
-        return Action.check_visibility_of_element(self, By.XPATH, MyApps.top_1_search_result)
+        return Action.Pass_even_element_not_visible(self, By.XPATH, MyApps.top_1_search_result)
 
     search_app = "//input[@placeholder='Search App(s)']"
 
@@ -445,12 +440,8 @@ class MyApps(Action):
 
     app_input_field = "//input[@type='file']"
 
-    def send_app_path_to_upload_input_field(self, file_path):
+    def send_file_path_to_upload_input_field(self, file_path):
         return Action.send_keys_to_hidden_upload_element(self, By.XPATH, MyApps.app_input_field, file_path)
-
-
-
-
 
     button_create_new_app = "//i[contains(@class,'icon-plus')]/parent::button"
 

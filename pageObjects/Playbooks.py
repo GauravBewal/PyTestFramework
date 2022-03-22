@@ -22,6 +22,11 @@ class Playbooks(Action):
     def cyware_playbook_tab(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.tab_cyware_playbooks)
 
+    playbook_title_txt = "//div[@class='playbook_header__view']//header/span[2]"
+
+    def get_playbook_title(self):
+        return Action.get_text(self, By.XPATH, Playbooks.playbook_title_txt)
+
     tab_my_playbooks = "//li[contains(@class,'my-playbook')]/a"
 
     def my_playbook_tab(self):
@@ -31,6 +36,11 @@ class Playbooks(Action):
 
     def mouse_hover_on_more_options(self):
         return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.more_options_btn)
+
+    search_bar_input_field = "//input[@placeholder='Search Playbook(s)']"
+
+    def put_string_to_search(self, value):
+        return Action.send_keys(self, By.XPATH, Playbooks.search_bar_input_field, value)
 
     playbook_clone_btn = "//i[@class='cyicon-copy']/parent::li"
 
@@ -91,15 +101,53 @@ class Playbooks(Action):
     def check_visibility_export_as_json(self):
         return Action.check_visibility_of_element(self, By.XPATH, Playbooks.playbook_export_as_json)
 
+    def click_on_export_as_json(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_export_as_json)
+
     btn_first_cyware_playbook = "//div[3]//tr[1]/td[2]//a"
 
-    def click_first_playbook(self):
+    def click_first_cyware_playbook(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.btn_first_cyware_playbook)
+
+    def visibility_of_first_cyware_playbook(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.btn_first_cyware_playbook)
+
+    def get_first_cyware_playbook_name(self):
+        return Action.get_text(self, By.XPATH, Playbooks.btn_first_cyware_playbook)
+
+    def mouse_hover_on_first_cyware_playbook(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.btn_first_cyware_playbook)
+
+    first_playbook_more_options = "//div[2]/table/tbody/tr[1]/td[6]//span"
+
+    def mouse_hover_on_listing_more_options(self):
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.first_playbook_more_options)
+
+    system_playbook_listing_first_playbook_clone_btn = "//ul[@x-placement='bottom-end']//li[contains(text(),'Clone')]"
+
+    def click_on_playbook_listing_clone_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.system_playbook_listing_first_playbook_clone_btn)
+
+    open_clone_playbook_btn = "//div[@id='open-clone-playbook']"
+
+    def click_on_open_clone_playbook_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.open_clone_playbook_btn)
 
     btn_first_my_playbook = "//div[3]//tr[1]/td[3]//a"
 
-    def visibility_of_first_playbook(self):
-        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.btn_first_my_playbook)
+    def visibility_of_first_my_playbook(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, Playbooks.btn_first_my_playbook)
+
+    def get_first_my_playbook_name(self):
+        return Action.get_text(self, By.XPATH, Playbooks.btn_first_my_playbook)
+
+    def click_on_first_my_playbook(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.btn_first_my_playbook)
+
+    playbook_edit_btn = "//i[contains(@class,'icon-edit')]/parent::button"
+
+    def click_on_playbook_edit_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_edit_btn)
 
     close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
 
@@ -347,11 +395,24 @@ class Playbooks(Action):
 
     grid_view_btn = "//span[contains(@class,'grid-button')]"
 
-    def click_on_grid_btn(self):
+    def click_on_grid_view_btn(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.grid_view_btn)
+
+    table_view_btn = "//i[contains(@class,'icon-table')]/parent::span"
+
+    def click_on_table_view_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.table_view_btn)
+
+    def get_table_icon_color(self):
+        return Action.get_css_property_value(self, By.XPATH, Playbooks.table_view_btn, 'color')
 
     def get_grid_icon_color(self):
         return Action.get_css_property_value(self, By.XPATH, Playbooks.grid_view_btn, 'color')
+
+    grid_view_first_playbook = "(//div[contains(@class,'playbook-card')]//h3)[1]"
+
+    def visibility_of_first_playbook_in_grid_view(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.grid_view_first_playbook)
 
     walkthrough_tooltip_title = "//h1[@class='introjs-tooltip-title']"
 
@@ -377,11 +438,6 @@ class Playbooks(Action):
 
     def click_on_finish_button(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.video_walkthrough_finish_btn)
-
-    textbox_search_playbook = "//header//div[contains(@class,'search-input')]/input"
-
-    def search_playbooks(self, value):
-        return Action.send_keys(self, By.XPATH, Playbooks.textbox_search_playbook, value)
 
     playbook_overview_btn = "//button[contains(@class,'playbook-overview-btn')]"
 
@@ -470,6 +526,26 @@ class Playbooks(Action):
     def put_label_name(self, value):
         return Action.send_keys(self, By.XPATH, Playbooks.label_input_field, value)
 
+    file_input_field = "//input[@type='file']"
+
+    def send_file_path_to_upload_input_field(self, file_path):
+        return Action.send_keys_to_hidden_upload_element(self, By.XPATH, Playbooks.file_input_field, file_path)
+
+    import_playbook_slider_title = "//div[@class='playbook-import-v2']//div[contains(@class,'header__label')]/div"
+
+    def get_import_playbook_slider_title(self):
+        return Action.get_text(self, By.XPATH, Playbooks.import_playbook_slider_title)
+
+    import_playbook_slider_close_btn = "//div[@class='playbook-import-v2']//span[@class='cyicon-cross']"
+
+    def click_import_playbook_slider_close_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.import_playbook_slider_close_btn)
+
+    search_close_btn = "//i[contains(@class,'search-input__close')]/parent::span"
+
+    def click_on_search_clear_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.search_close_btn)
+
     def visibility_of_label(self, label_name):
         path = "//div[@name='labels']//li[1]//div[contains(text(),'" + label_name + "')]"
         return Action.check_visibility_of_element(self, By.XPATH, path)
@@ -488,3 +564,8 @@ class Playbooks(Action):
 
     def close_tooltip(self):
         return Action.normal_click(self, By.XPATH, Playbooks.tooltip_close)
+
+    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
+
+    def get_tooltip_msg(self):
+        return Action.get_text(self, By.XPATH, Playbooks.toast_msg_txt)

@@ -162,4 +162,3 @@ class Webhooks(Action):
 
     def click_deactive_webhook(self):
         return Action.wait_and_click(self, By.XPATH, Webhooks.deactivate)
-

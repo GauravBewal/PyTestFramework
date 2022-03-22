@@ -25,45 +25,15 @@ class TestPlaybook(Base):
         nav.click_main_menu()
         log.info("Click on Manage Playbook from Main Menu")
         nav.navigate_manage_playbook()
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
         read_page_heading = playbooks.get_manage_playbook_heading()
-        error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert read_page_heading == 'Manage Playbooks' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_02_Verify_Cyware_Playbooks_Switch_tab(self):
-        """
-            Verify user is able to switch from My Playbooks to Cyware Playbooks
-            Validation - 1. On the basis of Windows title
-        """
-        log = self.getlogger()
-        action = Action(self.driver)
-        playbooks = Playbooks(self.driver)
-        log.info("Click on Cyware Playbooks for switch tab ")
-        playbooks.cyware_playbook_tab()
-        log.info("Check if walk through is initiated")
-        playbooks.click_on_close_walkthrough()
-        assert action.get_title() == 'Cyware Playbooks | Cyware Orchestrate'
-
-    @pytest.mark.regression
-    @pytest.mark.readOnly
-    def test_03_Verify_My_Playbooks_Switch_tab(self):
-        """
-            Verify user is able to switch from Cyware Playbooks to My Playbooks
-            Validation - 1. On the basis of Windows title
-        """
-        log = self.getlogger()
-        action = Action(self.driver)
-        playbooks = Playbooks(self.driver)
-        log.info("Click on My Playbooks for switch tab")
-        playbooks.my_playbook_tab()
-        assert action.get_title() == 'My Playbooks | Cyware Orchestrate'
-
-    @pytest.mark.regression
-    @pytest.mark.readOnly
-    def test_04_Verify_Click_Create_New_Playbook_btn(self):
+    def test_02_Verify_Click_Create_New_Playbook_btn(self):
         """
         Verify user is able to click on create new playbook button
         Validation : Based on the window title
@@ -80,7 +50,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.regression
-    def test_05_Verify_Click_Add_Node_btn(self):
+    def test_03_Verify_Click_Add_Node_btn(self):
         """
           Verify click on add node button
           Validation : Based on the add node slider title
@@ -95,7 +65,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_06_Verify_All_Node_Type_Titles_Visibility(self):
+    def test_04_Verify_All_Node_Type_Titles_Visibility(self):
         """
            Verify user is able to see all the node types
            Validation: Based on the nodes category title
@@ -112,7 +82,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_07_Verify_All_Nodes_Visibility(self):
+    def test_05_Verify_All_Nodes_Visibility(self):
         """
         Verify user is able to see all the nodes
         Validation 1: Based on the nodes visibility
@@ -130,7 +100,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_08_Check_Video_walkthrough(self):
+    def test_06_Check_Video_walkthrough(self):
         """
             Verify user is able to see the video walkthough
             Validation: Based on the video walkthrough popup title
@@ -149,7 +119,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_09_Check_Tooltip_walkthrough(self):
+    def test_07_Check_Tooltip_walkthrough(self):
         """
             Verify user is able to see the tooltip walkthough
             Validation: Based on the tooltip walkthrough title
@@ -172,7 +142,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_10_Check_Save_Options(self):
+    def test_08_Check_Save_Options(self):
         """
             Verify user is able to see the save options
             Validation: Based on the save options visibility
@@ -187,7 +157,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_11_Check_Playbook_Overview_Slider(self):
+    def test_09_Check_Playbook_Overview_Slider(self):
         """
             Verify user is able to see the playbook overview slider
             Validation: Based on the slider title
@@ -202,7 +172,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_12_Switch_Output_Parameters_Section(self):
+    def test_10_Switch_Output_Parameters_Section(self):
         """
             Verify whether user is able to click on output parameter
             Validation: Based on the section title and add parameter button visibility
@@ -221,7 +191,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_13_Add_Output_Parameter(self):
+    def test_11_Add_Output_Parameter(self):
         """
             Verify user is able to add the output parameters
             Validation: Based on the params visibility
@@ -240,7 +210,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_14_Verify_Switch_to_Associated_Playbooks(self):
+    def test_12_Verify_Switch_to_Associated_Playbooks(self):
         """
             Verify user is able to switch to associated playbooks section
             Validation: Based on the section title and no state text
@@ -259,7 +229,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_15_Verify_Switch_to_Sub_Playbooks_tab(self):
+    def test_13_Verify_Switch_to_Sub_Playbooks_tab(self):
         """
             Verify whether user is able to switch to sub-playbooks section
             Validation: Based on the subplaybooks tab color
@@ -274,7 +244,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_16_Verify_Switch_App_and_Actions(self):
+    def test_14_Verify_Switch_App_and_Actions(self):
         """
             Verify whether user is able to switch apps and actions section
             Validation based on section title and no state text
@@ -296,7 +266,7 @@ class TestPlaybook(Base):
         assert section_title == 'Apps (0) / Actions (0)' and text == 'No App/Actions Available'
 
     @pytest.mark.regression
-    def test_17_Click_Customize_Table_btn(self):
+    def test_15_Click_Customize_Table_btn(self):
         """
             Verify whether user is able to click on customize table
             Validation: Based on the slider title
@@ -313,7 +283,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_18_Click_Filter_btn(self):
+    def test_16_Click_Filter_btn(self):
         """
             Verify whether user is able to click on filter button
             Validation: Based on the slider title
@@ -330,7 +300,25 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_19_View_Playbook(self):
+    def test_17_Verify_Cyware_Playbooks_Switch_tab(self):
+        """
+            Verify user is able to switch from My Playbooks to Cyware Playbooks
+            Validation - 1. On the basis of Windows title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        nav = Navigation(self.driver)
+        log.info("Click on Cyware Playbooks for switch tab ")
+        playbooks.cyware_playbook_tab()
+        error_msg_visibility = nav.verify_error_msg_after_navigation()
+        log.info("Check if walk through is initiated")
+        playbooks.click_on_close_walkthrough()
+        assert action.get_title() == 'Cyware Playbooks | Cyware Orchestrate' and error_msg_visibility is False
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_18_View_Playbook(self):
         """
             Verify opening playbook in view mode from cyware playbook
             Validation : Based on the window's title
@@ -338,10 +326,8 @@ class TestPlaybook(Base):
         log = self.getlogger()
         action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        log.info("Switching to cyware playbook tab")
-        playbooks.cyware_playbook_tab()
         log.info("Click on the first playbook")
-        playbooks.click_first_playbook()
+        playbooks.click_first_cyware_playbook()
         log.info("Switch to newly opened playbook tab")
         global parent_window
         parent_window = playbooks.switch_new_window(1)
@@ -352,7 +338,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_20_Check_Export_Options_visibility(self):
+    def test_19_Check_Export_Options_visibility(self):
         """
             Verify whether user is able to seen the export options
             Validation: Based on the export options visibility
@@ -369,6 +355,30 @@ class TestPlaybook(Base):
         assert export_json and export_png is True
 
     @pytest.mark.regression
+    def test_20_export_system_playbook(self):
+        """
+        Verify whether user is able to export the system playbook
+        Validation-1: Based on the playbook downloaded file visibility
+        """
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Get playbook name")
+        global exported_playbook_name
+        exported_playbook_name = playbooks.get_playbook_title()
+        log.info("Mouse hover on more options")
+        playbooks.mouse_hover_on_more_options()
+        log.info("mouse hover on the export button")
+        playbooks.mouse_hover_export_btn()
+        log.info("click on the export as json button")
+        playbooks.click_on_export_as_json()
+        log.info("Read the successfully exported message")
+        tooltip_msg = playbooks.get_tooltip_msg()
+        assert tooltip_msg == 'Success'
+        playbooks.close_tooltip()
+        assert exported_playbook_name in \
+               playbooks.check_file_downloaded_and_get_file_name(exported_playbook_name, 'json')
+
+    @pytest.mark.regression
     @pytest.mark.readOnly
     def test_21_Check_Clone_btn_Visibility(self):
         """
@@ -381,7 +391,6 @@ class TestPlaybook(Base):
         playbooks.mouse_hover_on_more_options()
         log.info("Check for clone button visibility")
         visibility = playbooks.check_visibility_of_clone_btn()
-
         assert visibility is True
 
     @pytest.mark.regression
@@ -415,31 +424,29 @@ class TestPlaybook(Base):
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Click on Grid button")
-        playbooks.click_on_grid_btn()
+        playbooks.click_on_grid_view_btn()
         log.info("Check whether grid view button is selected")
         grid_button_selected = playbooks.get_grid_icon_color()
         log.info("Check whether view has been changed to grid")
-        assert grid_button_selected == '#1a3ee8'
+        playbook_visibility_in_grid_view = playbooks.visibility_of_first_playbook_in_grid_view()
+        assert grid_button_selected == '#1a3ee8' and playbook_visibility_in_grid_view is True
 
-    @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_24_Sort_options_visibility(self):
+    @pytest.mark.regression
+    def test_24_Verify_table_view_switching(self):
         """
-        Verify whether user is able to see all the available sort options
-        Validation 1: Based on the options visibility
+        Verify user is able to switch to table view
+        Validation-1: Based on the button color visibility
         """
         log = self.getlogger()
-        playbook = Playbooks(self.driver)
-        log.info("Switching to my playbooks tab")
-        playbook.my_playbook_tab()
-        log.info("Mouse on the sort options")
-        playbook.mouse_hover_sort_options()
-        log.info("Reading all the visible sort options")
-        elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),
-                                                      playbook.available_sort_options)
-        for element in range(0, len(elements_list)):
-            read_sort_option = playbook.get_sort_options_title(elements_list[element])
-            assert read_sort_option == playbook.sort_options[element]
+        playbooks = Playbooks(self.driver)
+        log.info("Click on the table view button")
+        playbooks.click_on_table_view_btn()
+        log.info("Check whether table view is selected")
+        table_view_btn_selected = playbooks.get_table_icon_color()
+        log.info("Check whether view has been changed to grid")
+        playbook_visibility_in_table_view = playbooks.visibility_of_first_cyware_playbook()
+        assert table_view_btn_selected == '#1a3ee8' and playbook_visibility_in_table_view is True
 
     @pytest.mark.regression
     def test_25_Verify_Pagination_increment(self):
@@ -471,8 +478,115 @@ class TestPlaybook(Base):
         current_page_number = playbooks.get_current_page_count()
         assert current_page_number == 1
 
+    @pytest.mark.regression
+    def test_27_clone_system_playbook_from_listing(self):
+        """
+        Verify whether user is able to clone the system playbook
+        Validation-1: Based on the playbook visibility in my playbooks tab
+        """
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Mouse hover on the first playbook")
+        playbooks.mouse_hover_on_first_cyware_playbook()
+        log.info("mouse hover on the more options")
+        playbooks.mouse_hover_on_listing_more_options()
+        log.info("click on clone button")
+        playbooks.click_on_playbook_listing_clone_btn()
+        log.info("Read the successfully exported message")
+        tooltip_msg = playbooks.get_tooltip_msg()
+        assert tooltip_msg == 'Success'
+        log.info("Click on the open playbook button")
+        playbooks.click_on_open_clone_playbook_btn()
+        log.info("Switch to new tab")
+        parent_window = playbooks.switch_new_window(1)
+        log.info("Read the playbook title")
+        global cloned_playbook_title
+        cloned_playbook_title = playbooks.get_playbook_title()
+        assert 'Cloned' in cloned_playbook_title
+        playbooks.switch_back_parent_window(parent_window)
+        playbooks.close_tooltip()
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_28_Verify_My_Playbooks_Switch_tab(self):
+        """
+            Verify user is able to switch from Cyware Playbooks to My Playbooks
+            Validation - 1. On the basis of Windows title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        log.info("Click on My Playbooks for switch tab")
+        playbooks.my_playbook_tab()
+        assert action.get_title() == 'My Playbooks | Cyware Orchestrate'
+
+    @pytest.mark.regression
+    def test_29_Search_playbook(self):
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Enter the playbook name to search")
+        playbooks.put_string_to_search(cloned_playbook_title)
+        log.info("Read the searched result")
+        searched_playbook_name = playbooks.get_first_my_playbook_name()
+        assert searched_playbook_name == cloned_playbook_title
+
+    @pytest.mark.regression
+    def test_30_edit_cloned_playbook(self):
+        """
+            Verify whether user is able to edit the cloned app
+            Validation-1: Based on the successful updation message
+        """
+        log = self.getlogger()
+        playbook = Playbooks(self.driver)
+        log.info("Click on the first playbook")
+        playbook.click_on_first_my_playbook()
+        parent_window = playbook.switch_new_window(1)
+        playbook.click_on_playbook_edit_btn()
+        assert 'Edit Playbook' in playbook.get_playbook_title()
+        playbook.switch_back_parent_window(parent_window)
+
+    @pytest.mark.regression
+    def test_31_import_system_playbook(self):
+        """
+        Verify whether user is able to import exported system playbook
+        Validation-1: Based on the imported successful message
+        """
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Get the exact app location")
+        playbook_name = playbooks.check_file_downloaded_and_get_file_name(exported_playbook_name, 'json')
+        playbook_path = playbooks.get_file_downloaded_path(playbook_name)
+        log.info("send app file location to import button")
+        playbooks.send_file_path_to_upload_input_field(playbook_path)
+        slider_txt = playbooks.get_import_playbook_slider_title()
+        assert 'Please Review Before Importing This Playbook' == slider_txt
+        # assert playbooks.get_tooltip_msg() == 'Success'
+        # playbooks.close_tooltip()
+        playbooks.click_import_playbook_slider_close_btn()
+        playbooks.click_on_search_clear_btn()
+        log.info("Deleting the downloaded file")
+        playbooks.delete_downloaded_file(playbook_path)
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_32_Sort_options_visibility(self):
+        """
+        Verify whether user is able to see all the available sort options
+        Validation 1: Based on the options visibility
+        """
+        log = self.getlogger()
+        playbook = Playbooks(self.driver)
+        log.info("Mouse on the sort options")
+        playbook.mouse_hover_sort_options()
+        log.info("Reading all the visible sort options")
+        elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),
+                                                      playbook.available_sort_options)
+        for element in range(0, len(elements_list)):
+            read_sort_option = playbook.get_sort_options_title(elements_list[element])
+            assert read_sort_option == playbook.sort_options[element]
+
     # @pytest.mark.regression
-    # def test_27_Verify_playbook_execution_flow_with_ctix_action_node(self):
+    # def test_33_Verify_playbook_execution_flow_with_ctix_action_node(self):
     #     """
     #     Install the ctix app to use it for playbook execution
     #     Validation 1: Based on the ctix app visibility

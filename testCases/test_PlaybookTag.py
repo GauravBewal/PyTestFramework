@@ -1,13 +1,13 @@
 import pytest
 
-from pageObjects.PlaybookTags import PlaybookTags
 from pageObjects.AdminPage import Admin
-from pageObjects.Navigation import Navigation
 from pageObjects.Dashboard import Dashboard
+from pageObjects.FilterandSort import FilterAndSort
+from pageObjects.Navigation import Navigation
+from pageObjects.PlaybookTags import PlaybookTags
+from pageObjects.Playbooks import Playbooks
 from utilities.Actions import Action
 from utilities.Base import Base
-from pageObjects.FilterandSort import FilterAndSort
-from pageObjects.Playbooks import Playbooks
 
 
 @pytest.mark.usefixtures("setup")
@@ -58,6 +58,8 @@ class TestPlaybookTags(Base):
         log = self.getlogger()
         action = Action(self.driver)
         tag = PlaybookTags(self.driver)
+        log.info("Check visibility of first playbooktag")
+        tag.visibility_of_first_playbook_tag()
         log.info("Reading the count of total playbookTags before creating a new playbookTag")
         before_playbookTag_creation_count = tag.get_playbookTag_count()
         log.info("Click on to create new PlaybookTag")
@@ -71,6 +73,8 @@ class TestPlaybookTags(Base):
         log.info("Click on Save PlaybookTag button")
         tag.save_playbookTag()
         tag.close_tooltip()
+        log.info("Check visibility of first playbooktag")
+        tag.visibility_of_first_playbook_tag()
         log.info("Reading count of total labels after creating a new playbookTag")
         after_playbookTag_creation_count = tag.get_playbookTag_count()
         log.info("Validating total count of PlaybookTag before and after creation of new label, also checking the "
@@ -121,7 +125,6 @@ class TestPlaybookTags(Base):
         tag.click_on_searchbar()
         tag.put_string_in_searchbar(playbook_tag_text)
         tag_name = tag.get_playbooktag_name()
-        tag.click_on_close_button()
         assert tag_name == playbook_tag_text
 
     @pytest.mark.regression
@@ -149,6 +152,7 @@ class TestPlaybookTags(Base):
         log.info("Click on Save/update PlaybookTag button")
         tag.save_playbookTag()
         tag.close_tooltip()
+        tag.click_clear_search_btn()
         assert tag.get_playbooktag_name() == updated_playbooktag_title
 
     @pytest.mark.regression
@@ -235,6 +239,8 @@ class TestPlaybookTags(Base):
         nav.click_main_menu()
         log.info("Navigate to the Manage Playbook Module")
         nav.navigate_manage_playbook()
+        log.info("Visibility of first playbook")
+        playbook.visibility_of_first_my_playbook()
         log.info("Click on create a New Playbook Button")
         playbook.click_on_create_playbook_btn()
         log.info("Verify and Close the Walk through")
@@ -242,10 +248,17 @@ class TestPlaybookTags(Base):
         log.info("Click on the Overview Button")
         playbook.click_on_playbook_overview_btn()
         log.info("Click on the Playbook Tag Field")
-        tag.check_tag_field()
+        tag.click_on_tag_field()
         log.info("Enter the playbook tag name to verify it is present/ visible in listing")
+        visibility = tag.visibility_of_playbook_tag(updated_playbooktag_title)
         tag.put_created_tag(updated_playbooktag_title)
-        assert updated_playbooktag_title == tag.check_listed_playbook_tag()
+        log.info("click on the back button")
+        playbook.click_on_back_button()
+        log.info("Click exit without save button")
+        playbook.click_exit_without_save()
+        assert visibility is True
+
+
 
     @pytest.mark.regression
     def test_13_delete_playbooktag(self):
@@ -257,13 +270,10 @@ class TestPlaybookTags(Base):
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
         admin = Admin(self.driver)
-        playbook = Playbooks(self.driver)
         filter = FilterAndSort(self.driver)
         nav = Navigation(self.driver)
         log.info("Click on the Admin Button")
         nav.click_admin_menu()
-        log.info("Click on Close the Playbook without saving")
-        playbook.click_exit_without_save()
         log.info("Navigate to the Playbook Tag Module")
         admin.click_playbook_tags()
         log.info("Clear the Applied filters in the Playbook Tags")
@@ -275,16 +285,16 @@ class TestPlaybookTags(Base):
         log.info("Search functionality ")
         tag.put_string_in_searchbar(updated_playbooktag_title)
         log.info("Get the Count of Playbook Tags before delete the Tag")
-        tag_count = tag.get_playbookTag_count()
         log.info("Mouse HOver on the first element on Listing")
-        tag.mouse_hover_on_first_elemen()
+        tag.mouse_hover_on_first_element()
         log.info("Move Hover on the More options")
         tag.mouse_hover_on_more_options()
         log.info("Click on the delete Button displayed on the Dropdown")
         tag.delete_playbooktag()
         log.info("Confirm the deletion of the Playbook Tag")
         tag.click_confirm_delete()
-        assert tag_count - 1 == tag.get_playbookTag_count()
-
-
+        toast_msg = tag.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("click on close tool tip")
+        tag.close_tooltip()
 

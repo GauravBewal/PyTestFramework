@@ -61,7 +61,7 @@ class TestAdminPanel(Base):
         assert action.get_title() == 'Authentication | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
-    def test_09_Verify_Admin_Cyware_Agent_redirection(self):
+    def test_04_Verify_Admin_Cyware_Agent_redirection(self):
         """
             Verify redirection of Cyware Agent from the admin page
             Validation - 1. On the basis of Window's title
@@ -79,7 +79,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_10_Verify_Admin_Console_Status_redirection(self):
+    def test_05_Verify_Admin_Console_Status_redirection(self):
         """
             Verify redirection of Console Status from the admin page
             Validation - 1. On the basis of Window's title
