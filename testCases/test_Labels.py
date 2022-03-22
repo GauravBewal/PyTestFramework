@@ -74,7 +74,7 @@ class TestLabels(Base):
         label.visibility_of_first_label()
         log.info("Read the no of active labels available")
         all_created_labels = label.get_label_count()
-        assert tab_color == '#1a3ee8' and all_created_labels == inactive_labels + active_labels
+        assert tab_color == '#1a3ee8'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
