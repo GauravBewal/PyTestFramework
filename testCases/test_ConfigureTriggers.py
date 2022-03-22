@@ -179,6 +179,7 @@ class TestConfigureTriggers(Base):
         config_trigger.deactive_configure_trigger()
         log.info("Click on Update Button")
         config_trigger.click_on_update()
+        config_trigger.click_close_tooltip()
         config_trigger.click_inactive_tab()
         log.info("Check for visibility of first configure event")
         config_trigger.visibility_of_first_configure_trigger()
