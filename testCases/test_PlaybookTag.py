@@ -124,6 +124,7 @@ class TestPlaybookTags(Base):
         log.info("Searching the Playbook Tag")
         tag.click_on_searchbar()
         tag.put_string_in_searchbar(playbook_tag_text)
+        tag.click_enter()
         tag_name = tag.get_playbooktag_name()
         assert tag_name == playbook_tag_text
 
@@ -153,6 +154,7 @@ class TestPlaybookTags(Base):
         tag.save_playbookTag()
         tag.close_tooltip()
         tag.click_clear_search_btn()
+        tag.click_enter()
         assert tag.get_playbooktag_name() == updated_playbooktag_title
 
     @pytest.mark.regression
@@ -257,7 +259,6 @@ class TestPlaybookTags(Base):
         log.info("Click exit without save button")
         playbook.click_exit_without_save()
         assert visibility is True
-
 
 
     @pytest.mark.regression

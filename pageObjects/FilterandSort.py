@@ -30,8 +30,7 @@ class FilterAndSort(Action):
     def get_name_sorted_filter(self):
         return Action.get_text(self, By.XPATH, FilterAndSort.sort_position)
 
-    created_sort = "(//ul[@class='el-dropdown-menu el-popper filters-sort-dropdown']" \
-                   "//li[@class='el-dropdown-menu__item'])[2]"
+    created_sort = "//li[contains(text(),'Created')]"
 
     def click_on_created(self):
         return Action.javascript_click(self, By.XPATH, FilterAndSort.created_sort)
