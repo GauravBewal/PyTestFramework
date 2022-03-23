@@ -14,6 +14,22 @@ class UserManagement(Action):
     def click_user_management(self):
         return Action.javascript_click(self, By.XPATH, UserManagement.tab_user_management)
 
+    user_count = "//h1[contains(text(),'User Management (')]"
+
+    def get_user_count(self):
+        return Action.get_count_from_string(self, By.XPATH, UserManagement.user_count)
+
+
+    first_active_user = "(//span[text()='Active' and @class='status__text'])[1]"
+
+    def visibility_of_first_active_user(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, UserManagement.first_active_user)
+
+    first_inactive_user = "(//span[text()='Inactive' and @class='status__text'])[1]"
+
+    def visibility_of_first_inactive_user(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, UserManagement.first_inactive_user)
+
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
@@ -29,6 +45,11 @@ class UserManagement(Action):
 
     def get_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserManagement.tab_All, 'color')
+
+    tab_active = "//li/a[contains(text(),'Active')]"
+
+    def click_active_tab(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.tab_active)
 
     btn_new_user = "//header//div[3]/button"
 

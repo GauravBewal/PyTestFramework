@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pageObjects.ConfigureTrigger import ConfigureTrigger
@@ -27,28 +29,13 @@ class TestSyslogs(Base):
         log.info("Click on SysLogs tab from Admin Page")
         syslog.click_syslogs()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
+        global active_count
+        active_count = syslog.get_syslog_count()
         assert action.get_title() in 'Syslogs | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_02_Click_New_Syslogs_btn(self):
-        """
-            Verify create button functionality of new syslogs
-            Validation - 2. On the basis of slider title
-        """
-        log = self.getlogger()
-        syslog = Syslogs(self.driver)
-        log.info("Click on add syslog button")
-        syslog.click_new_syslog()
-        log.info("Read the slider title")
-        slider_title = syslog.get_slider_title()
-        log.info("Click on close slider button")
-        syslog.click_slider_close()
-        assert slider_title == 'Configure Syslog'
-
-    @pytest.mark.regression
-    @pytest.mark.readOnly
-    def test_03_Verify_Switch_Inactive_tab(self):
+    def test_02_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 3. On the basis of tab color
@@ -59,11 +46,15 @@ class TestSyslogs(Base):
         syslog.click_inactive_tab()
         log.info("Read the tab color after switching")
         tab_color = syslog.get_inactive_tab_color()
+        log.info("Check for first inactive syslog")
+        syslog.visibility_of_first_inactive_syslog()
+        global inactive_count
+        inactive_count = syslog.get_syslog_count()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_04_Verify_Switch_All_tab(self):
+    def test_03_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 3. On the basis of tab color
@@ -74,7 +65,31 @@ class TestSyslogs(Base):
         syslog.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = syslog.get_all_tab_color()
-        assert tab_color == '#1a3ee8'
+        log.info("Check for active syslog visibility")
+        syslog.visibility_of_first_active_syslog()
+        global all_tab_count
+        all_tab_count = syslog.get_syslog_count()
+        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_04_Click_New_Syslogs_btn(self):
+        """
+            Verify create button functionality of new syslogs
+            Validation - 2. On the basis of slider title
+        """
+        log = self.getlogger()
+        syslog = Syslogs(self.driver)
+        syslog.click_active_tab()
+        log.info("Check for active syslog visibility")
+        syslog.visibility_of_first_active_syslog()
+        log.info("Click on add syslog button")
+        syslog.click_new_syslog()
+        log.info("Read the slider title")
+        slider_title = syslog.get_slider_title()
+        log.info("Click on close slider button")
+        syslog.click_slider_close()
+        assert slider_title == 'Configure Syslog'
 
     @pytest.mark.regression
     def test_05_create_syslog(self):
@@ -87,79 +102,49 @@ class TestSyslogs(Base):
         syslog = Syslogs(self.driver)
         action = Action(self.driver)
         nav = Navigation(self.driver)
-        label = Labels(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on to main menu")
         nav.click_main_menu()
-        log.info("Click on to label module for redirection")
-        nav.navigate_labels()
-        label.visibility_of_first_label()
-        label.click_new_label()
-        global label_text
-        label_text = "test_syslog" + action.get_current_time()
-        log.info("Entering new label name")
-        label.put_label_name(label_text)
-        log.info("Entering label description")
-        label.put_description("Test Description")
-        log.info("Click on create label button")
-        label.create_Label()
-        log.info("Click on to close label creation tooltip ")
-        label.click_close_tooltip()
-        log.info("Click on Main menu")
-        nav.click_main_menu()
         log.info("Click on configure event")
         nav.navigate_configure_event()
-        config_trigger.visibility_of_first_configure_trigger()
-        log.info("Creating a New Configure Trigger")
-        config_trigger.click_new_configure_trigger_btn()
-        log.info("Enter the data into Input Fields")
-        global source_app
-        source_app = "TestSource_App" + action.get_current_time()
-        config_trigger.put_source_app_name(source_app)
-        global Event_Type
-        log.info("Enter the SourceEvent Data")
-        Event_Type = "TestSourceEvent_Type" + action.get_current_time()
-        config_trigger.put_source_event_type(Event_Type)
-        config_trigger.click_on_label_field()
-        label_path = "//ul[@id='dropdown-list']//li//div//div//div[text()='" + label_text + "']"
-        log.info("Select the test_syslog label")
-        config_trigger.select_test_syslog_label(label_path)
-        log.info("Enter the Create Button")
-        config_trigger.click_create_btn()
-        log.info("click on close toop tip")
+        config_trigger.click_inactive_tab()
+        config_trigger.visibility_of_first_inactive_configure_trigger()
+        config_trigger_name = config_trigger.get_first_configure_trigger()
+        config_trigger.click_first_configure_trigger()
+        config_trigger.click_active_configure_trigger_btn()
+        config_trigger.click_on_update()
         config_trigger.click_close_tooltip()
         log.info("Click on Main menu")
         nav.click_admin_menu()
         log.info("Click on SysLogs tab from Admin Page")
         syslog.click_syslogs()
         log.info("Click on all tab")
-        syslog.click_all_tab()
-        log.info("Click On New Syslog Button")
+        syslog.click_active_tab()
+        syslog.visibility_of_first_active_syslog()
         global syslog_title
-        log.info("Generating the new Syslog title")
         syslog_title = "test_syslog_" + action.get_current_time()
-        log.info("Get the Syslog count before the create function")
-        count = syslog.get_syslog_count()
         log.info("Click on the create new button")
         syslog.click_new_syslog()
         log.info("Add the Syslog title in the specified input field")
         syslog.put_syslog_title(syslog_title)
-        port_number = "1045"
+        port_number = syslog.generate_port_number()
         log.info("Add the Port Number in the specified input field")
         syslog.put_port_number(port_number)
-        log.info("Select the Source Event App for the Syslog")
-        log.info("Add the Source App Name in the specified input field")
-        source_app_path = "//ul[@id='dropdown-list']//li//div//div//div[text()='" + source_app + "']"
-        log.info("Select the Source Event App for the Syslog")
         syslog.click_on_list_Source_Events_App()
-        syslog.select_test_syslog_source_event_app(source_app_path)
+        syslog.put_source_event_app(config_trigger_name)
+        log.info("Select the Source Event App for the Syslog")
+        syslog.select_first_source_event_app_and_type()
         log.info("Select the Source Event Type for the Syslog")
         syslog.click_on_list_Source_Events_Type()
-        syslog.select_first_source_event_type()
+        syslog.select_first_source_event_app_and_type()
         syslog.click_save_btn()
+        log.info("Read the tool tip message")
+        toast_msg = syslog.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("click on close toop tip")
         syslog.click_close_tooltip()
-        assert count + 1 == syslog.get_syslog_count()
+        syslog.visibility_of_first_active_syslog()
+        assert active_count + 1 == syslog.get_syslog_count()
 
     @pytest.mark.regression
     def test_06_Search_syslog(self):
@@ -174,19 +159,44 @@ class TestSyslogs(Base):
         syslog.search_input_string(syslog_title)
         syslog.click_enter_for_search()
         search_result = syslog.get_name_first_syslog()
-        log.info("Clearing the Search Field")
-        syslog.clear_search()
         assert syslog_title == search_result
 
     @pytest.mark.regression
-    def test_07_check_the_dropdown_Edit_visibility(self):
+    def test_07_update_syslog(self):
+        """
+        Verify user is able to edit the syslog
+        Validation-1: Based on the successful message
+        """
+        log = self.getlogger()
+        syslog = Syslogs(self.driver)
+        action = Action(self.driver)
+        log.info("Click on the first syslog")
+        syslog.click_first_syslog()
+        global updated_syslog_name
+        updated_syslog_name = "ui_automtion"+action.get_current_time()
+        log.info("Clear the previous title")
+        syslog.clear_syslog_title()
+        syslog.put_syslog_title(updated_syslog_name)
+        syslog.click_save_btn()
+        log.info("Read tool tip message")
+        toast_msg = syslog.get_tooltip_msg()
+        log.info("Close tool tip")
+        syslog.click_close_tooltip()
+        assert 'Success' in toast_msg
+        log.info("Clear search")
+        syslog.clear_search()
+
+    @pytest.mark.regression
+    def test_08_check_the_dropdown_Edit_visibility(self):
         """
             Verify the dropdown button Visibility.
             Validation -1 : Check The Edit Slider Title
-
         """
         syslog = Syslogs(self.driver)
         log = self.getlogger()
+        syslog.search_input_string(updated_syslog_name)
+        syslog.click_enter_for_search()
+        syslog.visibility_of_first_active_syslog()
         log.info("Mouse over the dropdown")
         syslog.check_drop_down()
         log.info("Click on Edit button in Drop down")
@@ -198,47 +208,61 @@ class TestSyslogs(Base):
         assert slider_title == "Edit Syslog"
 
     @pytest.mark.regression
-    def test_08_deactivating_syslog(self):
+    def test_09_deactivating_syslog(self):
         """
             Verify the deactivating syslog functionality
             Validation 1: Based on the Status of the syslog
-
         """
         syslog = Syslogs(self.driver)
         log = self.getlogger()
-        log.info("Get the status of Syslogs before deactivating")
-        status_before_deactivating = syslog.get_status_of_syslog()
         log.info("Mouse hover the dropdown")
         syslog.check_drop_down()
+        log.info("Click on deactive button")
         syslog.click_deactivate_button()
-        log.info("Get the status of Syslogs after deactivating")
-        status_after_deactivating = syslog.get_status_of_syslog()
-        log.info("click on close toop tip")
+        log.info("Read the tool tip msg")
+        tooltip_msg = syslog.get_tooltip_msg()
+        log.info("Close the tool tip")
         syslog.click_close_tooltip()
-        assert status_before_deactivating == 'Active' and status_after_deactivating == 'Inactive'
+        assert 'Success' in tooltip_msg
+        log.info("Clear search")
+        syslog.clear_search()
+        log.info("switch to inactive tab")
+        syslog.click_inactive_tab()
+        syslog.visibility_of_first_inactive_syslog()
+        first_syslog_name = syslog.get_name_first_syslog()
+        assert updated_syslog_name == first_syslog_name
 
     @pytest.mark.regression
-    def test_09_activating_syslog(self):
+    def test_10_activating_syslog(self):
         """
             Verify the deactivating syslog functionality
             Validation 1: Based on the Status of the syslog
-
         """
         syslog = Syslogs(self.driver)
         log = self.getlogger()
-        log.info("Get the status of Syslogs before activating")
-        status_before_activating = syslog.get_status_of_syslog()
+        log.info("Search Functionality of Syslogs")
+        syslog.search_input_string(updated_syslog_name)
+        syslog.click_enter_for_search()
         log.info("Mouse hover the dropdown")
         syslog.check_drop_down()
+        log.info("Click on active button")
         syslog.click_activate_button()
-        log.info("Get the status of Syslogs after activating")
-        status_after_activating = syslog.get_status_of_syslog()
-        log.info("click on close toop tip")
+        log.info("Read the tool tip msg")
+        tooltip_msg = syslog.get_tooltip_msg()
+        log.info("Close the tool tip")
         syslog.click_close_tooltip()
-        assert status_after_activating == 'Active' and status_before_activating == 'Inactive'
+        assert 'Success' in tooltip_msg
+        log.info("Clear the search")
+        syslog.clear_search()
+        log.info("switch to active tab")
+        syslog.click_active_tab()
+        syslog.visibility_of_first_active_syslog()
+        first_syslog_name = syslog.get_name_first_syslog()
+        assert updated_syslog_name == first_syslog_name
+
 
     @pytest.mark.regression
-    def test_10_delete_syslog(self):
+    def test_11_delete_syslog(self):
         """
             Verify the delete syslog functionality
             Validation 1: Based on the Count of the syslogs
@@ -246,11 +270,13 @@ class TestSyslogs(Base):
         """
         syslog = Syslogs(self.driver)
         log = self.getlogger()
-        log.info("Get the number of Syslogs before delete")
-        count_before_delete = syslog.get_syslog_count()
         log.info("Mouse over the dropdown")
         syslog.check_drop_down()
         syslog.click_delete_button()
-        log.info("click on close toop tip")
+        log.info("Read the tool tip msg")
+        tooltip_msg = syslog.get_tooltip_msg()
+        log.info("Close the tool tip")
         syslog.click_close_tooltip()
-        assert count_before_delete == syslog.get_syslog_count() + 1
+        assert 'Success' in tooltip_msg
+        syslog.visibility_of_first_active_syslog()
+        assert active_count == syslog.get_syslog_count()

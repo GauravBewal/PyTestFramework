@@ -25,6 +25,8 @@ class TestOpenApi(Base):
         log.info("Click on Open APIs tab from Admin Page")
         openapi.click_open_api_tab()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
+        global active_count
+        active_count = openapi.get_openapi_count()
         assert action.get_title() == 'Open APIs | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
@@ -57,6 +59,9 @@ class TestOpenApi(Base):
         openapi.click_inactive_tab()
         log.info("Read the tab color after switching")
         tab_color = openapi.get_inactive_tab_color()
+        openapi.visibility_of_first_inactive_openapi()
+        global inactive_count
+        inactive_count = openapi.get_openapi_count()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.regression
@@ -72,7 +77,9 @@ class TestOpenApi(Base):
         openapi.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = openapi.get_all_tab_color()
-        assert tab_color == '#1a3ee8'
+        openapi.visibility_of_first_active_openapi()
+        all_tab_count = openapi.get_openapi_count()
+        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
 
     @pytest.mark.regression
     def test_05_Create_new_openapi(self):
@@ -86,6 +93,7 @@ class TestOpenApi(Base):
         action = Action(self.driver)
         log.info("Switch to active tab")
         openapi.click_active_tab()
+        openapi.visibility_of_first_active_openapi()
         log.info("Click on the open api button")
         openapi.click_new_open_api_btn()
         log.info("Enter the openapi name")
@@ -193,7 +201,7 @@ class TestOpenApi(Base):
         openapi.put_string_in_search_bar(openapi_name)
         log.info("Click Enter")
         openapi.click_enter_for_search()
-        openapi.visibility_of_first_openapi()
+        openapi.visibility_of_first_active_openapi()
         read_top_search_result = openapi.get_top_1_openapi()
         openapi.clear_search()
         log.info("Validating search results")
@@ -221,7 +229,7 @@ class TestOpenApi(Base):
         log.info("Click on close tooltip")
         openapi.close_tooltip()
         log.info("check visibility of first openapi")
-        openapi.visibility_of_first_openapi()
+        openapi.visibility_of_first_active_openapi()
         top_openapi_name = openapi.get_top_1_openapi()
         log.info("Validating the new label name is updated or not ")
         assert top_openapi_name == updated_openapi_name
@@ -234,7 +242,6 @@ class TestOpenApi(Base):
         """
         log = self.getlogger()
         openapi = OpenApi(self.driver)
-        action = Action(self.driver)
         log.info("Click on the first openapi")
         openapi.click_on_first_openapi()
         log.info("Click on inacive toggle")
@@ -245,6 +252,7 @@ class TestOpenApi(Base):
         openapi.close_tooltip()
         log.info("Click on inactive tab")
         openapi.click_inactive_tab()
-        top_openapi_name = openapi.get_top_1_openapi_by_name(updated_openapi_name)
+        openapi.visibility_of_first_inactive_openapi()
+        top_openapi_name = openapi.get_top_1_openapi()
         log.info("Validating the new label name is updated or not ")
-        assert top_openapi_name == updated_openapi_name
+        assert top_openapi_name in updated_openapi_name

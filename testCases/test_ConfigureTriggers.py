@@ -27,6 +27,8 @@ class TestConfigureTriggers(Base):
         nav.navigate_configure_event()
         page_heading = config_trigger.get_page_heading()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
+        global active_count
+        active_count = config_trigger.get_configure_trigger_count()
         assert action.get_title() == 'Configure Triggers | Cyware Orchestrate' \
                and 'Configure Triggers' in page_heading and error_msg_visibility is False
 
@@ -44,6 +46,9 @@ class TestConfigureTriggers(Base):
         config_trigger.click_inactive_tab()
         log.info("Read the tab color after switching")
         tab_color = config_trigger.read_inactive_tab_color()
+        config_trigger.visibility_of_first_inactive_configure_trigger()
+        global inactive_count
+        inactive_count = config_trigger.get_configure_trigger_count()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.regression
@@ -60,7 +65,9 @@ class TestConfigureTriggers(Base):
         config_trigger.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = config_trigger.read_all_tab_color()
-        assert tab_color == '#1a3ee8'
+        config_trigger.visibility_of_first_active_configure_trigger()
+        all_tab_count = config_trigger.get_configure_trigger_count()
+        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count + active_count
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -72,9 +79,10 @@ class TestConfigureTriggers(Base):
         """
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
+        log.info("Switching to active tab")
         config_trigger.click_active_tab()
         log.info("Check for visibility of first configure event")
-        config_trigger.visibility_of_first_configure_trigger()
+        config_trigger.visibility_of_first_active_configure_trigger()
         log.info("Click on configure new trigger button")
         config_trigger.click_new_configure_trigger_btn()
         log.info("Read the slider heading")
@@ -94,11 +102,6 @@ class TestConfigureTriggers(Base):
         log = self.getlogger()
         action = Action(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
-        log.info("Check for visibility of first configure event")
-        config_trigger.visibility_of_first_configure_trigger()
-        count = config_trigger.get_configure_trigger_count()
-        log.info("Check for visibility of first configure event")
-        config_trigger.visibility_of_first_configure_trigger()
         log.info("Creating a New Configure Trigger")
         config_trigger.click_new_configure_trigger_btn()
         log.info("Enter the data into Input Fields")
@@ -117,8 +120,8 @@ class TestConfigureTriggers(Base):
         log.info("click on close toop tip")
         config_trigger.click_close_tooltip()
         log.info("Check for visibility of first configure event")
-        config_trigger.visibility_of_first_configure_trigger()
-        assert count + 1 == config_trigger.get_configure_trigger_count()
+        config_trigger.visibility_of_first_active_configure_trigger()
+        assert active_count + 1 == config_trigger.get_configure_trigger_count()
 
     @pytest.mark.regression
     def test_06_Search_Configured_Trigger(self):
@@ -132,7 +135,7 @@ class TestConfigureTriggers(Base):
         log.info("Search Functionality of Configure Triggers")
         config_trigger.search_input_string(source_app)
         config_trigger.click_enter_for_search()
-        search_result = config_trigger.get_first_configure_trigger_by_name(source_app)
+        search_result = config_trigger.get_first_configure_trigger()
         log.info("Clearing the Search Field")
         config_trigger.clear_search()
         assert source_app == search_result
@@ -159,7 +162,7 @@ class TestConfigureTriggers(Base):
         log.info("click on close toop tip")
         config_trigger.click_close_tooltip()
         log.info("Check for visibility of first configure event")
-        config_trigger.visibility_of_first_configure_trigger()
+        config_trigger.visibility_of_first_active_configure_trigger()
         top_first_event_name = config_trigger.get_first_configure_trigger()
         assert new_config_name == top_first_event_name
 
@@ -176,12 +179,12 @@ class TestConfigureTriggers(Base):
         log.info("Click on Active Tab and select first configure trigger")
         config_trigger.click_first_configure_trigger()
         log.info("Deactivate the Configure Trigger")
-        config_trigger.deactive_configure_trigger()
+        config_trigger.click_deactive_configure_trigger()
         log.info("Click on Update Button")
         config_trigger.click_on_update()
         config_trigger.click_close_tooltip()
         config_trigger.click_inactive_tab()
         log.info("Check for visibility of first configure event")
-        config_trigger.visibility_of_first_configure_trigger()
+        config_trigger.visibility_of_first_inactive_configure_trigger()
         trigger_name_after_deactivated = config_trigger.get_first_configure_trigger()
         assert tirgger_name_before_deactivating == trigger_name_after_deactivated

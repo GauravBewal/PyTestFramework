@@ -54,7 +54,6 @@ class PlaybookTags(Action):
     text_playbookTag_count = "//h1[contains(text(),'Playbook Tags (')]"
 
     def get_playbookTag_count(self):
-        time.sleep(ReadConfig.Wait_3_Sec())
         return Action.get_count_from_string(self, By.XPATH, PlaybookTags.text_playbookTag_count)
 
 
