@@ -32,6 +32,16 @@ class Action(Base):
         except (StaleElementReferenceException, ElementClickInterceptedException):
             self.javascript_click(by, locator)
 
+    def get_tab_total_count(self, by, locator, previous_tab_count):
+        count = self.get_count_from_string(by, locator)
+        if count != previous_tab_count:
+            return count
+        else:
+            self.get_tab_total_count(by, locator, previous_tab_count)
+
+
+
+
     def wait_and_click(self, by, locator):
         try:
             element = self.Webdriver_Wait_until_element_clickable(by, locator)
@@ -101,7 +111,7 @@ class Action(Base):
         return str(version.split(': ')[1])
 
     def get_count_from_string(self, by, locator):
-        ele = self.Webdriver_Wait_until_element_clickable(by, locator)
+        ele = self.Webdriver_Wait_until_element_visible(by, locator)
         count = ele.text
         return int(float(count.split('(')[1].split(')')[0]))
 

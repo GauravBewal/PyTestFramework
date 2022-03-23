@@ -35,7 +35,7 @@ class ConfigureTrigger(Action):
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.tab_inactive)
+        return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.tab_inactive)
 
     def read_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, ConfigureTrigger.tab_inactive, 'color')
@@ -43,7 +43,7 @@ class ConfigureTrigger(Action):
     tab_All = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
-        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.tab_All)
+        return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.tab_All)
 
     def read_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, ConfigureTrigger.tab_All, 'color')
@@ -79,38 +79,52 @@ class ConfigureTrigger(Action):
     def get_top_label(self):
         return Action.get_text(self, By.XPATH, ConfigureTrigger.first_label)
 
-    create_btn = "//div[contains(@class,'px-5 text-right')]//button"
+    create_btn = "//button[text()='Create']"
 
     def click_create_btn(self):
         return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.create_btn)
+
+    update_btn = "//button[text()='Update']"
+
+    def click_on_update(self):
+        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.update_btn)
 
     text_configure_trigger_count = "//h1[contains(text(),'Configure Triggers (')]"
 
     def get_configure_trigger_count(self):
         return Action.get_count_from_string(self, By.XPATH, ConfigureTrigger.text_configure_trigger_count)
 
-    first_config_trigger = "(//tr[contains(@class, 'el-table__row')]//div//span//a)[1]"
+    first_config_trigger = "(//tr[1]//div//span//a)[1]"
 
     def click_first_configure_trigger(self):
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.first_config_trigger)
 
-    def visibility_of_first_configure_trigger(self):
-        return Action.Pass_even_element_not_visible(self, By.XPATH, ConfigureTrigger.first_config_trigger)
 
     def get_first_configure_trigger(self):
         return Action.get_text(self, By.XPATH, ConfigureTrigger.first_config_trigger)
 
-    def get_first_configure_trigger_by_name(self, trigger_name):
-        return Action.read_search_result(self, By.XPATH, ConfigureTrigger.first_config_trigger, trigger_name)
+
+    first_active_configured_event = "(//span[text()='Active' and @class='status__text'])[1]"
+
+    def visibility_of_first_active_configure_trigger(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, ConfigureTrigger.first_active_configured_event)
 
 
-    active_btn = "//span[@class='cyicon-check']"
+    first_inactive_configured_Event = "(//span[text()='Inactive' and @class='status__text'])[1]"
 
-    def deactive_configure_trigger(self):
-        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.active_btn)
+    def visibility_of_first_inactive_configure_trigger(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, ConfigureTrigger.first_inactive_configured_Event)
 
-    def click_on_update(self):
-        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.create_btn)
+
+    deactive_btn = "//span[@class='cyicon-check']"
+
+    def click_deactive_configure_trigger(self):
+        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.deactive_btn)
+
+    active_btn = "//button//span[@class='cyicon-cross']"
+
+    def click_active_configure_trigger_btn(self):
+        return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.active_btn)
 
     close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
 
@@ -120,7 +134,7 @@ class ConfigureTrigger(Action):
     tab_active = "//li/a[contains(text(),'Active')]"
 
     def click_active_tab(self):
-        return Action.javascript_click(self, By.XPATH, ConfigureTrigger.tab_active)
+        return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.tab_active)
 
     main_input = "//input[@id='main-input']"
 

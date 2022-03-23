@@ -17,13 +17,12 @@ class UserGroupManagement(Action):
     def click_user_group_management(self):
         return Action.javascript_click(self, By.XPATH, UserGroupManagement.tab_user_group_management)
 
-    tab_active = "//div[contains(@class,'tabs--list')]//li[2]/a"
+    tab_active = "//li/a[contains(text(),'Active')]"
 
     def click_on_active_tab(self):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_active)
 
-
-    tab_inactive = "//div[@class='px-2 tabs--list my-2']//li[3]/a"
+    tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_inactive)
@@ -31,7 +30,7 @@ class UserGroupManagement(Action):
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, UserGroupManagement.tab_inactive, 'color')
 
-    tab_all = "//div[contains(@class,'tabs--list')]//li[1]/a"
+    tab_all = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_all)
@@ -73,12 +72,16 @@ class UserGroupManagement(Action):
     def get_User_Group_Name(self):
         return Action.get_text(self, By.XPATH, UserGroupManagement.usergroup_title)
 
-    def check_visibility_of_first_group(self):
-        return Action.Pass_even_element_not_visible(self, By.XPATH, UserGroupManagement.usergroup_title)
 
-    def check_visibility_of_first_group_by_name(self, group_name):
-        return Action.read_search_result(self, By.XPATH, UserGroupManagement.usergroup_title,group_name)
+    first_active_usergroup = "(//div[contains(@class,'app-card')]//span[text()='ACTIVE'])[1]"
 
+    def visibility_of_first_active_usergroup(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, UserGroupManagement.first_active_usergroup)
+
+    first_inactive_usergroup = "(//div[contains(@class,'app-card')]//span[text()='INACTIVE'])[1]"
+
+    def visibility_of_first_inactive_usergroup(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, UserGroupManagement.first_inactive_usergroup)
 
     user_title = "//input[@aria-placeholder='Title *']"
 
@@ -97,6 +100,9 @@ class UserGroupManagement(Action):
 
     def search_button(self, value):
         return Action.send_keys(self, By.XPATH, UserGroupManagement.main_searchbar, value)
+
+    def click_enter_to_search(self):
+        return Action.click_enter(self)
 
     search_bar_clear_btn = "//div[contains(@class,'clear-button')]"
 

@@ -29,32 +29,15 @@ class TestUserGroupManagement(Base):
         usergroup.click_user_group_management()
         log.info("Read the page heading")
         error_msg_visibility = nav.verify_error_msg_after_navigation()
-        global count
-        log.info("Get the User Group Count")
-        count = usergroup.get_usergroup_count()
+        global active_count
+        log.info("Get the active Usergroup Count")
+        active_count = usergroup.get_usergroup_count()
         assert action.get_title() == 'User Groups Management | Cyware Orchestrate' and error_msg_visibility is False
 
-    @pytest.mark.regression
-    @pytest.mark.readOnly
-    def test_02_Click_New_User_Group_btn(self):
-        """
-            Verify creation of new user group
-            Validation - 1. On the basis of slider title
-            TC_ID : 002
-        """
-        log = self.getlogger()
-        usergroup = UserGroupManagement(self.driver)
-        log.info("Click on add new user button")
-        usergroup.click_add_user_group()
-        log.info("Read the slider title")
-        slider_title = usergroup.get_slider_title()
-        log.info("Click on close slider button")
-        usergroup.click_slider_close()
-        assert slider_title == 'New User Group'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_03_Verify_Switch_Inactive_tab(self):
+    def test_02_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 1. On the basis of tab color
@@ -66,11 +49,15 @@ class TestUserGroupManagement(Base):
         usergroup.click_inactive_tab()
         log.info("Read the tab color after switching")
         tab_color = usergroup.get_inactive_tab_color()
+        log.info("Check visibility of first inative usergroup")
+        usergroup.visibility_of_first_inactive_usergroup()
+        global inactive_count
+        inactive_count = usergroup.get_usergroup_count()
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_04_Verify_Switch_All_tab(self):
+    def test_03_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 1. On the basis of tab color
@@ -82,7 +69,33 @@ class TestUserGroupManagement(Base):
         usergroup.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = usergroup.get_all_tab_color()
-        assert tab_color == '#1a3ee8'
+        log.info("Check visibility of first active usergroup")
+        usergroup.visibility_of_first_active_usergroup()
+        global all_tab_count
+        all_tab_count = usergroup.get_usergroup_count()
+        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_04_Click_New_User_Group_btn(self):
+        """
+            Verify creation of new user group
+            Validation - 1. On the basis of slider title
+            TC_ID : 002
+        """
+        log = self.getlogger()
+        usergroup = UserGroupManagement(self.driver)
+        log.info("Switch to active tab")
+        usergroup.click_on_active_tab()
+        log.info("Check visibility of first active usergroup")
+        usergroup.visibility_of_first_active_usergroup()
+        log.info("Click on add new user button")
+        usergroup.click_add_user_group()
+        log.info("Read the slider title")
+        slider_title = usergroup.get_slider_title()
+        log.info("Click on close slider button")
+        usergroup.click_slider_close()
+        assert slider_title == 'New User Group'
 
     @pytest.mark.regression
     def test_05_Create_New_User_Group(self):
@@ -94,9 +107,6 @@ class TestUserGroupManagement(Base):
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
-        usergroup.click_on_active_tab()
-        log.info("Check visibility of first group")
-        usergroup.check_visibility_of_first_group()
         global UsergroupName
         UsergroupName = "Ui_Automation" + action.get_current_time()
         log.info("Click on add new user button")
@@ -111,12 +121,12 @@ class TestUserGroupManagement(Base):
         usergroup.click_create_button()
         log.info("Get the toast message")
         toast_msg = usergroup.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("Close the tool tip")
         usergroup.click_close_tooltip()
-        log.info("Check visibility of first group")
-        usergroup.check_visibility_of_first_group()
+        usergroup.visibility_of_first_active_usergroup()
         log.info("Validate the creation based on the Count and toast message")
-        assert count + 1 == usergroup.get_usergroup_count() and 'Success' in toast_msg
+        assert active_count + 1 == usergroup.get_usergroup_count()
 
     @pytest.mark.regression
     def test_06_search_usergroup(self):
@@ -132,8 +142,6 @@ class TestUserGroupManagement(Base):
         usergroup.search_button(UsergroupName)
         log.info("To get the results click Enter")
         action.click_enter()
-        log.info("Check visibility of first group")
-        usergroup.check_visibility_of_first_group()
         log.info("Validating based on the showed name")
         assert UsergroupName == usergroup.get_User_Group_Name()
 
@@ -177,12 +185,13 @@ class TestUserGroupManagement(Base):
         usergroup.click_on_search_clear_btn()
         log.info("Switch to inactive tab")
         usergroup.click_inactive_tab()
-        log.info("Check visibility of first group")
-        usergroup.check_visibility_of_first_group()
         log.info("Entering the New updated User Group Name for searching ")
         usergroup.search_button(updated_user_group)
         action.click_enter()
+        log.info("Check visibility of first inactive group")
+        usergroup.visibility_of_first_inactive_usergroup()
         assert updated_user_group == usergroup.get_User_Group_Name() and 'Success' in toast_msg
+
 
     @pytest.mark.regression
     def test_08_clone_existing_usergroup(self):
@@ -207,8 +216,6 @@ class TestUserGroupManagement(Base):
         usergroup.clear_usergroup_description()
         log.info("Update the New description")
         usergroup.put_usergroup_description("Cloned")
-        # log.info("Deactivate the User Group")
-        # usergroup.click_deactivate_usergroup()
         log.info("Click on the create button")
         usergroup.click_create_button()
         log.info("Get the toast message")
@@ -220,5 +227,6 @@ class TestUserGroupManagement(Base):
         log.info("Searching based on changed name")
         usergroup.search_button(cloned_usergroup)
         action.click_enter()
-        assert cloned_usergroup == usergroup.check_visibility_of_first_group_by_name(cloned_usergroup) \
+        usergroup.visibility_of_first_inactive_usergroup()
+        assert cloned_usergroup == usergroup.get_User_Group_Name() \
                and 'Success' in toast_msg

@@ -19,16 +19,36 @@ class TenantManagement(Action):
     def click_inactive_tab(self):
         return Action.javascript_click(self, By.XPATH, TenantManagement.tab_inactive)
 
+    tab_active = "//li/a[contains(text(),'Active')]"
+
+    def click_active_tab(self):
+        return Action.wait_and_click(self, By.XPATH, TenantManagement.tab_active)
+
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, TenantManagement.tab_inactive, 'color')
 
-    tab_all = "//li/a[contains(text(),'Inactive')]"
+    tab_all = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
-        return Action.javascript_click(self, By.XPATH, TenantManagement.tab_all)
+        return Action.wait_and_click(self, By.XPATH, TenantManagement.tab_all)
 
     def get_all_tab_color(self):
-        return Action.get_css_property_value(self, By.XPATH, TenantManagement.tab_inactive, 'color')
+        return Action.get_css_property_value(self, By.XPATH, TenantManagement.tab_all, 'color')
+
+    tenant_count = "//h1[contains(text(),'Tenant Management (')]"
+
+    def get_tenant_count(self):
+        return Action.get_count_from_string(self, By.XPATH, TenantManagement.tenant_count)
+
+    first_active_tenant = "(//span[text()='Active' and @class='status__text'])[1]"
+
+    def visibility_of_first_active_tenant(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, TenantManagement.first_active_tenant)
+
+    first_inactive_tenant = "(//span[text()='Inactive' and @class='status__text'])[1]"
+
+    def visibility_of_first_inactive_tenant(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, TenantManagement.first_inactive_tenant)
 
     btn_new_tenant = "//header//button"
 

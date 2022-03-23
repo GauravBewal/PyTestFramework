@@ -50,8 +50,8 @@ class TestLabels(Base):
         label.click_inactive_tab()
         log.info("Read the tab color")
         tab_color = label.get_inactive_tab_color()
-        log.info("Check visibility of first label")
-        label.visibility_of_first_label()
+        log.info("Check visibility of first inactive label")
+        label.visibility_of_first_inactive_label()
         log.info("Read the no of inactive labels available")
         global inactive_labels
         inactive_labels = label.get_label_count()
@@ -71,10 +71,10 @@ class TestLabels(Base):
         log.info("Read the tab color")
         tab_color = label.get_all_tab_color()
         log.info("Check visibility of first label")
-        label.visibility_of_first_label()
+        label.visibility_of_first_active_label()
         log.info("Read the no of active labels available")
-        all_created_labels = label.get_label_count()
-        assert tab_color == '#1a3ee8'
+        all_tab_count = label.get_label_count()
+        assert tab_color == '#1a3ee8' and all_tab_count == active_labels + inactive_labels
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -88,7 +88,7 @@ class TestLabels(Base):
         log.info("Switch to active tab")
         label.click_active_tab()
         log.info("Check visibility of first label")
-        label.visibility_of_first_label()
+        label.visibility_of_first_active_label()
         log.info("Click on to New Label Button")
         label.click_new_label()
         slider_title = label.get_label_slider_title()
@@ -105,12 +105,6 @@ class TestLabels(Base):
         log = self.getlogger()
         action = Action(self.driver)
         label = Labels(self.driver)
-        log.info("Check visibility of first label")
-        label.visibility_of_first_label()
-        log.info("Reading the count of total labels before creating a new label")
-        before_label_creation_count = label.get_label_count()
-        log.info("Check visibility of first label")
-        label.visibility_of_first_label()
         log.info("Click on to create new label")
         label.click_new_label()
         global label_text
@@ -124,13 +118,13 @@ class TestLabels(Base):
         log.info("Click on to close label creation tooltip ")
         label.click_close_tooltip()
         log.info("Check visibility of first label")
-        label.visibility_of_first_label()
+        label.visibility_of_first_active_label()
         log.info("Reading count of total labels after creating a new label")
         after_label_creation_count = label.get_label_count()
         get_created_label_name = label.get_top_1_label_name()
         log.info("Validating total count of labels before and after creation of new label, also checking the "
                  "newly created label is listing or not")
-        assert label_text == get_created_label_name and before_label_creation_count + 1 == after_label_creation_count
+        assert label_text == get_created_label_name and active_labels + 1 == after_label_creation_count
 
     @pytest.mark.regression
     def test_06_Search_Label(self):
@@ -172,7 +166,7 @@ class TestLabels(Base):
         label.click_update_label()
         log.info("Click on close tooltip")
         label.click_close_tooltip()
-        label.visibility_of_first_label()
+        label.visibility_of_first_active_label()
         top_label = label.get_top_1_label_name()
         log.info("Validating the new label name is updated or not ")
         assert new_label_name == top_label
@@ -206,7 +200,7 @@ class TestLabels(Base):
         log.info("Navigate to configure events")
         nav.navigate_configure_event()
         log.info("Check for visibility of first configure event")
-        configure_event.visibility_of_first_configure_trigger()
+        configure_event.visibility_of_first_active_configure_trigger()
         log.info("Click on new button")
         configure_event.click_new_configure_trigger_btn()
         log.info("Click on the label field")
@@ -304,7 +298,7 @@ class TestLabels(Base):
         log.info("Navigate to playbook module")
         nav.navigate_labels()
         log.info("Check for visibility of first label")
-        label.visibility_of_first_label()
+        label.visibility_of_first_active_label()
         label_name_before_deactivating = label.get_top_1_label_name()
         log.info("Click on label present at top in listing")
         label.click_top_first_label()
@@ -316,6 +310,7 @@ class TestLabels(Base):
         log.info("Click on inactive button")
         # navigating inactive tab to check whether the label is de-activated or not
         label.click_inactive_tab()
+        label.visibility_of_first_inactive_label()
         log.info("Validating label name before and after deactivating")
         # checking whether same label is visible in inactive tab listing after deactivating it
-        assert label_name_before_deactivating == label.visibility_of_label_by_name(label_name_before_deactivating)
+        assert label_name_before_deactivating == label.get_top_1_label_name()

@@ -76,15 +76,19 @@ class Labels(Action):
     def get_top_1_label_name(self):
         return Action.get_text(self, By.XPATH, Labels.top_label_in_listing)
 
-    def visibility_of_label_by_name(self, label_name):
-        return Action.read_search_result(self, By.XPATH, Labels.top_label_in_listing, label_name)
-
-
-    def visibility_of_first_label(self):
-        return Action.Pass_even_element_not_visible(self, By.XPATH, Labels.top_label_in_listing)
 
     def click_top_first_label(self):
         return Action.javascript_click(self, By.XPATH, Labels.top_label_in_listing)
+
+    first_active_label = "(//span[text()='Active' and @class='status__text'])[1]"
+
+    def visibility_of_first_active_label(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, Labels.first_active_label)
+
+    first_inactive_label = "(//span[text()='Inactive' and @class='status__text'])[1]"
+
+    def visibility_of_first_inactive_label(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, Labels.first_inactive_label)
 
     label_created_user = "//tbody/tr[1]/td[2]"
 

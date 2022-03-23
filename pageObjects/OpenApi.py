@@ -62,6 +62,11 @@ class OpenApi(Action):
     def get_slider_title(self):
         return Action.get_text(self, By.XPATH, OpenApi.text_slider_title)
 
+    openapi_count = "//h1[contains(text(),'Open API (')]"
+
+    def get_openapi_count(self):
+        return Action.get_count_from_string(self, By.XPATH, OpenApi.openapi_count)
+
     btn_slider_close = "//div[@class='modal--header']//i"
 
     def click_slider_close(self):
@@ -70,7 +75,7 @@ class OpenApi(Action):
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
     def click_inactive_tab(self):
-        return Action.javascript_click(self, By.XPATH, OpenApi.tab_inactive)
+        return Action.wait_and_click(self, By.XPATH, OpenApi.tab_inactive)
 
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, OpenApi.tab_inactive, 'color')
@@ -83,7 +88,7 @@ class OpenApi(Action):
     tab_All = "//li/a[contains(text(),'All')]"
 
     def click_all_tab(self):
-        return Action.javascript_click(self, By.XPATH, OpenApi.tab_All)
+        return Action.wait_and_click(self, By.XPATH, OpenApi.tab_All)
 
     def get_all_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, OpenApi.tab_All, 'color')
@@ -98,17 +103,22 @@ class OpenApi(Action):
 
     top_openapi_in_listing = "(//tr//a)[1]"
 
-    def visibility_of_first_openapi(self):
-        return Action.Pass_even_element_not_visible(self, By.XPATH, OpenApi.top_openapi_in_listing)
 
     def get_top_1_openapi(self):
         return Action.get_text(self, By.XPATH, OpenApi.top_openapi_in_listing)
 
-    def get_top_1_openapi_by_name(self, openapi_name):
-        return Action.read_search_result(self, By.XPATH, OpenApi.top_openapi_in_listing, openapi_name)
-
     def click_on_first_openapi(self):
         return Action.wait_and_click(self, By.XPATH, OpenApi.top_openapi_in_listing)
+
+    first_active_openapi = "(//span[text()='Active' and @class='status__text'])[1]"
+
+    def visibility_of_first_active_openapi(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, OpenApi.first_active_openapi)
+
+    first_inactive_openapi = "(//span[text()='Inactive' and @class='status__text'])[1]"
+
+    def visibility_of_first_inactive_openapi(self):
+        return Action.Pass_even_element_not_visible(self, By.XPATH, OpenApi.first_inactive_openapi)
 
     click_clear_search = "//div[contains(@class,'clear-button')]/i"
 

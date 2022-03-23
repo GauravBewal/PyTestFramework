@@ -27,6 +27,8 @@ class TestTriggerEvents(Base):
         log.info("Read page heading")
         page_heading = trigger_events.get_page_heading()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
+        global active_count
+        active_count = trigger_events.get_events_count()
         assert action.get_title() == 'Trigger Events | Cyware Orchestrate' \
                and 'Triggered Events' in page_heading and error_msg_visibility is False
 
@@ -55,8 +57,6 @@ class TestTriggerEvents(Base):
         log = self.getlogger()
         trigger_events = TriggerEvents(self.driver)
         action = Action(self.driver)
-        log.info("Read the events count")
-        events_count_before_creation = trigger_events.get_events_count()
         log.info("Click on the create new button")
         trigger_events.click_create_new_event()
         global event_name
@@ -74,7 +74,7 @@ class TestTriggerEvents(Base):
         log.info("Close the tool tip")
         trigger_events.close_tooltip()
         events_count_after_creation = trigger_events.get_events_count()
-        assert creation_msg == 'Success' and events_count_before_creation + 1 == events_count_after_creation
+        assert creation_msg == 'Success' and active_count + 1 == events_count_after_creation
 
     @pytest.mark.regression
     def test_04_search_trigger_event(self):
@@ -91,4 +91,4 @@ class TestTriggerEvents(Base):
         read_top_search_result = trigger_events.get_first_event_name()
         trigger_events.clear_search()
         log.info("Validating search results")
-        assert event_name in read_top_search_result
+        assert event_name == read_top_search_result
