@@ -77,7 +77,7 @@ class PlaybookTags(Action):
     def click_playbooktag_name(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.playbooktag_name)
 
-    edit_button = "//i[@class='el-tooltip cyicon-edit cursor-pointer']"
+    edit_button = "//div[contains(@class,'header__icons')]//i[contains(@class,'cyicon-edit')]"
 
     def click_on_Edit_Button(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.edit_button)
