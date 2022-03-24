@@ -158,8 +158,8 @@ class TestPlaybookTags(Base):
         tag.close_tooltip()
         tag.click_clear_search_btn()
         tag.click_enter()
-        tag.visibility_of_first_playbook_tag()
-        assert tag.get_playbooktag_name() == updated_playbooktag_title
+        visibility = tag.visibility_of_first_playbook_tag()
+        assert visibility is True and tag.get_playbooktag_name() == updated_playbooktag_title
 
     @pytest.mark.regression
     def test_08_Check_Created_Descending_Order(self):
@@ -183,13 +183,9 @@ class TestPlaybookTags(Base):
         log = self.getlogger()
         filter = FilterAndSort(self.driver)
         log.info("Clicking on the filter Button")
-        filter.click_on_filters()
+        filter.click_on_filter_btn()
         log.info("Click on the last week Filter")
         filter.select_last_week_filter()
-        log.info("Close the Filter Slider")
-        filter.close_filter_btn()
-        log.info("Click on the Filters Again")
-        filter.click_on_filters()
         assert filter.check_last_week_radio_status() == True
 
     @pytest.mark.regression
@@ -203,10 +199,6 @@ class TestPlaybookTags(Base):
         filter = FilterAndSort(self.driver)
         log.info("Clicking on the last month filter Button")
         filter.select_last_month_filter()
-        log.info("Click on the close Button")
-        filter.close_filter_btn()
-        log.info("Click on the Filter Button")
-        filter.click_on_filters()
         assert filter.check_last_month_radio_status() == True
 
     @pytest.mark.regression
@@ -217,7 +209,9 @@ class TestPlaybookTags(Base):
         TC_ID: PlaybookTag-TC-011
         """
         log = self.getlogger()
+        filter = FilterAndSort(self.driver)
         dashboard = Dashboard(self.driver)
+        tag = PlaybookTags(self.driver)
         log.info("Click on the start date button")
         dashboard.click_start_date_btn()
         log.info("Select start date from calendar")
@@ -229,6 +223,13 @@ class TestPlaybookTags(Base):
         start_date_color = dashboard.get_calendar_start_date_color()
         end_date_color = dashboard.get_calendar_end_date_color()
         assert start_date_color == '#1a3ee8' and end_date_color == '#1a3ee8'
+        log.info("Selecting the same date to close the calendar")
+        dashboard.select_calendar_end_date()
+        dashboard.select_calendar_end_date()
+        log.info("Clear the Applied filters in the Playbook Tags")
+        tag.click_clear_all_filters_btn()
+        log.info("Close the Filter Slider")
+        filter.click_close_filter_btn()
 
     @pytest.mark.regression
     def test_12_visibility_of_playbooktag_in_playbooks(self):
@@ -275,16 +276,11 @@ class TestPlaybookTags(Base):
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
         admin = Admin(self.driver)
-        filter = FilterAndSort(self.driver)
         nav = Navigation(self.driver)
         log.info("Click on the Admin Button")
         nav.click_admin_menu()
         log.info("Navigate to the Playbook Tag Module")
         admin.click_playbook_tags()
-        log.info("Clear the Applied filters in the Playbook Tags")
-        tag.click_clear_filter()
-        log.info("Close the Filter Slider")
-        filter.close_filter_btn()
         log.info("Click on the Searchbar")
         tag.click_on_searchbar()
         log.info("Search functionality ")
