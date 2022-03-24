@@ -135,9 +135,9 @@ class PlaybookTags(Action):
     def click_confirm_delete(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.confirm_delete)
 
-    filter_clearall = "//div[contains(@class,'filters__header')]//span[contains(@class,'filters__header__clear-all')]"
+    filter_clearall = "//div[@class='filters__header']//span[contains(@class,'clear-all')]"
 
-    def click_clear_filter(self):
+    def click_clear_all_filters_btn(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.filter_clearall)
 
     tag_field = "//div[@name='tags']//span[contains(@class,'cyicon-chevron-down')]"

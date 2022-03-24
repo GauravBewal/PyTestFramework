@@ -12,9 +12,9 @@ class FilterAndSort(Action):
         super().__init__(driver)
         self.driver = driver
 
-    button_filter = "//i[@class='icon icon-filter']/parent::button"
+    button_filter = "//i[contains(@class,'icon-filter')]/parent::button"
 
-    def click_on_filters(self):
+    def click_on_filter_btn(self):
         return Action.wait_and_click(self, By.XPATH, FilterAndSort.button_filter)
 
     button_sort = "//span[@class='sort-tab']"
@@ -33,8 +33,8 @@ class FilterAndSort(Action):
     created_sort = "//li[contains(text(),'Created')]"
 
     def click_on_created(self):
+        time.sleep(3)
         return Action.wait_and_click(self, By.XPATH, FilterAndSort.created_sort)
-
 
     sort_order = "//span[@class='sort-tab']//span[@class='el-tooltip sort-button']"
 
@@ -43,7 +43,7 @@ class FilterAndSort(Action):
 
     filter_close_btn = "//i[contains(@class,'cyicon-cross')]/parent::span"
 
-    def close_filter_btn(self):
+    def click_close_filter_btn(self):
         return Action.wait_and_click(self, By.XPATH, FilterAndSort.filter_close_btn)
 
     playbook_filter_title = "//span[@class='filters__header__label']"

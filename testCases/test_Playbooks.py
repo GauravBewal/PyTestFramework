@@ -291,11 +291,11 @@ class TestPlaybook(Base):
         log = self.getlogger()
         filterandsort = FilterAndSort(self.driver)
         log.info("Click on the filter button")
-        filterandsort.click_on_filters()
+        filterandsort.click_on_filter_btn()
         log.info("Read the filter slider title")
         slider_txt = filterandsort.get_filters_slider_title()
         log.info("Close filter")
-        filterandsort.close_filter_btn()
+        filterandsort.click_close_filter_btn()
         assert slider_txt == 'FILTERS'
 
     @pytest.mark.regression
