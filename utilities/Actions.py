@@ -240,7 +240,8 @@ class Action(Base):
         return element.get_attribute(attribute_name)
 
     def convert_12to24hrs_time_format(self, time):
-        return datetime.strptime(time, '%b %d, %Y, %I:%M %p')
+        converted_time = datetime.strptime(time, '%b %d, %Y, %I:%M %p')
+        return converted_time
 
     def convert_string_to_lower(self, string):
         return string.lower()

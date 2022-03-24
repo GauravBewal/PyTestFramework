@@ -22,7 +22,7 @@ class FilterAndSort(Action):
     def click_on_sort(self):
         return Action.javascript_click(self, By.XPATH, FilterAndSort.button_filter)
 
-    sort_position = "//span[@class='sort-type el-dropdown-selfdefine']"
+    sort_position = "//span[@class='sort-tab']/div[@class='el-dropdown']"
 
     def mouse_hover_on_sort(self):
         return Action.mouse_hover_on_element(self, By.XPATH, FilterAndSort.sort_position)

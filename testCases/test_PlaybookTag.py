@@ -108,6 +108,7 @@ class TestPlaybookTags(Base):
         filter_sort.mouse_hover_on_sort()
         log.info("Changing sort to the Created")
         filter_sort.click_on_created()
+        tag.visibility_of_first_playbook_tag()
         log.info("Changing sort to Descending Order")
         filter_sort.changing_sort_to_descending_order()
         assert filter_sort.get_name_sorted_filter() == "Created"
@@ -152,9 +153,12 @@ class TestPlaybookTags(Base):
         tag.put_playbooktag_description("Updated Description")
         log.info("Click on Save/update PlaybookTag button")
         tag.save_playbookTag()
+        tooltip_msg = tag.get_tooltip_msg()
+        assert 'Success' in tooltip_msg
         tag.close_tooltip()
         tag.click_clear_search_btn()
         tag.click_enter()
+        tag.visibility_of_first_playbook_tag()
         assert tag.get_playbooktag_name() == updated_playbooktag_title
 
     @pytest.mark.regression
