@@ -141,7 +141,7 @@ class TestPlaybookTags(Base):
         tag = PlaybookTags(self.driver)
         action = Action(self.driver)
         log.info("Updating the PlaybookTag")
-        tag.click_playbooktag_name()
+        tag.click_playbooktag()
         log.info("Clicking on Editing Button in Slider")
         tag.click_on_Edit_Button()
         tag.clear_playbooktag_title()

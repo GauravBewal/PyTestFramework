@@ -62,7 +62,7 @@ class PlaybookTags(Action):
     def save_playbookTag(self):
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.button_save)
 
-    playbooktag_name = "(//tbody/tr[1]/td[1]//span)[1]"
+    playbooktag_name = "(//tbody/tr[1]/td[1]//span[contains(@class,'csol-tag__title')])[1]"
 
     def get_playbooktag_name(self):
         return Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
@@ -70,13 +70,14 @@ class PlaybookTags(Action):
     def visibility_of_first_playbook_tag(self):
         return Action.Pass_even_element_not_visible(self, By.XPATH, PlaybookTags.playbooktag_name)
 
-
     def get_first_tagname(self):
         text = Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
         return Action.convert_string_to_lower(self, text)
 
-    def click_playbooktag_name(self):
-        return Action.wait_and_click(self, By.XPATH, PlaybookTags.playbooktag_name)
+    first_playbook_tag = "(//tbody/tr[1]/td[1]//span)[1]"
+
+    def click_playbooktag(self):
+        return Action.wait_and_click(self, By.XPATH, PlaybookTags.first_playbook_tag)
 
     edit_button = "//div[contains(@class,'header__icons')]//i[contains(@class,'cyicon-edit')]"
 
