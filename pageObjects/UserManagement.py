@@ -75,3 +75,84 @@ class UserManagement(Action):
 
     def click_slider_close(self):
         return Action.javascript_click(self, By.XPATH, UserManagement.btn_slider_close)
+
+    First_name = "(//div[contains(@class,'cy-input ')]/input)[1]"
+
+    def put_first_name(self, value):
+        return Action.send_keys(self, By.XPATH, UserManagement.First_name, value)
+
+    Last_name = "(//div[contains(@class,'cy-input ')]/input)[2]"
+
+    def put_last_name(self, value):
+        return Action.send_keys(self, By.XPATH, UserManagement.Last_name, value)
+
+    drop_down_btn = "//div[contains(@class,'cy-select__menu--icon')]//span[contains(@class,'cyicon-chevron-down')]"
+
+    def click_dropdown(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.drop_down_btn)
+
+    top_first_usergroup = "(//div[contains(@class,'cy-select__menu---expanded')]//ul//li)[1]"
+
+    def click_top_user_group(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.top_first_usergroup)
+
+    user_name = "(//div[contains(@class,'cy-input ')]/input)[3]"
+
+    def put_user_name(self, value):
+        return Action.send_keys(self, By.XPATH, UserManagement.user_name, value)
+
+    user_email = "(//div[contains(@class,'cy-input ')]/input)[4]"
+
+    def put_user_email(self, value):
+        return Action.send_keys(self, By.XPATH, UserManagement.user_email, value)
+
+    create_user_btn = "//div[contains(@class,'cy-right-model__footer')]//button[contains(text(),'Create')]"
+
+    def click_create_user_btn(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.create_user_btn)
+
+    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
+
+    def click_close_tooltip(self):
+        return Action.normal_click(self, By.XPATH, UserManagement.close_tooltip_btn)
+
+    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
+
+    def get_tooltip_msg(self):
+        return Action.get_text(self, By.XPATH, UserManagement.toast_msg_txt)
+
+    main_searchbar = "//input[@id='main-input']"
+
+    def search_button(self, value):
+        return Action.send_keys(self, By.XPATH, UserManagement.main_searchbar, value)
+
+    list_first_name = "(//div/span[contains(@class,'align-items-center')]/a)[1]"
+
+    def get_first_list_name(self):
+        return Action.get_text(self, By.XPATH, UserManagement.list_first_name)
+
+    def click_first_list_user(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.list_first_name)
+
+    deactivate_btn ="//div[contains(@class,'cy-switch-btn__ball')]//span[contains(@class,'cyicon-check')]"
+
+    def click_deactivate_user(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.deactivate_btn)
+
+    update_btn = "//div[contains(@class,'cy-right-model__footer')]//button[contains(text(),'Update')]"
+
+    def click_update_btn(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.update_btn)
+
+    search_bar_clear_btn = "//div[contains(@class,'clear-button')]"
+
+    def click_on_search_clear_btn(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.search_bar_clear_btn)
+
+
+
+
+
+
+
+
