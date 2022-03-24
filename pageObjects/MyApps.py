@@ -386,6 +386,7 @@ class MyApps(Action):
     def get_first_action_name_after_search(self, action_name):
         return Action.read_search_result(self, By.XPATH, MyApps.debug_app_first_option_in_list, action_name)
 
+
     def select_first_action(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.debug_app_first_option_in_list)
 

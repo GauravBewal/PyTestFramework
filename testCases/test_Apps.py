@@ -411,7 +411,7 @@ class TestApps(Base):
         my_apps.select_first_instance()
         log.info("Close the instance field")
         global action_name
-        action_name = "incident"
+        action_name = "Create an Incident"
         my_apps.click_on_action_field()
         my_apps.put_action_name(action_name)
         action_listing = my_apps.get_first_action_name_after_search(action_name)
@@ -569,3 +569,5 @@ class TestApps(Base):
         my_apps.click_on_list_view_btn()
         list_view_visibility = my_apps.visibility_of_app_in_list_view()
         assert list_view_visibility is True
+
+

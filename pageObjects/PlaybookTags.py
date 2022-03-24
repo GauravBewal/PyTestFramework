@@ -70,6 +70,7 @@ class PlaybookTags(Action):
     def visibility_of_first_playbook_tag(self):
         return Action.Pass_even_element_not_visible(self, By.XPATH, PlaybookTags.playbooktag_name)
 
+
     def get_first_tagname(self):
         text = Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
         return Action.convert_string_to_lower(self, text)

@@ -280,3 +280,5 @@ class TestSyslogs(Base):
         assert 'Success' in tooltip_msg
         syslog.visibility_of_first_active_syslog()
         assert active_count == syslog.get_syslog_count()
+
+

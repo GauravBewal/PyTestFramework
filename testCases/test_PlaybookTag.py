@@ -303,3 +303,5 @@ class TestPlaybookTags(Base):
         log.info("click on close tool tip")
         tag.close_tooltip()
 
+
+
