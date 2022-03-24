@@ -113,7 +113,6 @@ class Syslogs(Action):
         return Action.wait_and_click(self, By.XPATH, Syslogs.list_source_event_type)
 
 
-
     save_btn = "//div[contains(@class,'px-5 text-right')]//button"
 
     def click_save_btn(self):

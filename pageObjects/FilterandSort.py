@@ -35,6 +35,7 @@ class FilterAndSort(Action):
     def click_on_created(self):
         return Action.javascript_click(self, By.XPATH, FilterAndSort.created_sort)
 
+
     sort_order = "//span[@class='sort-tab']//span[@class='el-tooltip sort-button']"
 
     def changing_sort_to_descending_order(self):
