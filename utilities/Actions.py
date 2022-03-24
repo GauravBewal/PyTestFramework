@@ -69,7 +69,7 @@ class Action(Base):
             element = self.Webdriver_Wait_until_element_visible(by, locator)
             if element.is_displayed():
                 return True
-        except (NoSuchElementException, TimeoutException):
+        except (NoSuchElementException, TimeoutException, StaleElementReferenceException):
             return True
 
 

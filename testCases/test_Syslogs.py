@@ -107,6 +107,7 @@ class TestSyslogs(Base):
         nav.click_main_menu()
         log.info("Click on configure event")
         nav.navigate_configure_event()
+        config_trigger.visibility_of_first_active_configure_trigger()
         config_trigger.click_inactive_tab()
         config_trigger.visibility_of_first_inactive_configure_trigger()
         config_trigger_name = config_trigger.get_first_configure_trigger()

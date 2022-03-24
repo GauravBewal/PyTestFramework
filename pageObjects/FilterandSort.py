@@ -15,12 +15,12 @@ class FilterAndSort(Action):
     button_filter = "//i[@class='icon icon-filter']/parent::button"
 
     def click_on_filters(self):
-        return Action.javascript_click(self, By.XPATH, FilterAndSort.button_filter)
+        return Action.wait_and_click(self, By.XPATH, FilterAndSort.button_filter)
 
     button_sort = "//span[@class='sort-tab']"
 
     def click_on_sort(self):
-        return Action.javascript_click(self, By.XPATH, FilterAndSort.button_filter)
+        return Action.wait_and_click(self, By.XPATH, FilterAndSort.button_filter)
 
     sort_position = "//span[@class='sort-tab']/div[@class='el-dropdown']"
 
@@ -33,13 +33,13 @@ class FilterAndSort(Action):
     created_sort = "//li[contains(text(),'Created')]"
 
     def click_on_created(self):
-        return Action.javascript_click(self, By.XPATH, FilterAndSort.created_sort)
+        return Action.wait_and_click(self, By.XPATH, FilterAndSort.created_sort)
 
 
     sort_order = "//span[@class='sort-tab']//span[@class='el-tooltip sort-button']"
 
     def changing_sort_to_descending_order(self):
-        return Action.javascript_click(self, By.XPATH, FilterAndSort.sort_order)
+        return Action.wait_and_click(self, By.XPATH, FilterAndSort.sort_order)
 
     filter_close_btn = "//i[contains(@class,'cyicon-cross')]/parent::span"
 
