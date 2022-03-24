@@ -103,3 +103,87 @@ class TestUserManagement(Base):
         visibility = user.export_option_visibility()
         assert visibility is True
 
+    @pytest.mark.regression
+    def test_06_Create_New_User(self):
+        """
+            Verify the Create a New User
+            Validation -1 : On the basis of the Count in the Active Tab
+            TC_ID : 006
+        """
+        log =self.getlogger()
+        user = UserManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Redirect to the Active Tab")
+        user.click_active_tab()
+        log.info("Click On add new User Button")
+        user.click_add_user()
+        First_Name = "TestUser"
+        Last_Name = action.get_current_time()
+        global Full_Name
+        Full_Name = First_Name+" "+Last_Name
+        User_Name = First_Name +"."+str(all_tab_count)
+        log.info("Add the First Name of User")
+        user.put_first_name(First_Name)
+        log.info("Add the Last Name of User")
+        user.put_last_name(Last_Name)
+        log.info("Select the First Active User Group")
+        user.click_dropdown()
+        user.click_top_user_group()
+        log.info("Add the User Name for User")
+        user.put_user_name(User_Name.lower())
+        User_email = "testuser"+"."+str(all_tab_count)+"@cyware.com"
+        log.info("Add the User Email Id")
+        user.put_user_email(User_email)
+        log.info("Click On create Button")
+        user.click_create_user_btn()
+        log.info("Click on the close tool tip")
+        toast_msg = user.get_tooltip_msg()
+        assert "Success" in toast_msg
+        user.click_close_tooltip()
+        log.info("Wait until the Visibility of the User")
+        user.visibility_of_first_active_user()
+        assert active_count + 1 == user.get_user_count()
+
+
+    @pytest.mark.regression
+    def test_07_Deactivate_User(self):
+        """
+            Verify The user is able to deactivate user easily IN User Group Management
+            Validation -1 : Count in inactive tab and toast message
+            Tc_ID : 007
+        """
+        log = self.getlogger()
+        user = UserManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Search the created user Name")
+        user.search_button(Full_Name)
+        action.click_enter()
+        log.info("Wait until the First User Visible")
+        user.visibility_of_first_active_user()
+        log.info("Click on the first user listed")
+        user.click_first_list_user()
+        log.info("Click Deactivate the User button")
+        user.click_deactivate_user()
+        log.info("Click on Update Button")
+        user.click_update_btn()
+        log.info("Clear Search Bar Results")
+        user.click_on_search_clear_btn()
+        toast_msg = user.get_tooltip_msg()
+        user.click_close_tooltip()
+        log.info("Switch to inactive tab")
+        user.click_inactive_tab()
+        user.visibility_of_first_inactive_user()
+        assert inactive_count + 1 == user.get_user_count() and "Success" in toast_msg
+
+
+
+
+
+
+
+
+
+
+
+
+
