@@ -29,12 +29,12 @@ class ProfileSettings(Action):
     def check_save_btn_visibility(self):
         return Action.check_visibility_of_element(self, By.XPATH, ProfileSettings.btn_save_profile)
 
-    slider_title_change_password = ".cy-right-modal-header__label.flex-grow-1"
+    slider_title_change_password = "(//div[contains(@class,'header__label')]/div)[2]"
 
     def get_change_password_slider_title(self):
-        return Action.get_text(self, By.CSS_SELECTOR, ProfileSettings.slider_title_change_password)
+        return Action.get_text(self, By.XPATH, ProfileSettings.slider_title_change_password)
 
-    slider_close_tool_tip = ".cy-right-modal-header__icons"
+    slider_close_tool_tip = "//div[contains(@class,'header__icons')]//span[@data-testaction='slider-close']"
 
     def click_close_change_password_slider(self):
-        return Action.javascript_click(self, By.CSS_SELECTOR, ProfileSettings.slider_close_tool_tip)
+        return Action.javascript_click(self, By.XPATH, ProfileSettings.slider_close_tool_tip)

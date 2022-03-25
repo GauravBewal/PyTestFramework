@@ -61,7 +61,7 @@ class Action(Base):
             element = self.Webdriver_Wait_until_element_visible(by, locator)
             element.click()
         except (NoSuchElementException, TimeoutException):
-            log.info("Automatic walk through was not initiated. Hence passing this testcase")
+            log.info("Walkthrough/Element not found. Hence passing this testcase")
             pass
 
     def Pass_even_element_not_visible(self, by, locator):

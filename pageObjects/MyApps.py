@@ -84,7 +84,7 @@ class MyApps(Action):
     def get_search_result_after_uninstall(self):
         return Action.get_text(self, By.XPATH, MyApps.read_search_result_after_uninstall)
 
-    confirm_uninstall_app = "(//div[@class='footer float-left']/button)[1]"
+    confirm_uninstall_app = "(//div[@role='dialog']//button)[1]"
 
     def click_confirm_uninstall_app(self):
         return Action.javascript_click(self, By.XPATH, MyApps.confirm_uninstall_app)
@@ -95,7 +95,7 @@ class MyApps(Action):
         time.sleep(3)
         return Action.mouse_hover_on_element(self, By.XPATH, MyApps.more_options_dropdown)
 
-    uninstall_app_button = "//li[text()='Uninstall App']"
+    uninstall_app_button = "(//body/ul/li[contains(text(),'Uninstall App')])[1]"
 
     def click_on_uninstall_app(self):
         return Action.javascript_click(self, By.XPATH, MyApps.uninstall_app_button)
@@ -366,29 +366,15 @@ class MyApps(Action):
     def click_on_action_field(self):
         return Action.wait_and_click(self, By.XPATH, MyApps.dd_action_field)
 
-    input_field = "//input[contains(@placeholder,'Search')]"
+    create_incident_action_name = "//div[contains(text(),'cident') and contains(text(),'reate')]"
 
-    def put_instance_name(self, value):
-        return Action.send_keys(self, By.XPATH, MyApps.input_field, value)
-
-    def put_action_name(self, value):
-        time.sleep(3)
-        return Action.send_keys(self, By.XPATH, MyApps.input_field, value)
-
-    debug_app_first_option_in_list = "(//form//ul/li)[1]"
-
-    def select_first_instance(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.debug_app_first_option_in_list)
-
-    def get_first_instance_name_after_search(self, value):
-        return Action.read_search_result(self, By.XPATH, MyApps.debug_app_first_option_in_list, value)
-
-    def get_first_action_name_after_search(self, action_name):
-        return Action.read_search_result(self, By.XPATH, MyApps.debug_app_first_option_in_list, action_name)
+    def click_on_create_incident_action_name(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.create_incident_action_name)
 
 
-    def select_first_action(self):
-        return Action.wait_and_click(self, By.XPATH, MyApps.debug_app_first_option_in_list)
+    def select_created_instance(self, value):
+        path = "//form//ul/li//span[contains(text(),'"+value+"')]"
+        return Action.wait_and_click(self, By.XPATH, path)
 
     debug_incident_title_input_field = "//div[contains(@class,'action-input')]" \
                                        "//textarea[contains(@placeholder,'title')]"
