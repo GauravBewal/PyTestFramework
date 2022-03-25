@@ -67,8 +67,8 @@ class TestTenantManagement(Base):
     @pytest.mark.regression
     def test_04_Click_New_Tenant_btn(self):
         """
-        Verify whether user is able to click on new tenant button
-        Validation: Based on the slider title
+            Verify whether user is able to click on new tenant button
+            Validation: Based on the slider title
         """
         log = self.getlogger()
         tenant = TenantManagement(self.driver)
@@ -82,3 +82,57 @@ class TestTenantManagement(Base):
         log.info("Click on slider close button")
         tenant.click_slider_close()
         assert slider_text == 'Add Tenant'
+
+    @pytest.mark.regression
+    def test_05_Create_New_Tenant_btn(self):
+        """
+            Verify whether user is able to create new tenant button
+            Validation: Based on the Number of active tenants
+        """
+        log = self.getlogger()
+        tenant = TenantManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Switch to active tab")
+        tenant.click_active_tab()
+        tenant.visibility_of_first_active_tenant()
+        active_count = tenant.get_count_of_tenants()
+        log.info("Click on add tenant button")
+        tenant.click_new_tenant()
+        global tenant_name
+        global domain_name
+        tenant_name = "ui-automation" + action.get_random_digit()
+        domain_name = tenant_name + ".cywareqa.com"
+        log.info("Adding tenant name")
+        tenant.put_tenant_name(tenant_name)
+        log.info("Adding tenant domain")
+        tenant.put_domain_name(domain_name)
+        log.info("Click on save button")
+        tenant.click_save_btn()
+        log.info("Click on the close tool tip")
+        toast_msg = tenant.get_tooltip_msg()
+        assert "Success" in toast_msg
+        tenant.click_close_tooltip()
+        log.info("Click on Continue using Cyware Orchestrate button")
+        tenant.click_continue_using_co_btn()
+        tenant.visibility_of_first_active_tenant()
+        assert tenant.get_count_of_tenants() == active_count + 1
+
+    @pytest.mark.regression
+    def test_06_Search_tenant(self):
+        """
+            Verify the Searchbar Functionality is working.
+            Validation-1: On basis of the Name Comparison.
+
+        """
+
+        tenant = TenantManagement(self.driver)
+        log = self.getlogger()
+        tenant.visibility_of_first_active_tenant()
+        log.info("Search Functionality of Tenant")
+        tenant.search_input_string(tenant_name)
+        tenant.click_enter_for_search()
+        search_result = tenant.get_name_first_tenant()
+        assert tenant_name == search_result
+
+
+
