@@ -22,7 +22,7 @@ class FilterAndSort(Action):
     def click_on_sort(self):
         return Action.wait_and_click(self, By.XPATH, FilterAndSort.button_filter)
 
-    sort_position = "//span[@class='sort-tab']//span[contains(@class,'sort-type')]"
+    sort_position = "//span[@class='sort-tab']/div"
 
     def mouse_hover_on_sort(self):
         return Action.mouse_hover_on_element(self, By.XPATH, FilterAndSort.sort_position)
@@ -33,7 +33,7 @@ class FilterAndSort(Action):
     created_sort = "//body/ul/li[2]"
 
     def click_on_created(self):
-        return Action.wait_and_click(self, By.XPATH, FilterAndSort.created_sort)
+        return Action.javascript_click(self, By.XPATH, FilterAndSort.created_sort)
 
     sort_order = "//span[@class='sort-tab']//span[@class='el-tooltip sort-button']"
 

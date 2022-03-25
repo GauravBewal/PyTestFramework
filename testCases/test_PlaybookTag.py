@@ -82,39 +82,7 @@ class TestPlaybookTags(Base):
         assert before_playbookTag_creation_count + 1 == after_playbookTag_creation_count
 
     @pytest.mark.regression
-    def test_04_Verify_Default_TagName_Ascending_Sort(self):
-        """
-            Check the Sorting based on the Tag Name in Ascending
-            Validation Based On the Names
-            Tc_ID : PlaybookTAg-Tc-004
-        """
-        log = self.getlogger()
-        tag = PlaybookTags(self.driver)
-        log.info("Checking The sort based on Tag Name")
-        log.info("Verify the Ascending Order of the Tag Name")
-        assert tag.get_first_tagname() < tag.get_second_playbookTag()
-
-    @pytest.mark.regression
-    def test_05_Check_Sort_Based_On_Created(self):
-        """
-                Verify User is able to sort based on Created Time of Playbook
-                Validatio-1: Validation Based on the Button Name of Selected
-                TC_ID: PlaybookTag-TC-005
-        """
-        log = self.getlogger()
-        tag = PlaybookTags(self.driver)
-        filter_sort = FilterAndSort(self.driver)
-        log.info("Mouse overing the sort Option")
-        filter_sort.mouse_hover_on_sort()
-        log.info("Changing sort to the Created")
-        filter_sort.click_on_created()
-        tag.visibility_of_first_playbook_tag()
-        log.info("Changing sort to Descending Order")
-        filter_sort.changing_sort_to_descending_order()
-        assert filter_sort.get_name_sorted_filter() == "Created"
-
-    @pytest.mark.regression
-    def test_06_Search_Playbook_Tag(self):
+    def test_04_Search_Playbook_Tag(self):
         """
         Verify User is able to search Created PLaybookTag
         Validation-1: Validation Based on the Top one Tag Name
@@ -130,7 +98,7 @@ class TestPlaybookTags(Base):
         assert tag_name == playbook_tag_text
 
     @pytest.mark.regression
-    def test_07_Update_PlaybookTag(self):
+    def test_05_Update_PlaybookTag(self):
         """
             Update the PlaybookTag
             Validation-1: Validated Based on new Updated Name
@@ -157,9 +125,46 @@ class TestPlaybookTags(Base):
         assert 'Success' in tooltip_msg
         tag.close_tooltip()
         tag.click_clear_search_btn()
+        tag.put_string_in_searchbar(updated_playbooktag_title)
         tag.click_enter()
+        tag_name = tag.get_playbooktag_name()
         visibility = tag.visibility_of_first_playbook_tag()
-        assert visibility is True and tag.get_playbooktag_name() == updated_playbooktag_title
+        assert visibility is True and tag_name == updated_playbooktag_title
+        tag.click_clear_search_btn()
+        tag.click_enter()
+
+    @pytest.mark.regression
+    def test_06_Verify_Default_TagName_Ascending_Sort(self):
+        """
+            Check the Sorting based on the Tag Name in Ascending
+            Validation Based On the Names
+            Tc_ID : PlaybookTAg-Tc-004
+        """
+        log = self.getlogger()
+        tag = PlaybookTags(self.driver)
+        log.info("Checking The sort based on Tag Name")
+        log.info("Verify the Ascending Order of the Tag Name")
+        assert tag.get_first_tagname() < tag.get_second_playbookTag()
+
+    @pytest.mark.regression
+    def test_07_Check_Sort_Based_On_Created(self):
+        """
+                Verify User is able to sort based on Created Time of Playbook
+                Validatio-1: Validation Based on the Button Name of Selected
+                TC_ID: PlaybookTag-TC-005
+        """
+        log = self.getlogger()
+        tag = PlaybookTags(self.driver)
+        filter_sort = FilterAndSort(self.driver)
+        log.info("Mouse overing the sort Option")
+        filter_sort.mouse_hover_on_sort()
+        log.info("Changing sort to the Created")
+        filter_sort.click_on_created()
+        tag.visibility_of_first_playbook_tag()
+        log.info("Changing sort to Descending Order")
+        filter_sort.changing_sort_to_descending_order()
+        assert filter_sort.get_name_sorted_filter() == "Created"
+
 
     @pytest.mark.regression
     def test_08_Check_Created_Descending_Order(self):
@@ -264,7 +269,6 @@ class TestPlaybookTags(Base):
         log.info("Click exit without save button")
         playbook.click_exit_without_save()
         assert visibility is True
-
 
     @pytest.mark.regression
     def test_13_delete_playbooktag(self):
