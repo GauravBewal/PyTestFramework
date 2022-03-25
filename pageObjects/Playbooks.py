@@ -16,6 +16,7 @@ class Playbooks(Action):
     tooltip_titles = ['Playbook Overview', 'Add Node', 'Connect Nodes', 'Zoom and Auto-arrange Nodes',
                       'Save and Run']
     sort_options = ['Name', 'Modified', 'Created', 'ID', 'Last Run', 'Total Run']
+    playbook_schedule_options = ['Once', 'Daily', 'Weekly', 'Monthly', 'Cron']
 
     tab_cyware_playbooks = "//li[contains(@class,'cyware-playbook')]"
 
@@ -75,8 +76,8 @@ class Playbooks(Action):
 
     playbook_sort_options = "//span[@class='sort-tab']/div"
 
-    def mouse_hover_sort_options(self):
-        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.playbook_sort_options)
+    def click_sort_options(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_sort_options)
 
     available_sort_options = "//ul[contains(@class,'sort')]/li"
 
@@ -186,8 +187,18 @@ class Playbooks(Action):
 
     playbook_exit_without_save_btn = "//button[contains(text(),'Exit without Save')]"
 
-    def click_exit_without_save(self):
+    def click_playbook_exit_without_save(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.playbook_exit_without_save_btn)
+
+    playbook_save_and_exit = "//button[contains(text(),'Save and Exit')]"
+
+    def click_playbook_save_and_exit(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_save_and_exit)
+
+    nodes_not_connected_save_btn = "//div[contains(@class,'createplaybook')]/div[6]//button[contains(text(),'Save')]"
+
+    def click_on_nodes_not_connected_save_btn(self):
+        return Action.click_if_element_found(self, By.XPATH, Playbooks.nodes_not_connected_save_btn)
 
     playbook_add_node_btn = "//div[@class='stencil-container walkthrough-stencil']"
 
@@ -328,7 +339,7 @@ class Playbooks(Action):
     def click_on_slider_close_btn(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.action_node_slider_close_btn)
 
-    def get_node_type_title(self, path):
+    def get_element_title(self, path):
         return Action.get_text(self, By.XPATH, path)
 
     node_slider_close_btn = "//div[@class='stencil-close']"
@@ -370,6 +381,8 @@ class Playbooks(Action):
     def click_save_and_exit_btn(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.save_and_exit_btn)
 
+
+
     playbook_walkthrough_bulb_btn = "//div[@class=' el-dropdown-selfdefine']/button"
 
     def click_walkthrough_bulb_btn(self):
@@ -409,7 +422,7 @@ class Playbooks(Action):
     def get_grid_icon_color(self):
         return Action.get_css_property_value(self, By.XPATH, Playbooks.grid_view_btn, 'color')
 
-    grid_view_first_playbook = "(//div[contains(@class,'playbook-card')]//h3)[1]"
+    grid_view_first_playbook = "(//div[contains(@class,'app-card-v2__header')]//h3)[1]"
 
     def visibility_of_first_playbook_in_grid_view(self):
         return Action.check_visibility_of_element(self, By.XPATH, Playbooks.grid_view_first_playbook)
@@ -449,7 +462,26 @@ class Playbooks(Action):
     def get_playbook_overview_slider_title(self):
         return Action.get_text(self, By.XPATH, Playbooks.playbook_overview_slider_title)
 
-    overview_output_parameters = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[1]"
+    schedule_playbook_toggle_btn = "(//div[contains(@class,'playbook-data')]/following-sibling::div" \
+                                   "//span[@class='cyicon-cross'])[1]"
+
+    def click_schedule_playbook_toogle_btn(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.schedule_playbook_toggle_btn)
+
+
+    schedule_playbook_tab = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[1]"
+
+    def click_on_schedule_playbook_tab(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.schedule_playbook_tab)
+
+    schedule_playbook_options = "//div[@role='radiogroup']/label/span[2]"
+
+    def get_all_schedule_playbook_options(self):
+        return Action.get_no_of_elements_present(self, By.XPATH, Playbooks.schedule_playbook_options)
+
+
+
+    overview_output_parameters = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[2]"
 
     def click_on_output_parameters(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.overview_output_parameters)
@@ -457,7 +489,7 @@ class Playbooks(Action):
     def get_output_parameter_section_title(self):
         return Action.get_text(self, By.XPATH, Playbooks.overview_output_parameters)
 
-    add_parameters_btn = "//div[@class='el-collapse-item is-active']//button"
+    add_parameters_btn = "//i[contains(@class,'icon-plus')]/parent::button"
 
     def click_on_add_parameter_btn(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.add_parameters_btn)
@@ -485,7 +517,7 @@ class Playbooks(Action):
     def click_on_playbook_data(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.overview_playbook_data)
 
-    associated_playbooks = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[2]"
+    associated_playbooks = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[3]"
 
     def click_on_associated_playbook(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.associated_playbooks)
@@ -493,17 +525,17 @@ class Playbooks(Action):
     def get_associated_playbooks_section_title(self):
         return Action.get_text(self, By.XPATH, Playbooks.associated_playbooks)
 
-    no_state_validation_txt = "//div[@class='el-collapse-item is-active']//h1"
+    no_state_validation_txt = "//div[contains(@class,'is-active')]//h1"
 
     def get_no_state_validation_text(self):
         return Action.get_text(self, By.XPATH, Playbooks.no_state_validation_txt)
 
-    associated_sub_playbooks = "//div[@class='el-collapse-item is-active']//label[2]"
+    associated_sub_playbooks = "//div[contains(@class,'is-active')]//label[2]"
 
     def switch_to_sub_playbooks_tab(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.associated_sub_playbooks)
 
-    playbook_app_and_actions = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[3]"
+    playbook_app_and_actions = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[4]"
 
     def click_apps_and_actions(self):
         return Action.javascript_click(self, By.XPATH, Playbooks.playbook_app_and_actions)

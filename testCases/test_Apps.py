@@ -404,19 +404,12 @@ class TestApps(Base):
         my_apps.click_on_run_btn()
         log.info("Click on the instance field")
         my_apps.click_on_instance_field()
-        my_apps.put_instance_name(instance_name)
-        instance = my_apps.get_first_instance_name_after_search(instance_name)
-        assert instance == instance_name
-        log.info("Click on the first instance")
-        my_apps.select_first_instance()
-        log.info("Close the instance field")
-        global action_name
-        action_name = "Create an Incident"
+        log.info("Select the created instance from drop down")
+        my_apps.select_created_instance(instance_name)
+        log.info("Click on the action field")
         my_apps.click_on_action_field()
-        my_apps.put_action_name(action_name)
-        action_listing = my_apps.get_first_action_name_after_search(action_name)
-        assert action_name in action_listing
-        my_apps.select_first_action()
+        log.info("Select the create incident action from drop down")
+        my_apps.click_on_create_incident_action_name()
         log.info("Enter the incident title")
         my_apps.put_incident_title_field_value("UI Automation")
         log.info("Enter the incident status")

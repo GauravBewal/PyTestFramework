@@ -267,7 +267,7 @@ class TestPlaybookTags(Base):
         log.info("click on the back button")
         playbook.click_on_back_button()
         log.info("Click exit without save button")
-        playbook.click_exit_without_save()
+        playbook.click_playbook_exit_without_save()
         assert visibility is True
 
     @pytest.mark.regression

@@ -68,9 +68,12 @@ class TestDashBoard(Base):
         dashboard = Dashboard(self.driver)
         log.info("Read all the widget titles")
         elements_list = dashboard.get_list_of_elements(dashboard.get_all_widget_elements(), dashboard.widget_elements)
-        for element in range(0, len(elements_list)):
-            title = dashboard.find_element_path_and_get_text(elements_list[element])
-            assert dashboard.widget_titles[element] == title
+        if len(elements_list) > 0:
+            for element in range(0, len(elements_list)):
+                title = dashboard.find_element_path_and_get_text(elements_list[element])
+                assert dashboard.widget_titles[element] == title
+        else:
+            return False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -81,12 +84,16 @@ class TestDashBoard(Base):
         """
         dashboard = Dashboard(self.driver)
         elements_list = dashboard.get_list_of_elements(dashboard.get_all_view_all_elements(), dashboard.btn_view_all)
-        for element in range(0, len(elements_list)):
-            dashboard.click_on_view_all_btn(elements_list[element])
-            visibility = dashboard.visibility_of_legends_btn()
-            dashboard.click_on_back_btn()
-            time.sleep(ReadConfig.Wait_3_Sec())
-            assert visibility is True
+        if len(elements_list) > 0:
+            for element in range(0, len(elements_list)):
+                dashboard.click_on_view_all_btn(elements_list[element])
+                visibility = dashboard.visibility_of_legends_btn()
+                dashboard.click_on_back_btn()
+                time.sleep(ReadConfig.Wait_3_Sec())
+                assert visibility is True
+        else:
+            assert False
+
 
     @pytest.mark.regression
     @pytest.mark.readOnly

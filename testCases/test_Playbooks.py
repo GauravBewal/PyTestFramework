@@ -76,9 +76,12 @@ class TestPlaybook(Base):
         elements_list = playbooks.get_list_of_elements(playbooks.get_all_node_type_elements(),
                                                        playbooks.all_node_type_title)
         log.info("Validate all the node type title")
-        for element in range(0, len(elements_list)):
-            node_type_title = playbooks.get_node_type_title(elements_list[element])
-            assert node_type_title == playbooks.node_type_list[element]
+        if len(elements_list) > 0:
+            for element in range(0, len(elements_list)):
+                node_type_title = playbooks.get_element_title(elements_list[element])
+                assert node_type_title == playbooks.node_type_list[element]
+        else:
+            assert False
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -93,7 +96,7 @@ class TestPlaybook(Base):
         elements_list = playbooks.get_list_of_elements(playbooks.get_all_node_elements(), playbooks.all_nodes_names)
         log.info("Validate all the node title")
         for element in range(0, len(elements_list)):
-            node_title = playbooks.get_node_type_title(elements_list[element])
+            node_title = playbooks.get_element_title(elements_list[element])
             assert node_title == playbooks.node_titles_list[element]
         log.info("Closing the node slider")
         playbooks.click_on_node_close_btn()
@@ -172,7 +175,33 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_10_Switch_Output_Parameters_Section(self):
+    def test_10_Switch_to_Schedule_playbook_Section(self):
+        """
+        Verify whether user is able to click on schedule playbook
+        Validation-1: Based on the schedule options visibility
+                   2: Based on the schedule options visibility
+        """
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Close the playbook data slider")
+        playbooks.click_on_playbook_data()
+        log.info("Click on active schedule playbooks")
+        playbooks.click_schedule_playbook_toogle_btn()
+        log.info("Check visibility of schedule options")
+        elements_list = playbooks.get_list_of_elements(playbooks.get_all_schedule_playbook_options(),
+                                                       playbooks.schedule_playbook_options)
+        if len(elements_list) > 0:
+            log.info("Validate all the options")
+            for element in range(0, len(elements_list)):
+                node_title = playbooks.get_element_title(elements_list[element])
+                assert node_title == playbooks.playbook_schedule_options[element]
+        else:
+            assert False
+
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_11_Switch_Output_Parameters_Section(self):
         """
             Verify whether user is able to click on output parameter
             Validation: Based on the section title and add parameter button visibility
@@ -180,7 +209,7 @@ class TestPlaybook(Base):
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Close the playbook data slider")
-        playbooks.click_on_playbook_data()
+        playbooks.click_on_schedule_playbook_tab()
         log.info("Click on the output parameters section")
         playbooks.click_on_output_parameters()
         log.info("Read the section title")
@@ -191,7 +220,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_11_Add_Output_Parameter(self):
+    def test_12_Add_Output_Parameter(self):
         """
             Verify user is able to add the output parameters
             Validation: Based on the params visibility
@@ -210,7 +239,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_12_Verify_Switch_to_Associated_Playbooks(self):
+    def test_13_Verify_Switch_to_Associated_Playbooks(self):
         """
             Verify user is able to switch to associated playbooks section
             Validation: Based on the section title and no state text
@@ -229,7 +258,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_13_Verify_Switch_to_Sub_Playbooks_tab(self):
+    def test_14_Verify_Switch_to_Sub_Playbooks_tab(self):
         """
             Verify whether user is able to switch to sub-playbooks section
             Validation: Based on the subplaybooks tab color
@@ -244,7 +273,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_14_Verify_Switch_App_and_Actions(self):
+    def test_15_Verify_Switch_App_and_Actions(self):
         """
             Verify whether user is able to switch apps and actions section
             Validation based on section title and no state text
@@ -262,11 +291,11 @@ class TestPlaybook(Base):
         log.info("click on the back button")
         playbooks.click_on_back_button()
         log.info("Click exit without save button")
-        playbooks.click_exit_without_save()
+        playbooks.click_playbook_exit_without_save()
         assert section_title == 'Apps (0) / Actions (0)' and text == 'No App/Actions Available'
 
     @pytest.mark.regression
-    def test_15_Click_Customize_Table_btn(self):
+    def test_16_Click_Customize_Table_btn(self):
         """
             Verify whether user is able to click on customize table
             Validation: Based on the slider title
@@ -283,7 +312,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_16_Click_Filter_btn(self):
+    def test_17_Click_Filter_btn(self):
         """
             Verify whether user is able to click on filter button
             Validation: Based on the slider title
@@ -300,7 +329,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_17_Verify_Cyware_Playbooks_Switch_tab(self):
+    def test_18_Verify_Cyware_Playbooks_Switch_tab(self):
         """
             Verify user is able to switch from My Playbooks to Cyware Playbooks
             Validation - 1. On the basis of Windows title
@@ -318,7 +347,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_18_View_Playbook(self):
+    def test_19_View_Playbook(self):
         """
             Verify opening playbook in view mode from cyware playbook
             Validation : Based on the window's title
@@ -328,9 +357,6 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         log.info("Click on the first playbook")
         playbooks.click_first_cyware_playbook()
-        log.info("Switch to newly opened playbook tab")
-        global parent_window
-        parent_window = playbooks.switch_new_window(1)
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
         log.info("Read the window title and validate it")
@@ -338,7 +364,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_19_Check_Export_Options_visibility(self):
+    def test_20_Check_Export_Options_visibility(self):
         """
             Verify whether user is able to seen the export options
             Validation: Based on the export options visibility
@@ -355,7 +381,7 @@ class TestPlaybook(Base):
         assert export_json and export_png is True
 
     @pytest.mark.regression
-    def test_20_export_system_playbook(self):
+    def test_21_export_system_playbook(self):
         """
         Verify whether user is able to export the system playbook
         Validation-1: Based on the playbook downloaded file visibility
@@ -380,7 +406,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_21_Check_Clone_btn_Visibility(self):
+    def test_22_Check_Clone_btn_Visibility(self):
         """
         Verify whether user is able to see the clone button
         Validation: Based on the clone button visibility
@@ -395,7 +421,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_22_Click_on_Test_Instances(self):
+    def test_23_Click_on_Test_Instances(self):
         """
         Verify whether user is able to click on the test connectivity
         Validation:- Based on the slider title
@@ -410,19 +436,21 @@ class TestPlaybook(Base):
         slider_title = playbooks.get_test_instance_slider_text()
         log.info("Close the test instances slider")
         playbooks.click_test_instance_slider_close_btn()
-        log.info("switch back to parent window")
-        playbooks.switch_back_parent_window(parent_window)
+        log.info("switch back to click on back button")
+        playbooks.click_on_back_button()
         assert slider_title == 'Test Instances'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_23_Verify_Grid_view_switching(self):
+    def test_24_Verify_Grid_view_switching(self):
         """
         Verify whether user is able to switch to Grid view
         Validation 1:- Based on the button color visibility
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
+        log.info("Check for visibility of first cyware playbook")
+        playbooks.visibility_of_first_cyware_playbook()
         log.info("Click on Grid button")
         playbooks.click_on_grid_view_btn()
         log.info("Check whether grid view button is selected")
@@ -433,7 +461,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.regression
-    def test_24_Verify_table_view_switching(self):
+    def test_25_Verify_table_view_switching(self):
         """
         Verify user is able to switch to table view
         Validation-1: Based on the button color visibility
@@ -449,7 +477,7 @@ class TestPlaybook(Base):
         assert table_view_btn_selected == '#1a3ee8' and playbook_visibility_in_table_view is True
 
     @pytest.mark.regression
-    def test_25_Verify_Pagination_increment(self):
+    def test_26_Verify_Pagination_increment(self):
         """
         Verify whether user is able to apply pagination
         Validation 1: Based on the page number
@@ -464,7 +492,7 @@ class TestPlaybook(Base):
         assert page_count_after_change == 2
 
     @pytest.mark.regression
-    def test_26_Verify_Pagination_decrement(self):
+    def test_27_Verify_Pagination_decrement(self):
         """
         Verify whether user is able to apply pagination
         Validation 1: Based on the page number
@@ -479,7 +507,7 @@ class TestPlaybook(Base):
         assert current_page_number == 1
 
     @pytest.mark.regression
-    def test_27_clone_system_playbook_from_listing(self):
+    def test_28_clone_system_playbook_from_listing(self):
         """
         Verify whether user is able to clone the system playbook
         Validation-1: Based on the playbook visibility in my playbooks tab
@@ -508,7 +536,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_28_Verify_My_Playbooks_Switch_tab(self):
+    def test_29_Verify_My_Playbooks_Switch_tab(self):
         """
             Verify user is able to switch from Cyware Playbooks to My Playbooks
             Validation - 1. On the basis of Windows title
@@ -521,7 +549,7 @@ class TestPlaybook(Base):
         assert action.get_title() == 'My Playbooks | Cyware Orchestrate'
 
     @pytest.mark.regression
-    def test_29_Search_playbook(self):
+    def test_30_Search_playbook(self):
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Enter the playbook name to search")
@@ -531,7 +559,7 @@ class TestPlaybook(Base):
         assert searched_playbook_name == cloned_playbook_title
 
     @pytest.mark.regression
-    def test_30_edit_cloned_playbook(self):
+    def test_31_edit_cloned_playbook(self):
         """
             Verify whether user is able to edit the cloned app
             Validation-1: Based on the successful updation message
@@ -540,13 +568,38 @@ class TestPlaybook(Base):
         playbook = Playbooks(self.driver)
         log.info("Click on the first playbook")
         playbook.click_on_first_my_playbook()
-        parent_window = playbook.switch_new_window(1)
+        log.info("Click on edit playbook button")
         playbook.click_on_playbook_edit_btn()
         assert 'Edit Playbook' in playbook.get_playbook_title()
-        playbook.switch_back_parent_window(parent_window)
+        playbook.click_on_playbook_overview_btn()
+        updated_cloned_playbook_name = "playbook_cloned"+playbook.get_current_time()
+        log.info("Clear exisitng playbook name")
+        playbook.remove_default_playbook_name()
+        log.info("Enter the playbook name")
+        playbook.enter_playbook_name(updated_cloned_playbook_name)
+        log.info("Click on back button")
+        playbook.click_on_back_button()
+        log.info("Click on confirm back button")
+        playbook.click_playbook_save_and_exit()
+        log.info("Click save if playbook has nodes that are not connected")
+        tooltip_msg = playbook.get_tooltip_msg()
+        log.info("Click on the close tooltip button")
+        playbook.close_tooltip()
+        playbook.click_on_nodes_not_connected_save_btn()
+        assert 'Success' in tooltip_msg
+        log.info("Click on back button")
+        playbook.click_on_back_button()
+        log.info("Clear search result")
+        playbook.click_on_search_clear_btn()
+        log.info("Enter updated cloned playbook name")
+        playbook.put_string_to_search(updated_cloned_playbook_name)
+        search_result = playbook.get_first_my_playbook_name()
+        assert search_result == updated_cloned_playbook_name
+        playbook.click_on_search_clear_btn()
+
 
     @pytest.mark.regression
-    def test_31_import_system_playbook(self):
+    def test_32_import_system_playbook(self):
         """
         Verify whether user is able to import exported system playbook
         Validation-1: Based on the imported successful message
@@ -563,21 +616,20 @@ class TestPlaybook(Base):
         # assert playbooks.get_tooltip_msg() == 'Success'
         # playbooks.close_tooltip()
         playbooks.click_import_playbook_slider_close_btn()
-        playbooks.click_on_search_clear_btn()
         log.info("Deleting the downloaded file")
         playbooks.delete_downloaded_file(playbook_path)
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_32_Sort_options_visibility(self):
+    def test_33_Sort_options_visibility(self):
         """
         Verify whether user is able to see all the available sort options
         Validation 1: Based on the options visibility
         """
         log = self.getlogger()
         playbook = Playbooks(self.driver)
-        log.info("Mouse on the sort options")
-        playbook.mouse_hover_sort_options()
+        log.info("Click on the sort options")
+        playbook.click_sort_options()
         log.info("Reading all the visible sort options")
         elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),
                                                       playbook.available_sort_options)
