@@ -25,35 +25,43 @@ class Action(Base):
     def __init__(self, driver):
         self.driver = driver
 
+    global count
+    count = 0
+
     def javascript_click(self, by, locator):
+        global count
         try:
             element = self.Webdriver_Wait_until_element_clickable(by, locator)
             self.driver.execute_script("arguments[0].click();", element)
-        except (StaleElementReferenceException, ElementClickInterceptedException):
-            self.javascript_click(by, locator)
-
-    def get_tab_total_count(self, by, locator, previous_tab_count):
-        count = self.get_count_from_string(by, locator)
-        if count != previous_tab_count:
-            return count
-        else:
-            self.get_tab_total_count(by, locator, previous_tab_count)
-
-
-
+        except (StaleElementReferenceException, ElementClickInterceptedException) as e:
+            if count < 2:
+                count += 1
+                self.javascript_click(by, locator)
+            else:
+                raise e
 
     def wait_and_click(self, by, locator):
+        global count
         try:
             element = self.Webdriver_Wait_until_element_clickable(by, locator)
             element.click()
-        except (StaleElementReferenceException, ElementClickInterceptedException):
-            self.wait_and_click(by, locator)
+        except (StaleElementReferenceException, ElementClickInterceptedException) as e:
+            if count < 2:
+                count += 1
+                self.wait_and_click(by, locator)
+            else:
+                raise e
 
     def normal_click(self, by, locator):
+        global count
         try:
             self.driver.find_element(by, locator).click()
-        except (StaleElementReferenceException, ElementClickInterceptedException):
-            self.normal_click(by, locator)
+        except (StaleElementReferenceException, ElementClickInterceptedException) as e:
+            if count < 2:
+                count += 1
+                self.normal_click(by, locator)
+            else:
+                raise e
 
     def click_if_element_found(self, by, locator):
         log = self.getlogger()

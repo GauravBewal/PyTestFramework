@@ -13,6 +13,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestPlaybookTags(Base):
 
+
     @pytest.mark.regression
     @pytest.mark.readOnly
     def test_01_Playbook_Tag_redirection(self):
@@ -165,7 +166,6 @@ class TestPlaybookTags(Base):
         filter_sort.changing_sort_to_descending_order()
         assert filter_sort.get_name_sorted_filter() == "Created"
 
-
     @pytest.mark.regression
     def test_08_Check_Created_Descending_Order(self):
         """
@@ -191,7 +191,7 @@ class TestPlaybookTags(Base):
         filter.click_on_filter_btn()
         log.info("Click on the last week Filter")
         filter.select_last_week_filter()
-        assert filter.check_last_week_radio_status() == True
+        assert filter.check_last_week_radio_status() is True
 
     @pytest.mark.regression
     def test_10_Apply_Last_Month_Filter(self):
@@ -204,7 +204,7 @@ class TestPlaybookTags(Base):
         filter = FilterAndSort(self.driver)
         log.info("Clicking on the last month filter Button")
         filter.select_last_month_filter()
-        assert filter.check_last_month_radio_status() == True
+        assert filter.check_last_month_radio_status() is True
 
     @pytest.mark.regression
     def test_11_Apply_3days_Filter_in_calendar(self):
