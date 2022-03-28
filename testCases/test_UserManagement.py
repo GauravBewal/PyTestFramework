@@ -2,8 +2,12 @@ import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.UserManagement import UserManagement
+from pageObjects.UserGroupManagement import UserGroupManagement
+from pageObjects.Webhooks import Webhooks
+from pageObjects.OpenApi import OpenApi
 from utilities.Actions import Action
 from utilities.Base import Base
+
 
 
 @pytest.mark.usefixtures("setup")
@@ -134,6 +138,7 @@ class TestUserManagement(Base):
         User_email = "testuser"+"."+str(all_tab_count)+"@cyware.com"
         log.info("Add the User Email Id")
         user.put_user_email(User_email)
+        user.check_bot_user()
         log.info("Click On create Button")
         user.click_create_user_btn()
         log.info("Click on the close tool tip")
@@ -144,21 +149,78 @@ class TestUserManagement(Base):
         user.visibility_of_first_active_user()
         assert active_count + 1 == user.get_user_count()
 
+    @pytest.mark.regression
+    def test_07_Search_User(self):
+        """
+                Verify the Search Functionality of the User
+                Validation -1 : This is the search functionality of the based on Name comparsion
+                TC_ID : 007
+        """
+        log = self.getlogger()
+        user = UserManagement(self.driver)
+        action = Action(self.driver)
+        log.info("Enter the Name to be Searched")
+        user.search_button(Full_Name)
+        log.info("Click Enter to Search the result")
+        action.click_enter()
+        log.info("Wait until the first User Name Visibility")
+        user.visibility_of_first_active_user()
+        log.info("Get the First Name of search list and compare the Name")
+        assert Full_Name == user.get_first_list_name()
 
     @pytest.mark.regression
-    def test_07_Deactivate_User(self):
+    def test_08_Update_User_Name(self):
+        """
+                Verify the Update Functionality of the User
+                Validation -1 : Check the Updated name in the Listing Page
+                Tc_ID : 008
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        user = UserManagement(self.driver)
+        log.info("Click On First List User")
+        user.click_first_list_user()
+        log.info("Clear the First Name")
+        user.clear_first_name()
+        updated_first_name = "TestUser"
+        log.info("Add the New Updated First Name")
+        user.put_first_name(updated_first_name)
+        log.info("Clear the Last Name Field")
+        user.clear_last_name()
+        updated_last_name = action.get_current_time()
+        user.put_last_name(updated_last_name)
+        user.click_update_btn()
+        log.info("Clear the Search Field")
+        user.click_on_search_clear_btn()
+        log.info("Wait until the Visibility of the First User")
+        user.visibility_of_first_active_user()
+        global Updated_Full_Name
+        Updated_Full_Name = updated_first_name + " " + updated_last_name
+        log.info("Get the Toast Message")
+        toast_msg = user.get_tooltip_msg()
+        user.click_close_tooltip()
+        user.search_button(Updated_Full_Name)
+        action.click_enter()
+        log.info("Check the Visibility of the User")
+        user.visibility_of_first_active_user()
+        assert Updated_Full_Name == user.get_first_list_name() and "Success" in toast_msg
+
+    @pytest.mark.regression
+    def test_09_Deactivate_User(self):
         """
             Verify The user is able to deactivate user easily IN User Group Management
             Validation -1 : Count in inactive tab and toast message
-            Tc_ID : 007
+            Tc_ID : 009
         """
         log = self.getlogger()
         user = UserManagement(self.driver)
         action = Action(self.driver)
         log.info("Search the created user Name")
-        user.search_button(Full_Name)
-        action.click_enter()
-        log.info("Wait until the First User Visible")
+        # user.click_on_search_clear_btn()
+        # user.search_button(Updated_Full_Name)
+        # log.info("Click Enter to Search the result")
+        # action.click_enter()
+        log.info("Wait until the first User Name Visibility")
         user.visibility_of_first_active_user()
         log.info("Click on the first user listed")
         user.click_first_list_user()
@@ -174,6 +236,31 @@ class TestUserManagement(Base):
         user.click_inactive_tab()
         user.visibility_of_first_inactive_user()
         assert inactive_count + 1 == user.get_user_count() and "Success" in toast_msg
+
+    # @pytest.mark.regression
+    # def test_09_Export_User_Management(self):
+    #     log = self.getlogger()
+    #     action = Action(self.driver)
+    #     user = UserManagement(self.driver)
+    #     user.click_export()
+    #     user.click_on_csv_btn()
+    #     toast_msg = user.get_tooltip_msg()
+    #     assert "Success" in toast_msg
+    #     path = action.get_file_downloaded_path(action.check_file_downloaded_and_get_file_name("Cyw", 'csv'))
+    #     assert action.delete_downloaded_file(path) is True
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

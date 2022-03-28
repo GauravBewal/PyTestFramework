@@ -19,7 +19,6 @@ class UserManagement(Action):
     def get_user_count(self):
         return Action.get_count_from_string(self, By.XPATH, UserManagement.user_count)
 
-
     first_active_user = "(//span[text()='Active' and @class='status__text'])[1]"
 
     def visibility_of_first_active_user(self):
@@ -81,10 +80,16 @@ class UserManagement(Action):
     def put_first_name(self, value):
         return Action.send_keys(self, By.XPATH, UserManagement.First_name, value)
 
+    def clear_first_name(self):
+        return Action.clear_field(self, By.XPATH, UserManagement.First_name)
+
     Last_name = "(//div[contains(@class,'cy-input ')]/input)[2]"
 
     def put_last_name(self, value):
         return Action.send_keys(self, By.XPATH, UserManagement.Last_name, value)
+
+    def clear_last_name(self):
+        return Action.clear_field(self, By.XPATH, UserManagement.Last_name)
 
     drop_down_btn = "//div[contains(@class,'cy-select__menu--icon')]//span[contains(@class,'cyicon-chevron-down')]"
 
@@ -134,7 +139,7 @@ class UserManagement(Action):
     def click_first_list_user(self):
         return Action.wait_and_click(self, By.XPATH, UserManagement.list_first_name)
 
-    deactivate_btn ="//div[contains(@class,'cy-switch-btn__ball')]//span[contains(@class,'cyicon-check')]"
+    deactivate_btn = "//div[contains(@class,'cy-switch-btn__ball')]//span[contains(@class,'cyicon-check')]"
 
     def click_deactivate_user(self):
         return Action.wait_and_click(self, By.XPATH, UserManagement.deactivate_btn)
@@ -149,10 +154,23 @@ class UserManagement(Action):
     def click_on_search_clear_btn(self):
         return Action.wait_and_click(self, By.XPATH, UserManagement.search_bar_clear_btn)
 
+    export_users = "//ul[contains(@class,'el-dropdown-menu--small')]/li"
 
+    def click_on_csv_btn(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.export_users)
 
+    def visibility_of_user_in_usergroup(self, user_name):
+        path = "//ul/li//div[contains(@class,'cy-select-menu-option--multiple')]//div[contains(text(),'"+user_name+"')]"
+        return Action.check_visibility_of_element(self, By.XPATH, path)
 
+    def visibility_of_user(self, user_name):
+        path = "//ul/li//div[contains(@class,'cy-width-inherit')]//div[contains(text(),'"+user_name+"')]"
+        return Action.check_visibility_of_element(self, By.XPATH, path)
 
+    bot_user = "//span[contains(text(),'Bot User')]/parent::div"
+
+    def check_bot_user(self):
+        return Action.wait_and_click(self, By.XPATH, UserManagement.bot_user)
 
 
 
