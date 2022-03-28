@@ -38,3 +38,68 @@ class ProfileSettings(Action):
 
     def click_close_change_password_slider(self):
         return Action.javascript_click(self, By.XPATH, ProfileSettings.slider_close_tool_tip)
+
+    def click_save_btn(self):
+        return Action.javascript_click(self, By.XPATH, ProfileSettings.btn_save_profile)
+
+    first_name_tab = "//div//input[@placeholder='Enter First Name']"
+
+    def enter_first_name(self, value):
+        return Action.send_keys(self, By.XPATH, ProfileSettings.first_name_tab, value)
+
+    last_name_tab = "//div//input[@placeholder='Enter Last Name']"
+
+    def enter_last_name(self, value):
+        return Action.send_keys(self, By.XPATH, ProfileSettings.last_name_tab, value)
+
+    title_name_tab = "//div//input[@placeholder='Enter Title']"
+
+    def enter_title_name(self, value):
+        return Action.send_keys(self, By.XPATH, ProfileSettings.title_name_tab, value)
+
+    contact_number_tab = "//div//input[@placeholder='Enter Phone Number']"
+
+    def enter_contact_number(self, value):
+        return Action.send_keys(self, By.XPATH, ProfileSettings.contact_number_tab, value)
+
+    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
+
+    def click_close_tooltip(self):
+        return Action.normal_click(self, By.XPATH, ProfileSettings.close_tooltip_btn)
+
+    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
+
+    def get_tooltip_msg(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.toast_msg_txt)
+
+    def clear_first_name(self):
+        return Action.clear_field(self, By.XPATH, ProfileSettings.first_name_tab)
+
+    def clear_last_name(self):
+        return Action.clear_field(self, By.XPATH, ProfileSettings.last_name_tab)
+
+    def clear_title_name(self):
+        return Action.clear_field(self, By.XPATH, ProfileSettings.title_name_tab)
+
+    def clear_contact_number(self):
+        return Action.clear_field(self, By.XPATH, ProfileSettings.contact_number_tab)
+
+    first_name_in_view_mode = "//label[@for='first_name']/parent::div//span"
+
+    last_name_in_view_mode = "//label[@for='last_name']/parent::div//span"
+
+    title_in_view_mode = "//label[@for='title']/parent::div//span"
+
+    contact_number_in_view_mode = "//label[@for='contact_number']/parent::div//span"
+
+    def get_first_name(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.first_name_in_view_mode)
+
+    def get_last_name(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.last_name_in_view_mode)
+
+    def get_title_name(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.title_in_view_mode)
+
+    def get_contact_number(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.contact_number_in_view_mode)
