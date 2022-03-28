@@ -1,5 +1,6 @@
 import pytest
 
+from pageObjects.CommonElements import Tooltip
 from pageObjects.Navigation import Navigation
 from pageObjects.TriggerEvents import TriggerEvents
 from utilities.Actions import Action
@@ -57,6 +58,7 @@ class TestTriggerEvents(Base):
         log = self.getlogger()
         trigger_events = TriggerEvents(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on the create new button")
         trigger_events.click_create_new_event()
         global event_name
@@ -70,9 +72,9 @@ class TestTriggerEvents(Base):
         log.info("Click on create button")
         trigger_events.click_on_create_button()
         log.info("Read the successful message")
-        creation_msg = trigger_events.get_successful_tooltip_txt()
+        creation_msg = tooltip.get_tooltip_msg()
         log.info("Close the tool tip")
-        trigger_events.close_tooltip()
+        tooltip.click_close_tooltip()
         events_count_after_creation = trigger_events.get_events_count()
         assert creation_msg == 'Success' and active_count + 1 == events_count_after_creation
 

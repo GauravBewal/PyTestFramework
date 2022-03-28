@@ -70,12 +70,12 @@ class UserManagement(Action):
     def get_slider_title(self):
         return Action.get_text(self, By.XPATH, UserManagement.text_slider_title)
 
-    btn_slider_close = "//div[text()='User']/../following-sibling::div/span[2]"
+    btn_slider_close = "//span[@data-testaction='slider-close']"
 
     def click_slider_close(self):
         return Action.javascript_click(self, By.XPATH, UserManagement.btn_slider_close)
 
-    First_name = "(//div[contains(@class,'cy-input ')]/input)[1]"
+    First_name = "//label[@for='first_name']/parent::div//input"
 
     def put_first_name(self, value):
         return Action.send_keys(self, By.XPATH, UserManagement.First_name, value)
@@ -83,7 +83,7 @@ class UserManagement(Action):
     def clear_first_name(self):
         return Action.clear_field(self, By.XPATH, UserManagement.First_name)
 
-    Last_name = "(//div[contains(@class,'cy-input ')]/input)[2]"
+    Last_name = "//label[@for='last_name']/parent::div//input"
 
     def put_last_name(self, value):
         return Action.send_keys(self, By.XPATH, UserManagement.Last_name, value)
@@ -91,47 +91,37 @@ class UserManagement(Action):
     def clear_last_name(self):
         return Action.clear_field(self, By.XPATH, UserManagement.Last_name)
 
-    drop_down_btn = "//div[contains(@class,'cy-select__menu--icon')]//span[contains(@class,'cyicon-chevron-down')]"
+    drop_down_btn = "//div[@name='groups']//span[contains(@class,'chevron-down')]"
 
     def click_dropdown(self):
         return Action.wait_and_click(self, By.XPATH, UserManagement.drop_down_btn)
 
-    top_first_usergroup = "(//div[contains(@class,'cy-select__menu---expanded')]//ul//li)[1]"
+    top_first_usergroup = "(//div[@name='groups']//ul//li)[1]"
 
     def click_top_user_group(self):
         return Action.wait_and_click(self, By.XPATH, UserManagement.top_first_usergroup)
 
-    user_name = "(//div[contains(@class,'cy-input ')]/input)[3]"
+    user_name = "//label[@for='username']/parent::div//input"
 
     def put_user_name(self, value):
         return Action.send_keys(self, By.XPATH, UserManagement.user_name, value)
 
-    user_email = "(//div[contains(@class,'cy-input ')]/input)[4]"
+    user_email = "//label[@for='email']/parent::div//input"
 
     def put_user_email(self, value):
         return Action.send_keys(self, By.XPATH, UserManagement.user_email, value)
 
-    create_user_btn = "//div[contains(@class,'cy-right-model__footer')]//button[contains(text(),'Create')]"
+    create_user_btn = "//button[contains(text(),'Create')]"
 
     def click_create_user_btn(self):
         return Action.wait_and_click(self, By.XPATH, UserManagement.create_user_btn)
-
-    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
-
-    def click_close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, UserManagement.close_tooltip_btn)
-
-    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_tooltip_msg(self):
-        return Action.get_text(self, By.XPATH, UserManagement.toast_msg_txt)
 
     main_searchbar = "//input[@id='main-input']"
 
     def search_button(self, value):
         return Action.send_keys(self, By.XPATH, UserManagement.main_searchbar, value)
 
-    list_first_name = "(//div/span[contains(@class,'align-items-center')]/a)[1]"
+    list_first_name = "(//tr//td[1]//a)[1]"
 
     def get_first_list_name(self):
         return Action.get_text(self, By.XPATH, UserManagement.list_first_name)
@@ -144,7 +134,7 @@ class UserManagement(Action):
     def click_deactivate_user(self):
         return Action.wait_and_click(self, By.XPATH, UserManagement.deactivate_btn)
 
-    update_btn = "//div[contains(@class,'cy-right-model__footer')]//button[contains(text(),'Update')]"
+    update_btn = "//button[contains(text(),'Update')]"
 
     def click_update_btn(self):
         return Action.wait_and_click(self, By.XPATH, UserManagement.update_btn)

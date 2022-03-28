@@ -173,13 +173,3 @@ class Syslogs(Action):
 
     def select_test_syslog_source_event_app(self, value):
         return Action.wait_and_click(self, By.XPATH, value)
-
-    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
-
-    def click_close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, Syslogs.close_tooltip_btn)
-
-    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_tooltip_msg(self):
-        return Action.get_text(self, By.XPATH, Syslogs.toast_msg_txt)

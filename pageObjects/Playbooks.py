@@ -592,12 +592,3 @@ class Playbooks(Action):
     def get_playbook_created_successful_txt(self):
         return Action.get_text(self, By.XPATH, Playbooks.playbook_created_successful_txt)
 
-    tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
-
-    def close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, Playbooks.tooltip_close)
-
-    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_tooltip_msg(self):
-        return Action.get_text(self, By.XPATH, Playbooks.toast_msg_txt)

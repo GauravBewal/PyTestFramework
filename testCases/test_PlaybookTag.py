@@ -2,7 +2,7 @@ import pytest
 
 from pageObjects.AdminPage import Admin
 from pageObjects.Dashboard import Dashboard
-from pageObjects.FilterandSort import FilterAndSort
+from pageObjects.CommonElements import Tooltip, FilterandSort
 from pageObjects.Navigation import Navigation
 from pageObjects.PlaybookTags import PlaybookTags
 from pageObjects.Playbooks import Playbooks
@@ -57,6 +57,7 @@ class TestPlaybookTags(Base):
             TC_ID: PlaybookTag-TC-003
         """
         log = self.getlogger()
+        tooltip = Tooltip(self.driver)
         action = Action(self.driver)
         tag = PlaybookTags(self.driver)
         log.info("Check visibility of first playbooktag")
@@ -73,7 +74,9 @@ class TestPlaybookTags(Base):
         tag.put_playbooktag_description("Test Description")
         log.info("Click on Save PlaybookTag button")
         tag.save_playbookTag()
-        tag.close_tooltip()
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        tooltip.click_close_tooltip()
         log.info("Check visibility of first playbooktag")
         tag.visibility_of_first_playbook_tag()
         log.info("Reading count of total labels after creating a new playbookTag")
@@ -107,6 +110,7 @@ class TestPlaybookTags(Base):
         """
         global updated_playbooktag_title
         log = self.getlogger()
+        tooltip = Tooltip(self.driver)
         tag = PlaybookTags(self.driver)
         action = Action(self.driver)
         log.info("Updating the PlaybookTag")
@@ -122,9 +126,9 @@ class TestPlaybookTags(Base):
         tag.put_playbooktag_description("Updated Description")
         log.info("Click on Save/update PlaybookTag button")
         tag.save_playbookTag()
-        tooltip_msg = tag.get_tooltip_msg()
+        tooltip_msg = tooltip.get_tooltip_msg()
         assert 'Success' in tooltip_msg
-        tag.close_tooltip()
+        tooltip.click_close_tooltip()
         tag.click_clear_search_btn()
         tag.put_string_in_searchbar(updated_playbooktag_title)
         tag.click_enter()
@@ -156,15 +160,15 @@ class TestPlaybookTags(Base):
         """
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
-        filter_sort = FilterAndSort(self.driver)
+        filterandsort = FilterandSort(self.driver)
         log.info("Mouse overing the sort Option")
-        filter_sort.mouse_hover_on_sort()
+        filterandsort.mouse_hover_on_sort()
         log.info("Changing sort to the Created")
-        filter_sort.click_on_created()
+        filterandsort.click_on_created()
         tag.visibility_of_first_playbook_tag()
         log.info("Changing sort to Descending Order")
-        filter_sort.changing_sort_to_descending_order()
-        assert filter_sort.get_name_sorted_filter() == "Created"
+        filterandsort.changing_sort_to_descending_order()
+        assert filterandsort.get_name_sorted_filter() == "Created"
 
     @pytest.mark.regression
     def test_08_Check_Created_Descending_Order(self):
@@ -186,12 +190,12 @@ class TestPlaybookTags(Base):
             TC_ID : PlaybookTag-TC-009
         """
         log = self.getlogger()
-        filter = FilterAndSort(self.driver)
+        filterandsort = FilterandSort(self.driver)
         log.info("Clicking on the filter Button")
-        filter.click_on_filter_btn()
+        filterandsort.click_on_filter_btn()
         log.info("Click on the last week Filter")
-        filter.select_last_week_filter()
-        assert filter.check_last_week_radio_status() is True
+        filterandsort.select_last_week_filter()
+        assert filterandsort.check_last_week_radio_status() is True
 
     @pytest.mark.regression
     def test_10_Apply_Last_Month_Filter(self):
@@ -201,10 +205,10 @@ class TestPlaybookTags(Base):
         TC_ID: PlaybookTag-TC-010
         """
         log = self.getlogger()
-        filter = FilterAndSort(self.driver)
+        filterandsort = FilterandSort(self.driver)
         log.info("Clicking on the last month filter Button")
-        filter.select_last_month_filter()
-        assert filter.check_last_month_radio_status() is True
+        filterandsort.select_last_month_filter()
+        assert filterandsort.check_last_month_radio_status() is True
 
     @pytest.mark.regression
     def test_11_Apply_3days_Filter_in_calendar(self):
@@ -214,7 +218,7 @@ class TestPlaybookTags(Base):
         TC_ID: PlaybookTag-TC-011
         """
         log = self.getlogger()
-        filter = FilterAndSort(self.driver)
+        filterandsort = FilterandSort(self.driver)
         dashboard = Dashboard(self.driver)
         tag = PlaybookTags(self.driver)
         log.info("Click on the start date button")
@@ -234,7 +238,7 @@ class TestPlaybookTags(Base):
         log.info("Clear the Applied filters in the Playbook Tags")
         tag.click_clear_all_filters_btn()
         log.info("Close the Filter Slider")
-        filter.click_close_filter_btn()
+        filterandsort.click_close_filter_btn()
 
     @pytest.mark.regression
     def test_12_visibility_of_playbooktag_in_playbooks(self):
@@ -280,6 +284,7 @@ class TestPlaybookTags(Base):
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
         admin = Admin(self.driver)
+        tooltip = Tooltip(self.driver)
         nav = Navigation(self.driver)
         log.info("Click on the Admin Button")
         nav.click_admin_menu()
@@ -298,10 +303,10 @@ class TestPlaybookTags(Base):
         tag.delete_playbooktag()
         log.info("Confirm the deletion of the Playbook Tag")
         tag.click_confirm_delete()
-        toast_msg = tag.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
         log.info("click on close tool tip")
-        tag.close_tooltip()
+        tooltip.click_close_tooltip()
 
 
 

@@ -2,6 +2,7 @@ import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.ProfileSettings import ProfileSettings
+from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -57,13 +58,10 @@ class TestProfileSettings(Base):
         profile.click_on_edit_button()
         log.info("Check for the save button visibility")
         visibility = profile.check_save_btn_visibility()
-        profile.click_save_btn()
-        log.info("Read tool tip message")
-        toast_msg = profile.get_tooltip_msg()
-        log.info("Close tool tip")
-        profile.click_close_tooltip()
-        assert 'Success' in toast_msg
         assert visibility is True
+        profile.click_cancel_btn()
+
+
 
     @pytest.mark.regression
     def test_04_Edit_Name_of_user(self):
@@ -74,6 +72,7 @@ class TestProfileSettings(Base):
         log = self.getlogger()
         profile = ProfileSettings(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         prev_first_name = profile.get_first_name()
         prev_last_name = profile.get_last_name()
         log.info("Clicking on edit button")
@@ -91,10 +90,10 @@ class TestProfileSettings(Base):
         log.info("Click for the save button")
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = profile.get_tooltip_msg()
-        log.info("Close tool tip")
-        profile.click_close_tooltip()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
+        log.info("Close tool tip")
+        tooltip.click_close_tooltip()
         updated_first_name = profile.get_first_name()
         updated_last_name = profile.get_last_name()
         assert updated_first_name == first_name and updated_last_name == last_name
@@ -105,10 +104,10 @@ class TestProfileSettings(Base):
         profile.enter_last_name(prev_last_name)
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = profile.get_tooltip_msg()
-        log.info("Close tool tip")
-        profile.click_close_tooltip()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
+        log.info("Close tool tip")
+        tooltip.click_close_tooltip()
 
     @pytest.mark.regression
     def test_05_Edit_Title_of_user(self):
@@ -118,7 +117,7 @@ class TestProfileSettings(Base):
         """
         log = self.getlogger()
         profile = ProfileSettings(self.driver)
-        action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         prev_title_name = profile.get_title_name()
         log.info("Clicking on edit button")
         profile.click_on_edit_button()
@@ -130,10 +129,10 @@ class TestProfileSettings(Base):
         log.info("Click for the save button")
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = profile.get_tooltip_msg()
-        log.info("Close tool tip")
-        profile.click_close_tooltip()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
+        log.info("Close tool tip")
+        tooltip.click_close_tooltip()
         updated_title_name = profile.get_title_name()
         assert updated_title_name == title_name
         profile.click_on_edit_button()
@@ -142,10 +141,10 @@ class TestProfileSettings(Base):
             profile.enter_title_name(prev_title_name)
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = profile.get_tooltip_msg()
-        log.info("Close tool tip")
-        profile.click_close_tooltip()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
+        log.info("Close tool tip")
+        tooltip.click_close_tooltip()
 
     @pytest.mark.regression
     def test_06_Edit_contact_number_of_user(self):
@@ -155,6 +154,7 @@ class TestProfileSettings(Base):
         """
         log = self.getlogger()
         profile = ProfileSettings(self.driver)
+        tooltip = Tooltip(self.driver)
         action = Action(self.driver)
         prev_mobile_number = profile.get_contact_number()
         log.info("Clicking on edit button")
@@ -167,10 +167,10 @@ class TestProfileSettings(Base):
         log.info("Click for the save button")
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = profile.get_tooltip_msg()
-        log.info("Close tool tip")
-        profile.click_close_tooltip()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
+        log.info("Close tool tip")
+        tooltip.click_close_tooltip()
         updated_mobile_number = profile.get_contact_number()
         assert updated_mobile_number == mobile_number
         profile.click_on_edit_button()
@@ -179,10 +179,10 @@ class TestProfileSettings(Base):
             profile.enter_contact_number(prev_mobile_number)
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = profile.get_tooltip_msg()
-        log.info("Close tool tip")
-        profile.click_close_tooltip()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
+        log.info("Close tool tip")
+        tooltip.click_close_tooltip()
 
 
 

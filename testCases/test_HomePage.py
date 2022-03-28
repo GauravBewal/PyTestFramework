@@ -1,6 +1,10 @@
+import time
+
 import pytest
 
+from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
+from pageObjects.Playbooks import Playbooks
 from utilities.Base import Base
 
 
@@ -70,6 +74,7 @@ class TestHomePage(Base):
         log.info("Click on the close walkthrough button")
         nav.click_on_close_walkthrough()
 
+
     @pytest.mark.regression
     @pytest.mark.readOnly
     def test_05_Verify_Manage_Playbooks_walkthrough_btn(self):
@@ -79,10 +84,18 @@ class TestHomePage(Base):
         """
         log = self.getlogger()
         nav = Navigation(self.driver)
+        playbooks = Playbooks(self.driver)
+        nav.page_refresh()
+        visibility = nav.visibility_of_first_bar_graph()
+        assert visibility is True
+        log.info("Click on the main menu")
+        nav.click_main_menu()
         log.info("clicking on Get Started Button")
         nav.click_get_started_button()
         log.info("Click on the Manage Playbook walkthrough button")
         nav.click_playbook_walkthrough_btn()
+        read_page_heading = playbooks.get_manage_playbook_heading()
+        assert read_page_heading == 'Manage Playbooks'
         log.info("Check Walkthrough is initiated or not")
         visibility = nav.visibility_of_walkthrough_close_btn()
         assert visibility is True
@@ -98,12 +111,16 @@ class TestHomePage(Base):
         """
         log = self.getlogger()
         nav = Navigation(self.driver)
+        my_apps = MyApps(self.driver)
         log.info("Click on the main menu")
         nav.click_main_menu()
         log.info("clicking on Get Started Button")
         nav.click_get_started_button()
         log.info("Click on the apps walkthrough button")
         nav.click_apps_walkthrough_btn()
+        log.info("Read page heading")
+        page_heading = my_apps.get_page_heading()
+        assert page_heading == 'Apps'
         log.info("Check Walkthrough is initiated or not")
         visibility = nav.visibility_of_walkthrough_close_btn()
         assert visibility is True

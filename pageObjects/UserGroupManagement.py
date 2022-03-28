@@ -172,12 +172,3 @@ class UserGroupManagement(Action):
     def click_deactivate_usergroup(self):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.deactive_toggle)
 
-    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
-
-    def click_close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, UserGroupManagement.close_tooltip_btn)
-
-    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_tooltip_msg(self):
-        return Action.get_text(self, By.XPATH, UserGroupManagement.toast_msg_txt)

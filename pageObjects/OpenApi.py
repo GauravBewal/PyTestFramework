@@ -130,16 +130,6 @@ class OpenApi(Action):
     def click_inactive_toggle(self):
         return Action.javascript_click(self, By.XPATH, OpenApi.btn_inactive_toggle)
 
-    tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
-
-    def close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, OpenApi.tooltip_close)
-
-    openapi_successful_created_msg = "//div[@class='el-notification__content']" \
-                                     "//span[contains(text(),'created successful')]"
-
-    def get_successfully_created_msg(self):
-        return Action.get_text(self, By.XPATH, OpenApi.openapi_successful_created_msg)
 
     openapi_url_txt = "//div[contains(text(),'soarapi/')]"
 

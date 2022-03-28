@@ -2,9 +2,7 @@ import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.UserManagement import UserManagement
-from pageObjects.UserGroupManagement import UserGroupManagement
-from pageObjects.Webhooks import Webhooks
-from pageObjects.OpenApi import OpenApi
+from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -114,9 +112,10 @@ class TestUserManagement(Base):
             Validation -1 : On the basis of the Count in the Active Tab
             TC_ID : 006
         """
-        log =self.getlogger()
+        log = self.getlogger()
         user = UserManagement(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Redirect to the Active Tab")
         user.click_active_tab()
         log.info("Click On add new User Button")
@@ -138,13 +137,12 @@ class TestUserManagement(Base):
         User_email = "testuser"+"."+str(all_tab_count)+"@cyware.com"
         log.info("Add the User Email Id")
         user.put_user_email(User_email)
-        user.check_bot_user()
         log.info("Click On create Button")
         user.click_create_user_btn()
         log.info("Click on the close tool tip")
-        toast_msg = user.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         assert "Success" in toast_msg
-        user.click_close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Wait until the Visibility of the User")
         user.visibility_of_first_active_user()
         assert active_count + 1 == user.get_user_count()
@@ -178,6 +176,7 @@ class TestUserManagement(Base):
         log = self.getlogger()
         action = Action(self.driver)
         user = UserManagement(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click On First List User")
         user.click_first_list_user()
         log.info("Clear the First Name")
@@ -197,13 +196,14 @@ class TestUserManagement(Base):
         global Updated_Full_Name
         Updated_Full_Name = updated_first_name + " " + updated_last_name
         log.info("Get the Toast Message")
-        toast_msg = user.get_tooltip_msg()
-        user.click_close_tooltip()
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        tooltip.click_close_tooltip()
         user.search_button(Updated_Full_Name)
         action.click_enter()
         log.info("Check the Visibility of the User")
         user.visibility_of_first_active_user()
-        assert Updated_Full_Name == user.get_first_list_name() and "Success" in toast_msg
+        assert Updated_Full_Name == user.get_first_list_name()
 
     @pytest.mark.regression
     def test_09_Deactivate_User(self):
@@ -214,12 +214,7 @@ class TestUserManagement(Base):
         """
         log = self.getlogger()
         user = UserManagement(self.driver)
-        action = Action(self.driver)
-        log.info("Search the created user Name")
-        # user.click_on_search_clear_btn()
-        # user.search_button(Updated_Full_Name)
-        # log.info("Click Enter to Search the result")
-        # action.click_enter()
+        tooltip = Tooltip(self.driver)
         log.info("Wait until the first User Name Visibility")
         user.visibility_of_first_active_user()
         log.info("Click on the first user listed")
@@ -228,49 +223,29 @@ class TestUserManagement(Base):
         user.click_deactivate_user()
         log.info("Click on Update Button")
         user.click_update_btn()
+        log.info("Get the Toast Message")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        tooltip.click_close_tooltip()
         log.info("Clear Search Bar Results")
         user.click_on_search_clear_btn()
-        toast_msg = user.get_tooltip_msg()
-        user.click_close_tooltip()
+        user.page_refresh()
         log.info("Switch to inactive tab")
         user.click_inactive_tab()
         user.visibility_of_first_inactive_user()
-        assert inactive_count + 1 == user.get_user_count() and "Success" in toast_msg
+        assert inactive_count + 1 == user.get_user_count()
 
     # @pytest.mark.regression
-    # def test_09_Export_User_Management(self):
+    # def test_09_Export_User_Details(self):
     #     log = self.getlogger()
     #     action = Action(self.driver)
     #     user = UserManagement(self.driver)
+    #     log.info("Click on the export button")
     #     user.click_export()
+    #     log.info("Click on csv option")
     #     user.click_on_csv_btn()
+    #     log.info("Read the tooltip msg")
     #     toast_msg = user.get_tooltip_msg()
     #     assert "Success" in toast_msg
     #     path = action.get_file_downloaded_path(action.check_file_downloaded_and_get_file_name("Cyw", 'csv'))
     #     assert action.delete_downloaded_file(path) is True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

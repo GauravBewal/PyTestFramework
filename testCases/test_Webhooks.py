@@ -1,8 +1,7 @@
-import time
-
 import pytest
 
 from configuration.readConfiguration import ReadConfig
+from pageObjects.CommonElements import Tooltip
 from pageObjects.Navigation import Navigation
 from pageObjects.Webhooks import Webhooks
 from utilities.Actions import Action
@@ -103,6 +102,7 @@ class TestWebhooks(Base):
         log = self.getlogger()
         webhook = Webhooks(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         global webhook_title
         global token
         log.info("Generating the new Webhook title")
@@ -128,9 +128,9 @@ class TestWebhooks(Base):
         log.info("Close the Create slider")
         webhook.click_slider_close()
         log.info("Read the tooltip message")
-        toast_msg = webhook.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         log.info("Close the tooltip")
-        webhook.click_close_tooltip()
+        tooltip.click_close_tooltip()
         webhook.visibility_of_first_active_webhook()
         assert active_count + 1 == webhook.get_webhook_count() and 'Success' in toast_msg
 
@@ -191,6 +191,7 @@ class TestWebhooks(Base):
         webhook = Webhooks(self.driver)
         log = self.getlogger()
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on the first Webhook in list")
         webhook.click_on_first_webhook()
         log.info("Clear the old name of Webhook")
@@ -203,10 +204,10 @@ class TestWebhooks(Base):
         log.info("Click Update/Save Button")
         webhook.update_webhook()
         log.info("read the toast message")
-        toast_msg = webhook.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
         log.info("Close the tooltip")
-        webhook.click_close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Click on clear search icon")
         webhook.click_on_search_clear_btn()
         webhook.visibility_of_first_active_webhook()
@@ -244,14 +245,15 @@ class TestWebhooks(Base):
         """
         webhook = Webhooks(self.driver)
         log = self.getlogger()
+        tooltip = Tooltip(self.driver)
         log.info("Mouse Over the Drop down")
         webhook.check_drop_down()
         log.info("Click on the Copy token Button in Drop down")
         webhook.click_copy_token_button()
         log.info("Get the toast message Information")
-        toast_message = webhook.get_tooltip_msg()
+        toast_message = tooltip.get_tooltip_msg()
         log.info("Close tool tip message")
-        webhook.click_close_tooltip()
+        tooltip.click_close_tooltip()
         assert 'Success' in toast_message
 
     @pytest.mark.regression
@@ -263,14 +265,15 @@ class TestWebhooks(Base):
         """
         webhook = Webhooks(self.driver)
         log = self.getlogger()
+        tooltip = Tooltip(self.driver)
         log.info("Click on dropdown")
         webhook.check_drop_down()
         log.info("Click on inactive button")
         webhook.click_deactive_webhook()
         log.info("Read the tool tip message")
-        toast_msg = webhook.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
-        webhook.click_close_tooltip()
+        tooltip.click_close_tooltip()
         webhook.click_on_search_clear_btn()
         log.info("Click/ Switch on the inactive Tab")
         webhook.click_inactive_tab()

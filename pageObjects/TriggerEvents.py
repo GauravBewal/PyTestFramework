@@ -81,13 +81,3 @@ class TriggerEvents(Action):
 
     def click_on_create_button(self):
         return Action.wait_and_click(self, By.XPATH, TriggerEvents.button_create)
-
-    tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
-
-    def close_tooltip(self):
-        return Action.javascript_click(self, By.XPATH, TriggerEvents.tooltip_close)
-
-    successful_tooltip_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_successful_tooltip_txt(self):
-        return Action.get_text(self, By.XPATH, TriggerEvents.successful_tooltip_txt)

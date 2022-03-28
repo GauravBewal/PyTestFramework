@@ -147,11 +147,6 @@ class Labels(Action):
     def clear_description_field(self):
         return Action.clear_field(self, By.XPATH, Labels.text_box_Description)
 
-    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
-
-    def click_close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, Labels.close_tooltip_btn)
-
     get_labels_count = "//h1[contains(text(),'Labels (')]"
 
     def get_label_count(self):

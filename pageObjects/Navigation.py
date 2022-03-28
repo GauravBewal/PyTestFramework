@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 
 from utilities.Actions import Action
@@ -93,6 +95,11 @@ class Navigation(Action):
     def navigate_agent_task(self):
         return Action.javascript_click(self, By.XPATH, Navigation.nav_agent_task)
 
+    page_heading = "//header//h1"
+
+    def get_page_heading(self):
+        return Action.get_text(self, By.XPATH, Navigation.page_heading)
+
     nav_labels = "//div[@class='cs-menu-item--title color-n500 font-size-14'][normalize-space()='Labels']"
 
     def navigate_labels(self):
@@ -127,6 +134,14 @@ class Navigation(Action):
     def click_get_started_button(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.get_started_btn)
 
+    first_bar_graph = "(//*[contains(@class,'highcharts-axis')])[1]"
+
+    def visibility_of_first_bar_graph(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Navigation.first_bar_graph)
+
+    def scroll_to_get_started_view(self):
+        return Action.scroll_to_element_view(self, By.XPATH, Navigation.get_started_btn)
+
     walkthrough_options = "//ul/a//span"
 
     def get_walkthrough_option_elements(self):
@@ -135,17 +150,17 @@ class Navigation(Action):
     def visibility_of_walkthrough_option(self, element):
         return Action.check_visibility_of_element(self, By.XPATH, element)
 
-    walkthrough_overview_btn = "//span[contains(text(),'Overview')]/parent::div"
+    walkthrough_overview_btn = "//span[contains(text(),'Overview')]"
 
     def click_on_overview_btn(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.walkthrough_overview_btn)
 
-    walkthrough_playbook_btn = "//span[contains(text(),'Manage Playbooks')]/parent::div"
+    walkthrough_playbook_btn = "//ul//a[@href='/soar/playbook']"
 
     def click_playbook_walkthrough_btn(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.walkthrough_playbook_btn)
 
-    walkthrough_apps_btn = "//span[contains(text(),'Apps')]/parent::div"
+    walkthrough_apps_btn = "//span[contains(text(),'Apps')]"
 
     def click_apps_walkthrough_btn(self):
         return Action.wait_and_click(self, By.XPATH, Navigation.walkthrough_apps_btn)
