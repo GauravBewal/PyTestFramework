@@ -55,7 +55,7 @@ class MyApps(Action):
         return Action.get_text(self, By.XPATH, MyApps.txt_app_name)
 
     def scroll_to_install_app_heading(self):
-        return Action.scroll_to_element_view(self, self.driver.find_element(By.XPATH, MyApps.txt_app_name))
+        return Action.scroll_to_element_view(self, By.XPATH, MyApps.txt_app_name)
 
     install_app_slider_title = "//div[contains(@class,'app-update')]//div[@class='ellipsis']"
 
@@ -297,7 +297,7 @@ class MyApps(Action):
     app_name_textbox = "//input[@placeholder='Enter App Name']"
 
     def enter_app_name(self, app_name):
-        time.sleep(ReadConfig.Wait_3_Sec())
+        time.sleep(3)
         return Action.send_keys(self, By.XPATH, MyApps.app_name_textbox, app_name)
 
     supported_api_version_textbox = "//input[@placeholder='Enter Supported API Versions']"
@@ -309,11 +309,6 @@ class MyApps(Action):
 
     def click_app_refresh_button(self):
         return Action.javascript_click(self, By.XPATH, MyApps.button_app_refresh)
-
-    tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
-
-    def close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, MyApps.tooltip_close)
 
     list_view_btn = "//span[contains(@class,'list-button')]"
 

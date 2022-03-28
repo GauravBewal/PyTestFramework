@@ -1,5 +1,6 @@
 import pytest
 
+from pageObjects.CommonElements import Tooltip
 from pageObjects.Navigation import Navigation
 from pageObjects.TenantManagement import TenantManagement
 from utilities.Actions import Action
@@ -84,7 +85,7 @@ class TestTenantManagement(Base):
         assert slider_text == 'Add Tenant'
 
     @pytest.mark.regression
-    def test_05_Create_New_Tenant_btn(self):
+    def test_05_Create_New_Tenant(self):
         """
             Verify whether user is able to create new tenant button
             Validation: Based on the Number of active tenants
@@ -92,6 +93,7 @@ class TestTenantManagement(Base):
         log = self.getlogger()
         tenant = TenantManagement(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Switch to active tab")
         tenant.click_active_tab()
         tenant.visibility_of_first_active_tenant()
@@ -109,9 +111,9 @@ class TestTenantManagement(Base):
         log.info("Click on save button")
         tenant.click_save_btn()
         log.info("Click on the close tool tip")
-        toast_msg = tenant.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         assert "Success" in toast_msg
-        tenant.click_close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Click on Continue using Cyware Orchestrate button")
         tenant.click_continue_using_co_btn()
         tenant.visibility_of_first_active_tenant()
@@ -124,7 +126,6 @@ class TestTenantManagement(Base):
             Validation-1: On basis of the Name Comparison.
 
         """
-
         tenant = TenantManagement(self.driver)
         log = self.getlogger()
         tenant.visibility_of_first_active_tenant()

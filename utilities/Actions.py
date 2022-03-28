@@ -83,8 +83,8 @@ class Action(Base):
 
     def Apply_Pagination_if_element_not_found(self, by, locator, pagination_path):
         try:
-            element = self.Webdriver_Wait_until_element_visible(by, locator)
-            self.scroll_to_element_view(element)
+            self.Webdriver_Wait_until_element_visible(by, locator)
+            self.scroll_to_element_view(by, locator)
         except (NoSuchElementException, TimeoutException):
             self.Webdriver_Wait_until_element_clickable(by, pagination_path).click()
             self.Apply_Pagination_if_element_not_found(by, locator, pagination_path)
@@ -93,7 +93,8 @@ class Action(Base):
         elements = self.driver.find_elements(by, locator)
         return len(elements)
 
-    def scroll_to_element_view(self, element):
+    def scroll_to_element_view(self, by, locator):
+        element = self.driver.find_element(by, locator)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
     def switch_new_window(self, window_number):
@@ -188,14 +189,17 @@ class Action(Base):
 
     def Webdriver_Wait_until_element_visible(self, by, locator):
         try:
-            element = WebDriverWait(self.driver, timeout=20).until(EC.visibility_of_element_located((by, locator)))
+            element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, locator)))
             return element
         except TimeoutException:
             raise TimeoutException("Element not visible with locator" + locator)
 
+    def page_refresh(self):
+        self.driver.get(self.driver.current_url)
+
     def Webdriver_Wait_until_element_clickable(self, by, locator):
         try:
-            element = WebDriverWait(self.driver, timeout=30).until(EC.element_to_be_clickable((by, locator)))
+            element = WebDriverWait(self.driver, timeout=60).until(EC.element_to_be_clickable((by, locator)))
             return element
         except TimeoutException:
             raise TimeoutException("Element not found/clickable with locator" + locator)

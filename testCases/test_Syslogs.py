@@ -1,9 +1,7 @@
-import time
-
 import pytest
 
+from pageObjects.CommonElements import Tooltip
 from pageObjects.ConfigureTrigger import ConfigureTrigger
-from pageObjects.Labels import Labels
 from pageObjects.Navigation import Navigation
 from pageObjects.Syslogs import Syslogs
 from utilities.Actions import Action
@@ -102,6 +100,7 @@ class TestSyslogs(Base):
         syslog = Syslogs(self.driver)
         action = Action(self.driver)
         nav = Navigation(self.driver)
+        tooltip = Tooltip(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Click on to main menu")
         nav.click_main_menu()
@@ -114,7 +113,10 @@ class TestSyslogs(Base):
         config_trigger.click_first_configure_trigger()
         config_trigger.click_active_configure_trigger_btn()
         config_trigger.click_on_update()
-        config_trigger.click_close_tooltip()
+        log.info("Read the success message")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        tooltip.click_close_tooltip()
         log.info("Click on Main menu")
         nav.click_admin_menu()
         log.info("Click on SysLogs tab from Admin Page")
@@ -140,10 +142,10 @@ class TestSyslogs(Base):
         syslog.select_first_source_event_app_and_type()
         syslog.click_save_btn()
         log.info("Read the tool tip message")
-        toast_msg = syslog.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
         log.info("click on close toop tip")
-        syslog.click_close_tooltip()
+        tooltip.click_close_tooltip()
         syslog.visibility_of_first_active_syslog()
         assert active_count + 1 == syslog.get_syslog_count()
 
@@ -171,18 +173,21 @@ class TestSyslogs(Base):
         log = self.getlogger()
         syslog = Syslogs(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on the first syslog")
         syslog.click_first_syslog()
         global updated_syslog_name
         updated_syslog_name = "ui_automtion"+action.get_current_time()
         log.info("Clear the previous title")
         syslog.clear_syslog_title()
+        log.info("Enter updated syslog name")
         syslog.put_syslog_title(updated_syslog_name)
+        log.info("Click on save button")
         syslog.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = syslog.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         log.info("Close tool tip")
-        syslog.click_close_tooltip()
+        tooltip.click_close_tooltip()
         assert 'Success' in toast_msg
         log.info("Clear search")
         syslog.clear_search()
@@ -195,8 +200,11 @@ class TestSyslogs(Base):
         """
         syslog = Syslogs(self.driver)
         log = self.getlogger()
+        log.info("Enter the syslog name to search")
         syslog.search_input_string(updated_syslog_name)
+        log.info("Press Enter to search")
         syslog.click_enter_for_search()
+        log.info("Check for the visibility of first active syslog")
         syslog.visibility_of_first_active_syslog()
         log.info("Mouse over the dropdown")
         syslog.check_drop_down()
@@ -216,15 +224,16 @@ class TestSyslogs(Base):
         """
         syslog = Syslogs(self.driver)
         log = self.getlogger()
+        tooltip = Tooltip(self.driver)
         log.info("Mouse hover the dropdown")
         syslog.check_drop_down()
         log.info("Click on deactive button")
         syslog.click_deactivate_button()
         log.info("Read the tool tip msg")
-        tooltip_msg = syslog.get_tooltip_msg()
-        log.info("Close the tool tip")
-        syslog.click_close_tooltip()
+        tooltip_msg = tooltip.get_tooltip_msg()
         assert 'Success' in tooltip_msg
+        log.info("Close the tool tip")
+        tooltip.click_close_tooltip()
         log.info("Clear search")
         syslog.clear_search()
         log.info("switch to inactive tab")
@@ -241,6 +250,7 @@ class TestSyslogs(Base):
         """
         syslog = Syslogs(self.driver)
         log = self.getlogger()
+        tooltip = Tooltip(self.driver)
         log.info("Search Functionality of Syslogs")
         syslog.search_input_string(updated_syslog_name)
         syslog.click_enter_for_search()
@@ -249,9 +259,9 @@ class TestSyslogs(Base):
         log.info("Click on active button")
         syslog.click_activate_button()
         log.info("Read the tool tip msg")
-        tooltip_msg = syslog.get_tooltip_msg()
+        tooltip_msg = tooltip.get_tooltip_msg()
         log.info("Close the tool tip")
-        syslog.click_close_tooltip()
+        tooltip.click_close_tooltip()
         assert 'Success' in tooltip_msg
         log.info("Clear the search")
         syslog.clear_search()
@@ -271,13 +281,14 @@ class TestSyslogs(Base):
         """
         syslog = Syslogs(self.driver)
         log = self.getlogger()
+        tooltip = Tooltip(self.driver)
         log.info("Mouse over the dropdown")
         syslog.check_drop_down()
         syslog.click_delete_button()
         log.info("Read the tool tip msg")
-        tooltip_msg = syslog.get_tooltip_msg()
+        tooltip_msg = tooltip.get_tooltip_msg()
         log.info("Close the tool tip")
-        syslog.click_close_tooltip()
+        tooltip.click_close_tooltip()
         assert 'Success' in tooltip_msg
         syslog.visibility_of_first_active_syslog()
         assert active_count == syslog.get_syslog_count()

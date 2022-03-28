@@ -107,15 +107,10 @@ class PlaybookTags(Action):
     def get_slider_name(self):
         return Action.get_text(self, By.XPATH, PlaybookTags.slider_name)
 
-    slider_close = "(//div[@class='cy-right-modal-header__icons']//span[@class='cyicon-cross'])[2]"
+    slider_close = "//span[@data-testaction='slider-close']"
 
     def close_slider_btn(self):
         return Action.javascript_click(self, By.XPATH, PlaybookTags.slider_close)
-
-    tooltip_close = "//div[contains(@class,'notification__closeBtn')]"
-
-    def close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, PlaybookTags.tooltip_close)
 
     more_options_btn = "(//div[@class='el-dropdown']/span)[3]"
 
@@ -154,7 +149,3 @@ class PlaybookTags(Action):
         path = "//div[@name='tags']//li[1]//div[contains(text(),'" + playbooktag_name + "')]"
         return Action.check_visibility_of_element(self, By.XPATH, path)
 
-    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_tooltip_msg(self):
-        return Action.get_text(self, By.XPATH, PlaybookTags.toast_msg_txt)

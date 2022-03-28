@@ -126,11 +126,6 @@ class ConfigureTrigger(Action):
     def click_active_configure_trigger_btn(self):
         return Action.wait_and_click(self, By.XPATH, ConfigureTrigger.active_btn)
 
-    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
-
-    def click_close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, ConfigureTrigger.close_tooltip_btn)
-
     tab_active = "//li/a[contains(text(),'Active')]"
 
     def click_active_tab(self):

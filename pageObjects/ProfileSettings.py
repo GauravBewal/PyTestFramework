@@ -34,6 +34,11 @@ class ProfileSettings(Action):
     def get_change_password_slider_title(self):
         return Action.get_text(self, By.XPATH, ProfileSettings.slider_title_change_password)
 
+    cancel_btn = "//i[contains(@class,'icon-close')]/parent::div"
+
+    def click_cancel_btn(self):
+        return Action.wait_and_click(self, By.XPATH,ProfileSettings.cancel_btn)
+
     slider_close_tool_tip = "//div[contains(@class,'header__icons')]//span[@data-testaction='slider-close']"
 
     def click_close_change_password_slider(self):
@@ -62,15 +67,6 @@ class ProfileSettings(Action):
     def enter_contact_number(self, value):
         return Action.send_keys(self, By.XPATH, ProfileSettings.contact_number_tab, value)
 
-    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
-
-    def click_close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, ProfileSettings.close_tooltip_btn)
-
-    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_tooltip_msg(self):
-        return Action.get_text(self, By.XPATH, ProfileSettings.toast_msg_txt)
 
     def clear_first_name(self):
         return Action.clear_field(self, By.XPATH, ProfileSettings.first_name_tab)

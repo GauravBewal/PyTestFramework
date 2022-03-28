@@ -1,6 +1,10 @@
+import time
+
 import pytest
 
-from pageObjects.FilterandSort import FilterAndSort
+from configuration.readConfiguration import ReadConfig
+from pageObjects.CommonElements import FilterandSort,Tooltip
+from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
 from pageObjects.Pagination import Pagination
 from pageObjects.Playbooks import Playbooks
@@ -122,7 +126,22 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_07_Check_Tooltip_walkthrough(self):
+    def test_07_Check_Save_Options(self):
+        """
+            Verify user is able to see the save options
+            Validation: Based on the save options visibility
+        """
+        log = self.getlogger()
+        playbooks = Playbooks(self.driver)
+        log.info("Mouse hover on the save button")
+        playbooks.mouse_hover_on_save_btn()
+        text_save_and_run = playbooks.get_save_and_run_txt()
+        text_save_and_exit = playbooks.get_save_and_exit_txt()
+        assert text_save_and_exit == 'Save & Exit' and text_save_and_run == 'Save & Run'
+
+    @pytest.mark.regression
+    @pytest.mark.readOnly
+    def test_08_Check_Tooltip_walkthrough(self):
         """
             Verify user is able to see the tooltip walkthough
             Validation: Based on the tooltip walkthrough title
@@ -143,20 +162,6 @@ class TestPlaybook(Base):
             assert tooltip_text == playbooks.tooltip_titles[i]
             playbooks.click_on_next_btn()
 
-    @pytest.mark.regression
-    @pytest.mark.readOnly
-    def test_08_Check_Save_Options(self):
-        """
-            Verify user is able to see the save options
-            Validation: Based on the save options visibility
-        """
-        log = self.getlogger()
-        playbooks = Playbooks(self.driver)
-        log.info("Mouse hover on the save button")
-        playbooks.mouse_hover_on_save_btn()
-        text_save_and_run = playbooks.get_save_and_run_txt()
-        text_save_and_exit = playbooks.get_save_and_exit_txt()
-        assert text_save_and_exit == 'Save & Exit' and text_save_and_run == 'Save & Run'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -318,7 +323,7 @@ class TestPlaybook(Base):
             Validation: Based on the slider title
         """
         log = self.getlogger()
-        filterandsort = FilterAndSort(self.driver)
+        filterandsort = FilterandSort(self.driver)
         log.info("Click on the filter button")
         filterandsort.click_on_filter_btn()
         log.info("Read the filter slider title")
@@ -388,6 +393,8 @@ class TestPlaybook(Base):
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
+        filterandsort = FilterandSort(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Get playbook name")
         global exported_playbook_name
         exported_playbook_name = playbooks.get_playbook_title()
@@ -398,9 +405,9 @@ class TestPlaybook(Base):
         log.info("click on the export as json button")
         playbooks.click_on_export_as_json()
         log.info("Read the successfully exported message")
-        tooltip_msg = playbooks.get_tooltip_msg()
+        tooltip_msg = tooltip.get_tooltip_msg()
         assert tooltip_msg == 'Success'
-        playbooks.close_tooltip()
+        tooltip.click_close_tooltip()
         assert exported_playbook_name in \
                playbooks.check_file_downloaded_and_get_file_name(exported_playbook_name, 'json')
 
@@ -514,6 +521,11 @@ class TestPlaybook(Base):
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
+        tooltip = Tooltip(self.driver)
+        log.info("Search for the playbook")
+        global playbook_name
+        playbook_name = "Add Hosts in CFTR"
+        playbooks.put_string_to_search(playbook_name)
         log.info("Mouse hover on the first playbook")
         playbooks.mouse_hover_on_first_cyware_playbook()
         log.info("mouse hover on the more options")
@@ -521,7 +533,7 @@ class TestPlaybook(Base):
         log.info("click on clone button")
         playbooks.click_on_playbook_listing_clone_btn()
         log.info("Read the successfully exported message")
-        tooltip_msg = playbooks.get_tooltip_msg()
+        tooltip_msg = tooltip.get_tooltip_msg()
         assert tooltip_msg == 'Success'
         log.info("Click on the open playbook button")
         playbooks.click_on_open_clone_playbook_btn()
@@ -530,9 +542,9 @@ class TestPlaybook(Base):
         log.info("Read the playbook title")
         global cloned_playbook_title
         cloned_playbook_title = playbooks.get_playbook_title()
-        assert 'Cloned' in cloned_playbook_title
+        assert playbook_name in cloned_playbook_title
         playbooks.switch_back_parent_window(parent_window)
-        playbooks.close_tooltip()
+        tooltip.click_close_tooltip()
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -566,6 +578,7 @@ class TestPlaybook(Base):
         """
         log = self.getlogger()
         playbook = Playbooks(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on the first playbook")
         playbook.click_on_first_my_playbook()
         log.info("Click on edit playbook button")
@@ -581,12 +594,11 @@ class TestPlaybook(Base):
         playbook.click_on_back_button()
         log.info("Click on confirm back button")
         playbook.click_playbook_save_and_exit()
-        log.info("Click save if playbook has nodes that are not connected")
-        tooltip_msg = playbook.get_tooltip_msg()
-        log.info("Click on the close tooltip button")
-        playbook.close_tooltip()
-        playbook.click_on_nodes_not_connected_save_btn()
+        log.info("Read the tooltip msg")
+        tooltip_msg = tooltip.get_tooltip_msg()
         assert 'Success' in tooltip_msg
+        log.info("Click on the close tooltip button")
+        tooltip.click_close_tooltip()
         log.info("Click on back button")
         playbook.click_on_back_button()
         log.info("Clear search result")
@@ -606,6 +618,7 @@ class TestPlaybook(Base):
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
+        filterandsort = FilterandSort(self.driver)
         log.info("Get the exact app location")
         playbook_name = playbooks.check_file_downloaded_and_get_file_name(exported_playbook_name, 'json')
         playbook_path = playbooks.get_file_downloaded_path(playbook_name)
@@ -613,8 +626,8 @@ class TestPlaybook(Base):
         playbooks.send_file_path_to_upload_input_field(playbook_path)
         slider_txt = playbooks.get_import_playbook_slider_title()
         assert 'Please Review Before Importing This Playbook' == slider_txt
-        # assert playbooks.get_tooltip_msg() == 'Success'
-        # playbooks.close_tooltip()
+        # assert filterandsort.get_tooltip_msg() == 'Success'
+        # filterandsort.click_close_tooltip()
         playbooks.click_import_playbook_slider_close_btn()
         log.info("Deleting the downloaded file")
         playbooks.delete_downloaded_file(playbook_path)
@@ -633,10 +646,14 @@ class TestPlaybook(Base):
         log.info("Reading all the visible sort options")
         elements_list = playbook.get_list_of_elements(playbook.read_available_sort_options(),
                                                       playbook.available_sort_options)
-        for element in range(0, len(elements_list)):
-            read_sort_option = playbook.get_sort_options_title(elements_list[element])
-            assert read_sort_option == playbook.sort_options[element]
+        if len(elements_list) > 0:
+            for element in range(0, len(elements_list)):
+                read_sort_option = playbook.get_sort_options_title(elements_list[element])
+                assert read_sort_option == playbook.sort_options[element]
+        else:
+            assert False
 
+    #
     # @pytest.mark.regression
     # def test_33_Verify_playbook_execution_flow_with_ctix_action_node(self):
     #     """
@@ -647,6 +664,7 @@ class TestPlaybook(Base):
     #     action = Action(self.driver)
     #     nav = Navigation(self.driver)
     #     my_apps = MyApps(self.driver)
+    #     filterandsort = FilterandSort(self.driver)
     #     playbooks = Playbooks(self.driver)
     #     log.info("Click on Main Menu")
     #     nav.click_main_menu()
@@ -681,7 +699,10 @@ class TestPlaybook(Base):
     #     my_apps.enter_secret_key(ReadConfig.ctix_secret_key())
     #     log.info("Click on create instance button")
     #     my_apps.click_slider_instance_create_btn()
-    #     my_apps.close_tooltip()
+    #     log.info("Read the tool tip msg")
+    #     toast_msg = filterandsort.get_tooltip_msg()
+    #     assert 'Success' in toast_msg
+    #     filterandsort.click_close_tooltip()
     #     nav.click_main_menu()
     #     nav.navigate_manage_playbook()
     #     playbooks.my_playbook_tab()

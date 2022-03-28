@@ -1,9 +1,8 @@
-import time
-
 import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.UserGroupManagement import UserGroupManagement
+from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -107,12 +106,13 @@ class TestUserGroupManagement(Base):
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
-        global UsergroupName
-        UsergroupName = "Ui_Automation" + action.get_current_time()
+        tooltip = Tooltip(self.driver)
+        global usergroupname
+        usergroupname = "Ui_Automation" + action.get_current_time()
         log.info("Click on add new user button")
         usergroup.click_add_user_group()
         log.info("Add the User Group Name")
-        usergroup.put_usergroup_name(UsergroupName)
+        usergroup.put_usergroup_name(usergroupname)
         log.info("Add the User Group Description")
         usergroup.put_usergroup_description("New Test User Group")
         log.info("Click on the activate toggle button")
@@ -120,10 +120,10 @@ class TestUserGroupManagement(Base):
         log.info("Click on Create button")
         usergroup.click_create_button()
         log.info("Get the toast message")
-        toast_msg = usergroup.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
         log.info("Close the tool tip")
-        usergroup.click_close_tooltip()
+        tooltip.click_close_tooltip()
         usergroup.visibility_of_first_active_usergroup()
         log.info("Validate the creation based on the Count and toast message")
         assert active_count + 1 == usergroup.get_usergroup_count()
@@ -139,11 +139,11 @@ class TestUserGroupManagement(Base):
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
         log.info("Input the searching string/ Name of the User Group")
-        usergroup.search_button(UsergroupName)
+        usergroup.search_button(usergroupname)
         log.info("To get the results click Enter")
         action.click_enter()
         log.info("Validating based on the showed name")
-        assert UsergroupName == usergroup.get_User_Group_Name()
+        assert usergroupname == usergroup.get_User_Group_Name()
 
 
     @pytest.mark.regression
@@ -156,6 +156,7 @@ class TestUserGroupManagement(Base):
         log = self.getlogger()
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on the More Option")
         usergroup.click_more_option()
         log.info("Click on the Edit Option")
@@ -178,9 +179,9 @@ class TestUserGroupManagement(Base):
         log.info("Click on the Update Button")
         usergroup.click_update_button()
         log.info("Get the toast message")
-        toast_msg = usergroup.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         log.info("Close the tool tip")
-        usergroup.click_close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Click on search button")
         usergroup.click_on_search_clear_btn()
         log.info("Switch to inactive tab")
@@ -203,6 +204,7 @@ class TestUserGroupManagement(Base):
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
         log = self.getlogger()
+        tooltip = Tooltip(self.driver)
         log.info("Click on the more Option")
         usergroup.click_more_option()
         log.info("Click on the clone Button in dropdown")
@@ -219,9 +221,9 @@ class TestUserGroupManagement(Base):
         log.info("Click on the create button")
         usergroup.click_create_button()
         log.info("Get the toast message")
-        toast_msg = usergroup.get_tooltip_msg()
+        toast_msg = tooltip.get_tooltip_msg()
         log.info("Close the tool tip")
-        usergroup.click_close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Click on search button")
         usergroup.click_on_search_clear_btn()
         log.info("Searching based on changed name")

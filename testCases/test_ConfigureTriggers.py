@@ -2,6 +2,7 @@ import pytest
 
 from pageObjects.ConfigureTrigger import ConfigureTrigger
 from pageObjects.Navigation import Navigation
+from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -101,6 +102,7 @@ class TestConfigureTriggers(Base):
         """
         log = self.getlogger()
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Creating a New Configure Trigger")
         config_trigger.click_new_configure_trigger_btn()
@@ -117,8 +119,11 @@ class TestConfigureTriggers(Base):
         config_trigger.click_first_label()
         log.info("Enter the Create Button")
         config_trigger.click_create_btn()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("click on close toop tip")
-        config_trigger.click_close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Check for visibility of first configure event")
         config_trigger.visibility_of_first_active_configure_trigger()
         assert active_count + 1 == config_trigger.get_configure_trigger_count()
@@ -149,6 +154,7 @@ class TestConfigureTriggers(Base):
         """
         log = self.getlogger()
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         config_trigger = ConfigureTrigger(self.driver)
         log.info("Updating the Name of the Configure Trigger Source Name")
         config_trigger.click_first_configure_trigger()
@@ -159,8 +165,11 @@ class TestConfigureTriggers(Base):
         config_trigger.put_source_app_name(new_config_name)
         log.info("Click On Update")
         config_trigger.click_on_update()
+        log.info("Read tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("click on close toop tip")
-        config_trigger.click_close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Check for visibility of first configure event")
         config_trigger.visibility_of_first_active_configure_trigger()
         top_first_event_name = config_trigger.get_first_configure_trigger()
@@ -175,6 +184,7 @@ class TestConfigureTriggers(Base):
         """
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
+        tooltip = Tooltip(self.driver)
         tirgger_name_before_deactivating = config_trigger.get_first_configure_trigger()
         log.info("Click on Active Tab and select first configure trigger")
         config_trigger.click_first_configure_trigger()
@@ -182,7 +192,11 @@ class TestConfigureTriggers(Base):
         config_trigger.click_deactive_configure_trigger()
         log.info("Click on Update Button")
         config_trigger.click_on_update()
-        config_trigger.click_close_tooltip()
+        log.info("Read tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("click on close toop tip")
+        tooltip.click_close_tooltip()
         config_trigger.click_inactive_tab()
         log.info("Check for visibility of first configure event")
         config_trigger.visibility_of_first_inactive_configure_trigger()

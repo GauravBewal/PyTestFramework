@@ -2,6 +2,7 @@ import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.OpenApi import OpenApi
+from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -91,6 +92,7 @@ class TestOpenApi(Base):
         log = self.getlogger()
         openapi = OpenApi(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Switch to active tab")
         openapi.click_active_tab()
         openapi.visibility_of_first_active_openapi()
@@ -113,9 +115,9 @@ class TestOpenApi(Base):
         log.info("Click on create button")
         openapi.click_on_create_btn()
         log.info("Read the successful message")
-        successful_msg = openapi.get_successfully_created_msg()
-        openapi.close_tooltip()
-        assert successful_msg in "API configuration created successfully."
+        successful_msg = tooltip.get_tooltip_msg()
+        tooltip.click_close_tooltip()
+        assert 'Success' in successful_msg
 
     @pytest.mark.regression
     def test_06_Verify_api_url_visibility_and_copy_functionality(self):
@@ -216,6 +218,7 @@ class TestOpenApi(Base):
         log = self.getlogger()
         openapi = OpenApi(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on the first openapi")
         openapi.click_on_first_openapi()
         log.info("Remove the current openapi title")
@@ -226,8 +229,11 @@ class TestOpenApi(Base):
         openapi.put_open_api_title(updated_openapi_name)
         log.info("Click on update button")
         openapi.click_on_update_btn()
+        log.info("Read tool tip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("Click on close tooltip")
-        openapi.close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("check visibility of first openapi")
         openapi.visibility_of_first_active_openapi()
         top_openapi_name = openapi.get_top_1_openapi()
@@ -242,14 +248,18 @@ class TestOpenApi(Base):
         """
         log = self.getlogger()
         openapi = OpenApi(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on the first openapi")
         openapi.click_on_first_openapi()
         log.info("Click on inacive toggle")
         openapi.click_inactive_toggle()
         log.info("Click on update button")
         openapi.click_on_update_btn()
+        log.info("Read tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("Click on close tooltip")
-        openapi.close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Click on inactive tab")
         openapi.click_inactive_tab()
         openapi.visibility_of_first_inactive_openapi()

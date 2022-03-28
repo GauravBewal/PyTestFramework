@@ -3,6 +3,7 @@ import pytest
 from configuration.readConfiguration import ReadConfig
 from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
+from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
 from utilities.Base import Base
 
@@ -41,6 +42,7 @@ class TestApps(Base):
         log = self.getlogger()
         action = Action(self.driver)
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Check if walk through is initiated")
         my_apps.click_on_close_walkthrough()
         log.info("Get the count of total apps before app creation")
@@ -55,14 +57,20 @@ class TestApps(Base):
         my_apps.enter_supported_api_version("1.0.0")
         log.info("Click on refresh button")
         my_apps.click_app_refresh_button()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("Click on close tool tip")
-        my_apps.close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Click on active app")
         my_apps.click_active_app()
         log.info("Click on app save button")
         my_apps.click_save_app_button()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("Click on close tool tip")
-        my_apps.close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Check visibility of 1st app")
         my_apps.visibility_of_first_app()
         count_of_app_after_creation = my_apps.get_app_count()
@@ -134,6 +142,7 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on new instance button")
         my_apps.click_on_new_instance_btn()
         log.info("Enter the instance name")
@@ -142,9 +151,11 @@ class TestApps(Base):
         my_apps.enter_instance_description('test')
         log.info("Click on instance create button")
         my_apps.click_slider_instance_create_btn()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg and my_apps.read_default_instance() == 'test'
         log.info("Click on close tool tip")
-        my_apps.close_tooltip()
-        assert my_apps.read_default_instance() == 'test'
+        tooltip.click_close_tooltip()
 
     @pytest.mark.regression
     def test_08_Verify_Switch_Playbook_tab(self):
@@ -169,6 +180,7 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Navigate back to listing page")
         my_apps.click_back_btn()
         log.info("Mouse hover on the more options button")
@@ -188,8 +200,11 @@ class TestApps(Base):
         my_apps.click_active_app()
         log.info("CLick on save button")
         my_apps.click_save_app_button()
-        log.info("Close the tool tip")
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
         log.info("Clear the search bar")
         my_apps.click_clear_search_btn()
         log.info("Search the cloned app")
@@ -201,8 +216,11 @@ class TestApps(Base):
         my_apps.click_on_uninstall_app()
         log.info("Click on confirm button to uninstall app")
         my_apps.click_confirm_uninstall_app()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("Click on close tool tip")
-        my_apps.close_tooltip()
+        tooltip.click_close_tooltip()
 
     @pytest.mark.regression
     def test_10_verify_custom_app_edit(self):
@@ -212,6 +230,7 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Clear the search bar")
         my_apps.click_clear_search_btn()
         log.info("Search the cloned app")
@@ -225,8 +244,11 @@ class TestApps(Base):
         page_heading = my_apps.get_page_heading()
         assert 'Edit App' in page_heading
         my_apps.click_save_app_button()
-        log.info("Close tool tip")
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
 
     @pytest.mark.regression
     def test_11_export_custom_created_app(self):
@@ -236,16 +258,18 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Mouse hover to more options")
         my_apps.mouse_hover_list_more_options()
         log.info("Visibility of export app button")
         my_apps.visibility_of_export_btn()
         log.info("Click on the edit app button")
         my_apps.click_on_export_btn()
-        log.info("Read the successfully exported message")
-        tooltip_msg = my_apps.get_tooltip_msg()
-        assert tooltip_msg == 'Success'
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
         assert new_app_name in my_apps.check_file_downloaded_and_get_file_name(new_app_name, 'zip')
 
     @pytest.mark.regression
@@ -257,6 +281,7 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Mouse hover to more options")
         my_apps.mouse_hover_list_more_options()
         log.info("Click on uninstall app")
@@ -264,11 +289,12 @@ class TestApps(Base):
         log.info("Click on confirm button to uninstall app")
         my_apps.click_confirm_uninstall_app()
         log.info("Validating app uninstalled successfully or not")
-        tooltip_message = my_apps.get_tooltip_msg()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
         search_result_message = my_apps.get_search_result_after_uninstall()
-        assert tooltip_message == 'Success' and search_result_message == 'No Results Found'
+        assert toast_msg == 'Success' and search_result_message == 'No Results Found'
         log.info("Click on close tool tip")
-        my_apps.close_tooltip()
+        tooltip.click_close_tooltip()
         log.info("Clear the search result")
         my_apps.click_clear_search_btn()
 
@@ -280,13 +306,17 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Get the exact app location")
         app_name = my_apps.check_file_downloaded_and_get_file_name(new_app_name, 'zip')
         app_path = my_apps.get_file_downloaded_path(app_name)
         log.info("send app file location to import button")
         my_apps.send_file_path_to_upload_input_field(app_path)
-        assert my_apps.get_tooltip_msg() == 'Success'
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
         log.info("Deleting the downloaded file")
         my_apps.delete_downloaded_file(app_path)
 
@@ -318,6 +348,7 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         global app_name
         app_name = "Cyware Fusion and Threat Response (CFTR)"
         log.info("Search for app")
@@ -342,16 +373,20 @@ class TestApps(Base):
         cloned_cyware_app_name = my_apps.get_cloned_app_name()
         log.info("Click on refresh button")
         my_apps.click_app_refresh_button()
-        log.info("Close the tool tip")
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
         log.info("Click on active app")
         my_apps.click_active_app()
         log.info("CLick on save button")
         my_apps.click_save_app_button()
-        creation_msg = my_apps.get_tooltip_msg()
-        assert 'Success' in creation_msg
-        log.info("Close the tool tip")
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
         log.info("Search the cloned app")
         my_apps.search_for_app(cloned_cyware_app_name)
         log.info("Search the app which is created new manually")
@@ -366,6 +401,7 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         action = Action(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Click on the cloned app")
         my_apps.click_first_search_result()
         log.info("Navigate to instance tab and create the instance")
@@ -385,8 +421,11 @@ class TestApps(Base):
         my_apps.enter_cftr_secret_key(ReadConfig.cftr_secret_key())
         log.info("Click on create instance button")
         my_apps.click_slider_instance_create_btn()
-        log.info("Close the tool tip")
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
         log.info("Mouse hover on the created instance")
         my_apps.mouse_hover_on_created_instance(instance_name)
         log.info("Click on test instance button")
@@ -424,10 +463,11 @@ class TestApps(Base):
         debug_result_data = my_apps.get_debug_result_data()
         assert 'SUCCESS' == debug_console_data and '"status": 201' in debug_result_data
         my_apps.click_save_app_button()
-        app_updation_msg = my_apps.get_tooltip_msg()
-        assert 'Success' in app_updation_msg
-        log.info("Close the tool tip")
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
 
     @pytest.mark.regression
     def test_17_uninstall_debugged_app(self):
@@ -451,6 +491,7 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         my_apps.app_store_tab()
         log.info("Apply pagination if install button not found and Scroll "
                  "to install button view if found")
@@ -465,10 +506,11 @@ class TestApps(Base):
         log.info("Click on install button in slider")
         my_apps.click_slider_install_btn()
         log.info("Verify whether success tooltip is visible after installing")
-        tooltip_msg = my_apps.get_tooltip_msg()
-        log.info("Close successful tooltip")
-        my_apps.close_tooltip()
-        assert tooltip_msg == 'Success'
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -508,16 +550,18 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Mouse hover to more options")
         my_apps.mouse_hover_list_more_options()
         log.info("Visibility of export app button")
         my_apps.visibility_of_export_btn()
         log.info("Click on the edit app button")
         my_apps.click_on_export_btn()
-        log.info("Read the successfully exported message")
-        tooltip_msg = my_apps.get_tooltip_msg()
-        assert tooltip_msg == 'Success'
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
         global first_3_app_letters
         first_3_app_letters = my_apps.get_first_3_letter_of_downloaded_app(downloaded_app_name)
         assert first_3_app_letters in my_apps.check_file_downloaded_and_get_file_name(first_3_app_letters, 'zip')
@@ -540,13 +584,17 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
+        tooltip = Tooltip(self.driver)
         log.info("Get the exact app location")
         app_name = my_apps.check_file_downloaded_and_get_file_name(first_3_app_letters, 'zip')
         app_path = my_apps.get_file_downloaded_path(app_name)
         log.info("send app file location to import button")
         my_apps.send_file_path_to_upload_input_field(app_path)
-        assert my_apps.get_tooltip_msg() == 'Success'
-        my_apps.close_tooltip()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        log.info("Click on close tool tip")
+        tooltip.click_close_tooltip()
         log.info("Deleting the downloaded file")
         my_apps.delete_downloaded_file(app_path)
 

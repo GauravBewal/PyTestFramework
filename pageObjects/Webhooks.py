@@ -174,13 +174,3 @@ class Webhooks(Action):
     def click_deactive_webhook(self):
         return Action.wait_and_click(self, By.XPATH, Webhooks.deactivate)
 
-
-    close_tooltip_btn = "//div[contains(@class,'notification__closeBtn')]"
-
-    def click_close_tooltip(self):
-        return Action.normal_click(self, By.XPATH, Webhooks.close_tooltip_btn)
-
-    toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
-
-    def get_tooltip_msg(self):
-        return Action.get_text(self, By.XPATH, Webhooks.toast_msg_txt)
