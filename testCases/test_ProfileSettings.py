@@ -57,4 +57,133 @@ class TestProfileSettings(Base):
         profile.click_on_edit_button()
         log.info("Check for the save button visibility")
         visibility = profile.check_save_btn_visibility()
+        profile.click_save_btn()
+        log.info("Read tool tip message")
+        toast_msg = profile.get_tooltip_msg()
+        log.info("Close tool tip")
+        profile.click_close_tooltip()
+        assert 'Success' in toast_msg
         assert visibility is True
+
+    @pytest.mark.regression
+    def test_04_Edit_Name_of_user(self):
+        """
+            Verify user is able to edit profile's first name and last name
+            Validation: Based on the Toast message and comparison based on changes made in fields
+        """
+        log = self.getlogger()
+        profile = ProfileSettings(self.driver)
+        action = Action(self.driver)
+        prev_first_name = profile.get_first_name()
+        prev_last_name = profile.get_last_name()
+        log.info("Clicking on edit button")
+        profile.click_on_edit_button()
+        global first_name
+        global last_name
+        first_name = "ui-automation"
+        last_name = action.get_current_time()
+        profile.clear_first_name()
+        log.info("Enter fist name of the user")
+        profile.enter_first_name(first_name)
+        profile.clear_last_name()
+        log.info("Enter last name of the user")
+        profile.enter_last_name(last_name)
+        log.info("Click for the save button")
+        profile.click_save_btn()
+        log.info("Read tool tip message")
+        toast_msg = profile.get_tooltip_msg()
+        log.info("Close tool tip")
+        profile.click_close_tooltip()
+        assert 'Success' in toast_msg
+        updated_first_name = profile.get_first_name()
+        updated_last_name = profile.get_last_name()
+        assert updated_first_name == first_name and updated_last_name == last_name
+        profile.click_on_edit_button()
+        profile.clear_first_name()
+        profile.enter_first_name(prev_first_name)
+        profile.clear_last_name()
+        profile.enter_last_name(prev_last_name)
+        profile.click_save_btn()
+        log.info("Read tool tip message")
+        toast_msg = profile.get_tooltip_msg()
+        log.info("Close tool tip")
+        profile.click_close_tooltip()
+        assert 'Success' in toast_msg
+
+    @pytest.mark.regression
+    def test_05_Edit_Title_of_user(self):
+        """
+            Verify user is able to edit profile's title name
+            Validation: Based on the Toast message and comparison based on changes made in fields
+        """
+        log = self.getlogger()
+        profile = ProfileSettings(self.driver)
+        action = Action(self.driver)
+        prev_title_name = profile.get_title_name()
+        log.info("Clicking on edit button")
+        profile.click_on_edit_button()
+        global title_name
+        title_name = "ui-automation"
+        profile.clear_title_name()
+        log.info("Enter title name of the user")
+        profile.enter_title_name(title_name)
+        log.info("Click for the save button")
+        profile.click_save_btn()
+        log.info("Read tool tip message")
+        toast_msg = profile.get_tooltip_msg()
+        log.info("Close tool tip")
+        profile.click_close_tooltip()
+        assert 'Success' in toast_msg
+        updated_title_name = profile.get_title_name()
+        assert updated_title_name == title_name
+        profile.click_on_edit_button()
+        profile.clear_title_name()
+        if prev_title_name != "—":
+            profile.enter_title_name(prev_title_name)
+        profile.click_save_btn()
+        log.info("Read tool tip message")
+        toast_msg = profile.get_tooltip_msg()
+        log.info("Close tool tip")
+        profile.click_close_tooltip()
+        assert 'Success' in toast_msg
+
+    @pytest.mark.regression
+    def test_06_Edit_contact_number_of_user(self):
+        """
+            Verify user is able to edit profile's contact number
+            Validation: Based on the Toast message and comparison based on changes made in fields
+        """
+        log = self.getlogger()
+        profile = ProfileSettings(self.driver)
+        action = Action(self.driver)
+        prev_mobile_number = profile.get_contact_number()
+        log.info("Clicking on edit button")
+        profile.click_on_edit_button()
+        global mobile_number
+        mobile_number = action.get_random_digit() + action.get_random_digit()
+        profile.clear_contact_number()
+        log.info("Enter contact number of the user")
+        profile.enter_contact_number(mobile_number)
+        log.info("Click for the save button")
+        profile.click_save_btn()
+        log.info("Read tool tip message")
+        toast_msg = profile.get_tooltip_msg()
+        log.info("Close tool tip")
+        profile.click_close_tooltip()
+        assert 'Success' in toast_msg
+        updated_mobile_number = profile.get_contact_number()
+        assert updated_mobile_number == mobile_number
+        profile.click_on_edit_button()
+        profile.clear_contact_number()
+        if prev_mobile_number != "—":
+            profile.enter_contact_number(prev_mobile_number)
+        profile.click_save_btn()
+        log.info("Read tool tip message")
+        toast_msg = profile.get_tooltip_msg()
+        log.info("Close tool tip")
+        profile.click_close_tooltip()
+        assert 'Success' in toast_msg
+
+
+
+
