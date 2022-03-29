@@ -67,7 +67,7 @@ class TestSyslogs(Base):
         syslog.visibility_of_first_active_syslog()
         global all_tab_count
         all_tab_count = syslog.get_syslog_count()
-        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
+        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count + active_count
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -90,7 +90,7 @@ class TestSyslogs(Base):
         assert slider_title == 'Configure Syslog'
 
     @pytest.mark.regression
-    def test_05_create_syslog(self):
+    def test_05_Create_Syslog(self):
         """
             verify the create syslog
             Validation . On basis of increase in number of syslogs
@@ -150,7 +150,7 @@ class TestSyslogs(Base):
         assert active_count + 1 == syslog.get_syslog_count()
 
     @pytest.mark.regression
-    def test_06_Search_syslog(self):
+    def test_06_Search_Syslog(self):
         """
             Verify the Searchbar Functionality is working.
             Validation-1: On basis of the Name Comparison.
@@ -165,7 +165,7 @@ class TestSyslogs(Base):
         assert syslog_title == search_result
 
     @pytest.mark.regression
-    def test_07_update_syslog(self):
+    def test_07_Update_Syslog(self):
         """
         Verify user is able to edit the syslog
         Validation-1: Based on the successful message
@@ -177,7 +177,7 @@ class TestSyslogs(Base):
         log.info("Click on the first syslog")
         syslog.click_first_syslog()
         global updated_syslog_name
-        updated_syslog_name = "ui_automtion"+action.get_current_time()
+        updated_syslog_name = "ui_automtion" + action.get_current_time()
         log.info("Clear the previous title")
         syslog.clear_syslog_title()
         log.info("Enter updated syslog name")
@@ -193,7 +193,7 @@ class TestSyslogs(Base):
         syslog.clear_search()
 
     @pytest.mark.regression
-    def test_08_check_the_dropdown_Edit_visibility(self):
+    def test_08_Check_the_Dropdown_Edit_Visibility(self):
         """
             Verify the dropdown button Visibility.
             Validation -1 : Check The Edit Slider Title
@@ -217,7 +217,7 @@ class TestSyslogs(Base):
         assert slider_title == "Edit Syslog"
 
     @pytest.mark.regression
-    def test_09_deactivating_syslog(self):
+    def test_09_Deactivate_Syslog(self):
         """
             Verify the deactivating syslog functionality
             Validation 1: Based on the Status of the syslog
@@ -243,7 +243,7 @@ class TestSyslogs(Base):
         assert updated_syslog_name == first_syslog_name
 
     @pytest.mark.regression
-    def test_10_activating_syslog(self):
+    def test_10_Activate_Syslog(self):
         """
             Verify the deactivating syslog functionality
             Validation 1: Based on the Status of the syslog
@@ -271,9 +271,8 @@ class TestSyslogs(Base):
         first_syslog_name = syslog.get_name_first_syslog()
         assert updated_syslog_name == first_syslog_name
 
-
     @pytest.mark.regression
-    def test_11_delete_syslog(self):
+    def test_11_Delete_Syslog(self):
         """
             Verify the delete syslog functionality
             Validation 1: Based on the Count of the syslogs
@@ -292,5 +291,3 @@ class TestSyslogs(Base):
         assert 'Success' in tooltip_msg
         syslog.visibility_of_first_active_syslog()
         assert active_count == syslog.get_syslog_count()
-
-

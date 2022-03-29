@@ -99,22 +99,18 @@ class ConfigureTrigger(Action):
     def click_first_configure_trigger(self):
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.first_config_trigger)
 
-
     def get_first_configure_trigger(self):
         return Action.get_text(self, By.XPATH, ConfigureTrigger.first_config_trigger)
-
 
     first_active_configured_event = "(//span[text()='Active' and @class='status__text'])[1]"
 
     def visibility_of_first_active_configure_trigger(self):
         return Action.Pass_even_element_not_visible(self, By.XPATH, ConfigureTrigger.first_active_configured_event)
 
-
     first_inactive_configured_Event = "(//span[text()='Inactive' and @class='status__text'])[1]"
 
     def visibility_of_first_inactive_configure_trigger(self):
         return Action.Pass_even_element_not_visible(self, By.XPATH, ConfigureTrigger.first_inactive_configured_Event)
-
 
     deactive_btn = "//span[@class='cyicon-check']"
 

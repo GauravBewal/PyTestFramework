@@ -27,7 +27,7 @@ class TestHomePage(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_02_Verify_searchbar_functionality(self):
+    def test_02_Verify_Search_Bar_Functionality(self):
         """
         Verify the user is able to search or not
         Validation-1 : Based on Search Result Visibility
@@ -43,7 +43,7 @@ class TestHomePage(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_03_Verify_get_started_functionality(self):
+    def test_03_Verify_Get_Started_Functionality(self):
         """
         Verify the user is able to Click Get Started Button or not
         Validation-1 : Based on Visibility of Walkthrough options

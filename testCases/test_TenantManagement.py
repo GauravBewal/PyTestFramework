@@ -29,7 +29,6 @@ class TestTenantManagement(Base):
         active_count = tenant.get_tenant_count()
         assert action.get_title() == 'Tenant Management | Cyware Orchestrate' and error_msg_visibility is False
 
-
     @pytest.mark.regression
     def test_02_Verify_Switch_Inactive_tab(self):
         """
@@ -120,7 +119,7 @@ class TestTenantManagement(Base):
         assert tenant.get_count_of_tenants() == active_count + 1
 
     @pytest.mark.regression
-    def test_06_Search_tenant(self):
+    def test_06_Search_Tenant(self):
         """
             Verify the Searchbar Functionality is working.
             Validation-1: On basis of the Name Comparison.
@@ -134,6 +133,3 @@ class TestTenantManagement(Base):
         tenant.click_enter_for_search()
         search_result = tenant.get_name_first_tenant()
         assert tenant_name == search_result
-
-
-

@@ -37,7 +37,7 @@ class ProfileSettings(Action):
     cancel_btn = "//i[contains(@class,'icon-close')]/parent::div"
 
     def click_cancel_btn(self):
-        return Action.wait_and_click(self, By.XPATH,ProfileSettings.cancel_btn)
+        return Action.wait_and_click(self, By.XPATH, ProfileSettings.cancel_btn)
 
     slider_close_tool_tip = "//div[contains(@class,'header__icons')]//span[@data-testaction='slider-close']"
 
@@ -67,6 +67,25 @@ class ProfileSettings(Action):
     def enter_contact_number(self, value):
         return Action.send_keys(self, By.XPATH, ProfileSettings.contact_number_tab, value)
 
+    first_name_in_view_mode = "//label[@for='first_name']/parent::div//span"
+
+    def get_first_name(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.first_name_in_view_mode)
+
+    last_name_in_view_mode = "//label[@for='last_name']/parent::div//span"
+
+    def get_last_name(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.last_name_in_view_mode)
+
+    title_in_view_mode = "//label[@for='title']/parent::div//span"
+
+    def get_title_name(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.title_in_view_mode)
+
+    contact_number_in_view_mode = "//label[@for='contact_number']/parent::div//span"
+
+    def get_contact_number(self):
+        return Action.get_text(self, By.XPATH, ProfileSettings.contact_number_in_view_mode)
 
     def clear_first_name(self):
         return Action.clear_field(self, By.XPATH, ProfileSettings.first_name_tab)
@@ -79,23 +98,3 @@ class ProfileSettings(Action):
 
     def clear_contact_number(self):
         return Action.clear_field(self, By.XPATH, ProfileSettings.contact_number_tab)
-
-    first_name_in_view_mode = "//label[@for='first_name']/parent::div//span"
-
-    last_name_in_view_mode = "//label[@for='last_name']/parent::div//span"
-
-    title_in_view_mode = "//label[@for='title']/parent::div//span"
-
-    contact_number_in_view_mode = "//label[@for='contact_number']/parent::div//span"
-
-    def get_first_name(self):
-        return Action.get_text(self, By.XPATH, ProfileSettings.first_name_in_view_mode)
-
-    def get_last_name(self):
-        return Action.get_text(self, By.XPATH, ProfileSettings.last_name_in_view_mode)
-
-    def get_title_name(self):
-        return Action.get_text(self, By.XPATH, ProfileSettings.title_in_view_mode)
-
-    def get_contact_number(self):
-        return Action.get_text(self, By.XPATH, ProfileSettings.contact_number_in_view_mode)

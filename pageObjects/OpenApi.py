@@ -103,7 +103,6 @@ class OpenApi(Action):
 
     top_openapi_in_listing = "(//tr//a)[1]"
 
-
     def get_top_1_openapi(self):
         return Action.get_text(self, By.XPATH, OpenApi.top_openapi_in_listing)
 
@@ -129,7 +128,6 @@ class OpenApi(Action):
 
     def click_inactive_toggle(self):
         return Action.javascript_click(self, By.XPATH, OpenApi.btn_inactive_toggle)
-
 
     openapi_url_txt = "//div[contains(text(),'soarapi/')]"
 

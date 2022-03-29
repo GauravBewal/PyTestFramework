@@ -50,7 +50,7 @@ class TestTriggerEvents(Base):
         assert page_title == 'New Triggered Event'
 
     @pytest.mark.regression
-    def test_03_Create_trigger_event(self):
+    def test_03_Create_Trigger_Event(self):
         """
         Verify whether user is able to create new trigger event
         Validation 1: Based on the count increased and successful msg
@@ -79,7 +79,7 @@ class TestTriggerEvents(Base):
         assert creation_msg == 'Success' and active_count + 1 == events_count_after_creation
 
     @pytest.mark.regression
-    def test_04_search_trigger_event(self):
+    def test_04_Search_Trigger_Event(self):
         """
         Verify user is able to search the created event
         Validation 1: Based on the event name visibility

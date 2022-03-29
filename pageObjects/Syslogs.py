@@ -40,12 +40,10 @@ class Syslogs(Action):
     def get_inactive_tab_color(self):
         return Action.get_css_property_value(self, By.XPATH, Syslogs.tab_inactive, 'color')
 
-
     tab_active = "//li/a[contains(text(),'Active')]"
 
     def click_active_tab(self):
         return Action.wait_and_click(self, By.XPATH, Syslogs.tab_active)
-
 
     tab_all = "//li/a[contains(text(),'All')]"
 
@@ -85,8 +83,7 @@ class Syslogs(Action):
 
     def generate_port_number(self):
         port_number = int(Action.get_random_digit(self))
-        return str(port_number+1024)
-
+        return str(port_number + 1024)
 
     list_source_event_apps = "//span[contains(@class,'cyicon-chevron-down')]"
 
@@ -111,7 +108,6 @@ class Syslogs(Action):
 
     def click_on_list_Source_Events_Type(self):
         return Action.wait_and_click(self, By.XPATH, Syslogs.list_source_event_type)
-
 
     save_btn = "//div[contains(@class,'px-5 text-right')]//button"
 
@@ -159,7 +155,6 @@ class Syslogs(Action):
 
     def click_first_syslog(self):
         return Action.wait_and_click(self, By.XPATH, Syslogs.first_syslog_name)
-
 
     click_clear_search = "//div[contains(@class,'clear-button')]"
 

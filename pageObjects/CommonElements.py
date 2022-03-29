@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 
+
 class FilterandSort(Action):
 
     def __init__(self, driver):
@@ -71,6 +72,7 @@ class FilterandSort(Action):
         time.sleep(ReadConfig.Wait_6_Sec())
         return Action.check_status(self, By.XPATH, FilterandSort.last_month_input)
 
+
 class Tooltip(Action):
 
     def __init__(self, driver):
@@ -94,6 +96,3 @@ class Tooltip(Action):
 
     def visibility_of_tooltip(self):
         return Action.check_visibility_of_element(self, By.XPATH, Tooltip.tooltip_div)
-
-
-
