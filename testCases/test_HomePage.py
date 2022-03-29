@@ -73,7 +73,7 @@ class TestHomePage(Base):
         assert visibility is True
         log.info("Click on the close walkthrough button")
         nav.click_on_close_walkthrough()
-
+        time.sleep(5)
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -85,9 +85,6 @@ class TestHomePage(Base):
         log = self.getlogger()
         nav = Navigation(self.driver)
         playbooks = Playbooks(self.driver)
-        nav.page_refresh()
-        visibility = nav.visibility_of_first_bar_graph()
-        assert visibility is True
         log.info("Click on the main menu")
         nav.click_main_menu()
         log.info("clicking on Get Started Button")
