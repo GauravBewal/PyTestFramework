@@ -92,7 +92,7 @@ class Tooltip(Action):
         else:
             assert False
 
-    tooltip_div = "//div[@role='alert']"
+    tooltip_div = "//div[@class='el-notification__group']"
 
     def visibility_of_tooltip(self):
         return Action.check_visibility_of_element(self, By.XPATH, Tooltip.tooltip_div)
