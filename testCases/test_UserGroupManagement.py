@@ -182,6 +182,7 @@ class TestUserGroupManagement(Base):
         tooltip.click_close_tooltip()
         log.info("Click on search button")
         usergroup.click_on_search_clear_btn()
+        usergroup.page_refresh()
         log.info("Switch to inactive tab")
         usergroup.click_inactive_tab()
         log.info("Entering the New updated User Group Name for searching ")
