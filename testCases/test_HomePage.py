@@ -73,7 +73,7 @@ class TestHomePage(Base):
         assert visibility is True
         log.info("Click on the close walkthrough button")
         nav.click_on_close_walkthrough()
-        time.sleep(5)
+        time.sleep(10)
 
     @pytest.mark.regression
     @pytest.mark.readOnly
