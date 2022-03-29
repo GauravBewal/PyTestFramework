@@ -1,7 +1,8 @@
 import time
 
 from selenium.webdriver.common.by import By
-
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 
@@ -47,6 +48,21 @@ class MyApps(Action):
     def scroll_to_install_btn_view(self):
         return Action.Apply_Pagination_if_element_not_found(self, By.XPATH, MyApps.app_install_btn,
                                                             MyApps.app_store_pagination)
+
+    # def scroll_to_install_view(self, i=1):
+    #     app_name_list = []
+    #     install_btn_path = "(//button[contains(text(),'Install')])["+str(i)+"]"
+    #     try:
+    #         Action.Webdriver_Wait_until_element_visible(self, By.XPATH, install_btn_path)
+    #         Action.scroll_to_element_view(self, By.XPATH, install_btn_path)
+    #         app_name = Action.get_text(self, By.XPATH, MyApps.txt_app_name)
+    #         if app_name in app_name_list:
+    #             self.scroll_to_install_view(i+1)
+    #         else:
+    #             Action.wait_and_click(self, By.XPATH, install_btn_path)
+    #     except(NoSuchElementException, TimeoutException):
+    #         Action.wait_and_click(self, By.XPATH, "paginationxpath")
+
 
     txt_app_name = "(//button[contains(text(),'Install')])[1]/ancestor::div[4]" \
                    "//div[contains(@class,'title--header')]/h3"

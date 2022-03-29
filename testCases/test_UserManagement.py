@@ -189,16 +189,16 @@ class TestUserManagement(Base):
         updated_last_name = action.get_current_time()
         user.put_last_name(updated_last_name)
         user.click_update_btn()
+        log.info("Get the Toast Message")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        tooltip.click_close_tooltip()
         log.info("Clear the Search Field")
         user.click_on_search_clear_btn()
         log.info("Wait until the Visibility of the First User")
         user.visibility_of_first_active_user()
         global Updated_Full_Name
         Updated_Full_Name = updated_first_name + " " + updated_last_name
-        log.info("Get the Toast Message")
-        toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
-        tooltip.click_close_tooltip()
         user.search_button(Updated_Full_Name)
         action.click_enter()
         log.info("Check the Visibility of the User")

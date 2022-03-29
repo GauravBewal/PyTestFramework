@@ -236,6 +236,8 @@ class TestLabels(Base):
         nav.click_main_menu()
         log.info("Navigate to playbook module")
         nav.navigate_manage_playbook()
+        log.info("Check visibility of walkthrough")
+        playbook.click_on_close_walkthrough()
         log.info("Visibility of first playbook")
         playbook.visibility_of_first_my_playbook()
         log.info("Click on create new playbook")
