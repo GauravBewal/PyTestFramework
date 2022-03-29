@@ -102,7 +102,7 @@ class TestPlaybookTags(Base):
         assert tag_name == playbook_tag_text
 
     @pytest.mark.regression
-    def test_05_Update_PlaybookTag(self):
+    def test_05_Update_Playbook_Tag(self):
         """
             Update the PlaybookTag
             Validation-1: Validated Based on new Updated Name
@@ -241,7 +241,7 @@ class TestPlaybookTags(Base):
         filterandsort.click_close_filter_btn()
 
     @pytest.mark.regression
-    def test_12_visibility_of_playbooktag_in_playbooks(self):
+    def test_12_Visibility_of_Playbook_tag_in_Playbooks(self):
         """
             Verify the Visibility of the created Playbook Tag in the Playbooks Module Listing
             Validation -1: Validation Based on the Visibility of the Tag in Listing division
@@ -275,7 +275,7 @@ class TestPlaybookTags(Base):
         assert visibility is True
 
     @pytest.mark.regression
-    def test_13_delete_playbooktag(self):
+    def test_13_Delete_Playbook_Tag(self):
         """
             Verify the Deletion Functionality of the PlaybookTag
             Validation -1: Based on the count of the Playbook Tag

@@ -3,7 +3,7 @@ import time
 import pytest
 
 from configuration.readConfiguration import ReadConfig
-from pageObjects.CommonElements import FilterandSort,Tooltip
+from pageObjects.CommonElements import FilterandSort, Tooltip
 from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
 from pageObjects.Pagination import Pagination
@@ -107,7 +107,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_06_Check_Video_walkthrough(self):
+    def test_06_Check_Video_Walkthrough(self):
         """
             Verify user is able to see the video walkthough
             Validation: Based on the video walkthrough popup title
@@ -141,7 +141,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_08_Check_Tooltip_walkthrough(self):
+    def test_08_Check_Tooltip_Walkthrough(self):
         """
             Verify user is able to see the tooltip walkthough
             Validation: Based on the tooltip walkthrough title
@@ -161,7 +161,6 @@ class TestPlaybook(Base):
             tooltip_text = playbooks.get_tooltip_title()
             assert tooltip_text == playbooks.tooltip_titles[i]
             playbooks.click_on_next_btn()
-
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -202,7 +201,6 @@ class TestPlaybook(Base):
                 assert node_title == playbooks.playbook_schedule_options[element]
         else:
             assert False
-
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -449,7 +447,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_24_Verify_Grid_view_switching(self):
+    def test_24_Verify_Grid_View_Switching(self):
         """
         Verify whether user is able to switch to Grid view
         Validation 1:- Based on the button color visibility
@@ -468,7 +466,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.regression
-    def test_25_Verify_table_view_switching(self):
+    def test_25_Verify_Table_View_Switching(self):
         """
         Verify user is able to switch to table view
         Validation-1: Based on the button color visibility
@@ -484,7 +482,7 @@ class TestPlaybook(Base):
         assert table_view_btn_selected == '#1a3ee8' and playbook_visibility_in_table_view is True
 
     @pytest.mark.regression
-    def test_26_Verify_Pagination_increment(self):
+    def test_26_Verify_Pagination_Increment(self):
         """
         Verify whether user is able to apply pagination
         Validation 1: Based on the page number
@@ -499,7 +497,7 @@ class TestPlaybook(Base):
         assert page_count_after_change == 2
 
     @pytest.mark.regression
-    def test_27_Verify_Pagination_decrement(self):
+    def test_27_Verify_Pagination_Decrement(self):
         """
         Verify whether user is able to apply pagination
         Validation 1: Based on the page number
@@ -514,7 +512,7 @@ class TestPlaybook(Base):
         assert current_page_number == 1
 
     @pytest.mark.regression
-    def test_28_clone_system_playbook_from_listing(self):
+    def test_28_Clone_System_Playbook_from_Listing(self):
         """
         Verify whether user is able to clone the system playbook
         Validation-1: Based on the playbook visibility in my playbooks tab
@@ -561,7 +559,7 @@ class TestPlaybook(Base):
         assert action.get_title() == 'My Playbooks | Cyware Orchestrate'
 
     @pytest.mark.regression
-    def test_30_Search_playbook(self):
+    def test_30_Search_Playbook(self):
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         log.info("Enter the playbook name to search")
@@ -571,7 +569,7 @@ class TestPlaybook(Base):
         assert searched_playbook_name == cloned_playbook_title
 
     @pytest.mark.regression
-    def test_31_edit_cloned_playbook(self):
+    def test_31_Edit_Cloned_Playbook(self):
         """
             Verify whether user is able to edit the cloned app
             Validation-1: Based on the successful updation message
@@ -585,7 +583,7 @@ class TestPlaybook(Base):
         playbook.click_on_playbook_edit_btn()
         assert 'Edit Playbook' in playbook.get_playbook_title()
         playbook.click_on_playbook_overview_btn()
-        updated_cloned_playbook_name = "playbook_cloned"+playbook.get_current_time()
+        updated_cloned_playbook_name = "playbook_cloned" + playbook.get_current_time()
         log.info("Clear exisitng playbook name")
         playbook.remove_default_playbook_name()
         log.info("Enter the playbook name")
@@ -609,9 +607,8 @@ class TestPlaybook(Base):
         assert search_result == updated_cloned_playbook_name
         playbook.click_on_search_clear_btn()
 
-
     @pytest.mark.regression
-    def test_32_import_system_playbook(self):
+    def test_32_Import_System_Playbook(self):
         """
         Verify whether user is able to import exported system playbook
         Validation-1: Based on the imported successful message
@@ -634,7 +631,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_33_Sort_options_visibility(self):
+    def test_33_Sort_Options_Visibility(self):
         """
         Verify whether user is able to see all the available sort options
         Validation 1: Based on the options visibility

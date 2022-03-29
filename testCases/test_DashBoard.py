@@ -16,7 +16,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_01_Verify_dashboard_redirection(self):
+    def test_01_Verify_Dashboard_redirection(self):
         """
             Verify Dashboard redirection from Main Menu
             Validation - 1. On the basis of Window's title
@@ -33,7 +33,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_02_Switch_dark_mode(self):
+    def test_02_Switch_Dark_Mode(self):
         """
         Verify whether user is able to switch to dark mode
         Validation-1: Based on the icon visibility and element color visibility
@@ -59,7 +59,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_03_Check_all_widgets_visibility(self):
+    def test_03_Check_All_Widgets_Visibility(self):
         """
         Check whether user is able to see all the widgets
         Validation: Based on the widget title's
@@ -94,10 +94,9 @@ class TestDashBoard(Base):
         else:
             assert False
 
-
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_05_Click_maximize_btn(self):
+    def test_05_Click_Maximize_btn(self):
         """
         Check whether user is able to click on the maximize button
         Validation: Based on the minimize button visibility after clicking on maximize button

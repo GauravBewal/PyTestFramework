@@ -61,8 +61,6 @@ class TestProfileSettings(Base):
         assert visibility is True
         profile.click_cancel_btn()
 
-
-
     @pytest.mark.regression
     def test_04_Edit_Name_of_user(self):
         """
@@ -110,7 +108,7 @@ class TestProfileSettings(Base):
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
-    def test_05_Edit_Title_of_user(self):
+    def test_05_Edit_Title_of_User(self):
         """
             Verify user is able to edit profile's title name
             Validation: Based on the Toast message and comparison based on changes made in fields
@@ -147,7 +145,7 @@ class TestProfileSettings(Base):
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
-    def test_06_Edit_contact_number_of_user(self):
+    def test_06_Edit_Contact_Number_of_User(self):
         """
             Verify user is able to edit profile's contact number
             Validation: Based on the Toast message and comparison based on changes made in fields
@@ -183,7 +181,3 @@ class TestProfileSettings(Base):
         assert 'Success' in toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
-
-
-
-

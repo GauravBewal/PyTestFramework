@@ -111,7 +111,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_08_Tenant_code_visiblity(self):
+    def test_08_Tenant_Code_Visiblity(self):
         """
             Verify if the name of the tenant code is visible
             Validation - 1. On the basis of visiblity of code name
@@ -124,7 +124,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_09_Tenant_version_visiblity(self):
+    def test_09_Tenant_Version_Visiblity(self):
         """
             Verify if the name of the tenant version is visible
             Validation - 1. On the basis of visiblity of version name

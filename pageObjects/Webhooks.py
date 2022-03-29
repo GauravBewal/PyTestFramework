@@ -130,7 +130,7 @@ class Webhooks(Action):
 
     active_btn = "//span[@class='cyicon-check']"
 
-    def deactive_webhook(self):
+    def deactivate_webhook(self):
         return Action.javascript_click(self, By.XPATH, Webhooks.active_btn)
 
     def update_webhook(self):
@@ -171,6 +171,6 @@ class Webhooks(Action):
 
     deactivate = "//body/ul[1]/li[3]"
 
-    def click_deactive_webhook(self):
+    def click_deactivate_webhook(self):
         return Action.wait_and_click(self, By.XPATH, Webhooks.deactivate)
 

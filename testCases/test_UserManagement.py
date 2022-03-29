@@ -7,7 +7,6 @@ from utilities.Actions import Action
 from utilities.Base import Base
 
 
-
 @pytest.mark.usefixtures("setup")
 class TestUserManagement(Base):
 
@@ -67,7 +66,7 @@ class TestUserManagement(Base):
         user.visibility_of_first_active_user()
         global all_tab_count
         all_tab_count = user.get_user_count()
-        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
+        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count + active_count
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -123,8 +122,8 @@ class TestUserManagement(Base):
         First_Name = "TestUser"
         Last_Name = action.get_current_time()
         global Full_Name
-        Full_Name = First_Name+" "+Last_Name
-        User_Name = First_Name +"."+str(all_tab_count)
+        Full_Name = First_Name + " " + Last_Name
+        User_Name = First_Name + "." + str(all_tab_count)
         log.info("Add the First Name of User")
         user.put_first_name(First_Name)
         log.info("Add the Last Name of User")
@@ -134,7 +133,7 @@ class TestUserManagement(Base):
         user.click_top_user_group()
         log.info("Add the User Name for User")
         user.put_user_name(User_Name.lower())
-        User_email = "testuser"+"."+str(all_tab_count)+"@cyware.com"
+        User_email = "testuser" + "." + str(all_tab_count) + "@cyware.com"
         log.info("Add the User Email Id")
         user.put_user_email(User_email)
         log.info("Click On create Button")

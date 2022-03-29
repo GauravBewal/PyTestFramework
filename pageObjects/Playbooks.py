@@ -381,8 +381,6 @@ class Playbooks(Action):
     def click_save_and_exit_btn(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.save_and_exit_btn)
 
-
-
     playbook_walkthrough_bulb_btn = "//div[@class=' el-dropdown-selfdefine']/button"
 
     def click_walkthrough_bulb_btn(self):
@@ -468,7 +466,6 @@ class Playbooks(Action):
     def click_schedule_playbook_toogle_btn(self):
         return Action.wait_and_click(self, By.XPATH, Playbooks.schedule_playbook_toggle_btn)
 
-
     schedule_playbook_tab = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[1]"
 
     def click_on_schedule_playbook_tab(self):
@@ -478,8 +475,6 @@ class Playbooks(Action):
 
     def get_all_schedule_playbook_options(self):
         return Action.get_no_of_elements_present(self, By.XPATH, Playbooks.schedule_playbook_options)
-
-
 
     overview_output_parameters = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[2]"
 
@@ -591,4 +586,3 @@ class Playbooks(Action):
 
     def get_playbook_created_successful_txt(self):
         return Action.get_text(self, By.XPATH, Playbooks.playbook_created_successful_txt)
-

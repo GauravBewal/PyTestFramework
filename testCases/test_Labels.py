@@ -79,7 +79,7 @@ class TestLabels(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
-    def test_04_Click_on_create_label_btn(self):
+    def test_04_Click_on_Create_Label_btn(self):
         """
             Verify user is able to get error message when tried to create a label without any name
             TC_ID: Label-TC-002
@@ -98,7 +98,7 @@ class TestLabels(Base):
         assert slider_title == 'New Label'
 
     @pytest.mark.regression
-    def test_05_Create_new_Label(self):
+    def test_05_Create_New_Label(self):
         """
             Verify Label Create functionality
             TC_ID: Label-TC-002
@@ -196,7 +196,7 @@ class TestLabels(Base):
         assert label_created_user_name == label_modified_user_name
 
     @pytest.mark.regression
-    def test_09_Verify_Label_listing_while_configuring_event(self):
+    def test_09_Verify_Label_Listing_While_Configuring_Event(self):
         """
         Verify whether created label is getting listed while configuring event
         Validation 1: Based on the label visibility
@@ -220,7 +220,7 @@ class TestLabels(Base):
         configure_event.click_close_slider()
 
     @pytest.mark.regression
-    def test_10_Trigger_label_linked_playbook(self):
+    def test_10_Trigger_Label_Linked_Playbook(self):
         """
         Verify whether user is able to see the created label in playbook
         Validation-1: Based on the label visibility

@@ -32,8 +32,6 @@ class TestWebhooks(Base):
         active_count = webhook.get_webhook_count()
         assert action.get_title() in 'Webhooks | Cyware Orchestrate' and error_msg_visibility is False
 
-
-
     @pytest.mark.regression
     @pytest.mark.readOnly
     def test_03_Verify_Switch_Inactive_tab(self):
@@ -69,7 +67,7 @@ class TestWebhooks(Base):
         tab_color = webhook.get_all_tab_color()
         webhook.visibility_of_first_active_webhook()
         all_tab_count = webhook.get_webhook_count()
-        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
+        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count + active_count
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -93,7 +91,7 @@ class TestWebhooks(Base):
         assert slider_title == 'Add Webhook'
 
     @pytest.mark.regression
-    def test_05_create_webhook(self):
+    def test_05_Create_Webhook(self):
         """
             verify the create webhooks
             Validation . On basis of Buttton Click and Adding required data.
@@ -135,7 +133,7 @@ class TestWebhooks(Base):
         assert active_count + 1 == webhook.get_webhook_count() and 'Success' in toast_msg
 
     @pytest.mark.regression
-    def test_06_check_generated_token(self):
+    def test_06_Check_Generated_Token(self):
         """
             Verify the Generated Token
             Validation -1 : Verify the data / Token shown in the webhook and the token generated during
@@ -148,7 +146,7 @@ class TestWebhooks(Base):
         assert token == webhook.get_token_data()
 
     @pytest.mark.regression
-    def test_07_check_base_url(self):
+    def test_07_Check_Base_URL(self):
         """
             Verify the Base Url generated for the Webhook
             Validation -1: Compare the Url generated while creating the Webhook
@@ -163,7 +161,7 @@ class TestWebhooks(Base):
         webhook.click_slider_close()
 
     @pytest.mark.regression
-    def test_08_search_webhook(self):
+    def test_08_Search_Webhook(self):
         """
              Verify the search bar functionality
              Validation -1 : Compare the result with the searched/Updated webhook
@@ -182,7 +180,7 @@ class TestWebhooks(Base):
         assert searched_name == webhook_title
 
     @pytest.mark.regression
-    def test_09_update_webhook_name(self):
+    def test_09_Update_Webhook_Name(self):
         """
             Update New Webhook Name
             Validation -1 : Comparing the Name the updated Webhook Name.
@@ -213,9 +211,8 @@ class TestWebhooks(Base):
         webhook.visibility_of_first_active_webhook()
         assert updated_webhook == webhook.get_first_webhhook_name()
 
-
     @pytest.mark.regression
-    def test_10_check_the_dropdown_Edit_visibility(self):
+    def test_10_Check_the_Dropdown_Edit_Visibility(self):
         """
             Verify the dropdown button Visibility.
             Validation -1 : Check The Edit Slider Title
@@ -237,7 +234,7 @@ class TestWebhooks(Base):
         assert slider_title == "Edit Webhook"
 
     @pytest.mark.regression
-    def test_11_copy_token(self):
+    def test_11_Copy_Token(self):
         """
             Verify user is able to copy the token
             Validation -1 : Verify by the notification status
@@ -257,7 +254,7 @@ class TestWebhooks(Base):
         assert 'Success' in toast_message
 
     @pytest.mark.regression
-    def test_12_deactive_webhook(self):
+    def test_12_Deactivate_Webhook(self):
         """
             Verify the deactivate the Webhook
             Validation 1: Based on the Count of the Inactive Webhook
@@ -269,7 +266,7 @@ class TestWebhooks(Base):
         log.info("Click on dropdown")
         webhook.check_drop_down()
         log.info("Click on inactive button")
-        webhook.click_deactive_webhook()
+        webhook.click_deactivate_webhook()
         log.info("Read the tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg

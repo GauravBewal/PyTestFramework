@@ -33,7 +33,6 @@ class TestUserGroupManagement(Base):
         active_count = usergroup.get_usergroup_count()
         assert action.get_title() == 'User Groups Management | Cyware Orchestrate' and error_msg_visibility is False
 
-
     @pytest.mark.regression
     @pytest.mark.readOnly
     def test_02_Verify_Switch_Inactive_tab(self):
@@ -72,7 +71,7 @@ class TestUserGroupManagement(Base):
         usergroup.visibility_of_first_active_usergroup()
         global all_tab_count
         all_tab_count = usergroup.get_usergroup_count()
-        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
+        assert tab_color == '#1a3ee8' and all_tab_count == inactive_count + active_count
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -145,7 +144,6 @@ class TestUserGroupManagement(Base):
         log.info("Validating based on the showed name")
         assert usergroupname == usergroup.get_User_Group_Name()
 
-
     @pytest.mark.regression
     def test_07_update_usergroup(self):
         """
@@ -192,7 +190,6 @@ class TestUserGroupManagement(Base):
         log.info("Check visibility of first inactive group")
         usergroup.visibility_of_first_inactive_usergroup()
         assert updated_user_group == usergroup.get_User_Group_Name() and 'Success' in toast_msg
-
 
     @pytest.mark.regression
     def test_08_clone_existing_usergroup(self):
