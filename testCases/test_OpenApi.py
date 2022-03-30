@@ -110,8 +110,6 @@ class TestOpenApi(Base):
         openapi.click_on_bot_user_field()
         log.info("Select the first user in the list as an bot user")
         openapi.click_on_first_bot_user()
-        log.info("close the bot user field")
-        openapi.click_on_bot_user_field()
         log.info("Click on create button")
         openapi.click_on_create_btn()
         log.info("Read the successful message")

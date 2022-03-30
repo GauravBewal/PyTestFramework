@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pageObjects.CommonElements import Tooltip

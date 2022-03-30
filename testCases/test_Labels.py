@@ -297,6 +297,8 @@ class TestLabels(Base):
         log.info("Navigate to run logs")
         nav.click_main_menu()
         nav.navigate_run_logs()
+        log.info("Refresh the page")
+        nav.page_refresh()
         visibility = runlogs.verify_playbook_visibility_in_runlog(playbook_name)
         assert visibility is True
 

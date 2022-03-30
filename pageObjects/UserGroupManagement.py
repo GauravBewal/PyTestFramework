@@ -114,6 +114,11 @@ class UserGroupManagement(Action):
     def click_activate_toggle(self):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.toggle_active)
 
+    enable_all_permissions = "//span[text()='Enable All']/parent::div//span[@class='cyicon-cross']"
+
+    def click_on_enable_all_permissions_btn(self):
+        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.enable_all_permissions)
+
     toggle_status = "//p[@class='m-0 subtitle ml-2 font-size-14']"
 
     def check_toggle_status(self):
