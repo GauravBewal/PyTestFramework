@@ -265,6 +265,7 @@ class TestSyslogs(Base):
         assert 'Success' in tooltip_msg
         log.info("Clear the search")
         syslog.clear_search()
+        syslog.page_refresh()
         log.info("switch to active tab")
         syslog.click_active_tab()
         syslog.visibility_of_first_active_syslog()

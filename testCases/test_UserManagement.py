@@ -2,6 +2,8 @@ import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.UserManagement import UserManagement
+from pageObjects.UserGroupManagement import UserGroupManagement
+from pageObjects.Webhooks import Webhooks
 from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
 from utilities.Base import Base
@@ -136,6 +138,8 @@ class TestUserManagement(Base):
         User_email = "testuser" + "." + str(all_tab_count) + "@cyware.com"
         log.info("Add the User Email Id")
         user.put_user_email(User_email)
+        log.info("Adding as the Bot User")
+        user.check_bot_user()
         log.info("Click On create Button")
         user.click_create_user_btn()
         log.info("Click on the close tool tip")
@@ -205,11 +209,64 @@ class TestUserManagement(Base):
         assert Updated_Full_Name == user.get_first_list_name()
 
     @pytest.mark.regression
-    def test_09_Deactivate_User(self):
+    def test_09_Visibility_User_in_UserGroupManagement(self):
+        """
+            Verification of the Created user Visible in the User Group Management while creating a User Group.
+            Validation -1 : Verify the created new user is visible in the user list
+            TC_ID : 009
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        nav = Navigation(self.driver)
+        user = UserManagement(self.driver)
+        usergroup = UserGroupManagement(self.driver)
+        log.info("Click on the Admin Button")
+        nav.click_admin_menu()
+        log.info("Click on the User Group Management")
+        usergroup.click_user_group_management()
+        assert action.get_title() == 'User Groups Management | Cyware Orchestrate'
+        log.info("Click on the Add User Group / Create a new User group")
+        usergroup.click_add_user_group()
+        log.info("Click on User Dropdown")
+        usergroup.click_dropdown_users()
+        log.info("Click on the Visibility of the User Name in the list or drop down")
+        assert user.visibility_of_user_in_usergroup(Updated_Full_Name) is True
+
+    @pytest.mark.regression
+    def test_10_Visibility_User_in_Webhooks(self):
+        """
+            Verification of the Created user Visible in the User Group Management while creating a Webhook.
+            Validation -1 : Verify the created new user is visible in the Bot User List in Webhook
+            TC_ID : 010
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        nav = Navigation(self.driver)
+        webhook = Webhooks(self.driver)
+        user = UserManagement(self.driver)
+        log.info("Click on the Admin Menu")
+        nav.click_admin_menu()
+        log.info("Click on Webhook Module")
+        webhook.click_webhooks()
+        assert action.get_title() in 'Webhooks | Cyware Orchestrate'
+        log.info("Click on new Webhook")
+        webhook.click_new_webhook()
+        log.info("Click on the List Bot Users")
+        webhook.click_on_list_user()
+        log.info("Check Visibility of the User in the Webhook user Field")
+        visibility = user.visibility_of_user(Updated_Full_Name)
+        log.info("Redirect to the User Management")
+        nav.click_admin_menu()
+        user.click_user_management()
+        assert action.get_title() in 'User Management | Cyware Orchestrate'
+        assert visibility is True
+
+    @pytest.mark.regression
+    def test_11_Deactivate_User(self):
         """
             Verify The user is able to deactivate user easily IN User Group Management
             Validation -1 : Count in inactive tab and toast message
-            Tc_ID : 009
+            Tc_ID : 011
         """
         log = self.getlogger()
         user = UserManagement(self.driver)

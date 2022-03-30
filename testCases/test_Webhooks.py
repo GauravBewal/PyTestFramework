@@ -272,6 +272,7 @@ class TestWebhooks(Base):
         assert 'Success' in toast_msg
         tooltip.click_close_tooltip()
         webhook.click_on_search_clear_btn()
+        webhook.page_refresh()
         log.info("Click/ Switch on the inactive Tab")
         webhook.click_inactive_tab()
         webhook.visibility_of_first_inactive_webhook()

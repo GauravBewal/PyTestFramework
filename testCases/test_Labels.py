@@ -288,6 +288,7 @@ class TestLabels(Base):
         trigger_events.click_on_top_label()
         log.info("close the label field")
         trigger_events.click_on_labels_field()
+        log.info("Click on create button")
         trigger_events.click_on_create_button()
         log.info("Read tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
@@ -326,6 +327,7 @@ class TestLabels(Base):
         toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg
         tooltip.click_close_tooltip()
+        label.page_refresh()
         log.info("Click on inactive button")
         # navigating inactive tab to check whether the label is de-activated or not
         label.click_inactive_tab()
