@@ -116,6 +116,8 @@ class TestUserGroupManagement(Base):
         usergroup.put_usergroup_description("New Test User Group")
         log.info("Click on the activate toggle button")
         usergroup.click_activate_toggle()
+        log.info("Enable all permession")
+        usergroup.click_on_enable_all_permissions_btn()
         log.info("Click on Create button")
         usergroup.click_create_button()
         log.info("Get the toast message")
@@ -170,8 +172,6 @@ class TestUserGroupManagement(Base):
         usergroup.put_usergroup_description("Updated description")
         log.info("Click on the deactivate User Group Button")
         usergroup.click_deactivate_usergroup()
-        log.info("Click on Enable All Permission Button")
-        usergroup.click_enable_all_permissions()
         log.info("Verifying based on the Button Status")
         assert usergroup.check_permission_status() == "ON"
         log.info("Click on the Update Button")
