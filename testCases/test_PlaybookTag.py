@@ -132,8 +132,8 @@ class TestPlaybookTags(Base):
         tag.click_clear_search_btn()
         tag.put_string_in_searchbar(updated_playbooktag_title)
         tag.click_enter()
-        tag_name = tag.get_playbooktag_name()
         visibility = tag.visibility_of_first_playbook_tag()
+        tag_name = tag.get_playbooktag_name()
         assert visibility is True and tag_name == updated_playbooktag_title
         tag.click_clear_search_btn()
         tag.click_enter()
