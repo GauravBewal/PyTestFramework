@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pageObjects.ConfigureTrigger import ConfigureTrigger
@@ -25,8 +27,6 @@ class TestLabels(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         label = Labels(self.driver)
-        log.info("Check if walk through is initiated")
-        nav.click_on_close_walkthrough()
         log.info("Click on to main menu")
         nav.click_main_menu()
         log.info("Click on to label module for redirection")
@@ -173,8 +173,8 @@ class TestLabels(Base):
         # log.info("Read tool tip msg")
         # tooltip_msg = tooltip.get_tooltip_msg()
         # assert 'Success' in tooltip_msg
-        # log.info("Click on close tooltip")
-        # tooltip.click_close_tooltip()
+        log.info("Click on close tooltip")
+        tooltip.click_close_tooltip()
         label.visibility_of_first_active_label()
         top_label = label.get_top_1_label_name()
         log.info("Validating the new label name is updated or not ")
@@ -268,7 +268,9 @@ class TestLabels(Base):
         # log.info("Read the tooltip msg")
         # tool_msg = tooltip.get_tooltip_msg()
         # assert 'Success' in tool_msg
+        # log.info("Click on close tooltip")
         # tooltip.click_close_tooltip()
+        time.sleep(10)
         playbook.click_on_back_button()
         playbook.visibility_of_first_my_playbook()
         nav.click_main_menu()
@@ -290,10 +292,10 @@ class TestLabels(Base):
         trigger_events.click_on_labels_field()
         log.info("Click on create button")
         trigger_events.click_on_create_button()
-        log.info("Read tooltip msg")
-        toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
-        tooltip.click_close_tooltip()
+        # log.info("Read tooltip msg")
+        # toast_msg = tooltip.get_tooltip_msg()
+        # assert 'Success' in toast_msg
+        # tooltip.click_close_tooltip()
         log.info("Navigate to run logs")
         nav.click_main_menu()
         nav.navigate_run_logs()
@@ -325,10 +327,10 @@ class TestLabels(Base):
         label.click_inactive_toggle()
         log.info("Click on update label button")
         label.click_update_label()
-        # log.info("Read tool tip msg")
-        # toast_msg = tooltip.get_tooltip_msg()
-        # assert 'Success' in toast_msg
-        # tooltip.click_close_tooltip()
+        log.info("Read tool tip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
+        tooltip.click_close_tooltip()
         label.page_refresh()
         log.info("Click on inactive button")
         # navigating inactive tab to check whether the label is de-activated or not

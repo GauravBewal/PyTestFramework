@@ -178,7 +178,7 @@ class Action(Base):
 
     def Webdriver_Wait_until_element_visible(self, by, locator):
         try:
-            element = WebDriverWait(self.driver, timeout=40).until(EC.visibility_of_element_located((by, locator)))
+            element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, locator)))
             return element
         except TimeoutException:
             raise TimeoutException("Element not visible with locator" + locator)
