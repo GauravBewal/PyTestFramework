@@ -208,6 +208,7 @@ class TestUserManagement(Base):
         user.visibility_of_first_active_user()
         assert Updated_Full_Name == user.get_first_list_name()
 
+
     @pytest.mark.regression
     def test_09_Visibility_User_in_UserGroupManagement(self):
         """
@@ -255,11 +256,13 @@ class TestUserManagement(Base):
         webhook.click_on_list_user()
         log.info("Check Visibility of the User in the Webhook user Field")
         visibility = user.visibility_of_user(Updated_Full_Name)
+        assert visibility is True
         log.info("Redirect to the User Management")
         nav.click_admin_menu()
         user.click_user_management()
-        assert action.get_title() in 'User Management | Cyware Orchestrate'
-        assert visibility is True
+        assert user.get_title() in 'User Management | Cyware Orchestrate'
+
+
 
     @pytest.mark.regression
     def test_11_Deactivate_User(self):
@@ -271,6 +274,11 @@ class TestUserManagement(Base):
         log = self.getlogger()
         user = UserManagement(self.driver)
         tooltip = Tooltip(self.driver)
+        user.click_on_search_clear_btn()
+        log.info("Search for the user")
+        user.search_button(Updated_Full_Name)
+        log.info("Press Enter")
+        user.click_enter()
         log.info("Wait until the first User Name Visibility")
         user.visibility_of_first_active_user()
         log.info("Click on the first user listed")
