@@ -213,8 +213,12 @@ class Action(Base):
         ddelement.select_by_value(value)
 
     def get_text(self, by, locator):
-        ele = self.Webdriver_Wait_until_element_visible(by, locator)
-        return ele.text
+        try:
+            ele = self.Webdriver_Wait_until_element_visible(by, locator)
+            if ele.is_displayed():
+                return ele.text
+        except (NoSuchElementException, TimeoutException) as e:
+            raise e
 
     def read_search_result(self, by, locator, value):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.text_to_be_present_in_element((by, locator), value))
