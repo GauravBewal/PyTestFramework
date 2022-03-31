@@ -238,6 +238,8 @@ class TestSyslogs(Base):
         tooltip.click_close_tooltip()
         log.info("Clear search")
         syslog.clear_search()
+        log.info("Refresh page")
+        syslog.page_refresh()
         log.info("switch to inactive tab")
         syslog.click_inactive_tab()
         syslog.visibility_of_first_inactive_syslog()
@@ -267,10 +269,13 @@ class TestSyslogs(Base):
         assert 'Success' in tooltip_msg
         log.info("Clear the search")
         syslog.clear_search()
+        log.info("Page refresh")
         syslog.page_refresh()
         log.info("switch to active tab")
         syslog.click_active_tab()
+        log.info("Check for first active syslog")
         syslog.visibility_of_first_active_syslog()
+        log.info("Read the first syslog name")
         first_syslog_name = syslog.get_name_first_syslog()
         assert updated_syslog_name == first_syslog_name
 
