@@ -66,10 +66,10 @@ class Webhooks(Action):
     def open_calendar(self):
         return Action.javascript_click(self, By.XPATH, Webhooks.expiry_calendar)
 
-    select_expiry_date = "(//tr//td[@class='available'])[1]"
+    select_expiry_date = "(//tr//td[contains(@class,'today')])[1]"
 
     def click_on_expiry_date(self):
-        return Action.wait_and_click(self, By.XPATH, Webhooks.select_expiry_date)
+        return Action.javascript_click(self, By.XPATH, Webhooks.select_expiry_date)
 
     list_user = "//div[@name='bot_user']//span[contains(@class,'cyicon-chevron-down')]"
 
@@ -173,4 +173,12 @@ class Webhooks(Action):
 
     def click_deactivate_webhook(self):
         return Action.wait_and_click(self, By.XPATH, Webhooks.deactivate)
+
+    select_time = "//input[contains(@placeholder,'Select time')]"
+
+    def clear_select_time_field(self):
+        return Action.clear_field(self, By.XPATH, Webhooks.select_time)
+
+    def click_on_select_time(self):
+        return Action.send_keys(self, By.XPATH, Webhooks.select_time, "11:59:59 PM")
 
