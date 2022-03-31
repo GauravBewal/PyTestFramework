@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from configuration.readConfiguration import ReadConfig
@@ -65,6 +67,7 @@ class TestApps(Base):
         my_apps.click_active_app()
         log.info("Click on app save button")
         my_apps.click_save_app_button()
+        time.sleep(5)
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' in toast_msg

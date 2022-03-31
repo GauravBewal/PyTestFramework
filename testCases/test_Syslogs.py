@@ -229,7 +229,7 @@ class TestSyslogs(Base):
         tooltip = Tooltip(self.driver)
         log.info("Mouse hover the dropdown")
         syslog.check_drop_down()
-        log.info("Click on deactive button")
+        log.info("Click on deactivate button")
         syslog.click_deactivate_button()
         log.info("Read the tool tip msg")
         tooltip_msg = tooltip.get_tooltip_msg()
@@ -240,8 +240,11 @@ class TestSyslogs(Base):
         syslog.clear_search()
         log.info("Refresh page")
         syslog.page_refresh()
+        log.info("Check for visibility of first active syslog")
+        syslog.visibility_of_first_active_syslog()
         log.info("switch to inactive tab")
         syslog.click_inactive_tab()
+        log.info("Check for visibility of first inactive syslog")
         syslog.visibility_of_first_inactive_syslog()
         first_syslog_name = syslog.get_name_first_syslog()
         assert updated_syslog_name == first_syslog_name
@@ -269,10 +272,10 @@ class TestSyslogs(Base):
         assert 'Success' in tooltip_msg
         log.info("Clear the search")
         syslog.clear_search()
-        log.info("Page refresh")
+        log.info("Refresh page")
+        # Since we are refreshing the page it will automatically switch to active
+        # So we don't need to switch to active tab
         syslog.page_refresh()
-        log.info("switch to active tab")
-        syslog.click_active_tab()
         log.info("Check for first active syslog")
         syslog.visibility_of_first_active_syslog()
         log.info("Read the first syslog name")

@@ -333,6 +333,7 @@ class TestLabels(Base):
         assert 'Success' in toast_msg
         tooltip.click_close_tooltip()
         label.page_refresh()
+        label.visibility_of_first_active_label()
         log.info("Click on inactive button")
         # navigating inactive tab to check whether the label is de-activated or not
         label.click_inactive_tab()

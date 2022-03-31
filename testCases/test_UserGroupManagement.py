@@ -183,6 +183,8 @@ class TestUserGroupManagement(Base):
         log.info("Click on search button")
         usergroup.click_on_search_clear_btn()
         usergroup.page_refresh()
+        log.info("Check for visibility of first active usergroup")
+        usergroup.visibility_of_first_active_usergroup()
         log.info("Switch to inactive tab")
         usergroup.click_inactive_tab()
         log.info("Entering the New updated User Group Name for searching ")
