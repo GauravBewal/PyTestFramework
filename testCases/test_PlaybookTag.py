@@ -100,7 +100,6 @@ class TestPlaybookTags(Base):
         tag.click_on_searchbar()
         tag.put_string_in_searchbar(playbook_tag_text)
         tag.click_enter()
-        tag.visibility_of_first_playbook_tag()
         tag_name = tag.get_playbooktag_name()
         assert tag_name == playbook_tag_text
 

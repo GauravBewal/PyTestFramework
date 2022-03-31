@@ -119,23 +119,25 @@ class Syslogs(Action):
     def check_drop_down(self):
         return Action.mouse_hover_on_element(self, By.XPATH, Syslogs.three_dot)
 
-    edit_button = "//body/ul[1]/li[1]"
+    edit_button = "(//body/ul[1]/li[text()='Edit'])[1]"
 
     def click_edit_button(self):
         return Action.wait_and_click(self, By.XPATH, Syslogs.edit_button)
 
-    delete_button = "//body/ul[1]/li[2]"
+    delete_button = "(//body/ul[1]/li[text()='Delete'])[1]"
 
     def click_delete_button(self):
         return Action.wait_and_click(self, By.XPATH, Syslogs.delete_button)
 
-    deactivate_button = "//body/ul[1]/li[3]"
+    deactivate_button = "(//body/ul[1]/li[text()='Deactivate'])[1]"
 
     def click_deactivate_button(self):
         return Action.wait_and_click(self, By.XPATH, Syslogs.deactivate_button)
 
+    active_button = "(//body/ul[1]/li[text()='Activate'])[1]"
+
     def click_activate_button(self):
-        return Action.wait_and_click(self, By.XPATH, Syslogs.deactivate_button)
+        return Action.wait_and_click(self, By.XPATH, Syslogs.active_button)
 
     main_input = "//input[@id='main-input']"
 
