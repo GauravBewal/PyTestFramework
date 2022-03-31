@@ -229,6 +229,7 @@ class TestSyslogs(Base):
         tooltip = Tooltip(self.driver)
         log.info("Mouse hover the dropdown")
         syslog.check_drop_down()
+        time.sleep(3)
         log.info("Click on deactivate button")
         syslog.click_deactivate_button()
         log.info("Read the tool tip msg")
@@ -238,15 +239,15 @@ class TestSyslogs(Base):
         tooltip.click_close_tooltip()
         log.info("Clear search")
         syslog.clear_search()
-        log.info("Check for visibility of first active syslog")
-        syslog.visibility_of_first_active_syslog()
-        time.sleep(10)
+        log.info("Refresh page")
+        syslog.page_refresh()
+        time.sleep(8)
         log.info("switch to inactive tab")
         syslog.click_inactive_tab()
         log.info("Check for visibility of first inactive syslog")
         syslog.visibility_of_first_inactive_syslog()
         first_syslog_name = syslog.get_name_first_syslog()
-        assert updated_syslog_name == first_syslog_name
+        assert inactive_count + 1 == syslog.get_syslog_count()
 
     @pytest.mark.regression
     def test_10_Activate_Syslog(self):
