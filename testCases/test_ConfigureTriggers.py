@@ -189,7 +189,7 @@ class TestConfigureTriggers(Base):
         log.info("Click on Active Tab and select first configure trigger")
         config_trigger.click_first_configure_trigger()
         log.info("Deactivate the Configure Trigger")
-        config_trigger.click_deactive_configure_trigger()
+        config_trigger.click_inactive_configure_trigger()
         log.info("Click on Update Button")
         config_trigger.click_on_update()
         log.info("Read tooltip msg")
