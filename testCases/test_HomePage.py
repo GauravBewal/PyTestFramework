@@ -91,6 +91,7 @@ class TestHomePage(Base):
         nav.click_get_started_button()
         log.info("Click on the Manage Playbook walkthrough button")
         nav.click_playbook_walkthrough_btn()
+        time.sleep(10)
         read_page_heading = playbooks.get_manage_playbook_heading()
         assert read_page_heading == 'Manage Playbooks'
         log.info("Check Walkthrough is initiated or not")
@@ -115,6 +116,7 @@ class TestHomePage(Base):
         nav.click_get_started_button()
         log.info("Click on the apps walkthrough button")
         nav.click_apps_walkthrough_btn()
+        time.sleep(10)
         log.info("Read page heading")
         page_heading = my_apps.get_page_heading()
         assert page_heading == 'Apps'
