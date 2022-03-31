@@ -116,6 +116,8 @@ class TestWebhooks(Base):
         log.info("Select the expiration date")
         webhook.open_calendar()
         webhook.click_on_expiry_date()
+        webhook.clear_select_time_field()
+        webhook.click_on_select_time()
         webhook.click_enter_using_keyboard()
         log.info("Select the Bot User for the specified Webhook")
         webhook.click_on_list_user()
