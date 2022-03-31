@@ -220,10 +220,11 @@ class Action(Base):
         except (NoSuchElementException, TimeoutException) as e:
             raise e
 
-    def read_search_result(self, by, locator, value):
+    def WaitUntil_textToBePresentInElementLocated(self, by, locator, value):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.text_to_be_present_in_element((by, locator), value))
         if ele is True:
             return self.driver.find_element(by, locator).text
+
 
     def get_title(self):
         return self.driver.title
