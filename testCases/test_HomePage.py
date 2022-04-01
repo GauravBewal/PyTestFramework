@@ -13,6 +13,7 @@ class TestHomePage(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.homepage
     def test_01_Verify_Main_Menu_redirection(self):
         """
             Verify Main Menu is clickable
@@ -27,6 +28,7 @@ class TestHomePage(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.homepage
     def test_02_Verify_Search_Bar_Functionality(self):
         """
         Verify the user is able to search or not
@@ -43,6 +45,7 @@ class TestHomePage(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.homepage
     def test_03_Verify_Get_Started_Functionality(self):
         """
         Verify the user is able to Click Get Started Button or not
@@ -59,6 +62,7 @@ class TestHomePage(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.regression
+    @pytest.mark.homepage
     def test_04_Verify_Overview_walkthrough_btn(self):
         """
         Veirfy whether user is able to click on the walkthrough overview button
@@ -77,6 +81,7 @@ class TestHomePage(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.homepage
     def test_05_Verify_Manage_Playbooks_walkthrough_btn(self):
         """
         Verify whether user is able to start the playbook walkthrough after clicking
@@ -102,6 +107,7 @@ class TestHomePage(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.homepage
     def test_06_Verify_Apps_walkthrough_btn(self):
         """
         Verify whether user is able to start the apps walkthrough after clicking

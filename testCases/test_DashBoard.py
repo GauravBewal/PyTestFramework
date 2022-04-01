@@ -16,6 +16,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.dashboard
     def test_01_Verify_Dashboard_redirection(self):
         """
             Verify Dashboard redirection from Main Menu
@@ -33,6 +34,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.dashboard
     def test_02_Switch_Dark_Mode(self):
         """
         Verify whether user is able to switch to dark mode
@@ -42,7 +44,7 @@ class TestDashBoard(Base):
         dashboard = Dashboard(self.driver)
         log.info("Checking whether dark mode is enabled. If enabled disable it and run the test cases")
         try:
-            dashboard.check_dark_mode_btn_visibility()
+            dashboard.check_visibility_of_dark_mode_btn()
             dashboard.click_dark_mode_btn()
         except (NoSuchElementException, TimeoutException):
             dashboard.click_light_mode_btn()
@@ -59,6 +61,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.dashboard
     def test_03_Check_All_Widgets_Visibility(self):
         """
         Check whether user is able to see all the widgets
@@ -77,6 +80,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.dashboard
     def test_04_Click_on_View_All_btn(self):
         """
             Verify that View All button is working as expected or not
@@ -96,6 +100,7 @@ class TestDashBoard(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.dashboard
     def test_05_Click_Maximize_btn(self):
         """
         Check whether user is able to click on the maximize button
@@ -112,7 +117,8 @@ class TestDashBoard(Base):
         assert visibility is True
 
     @pytest.mark.regression
-    def test_06_Apply_3days_in_calendar(self):
+    @pytest.mark.dashboard
+    def test_06_Apply_current_date_filter_using_calendar(self):
         """
         Verify whether user is able to enter the date as per his wish
         Validation: Based on the date visibility after entering
@@ -124,9 +130,8 @@ class TestDashBoard(Base):
         log.info("Select start date from calendar")
         dashboard.select_calendar_start_date()
         log.info("select end date from calendar")
-        dashboard.select_calendar_end_date()
+        dashboard.select_calendar_start_date()
         log.info("Click on the start date button to check whether date is selected or not")
         dashboard.click_start_date_btn()
         start_date_color = dashboard.get_calendar_start_date_color()
-        end_date_color = dashboard.get_calendar_end_date_color()
-        assert start_date_color == '#1a3ee8' and end_date_color == '#1a3ee8'
+        assert start_date_color == '#1a3ee8'

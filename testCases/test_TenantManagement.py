@@ -11,6 +11,7 @@ from utilities.Base import Base
 class TestTenantManagement(Base):
 
     @pytest.mark.regression
+    @pytest.mark.tenantmanagement
     def test_01_Verify_Tenant_Management_redirection(self):
         """
         Verify redirection of Tenant Management from the admin page
@@ -30,6 +31,7 @@ class TestTenantManagement(Base):
         assert action.get_title() == 'Tenant Management | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
+    @pytest.mark.tenantmanagement
     def test_02_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -48,6 +50,7 @@ class TestTenantManagement(Base):
         assert tab_color == '#1a3ee8'
 
     @pytest.mark.regression
+    @pytest.mark.tenantmanagement
     def test_03_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from active tab
@@ -65,6 +68,7 @@ class TestTenantManagement(Base):
         assert tab_color == '#1a3ee8' and all_tab_count == active_count + inactive_count
 
     @pytest.mark.regression
+    @pytest.mark.tenantmanagement
     def test_04_Click_New_Tenant_btn(self):
         """
             Verify whether user is able to click on new tenant button
@@ -84,6 +88,7 @@ class TestTenantManagement(Base):
         assert slider_text == 'Add Tenant'
 
     # @pytest.mark.regression
+    # @pytest.mark.tenantmanagement
     # def test_05_Create_New_Tenant(self):
     #     """
     #         Verify whether user is able to create new tenant button
@@ -119,6 +124,7 @@ class TestTenantManagement(Base):
     #     assert tenant.get_count_of_tenants() == active_count + 1
     #
     # @pytest.mark.regression
+    # @pytest.mark.tenantmanagement
     # def test_06_Search_Tenant(self):
     #     """
     #         Verify the Searchbar Functionality is working.

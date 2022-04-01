@@ -18,6 +18,7 @@ class TestLabels(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.labels
     def test_01_Labels_redirection(self):
         """
             Verify Labels Page redirection from Main Menu
@@ -40,6 +41,7 @@ class TestLabels(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.labels
     def test_02_Switch_to_Inactive_tab(self):
         """
         Verify whether user is able to switch to inactive tab
@@ -60,6 +62,7 @@ class TestLabels(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.labels
     def test_03_Switch_to_All_tab(self):
         """
                 Verify whether user is able to switch to all tab
@@ -79,6 +82,7 @@ class TestLabels(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.labels
     def test_04_Click_on_Create_Label_btn(self):
         """
             Verify user is able to get error message when tried to create a label without any name
@@ -98,6 +102,7 @@ class TestLabels(Base):
         assert slider_title == 'New Label'
 
     @pytest.mark.regression
+    @pytest.mark.labels
     def test_05_Create_New_Label(self):
         """
             Verify Label Create functionality
@@ -132,6 +137,7 @@ class TestLabels(Base):
         assert label_text == get_created_label_name and active_labels + 1 == after_label_creation_count
 
     @pytest.mark.regression
+    @pytest.mark.labels
     def test_06_Search_Label(self):
         """
             Verify Search functionality of the Labels
@@ -149,6 +155,7 @@ class TestLabels(Base):
         assert label_text in read_top_search_result
 
     @pytest.mark.regression
+    @pytest.mark.labels
     def test_07_Update_Label(self):
         """
           verify user is able to update the label
@@ -181,6 +188,7 @@ class TestLabels(Base):
         assert new_label_name == top_label
 
     @pytest.mark.regression
+    @pytest.mark.labels
     def test_08_Read_Modified_Created_Column_Data(self):
         """
         Verify user is able to see the created by and modified by details after creating and modifying label
@@ -196,6 +204,7 @@ class TestLabels(Base):
         assert label_created_user_name == label_modified_user_name
 
     @pytest.mark.regression
+    @pytest.mark.labels
     def test_09_Verify_Label_Listing_While_Configuring_Event(self):
         """
         Verify whether created label is getting listed while configuring event
@@ -220,6 +229,7 @@ class TestLabels(Base):
         configure_event.click_close_slider()
 
     @pytest.mark.regression
+    @pytest.mark.labels
     def test_10_Trigger_Label_Linked_Playbook(self):
         """
         Verify whether user is able to see the created label in playbook
@@ -306,6 +316,7 @@ class TestLabels(Base):
         assert visibility is True
 
     @pytest.mark.regression
+    @pytest.mark.labels
     def test_11_Deactivate_Label(self):
         """
         Verify label is being listed under inactive tab once label was de-activated

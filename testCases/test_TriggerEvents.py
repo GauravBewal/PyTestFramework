@@ -12,6 +12,7 @@ class TestTriggerEvents(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.triggerevents
     def test_01_Verify_Trigger_Events_redirection(self):
         """
             Verify Trigger Events redirection from Main Menu
@@ -35,6 +36,7 @@ class TestTriggerEvents(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.triggerevents
     def test_02_Click_New_Event_btn(self):
         """
             Verify creation of new trigger event from trigger event page
@@ -50,6 +52,7 @@ class TestTriggerEvents(Base):
         assert page_title == 'New Triggered Event'
 
     @pytest.mark.regression
+    @pytest.mark.triggerevents
     def test_03_Create_Trigger_Event(self):
         """
         Verify whether user is able to create new trigger event
@@ -79,6 +82,7 @@ class TestTriggerEvents(Base):
         assert creation_msg == 'Success' and active_count + 1 == events_count_after_creation
 
     @pytest.mark.regression
+    @pytest.mark.triggerevents
     def test_04_Search_Trigger_Event(self):
         """
         Verify user is able to search the created event

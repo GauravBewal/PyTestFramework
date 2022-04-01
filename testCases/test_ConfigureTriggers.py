@@ -12,6 +12,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.regression
+    @pytest.mark.configuretriggers
     def test_01_Verify_Configure_Triggers_redirection(self):
         """
             Verify Configure Triggers redirection from Main Menu
@@ -35,6 +36,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.configuretriggers
     def test_02_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -54,6 +56,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.configuretriggers
     def test_03_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
@@ -72,6 +75,7 @@ class TestConfigureTriggers(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.configuretriggers
     def test_04_Click_Configure_New_Trigger_btn(self):
         """
           Verify configuration of new trigger
@@ -94,6 +98,7 @@ class TestConfigureTriggers(Base):
         assert slider_heading == 'New Configure Event'
 
     @pytest.mark.regression
+    @pytest.mark.configuretriggers
     def test_05_Create_New_Configure_Trigger(self):
         """
             Verify Create New Configure Trigger
@@ -129,6 +134,7 @@ class TestConfigureTriggers(Base):
         assert active_count + 1 == config_trigger.get_configure_trigger_count()
 
     @pytest.mark.regression
+    @pytest.mark.configuretriggers
     def test_06_Search_Configured_Trigger(self):
         """
             Verify the Searchbar Functionality is working.
@@ -146,6 +152,7 @@ class TestConfigureTriggers(Base):
         assert source_app == search_result
 
     @pytest.mark.regression
+    @pytest.mark.configuretriggers
     def test_07_Update_Configured_Trigger(self):
         """
             Verify the Update Functionality by Updating the Name
@@ -176,6 +183,7 @@ class TestConfigureTriggers(Base):
         assert new_config_name == top_first_event_name
 
     @pytest.mark.regression
+    @pytest.mark.configuretriggers
     def test_08_Deactivate_Configured_Trigger(self):
         """
             Verify the Update Functionality of  Configure Trigger

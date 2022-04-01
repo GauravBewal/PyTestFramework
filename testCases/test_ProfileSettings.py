@@ -12,6 +12,7 @@ class TestProfileSettings(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.profilesettings
     def test_01_Verify_Profile_Settings_redirection(self):
         """
             Verify user is able to access profile setting page
@@ -30,6 +31,7 @@ class TestProfileSettings(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.profilesettings
     def test_02_Verify_Change_Password_redirection(self):
         """
             Verify user is able to click on Change Password on Profile Settings page
@@ -47,6 +49,7 @@ class TestProfileSettings(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.profilesettings
     def test_03_Click_on_Edit_Profile_btn(self):
         """
             Verify user is able to click on edit profile button
@@ -62,6 +65,7 @@ class TestProfileSettings(Base):
         profile.click_cancel_btn()
 
     @pytest.mark.regression
+    @pytest.mark.profilesettings
     def test_04_Edit_Name_of_user(self):
         """
             Verify user is able to edit profile's first name and last name
@@ -108,6 +112,7 @@ class TestProfileSettings(Base):
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
+    @pytest.mark.profilesettings
     def test_05_Edit_Title_of_User(self):
         """
             Verify user is able to edit profile's title name
@@ -145,6 +150,7 @@ class TestProfileSettings(Base):
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
+    @pytest.mark.profilesettings
     def test_06_Edit_Contact_Number_of_User(self):
         """
             Verify user is able to edit profile's contact number

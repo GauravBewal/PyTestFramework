@@ -12,6 +12,7 @@ class TestOpenApi(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.openapi
     def test_1_Verify_Admin_Open_API_Redirection(self):
         """
             Verify redirection of Open APIs from the admin page
@@ -32,6 +33,7 @@ class TestOpenApi(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.openapi
     def test_02_Click_New_Open_Api_btn(self):
         """
         Verify whether user is able on click on new openapi button
@@ -49,6 +51,7 @@ class TestOpenApi(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.openapi
     def test_03_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -67,6 +70,7 @@ class TestOpenApi(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.openapi
     def test_04_Verify_Switch_All_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -83,6 +87,7 @@ class TestOpenApi(Base):
         assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
 
     @pytest.mark.regression
+    @pytest.mark.openapi
     def test_05_Create_New_OpenAPI(self):
         """
         Verify user is able to create a new openapi
@@ -118,6 +123,7 @@ class TestOpenApi(Base):
         assert 'Success' in successful_msg
 
     @pytest.mark.regression
+    @pytest.mark.openapi
     def test_06_Verify_API_URL_Visibility_and_Copy_Functionality(self):
         """
         Verify whether user is able to see the api url and copy it
@@ -136,6 +142,7 @@ class TestOpenApi(Base):
         assert openapi.visibility_of_copied_check_btn() is True
 
     @pytest.mark.regression
+    @pytest.mark.openapi
     def test_07_Verify_Secret_Key_Visibility_and_Copy_Functionality(self):
         """
             Verify whether user is able to see the secret key and copy it
@@ -156,6 +163,7 @@ class TestOpenApi(Base):
         assert openapi.visibility_of_copied_check_btn() is True
 
     @pytest.mark.regression
+    @pytest.mark.openapi
     def test_08_Verify_Access_ID_Visibility_and_Copy_Functionality(self):
         """
         Verify whether user is able to see the access id and copy it
@@ -176,6 +184,7 @@ class TestOpenApi(Base):
         assert openapi.visibility_of_copied_check_btn() is True
 
     @pytest.mark.regression
+    @pytest.mark.openapi
     def test_09_Check_Visibility_of_Download_Keys_btn(self):
         """
         Verify whether user is able to see the download keys button
@@ -190,6 +199,7 @@ class TestOpenApi(Base):
         assert visibility is True
 
     @pytest.mark.regression
+    @pytest.mark.openapi
     def test_10_Search_Created_OpenAPI(self):
         """
         Verify user is able to search the created openapi
@@ -208,6 +218,7 @@ class TestOpenApi(Base):
         assert openapi_name in read_top_search_result
 
     @pytest.mark.regression
+    @pytest.mark.openapi
     def test_11_Update_Created_OpenAPI(self):
         """
         Verify whether user is able to update the created openapi
@@ -239,6 +250,7 @@ class TestOpenApi(Base):
         assert top_openapi_name == updated_openapi_name
 
     @pytest.mark.regression
+    @pytest.mark.openapi
     def test_12_Deactivate_OpenAPI(self):
         """
         Verify user is able to deactivate the openapi

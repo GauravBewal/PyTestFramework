@@ -18,6 +18,7 @@ class TestPlaybookTags(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooktag
     def test_01_Playbook_Tag_redirection(self):
         """
             Verify PlaybookTag Page redirection from Main Menu
@@ -37,6 +38,7 @@ class TestPlaybookTags(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooktag
     def test_02_Create_Button_Visibility(self):
         """
         Verify the Create button Visibility
@@ -52,6 +54,7 @@ class TestPlaybookTags(Base):
         assert Slider_Name == "Add Tag"
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_03_Create_New_Playbook_Tag(self):
         """
             Verify PlaybookTag Create functionality
@@ -88,6 +91,7 @@ class TestPlaybookTags(Base):
         assert before_playbookTag_creation_count + 1 == after_playbookTag_creation_count
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_04_Search_Playbook_Tag(self):
         """
         Verify User is able to search Created PLaybookTag
@@ -104,6 +108,7 @@ class TestPlaybookTags(Base):
         assert tag_name == playbook_tag_text
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_05_Update_Playbook_Tag(self):
         """
             Update the PlaybookTag
@@ -142,6 +147,7 @@ class TestPlaybookTags(Base):
         tag.click_enter()
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_06_Verify_Default_TagName_Ascending_Sort(self):
         """
             Check the Sorting based on the Tag Name in Ascending
@@ -155,6 +161,7 @@ class TestPlaybookTags(Base):
         assert tag.get_first_tagname() < tag.get_second_playbookTag()
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_07_Check_Sort_Based_On_Created(self):
         """
                 Verify User is able to sort based on Created Time of Playbook
@@ -174,6 +181,7 @@ class TestPlaybookTags(Base):
         assert filterandsort.get_name_sorted_filter() == "Created"
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_08_Check_Created_Descending_Order(self):
         """
                 Check the descending order for the created date of playbook
@@ -186,6 +194,7 @@ class TestPlaybookTags(Base):
         assert tag.get_created_time1() > tag.get_created_time2()
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_09_Apply_Last_Week_Filter(self):
         """
             Verify the filters for last week
@@ -201,6 +210,7 @@ class TestPlaybookTags(Base):
         assert filterandsort.check_last_week_radio_status() is True
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_10_Apply_Last_Month_Filter(self):
         """
         Check the Filter for the Last Month
@@ -214,7 +224,8 @@ class TestPlaybookTags(Base):
         assert filterandsort.check_last_month_radio_status() is True
 
     @pytest.mark.regression
-    def test_11_Apply_3days_Filter_in_calendar(self):
+    @pytest.mark.playbooktag
+    def test_11_Apply_custom_date_filter_using_calendar(self):
         """
         Check the Filter for the Last 3 days
         Validation-1: Validate based on the radio button
@@ -228,22 +239,20 @@ class TestPlaybookTags(Base):
         dashboard.click_start_date_btn()
         log.info("Select start date from calendar")
         dashboard.select_calendar_start_date()
-        log.info("select end date from calendar")
-        dashboard.select_calendar_end_date()
+        #Start date and end date will be same because we are applying current date filter
+        log.info("Select end date from calendar")
+        dashboard.select_calendar_start_date()
         log.info("Click on the start date button to check whether date is selected or not")
         dashboard.click_start_date_btn()
         start_date_color = dashboard.get_calendar_start_date_color()
-        end_date_color = dashboard.get_calendar_end_date_color()
-        assert start_date_color == '#1a3ee8' and end_date_color == '#1a3ee8'
-        log.info("Selecting the same date to close the calendar")
-        dashboard.select_calendar_end_date()
-        dashboard.select_calendar_end_date()
+        assert start_date_color == '#1a3ee8'
         log.info("Clear the Applied filters in the Playbook Tags")
         tag.click_clear_all_filters_btn()
         log.info("Close the Filter Slider")
         filterandsort.click_close_filter_btn()
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_12_Visibility_of_Playbook_tag_in_Playbooks(self):
         """
             Verify the Visibility of the created Playbook Tag in the Playbooks Module Listing
@@ -275,6 +284,7 @@ class TestPlaybookTags(Base):
         assert visibility is True
 
     @pytest.mark.regression
+    @pytest.mark.playbooktag
     def test_13_Delete_Playbook_Tag(self):
         """
             Verify the Deletion Functionality of the PlaybookTag

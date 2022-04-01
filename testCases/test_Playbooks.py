@@ -17,6 +17,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_01_Verify_Manage_Playbook_redirection(self):
         """
             Verify Manage Playbook redirection from Main Menu
@@ -37,6 +38,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_02_Verify_Click_Create_New_Playbook_btn(self):
         """
         Verify user is able to click on create new playbook button
@@ -54,6 +56,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_03_Verify_Click_Add_Node_btn(self):
         """
           Verify click on add node button
@@ -69,6 +72,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_04_Verify_All_Node_Type_Titles_Visibility(self):
         """
            Verify user is able to see all the node types
@@ -89,6 +93,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_05_Verify_All_Nodes_Visibility(self):
         """
         Verify user is able to see all the nodes
@@ -107,6 +112,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_06_Check_Video_Walkthrough(self):
         """
             Verify user is able to see the video walkthough
@@ -126,6 +132,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_07_Check_Save_Options(self):
         """
             Verify user is able to see the save options
@@ -141,6 +148,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_08_Check_Tooltip_Walkthrough(self):
         """
             Verify user is able to see the tooltip walkthough
@@ -164,6 +172,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_09_Check_Playbook_Overview_Slider(self):
         """
             Verify user is able to see the playbook overview slider
@@ -179,6 +188,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_10_Switch_to_Schedule_playbook_Section(self):
         """
         Verify whether user is able to click on schedule playbook
@@ -204,6 +214,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_11_Switch_Output_Parameters_Section(self):
         """
             Verify whether user is able to click on output parameter
@@ -223,6 +234,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_12_Add_Output_Parameter(self):
         """
             Verify user is able to add the output parameters
@@ -242,6 +254,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_13_Verify_Switch_to_Associated_Playbooks(self):
         """
             Verify user is able to switch to associated playbooks section
@@ -261,6 +274,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_14_Verify_Switch_to_Sub_Playbooks_tab(self):
         """
             Verify whether user is able to switch to sub-playbooks section
@@ -276,6 +290,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_15_Verify_Switch_App_and_Actions(self):
         """
             Verify whether user is able to switch apps and actions section
@@ -298,6 +313,7 @@ class TestPlaybook(Base):
         assert section_title == 'Apps (0) / Actions (0)' and text == 'No App/Actions Available'
 
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_16_Click_Customize_Table_btn(self):
         """
             Verify whether user is able to click on customize table
@@ -315,6 +331,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_17_Click_Filter_btn(self):
         """
             Verify whether user is able to click on filter button
@@ -332,6 +349,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_18_Verify_Cyware_Playbooks_Switch_tab(self):
         """
             Verify user is able to switch from My Playbooks to Cyware Playbooks
@@ -350,6 +368,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_19_View_Playbook(self):
         """
             Verify opening playbook in view mode from cyware playbook
@@ -367,6 +386,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_20_Check_Export_Options_visibility(self):
         """
             Verify whether user is able to seen the export options
@@ -384,6 +404,7 @@ class TestPlaybook(Base):
         assert export_json and export_png is True
 
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_21_export_system_playbook(self):
         """
         Verify whether user is able to export the system playbook
@@ -411,6 +432,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_22_Check_Clone_btn_Visibility(self):
         """
         Verify whether user is able to see the clone button
@@ -426,6 +448,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_23_Click_on_Test_Instances(self):
         """
         Verify whether user is able to click on the test connectivity
@@ -447,6 +470,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_24_Verify_Grid_View_Switching(self):
         """
         Verify whether user is able to switch to Grid view
@@ -466,6 +490,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.readOnly
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_25_Verify_Table_View_Switching(self):
         """
         Verify user is able to switch to table view
@@ -482,6 +507,7 @@ class TestPlaybook(Base):
         assert table_view_btn_selected == '#1a3ee8' and playbook_visibility_in_table_view is True
 
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_26_Verify_Pagination_Increment(self):
         """
         Verify whether user is able to apply pagination
@@ -497,6 +523,7 @@ class TestPlaybook(Base):
         assert page_count_after_change == 2
 
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_27_Verify_Pagination_Decrement(self):
         """
         Verify whether user is able to apply pagination
@@ -512,6 +539,7 @@ class TestPlaybook(Base):
         assert current_page_number == 1
 
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_28_Clone_System_Playbook_from_Listing(self):
         """
         Verify whether user is able to clone the system playbook
@@ -546,6 +574,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_29_Verify_My_Playbooks_Switch_tab(self):
         """
             Verify user is able to switch from Cyware Playbooks to My Playbooks
@@ -559,6 +588,7 @@ class TestPlaybook(Base):
         assert action.get_title() == 'My Playbooks | Cyware Orchestrate'
 
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_30_Search_Playbook(self):
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
@@ -569,6 +599,7 @@ class TestPlaybook(Base):
         assert searched_playbook_name == cloned_playbook_title
 
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_31_Edit_Cloned_Playbook(self):
         """
             Verify whether user is able to edit the cloned app
@@ -608,6 +639,7 @@ class TestPlaybook(Base):
         playbook.click_on_search_clear_btn()
 
     @pytest.mark.regression
+    @pytest.mark.playbooks
     def test_32_Import_System_Playbook(self):
         """
         Verify whether user is able to import exported system playbook
@@ -631,6 +663,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.playbooks
     def test_33_Sort_Options_Visibility(self):
         """
         Verify whether user is able to see all the available sort options
@@ -652,6 +685,7 @@ class TestPlaybook(Base):
 
     #
     # @pytest.mark.regression
+    # @pytest.mark.playbooks
     # def test_33_Verify_playbook_execution_flow_with_ctix_action_node(self):
     #     """
     #     Install the ctix app to use it for playbook execution

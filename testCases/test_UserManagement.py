@@ -14,6 +14,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usermanagement
     def test_01_Verify_User_Management_redirection(self):
         """
         Verify redirection to user management from admin menu
@@ -34,6 +35,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usermanagement
     def test_02_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -53,6 +55,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usermanagement
     def test_03_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
@@ -72,6 +75,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usermanagement
     def test_04_Click_Add_User_btn(self):
         """
             Verify create button functionality of new user
@@ -93,6 +97,7 @@ class TestUserManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usermanagement
     def test_05_Click_Export_User_btn(self):
         """
             Verify export functionality of user management
@@ -107,6 +112,7 @@ class TestUserManagement(Base):
         assert visibility is True
 
     @pytest.mark.regression
+    @pytest.mark.usermanagement
     def test_06_Create_New_User(self):
         """
             Verify the Create a New User
@@ -151,6 +157,7 @@ class TestUserManagement(Base):
         assert active_count + 1 == user.get_user_count()
 
     @pytest.mark.regression
+    @pytest.mark.usermanagement
     def test_07_Search_User(self):
         """
                 Verify the Search Functionality of the User
@@ -170,6 +177,7 @@ class TestUserManagement(Base):
         assert Full_Name == user.get_first_list_name()
 
     @pytest.mark.regression
+    @pytest.mark.usermanagement
     def test_08_Update_User_Name(self):
         """
                 Verify the Update Functionality of the User
@@ -210,6 +218,7 @@ class TestUserManagement(Base):
 
 
     @pytest.mark.regression
+    @pytest.mark.usermanagement
     def test_09_Visibility_User_in_UserGroupManagement(self):
         """
             Verification of the Created user Visible in the User Group Management while creating a User Group.
@@ -234,6 +243,7 @@ class TestUserManagement(Base):
         assert user.visibility_of_user_in_usergroup(Updated_Full_Name) is True
 
     @pytest.mark.regression
+    @pytest.mark.usermanagement
     def test_10_Visibility_User_in_Webhooks(self):
         """
             Verification of the Created user Visible in the User Group Management while creating a Webhook.
@@ -265,6 +275,7 @@ class TestUserManagement(Base):
 
 
     @pytest.mark.regression
+    @pytest.mark.usermanagement
     def test_11_Deactivate_User(self):
         """
             Verify The user is able to deactivate user easily IN User Group Management
@@ -304,6 +315,7 @@ class TestUserManagement(Base):
         assert inactive_count + 1 == user.get_user_count()
 
     # @pytest.mark.regression
+    # @pytest.mark.usermanagement
     # def test_09_Export_User_Details(self):
     #     log = self.getlogger()
     #     action = Action(self.driver)
