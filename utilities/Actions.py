@@ -34,7 +34,7 @@ class Action(Base):
             element = self.Webdriver_Wait_until_element_clickable(by, locator)
             self.driver.execute_script("arguments[0].click();", element)
         except (StaleElementReferenceException, ElementClickInterceptedException) as e:
-            if count < 2:
+            if count < 4:
                 count += 1
                 self.javascript_click(by, locator)
             else:
@@ -46,20 +46,9 @@ class Action(Base):
             element = self.Webdriver_Wait_until_element_clickable(by, locator)
             element.click()
         except (StaleElementReferenceException, ElementClickInterceptedException) as e:
-            if count < 2:
+            if count < 4:
                 count += 1
                 self.wait_and_click(by, locator)
-            else:
-                raise e
-
-    def normal_click(self, by, locator):
-        global count
-        try:
-            self.driver.find_element(by, locator).click()
-        except (StaleElementReferenceException, ElementClickInterceptedException) as e:
-            if count < 2:
-                count += 1
-                self.normal_click(by, locator)
             else:
                 raise e
 
@@ -79,7 +68,6 @@ class Action(Base):
                 return True
         except (NoSuchElementException, TimeoutException, StaleElementReferenceException):
             return True
-
 
     def Apply_Pagination_if_element_not_found(self, by, locator, pagination_path):
         try:
@@ -189,7 +177,7 @@ class Action(Base):
 
     def Webdriver_Wait_until_element_visible(self, by, locator):
         try:
-            element = WebDriverWait(self.driver, timeout=40).until(EC.visibility_of_element_located((by, locator)))
+            element = WebDriverWait(self.driver, timeout=30).until(EC.visibility_of_element_located((by, locator)))
             return element
         except TimeoutException:
             raise TimeoutException("Element not visible with locator" + locator)
@@ -199,7 +187,7 @@ class Action(Base):
 
     def Webdriver_Wait_until_element_clickable(self, by, locator):
         try:
-            element = WebDriverWait(self.driver, timeout=60).until(EC.element_to_be_clickable((by, locator)))
+            element = WebDriverWait(self.driver, timeout=40).until(EC.element_to_be_clickable((by, locator)))
             return element
         except TimeoutException:
             raise TimeoutException("Element not found/clickable with locator" + locator)

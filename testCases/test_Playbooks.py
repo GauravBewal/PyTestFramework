@@ -190,7 +190,7 @@ class TestPlaybook(Base):
         log.info("Close the playbook data slider")
         playbooks.click_on_playbook_data()
         log.info("Click on active schedule playbooks")
-        playbooks.click_schedule_playbook_toogle_btn()
+        playbooks.click_schedule_playbook_toggle_btn()
         log.info("Check visibility of schedule options")
         elements_list = playbooks.get_list_of_elements(playbooks.get_all_schedule_playbook_options(),
                                                        playbooks.schedule_playbook_options)
@@ -588,10 +588,10 @@ class TestPlaybook(Base):
         playbook.remove_default_playbook_name()
         log.info("Enter the playbook name")
         playbook.enter_playbook_name(updated_cloned_playbook_name)
-        log.info("Click on back button")
-        playbook.click_on_back_button()
-        log.info("Click on confirm back button")
-        playbook.click_playbook_save_and_exit()
+        log.info("Mouse hover on more save options")
+        playbook.mouse_hover_on_save_btn()
+        log.info("Click on save and exit button")
+        playbook.click_save_and_exit_btn()
         log.info("Read the tooltip msg")
         tooltip_msg = tooltip.get_tooltip_msg()
         assert 'Success' in tooltip_msg

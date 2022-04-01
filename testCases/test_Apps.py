@@ -308,6 +308,7 @@ class TestApps(Base):
         tooltip = Tooltip(self.driver)
         log.info("Get the exact app location")
         app_name = my_apps.check_file_downloaded_and_get_file_name(new_app_name, 'zip')
+
         app_path = my_apps.get_file_downloaded_path(app_name)
         log.info("send app file location to import button")
         my_apps.send_file_path_to_upload_input_field(app_path)
@@ -425,15 +426,15 @@ class TestApps(Base):
         assert 'Success' in toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
-        log.info("Mouse hover on the created instance")
-        my_apps.mouse_hover_on_created_instance(instance_name)
-        log.info("Click on test instance button")
-        my_apps.click_on_test_instance_btn()
-        log.info("Check visibility of successful test connectivity")
-        successful_visibility = my_apps.visibility_of_successful_test_connectivity()
-        assert successful_visibility is True
-        log.info("Click ont instance connectivity slider close")
-        my_apps.click_instance_connectivity_slider_close()
+        # log.info("Mouse hover on the created instance")
+        # my_apps.mouse_hover_on_created_instance(instance_name)
+        # log.info("Click on test instance button")
+        # my_apps.click_on_test_instance_btn()
+        # log.info("Check visibility of successful test connectivity")
+        # successful_visibility = my_apps.visibility_of_successful_test_connectivity()
+        # assert successful_visibility is True
+        # log.info("Click ont instance connectivity slider close")
+        # my_apps.click_instance_connectivity_slider_close()
         log.info("Mouser hover on the more actions")
         my_apps.mouse_hover_on_more_Actions()
         log.info("Click on the edit button")
@@ -476,7 +477,7 @@ class TestApps(Base):
         """
         log = self.getlogger()
         my_apps = MyApps(self.driver)
-        self.test_12_Uninstall_custom_created_app()
+        self.test_12_Uninstall_Custom_Created_App()
         my_apps.app_store_tab()
         my_apps.visibility_of_first_app()
         log.info("Clear the search bar")
@@ -573,7 +574,7 @@ class TestApps(Base):
         """
         log = self.getlogger()
         log.info("Uninstalling the installed cyware app")
-        self.test_12_Uninstall_custom_created_app()
+        self.test_12_Uninstall_Custom_Created_App()
 
     @pytest.mark.regression
     def test_23_Import_Cyware_App(self):

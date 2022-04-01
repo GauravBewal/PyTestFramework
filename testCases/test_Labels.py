@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pageObjects.ConfigureTrigger import ConfigureTrigger
@@ -25,8 +27,6 @@ class TestLabels(Base):
         nav = Navigation(self.driver)
         action = Action(self.driver)
         label = Labels(self.driver)
-        log.info("Check if walk through is initiated")
-        nav.click_on_close_walkthrough()
         log.info("Click on to main menu")
         nav.click_main_menu()
         log.info("Click on to label module for redirection")
@@ -170,9 +170,9 @@ class TestLabels(Base):
         label.put_description("updated description")
         log.info("Click on update label button")
         label.click_update_label()
-        log.info("Read tool tip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in tooltip_msg
+        # log.info("Read tool tip msg")
+        # tooltip_msg = tooltip.get_tooltip_msg()
+        # assert 'Success' in tooltip_msg
         log.info("Click on close tooltip")
         tooltip.click_close_tooltip()
         label.visibility_of_first_active_label()
@@ -265,10 +265,12 @@ class TestLabels(Base):
         playbook.mouse_hover_on_save_btn()
         log.info("Click on save and exit button")
         playbook.click_save_and_exit_btn()
-        log.info("Read the tooltip msg")
-        tool_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in tool_msg
-        tooltip.click_close_tooltip()
+        # log.info("Read the tooltip msg")
+        # tool_msg = tooltip.get_tooltip_msg()
+        # assert 'Success' in tool_msg
+        # log.info("Click on close tooltip")
+        # tooltip.click_close_tooltip()
+        time.sleep(10)
         playbook.click_on_back_button()
         playbook.visibility_of_first_my_playbook()
         nav.click_main_menu()
@@ -290,13 +292,15 @@ class TestLabels(Base):
         trigger_events.click_on_labels_field()
         log.info("Click on create button")
         trigger_events.click_on_create_button()
-        log.info("Read tooltip msg")
-        toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
-        tooltip.click_close_tooltip()
+        # log.info("Read tooltip msg")
+        # toast_msg = tooltip.get_tooltip_msg()
+        # assert 'Success' in toast_msg
+        # tooltip.click_close_tooltip()
         log.info("Navigate to run logs")
         nav.click_main_menu()
         nav.navigate_run_logs()
+        log.info("Refresh the page")
+        nav.page_refresh()
         visibility = runlogs.verify_playbook_visibility_in_runlog(playbook_name)
         assert visibility is True
 

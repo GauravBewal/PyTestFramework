@@ -112,49 +112,99 @@ class Dashboard(Action):
     btn_light_mode = "//i[@class='icon cyicon-sun']/parent::button"
 
     def click_light_mode_btn(self):
+        """
+            Click on light mode button
+            :return:
+        """
         return Action.javascript_click(self, By.XPATH, Dashboard.btn_light_mode)
 
     btn_sync = "//i[@class='icon icon-refresh']/parent::button"
 
     def click_sync_btn(self):
+        """
+            Click on Sync button
+            :return:
+        """
         return Action.javascript_click(self, By.XPATH, Dashboard.btn_sync)
 
     def check_visibility_of_light_btn(self):
+        """
+            Check visibility of light button
+            :return:
+        """
         return Action.check_visibility_of_element(self, By.XPATH, Dashboard.btn_light_mode)
 
     start_date_btn = "//input[@placeholder='Start date']"
 
     def click_start_date_btn(self):
+        """
+            Click on start date button
+            :return:
+        """
         return Action.javascript_click(self, By.XPATH, Dashboard.start_date_btn)
 
     select_end_date = "(//tr[@class='el-date-table__row']/td[contains(@class,'available')]//span)[3]"
 
     def select_calendar_end_date(self):
+        """
+            Select Calender end date
+            :return:
+        """
         return Action.javascript_click(self, By.XPATH, Dashboard.select_end_date)
 
     def get_calendar_end_date_color(self):
+        """
+            Get Calender end date color
+            :return:
+        """
         return Action.get_css_property_value(self, By.XPATH, Dashboard.select_end_date, 'background-color')
 
     select_start_date = "(//tr[@class='el-date-table__row']/td[contains(@class,'available')]//span)[1]"
 
     def select_calendar_start_date(self):
+        """
+            Select Calender Start Date
+            :return:
+        """
         return Action.javascript_click(self, By.XPATH, Dashboard.select_start_date)
 
     def get_calendar_start_date_color(self):
+        """
+            Get Calender Start date color
+            :return:
+        """
         return Action.get_css_property_value(self, By.XPATH, Dashboard.select_start_date, 'background-color')
 
     cyware_header_section = "//div[contains(@class,'cy-header')]"
 
     def read_header_color(self):
+        """
+            Read header color
+            :return:
+        """
         return Action.get_css_property_value(self, By.XPATH, Dashboard.cyware_header_section, 'color')
 
     def find_element_path_and_get_text(self, path):
+        """
+            Find Element path and get text
+            :param path:
+            :return:
+        """
         return Action.get_text(self, By.XPATH, path)
 
     def find_element_path_and_click(self, path):
+        """
+            Find element path adn click
+            :param path:
+            :return:
+        """
         return Action.javascript_click(self, By.XPATH, path)
 
     btn_back = "(//section[@class='csol-dashboard__fullscreen-widget']//i)[1]"
 
     def click_on_back_btn(self):
+        """
+            Click on back button
+            :return:
+        """
         return Action.javascript_click(self, By.XPATH, Dashboard.btn_back)
