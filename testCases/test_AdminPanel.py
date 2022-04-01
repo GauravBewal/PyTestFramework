@@ -11,6 +11,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.adminpanel
     def test_01_Verify_Admin_Panel_redirection(self):
         """
             Verify redirection of the admin menu
@@ -28,6 +29,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.adminpanel
     def test_02_Verify_Admin_Configurations_redirection(self):
         """
             Verify redirection of Configurations from the admin page
@@ -44,6 +46,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.adminpanel
     def test_03_Verify_Admin_Authentication_redirection(self):
         """
             Verify redirection of Authentication from the admin page
@@ -61,6 +64,7 @@ class TestAdminPanel(Base):
         assert action.get_title() == 'Authentication | Cyware Orchestrate' and error_msg_visibility is False
 
     @pytest.mark.regression
+    @pytest.mark.adminpanel
     def test_04_Verify_Admin_Cyware_Agent_redirection(self):
         """
             Verify redirection of Cyware Agent from the admin page
@@ -79,6 +83,7 @@ class TestAdminPanel(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.adminpanel
     def test_05_Verify_Admin_Console_Status_redirection(self):
         """
             Verify redirection of Console Status from the admin page

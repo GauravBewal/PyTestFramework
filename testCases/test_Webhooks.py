@@ -13,6 +13,7 @@ class TestWebhooks(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.webhooks
     def test_01_Verify_Admin_Webhooks_redirection(self):
         """
             Verify redirection of Webhooks from the admin page
@@ -34,6 +35,7 @@ class TestWebhooks(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.webhooks
     def test_03_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -53,6 +55,7 @@ class TestWebhooks(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.webhooks
     def test_04_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
@@ -71,6 +74,7 @@ class TestWebhooks(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.webhooks
     def test_02_Click_New_Webhook_btn(self):
         """
             Verify create button functionality of new webhook
@@ -91,6 +95,7 @@ class TestWebhooks(Base):
         assert slider_title == 'Add Webhook'
 
     @pytest.mark.regression
+    @pytest.mark.webhooks
     def test_05_Create_Webhook(self):
         """
             verify the create webhooks
@@ -135,6 +140,7 @@ class TestWebhooks(Base):
         assert active_count + 1 == webhook.get_webhook_count() and 'Success' in toast_msg
 
     @pytest.mark.regression
+    @pytest.mark.webhooks
     def test_06_Check_Generated_Token(self):
         """
             Verify the Generated Token
@@ -148,6 +154,7 @@ class TestWebhooks(Base):
         assert token == webhook.get_token_data()
 
     @pytest.mark.regression
+    @pytest.mark.webhooks
     def test_07_Check_Base_URL(self):
         """
             Verify the Base Url generated for the Webhook
@@ -163,6 +170,7 @@ class TestWebhooks(Base):
         webhook.click_slider_close()
 
     @pytest.mark.regression
+    @pytest.mark.webhooks
     def test_08_Search_Webhook(self):
         """
              Verify the search bar functionality
@@ -182,6 +190,7 @@ class TestWebhooks(Base):
         assert searched_name == webhook_title
 
     @pytest.mark.regression
+    @pytest.mark.webhooks
     def test_09_Update_Webhook_Name(self):
         """
             Update New Webhook Name
@@ -214,6 +223,7 @@ class TestWebhooks(Base):
         assert updated_webhook == webhook.get_first_webhhook_name()
 
     @pytest.mark.regression
+    @pytest.mark.webhooks
     def test_10_Check_the_Dropdown_Edit_Visibility(self):
         """
             Verify the dropdown button Visibility.
@@ -236,6 +246,7 @@ class TestWebhooks(Base):
         assert slider_title == "Edit Webhook"
 
     @pytest.mark.regression
+    @pytest.mark.webhooks
     def test_11_Copy_Token(self):
         """
             Verify user is able to copy the token
@@ -256,6 +267,7 @@ class TestWebhooks(Base):
         assert 'Success' in toast_message
 
     @pytest.mark.regression
+    @pytest.mark.webhooks
     def test_12_Deactivate_Webhook(self):
         """
             Verify the deactivate the Webhook

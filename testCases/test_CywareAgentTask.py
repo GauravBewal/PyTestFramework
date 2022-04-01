@@ -9,6 +9,7 @@ from utilities.Base import Base
 class TestCywareAgentTask(Base):
 
     @pytest.mark.regression
+    @pytest.mark.cywareagent
     def test_01_Verify_Cyware_Agent_Task_redirection(self):
         """
             Verify Cyware Agent Task redirection from Main Menu

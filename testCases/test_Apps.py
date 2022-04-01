@@ -15,6 +15,7 @@ class TestApps(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.apps
     def test_01_Verify_Apps_redirection(self):
         """
             Verify Apps redirection from Main Menu
@@ -35,6 +36,7 @@ class TestApps(Base):
                and error_msg_visibility is False
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_02_Create_new_custom_app(self):
         """
             Verify user is able to create a new app manually
@@ -79,6 +81,7 @@ class TestApps(Base):
         assert count_of_app_before_creation + 1 == count_of_app_after_creation
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_03_Search_for_App(self):
         """
             Verify user is able to search new manually created app.
@@ -91,6 +94,7 @@ class TestApps(Base):
         assert new_app_name == my_apps.top_first_search(new_app_name)
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_04_Verify_App_Detail_Page_Navigation(self):
         """
             Verify the app detail page redirection
@@ -109,6 +113,7 @@ class TestApps(Base):
                and searched_app_title == app_title_summary
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_05_Verify_Switch_App_Actions_tab(self):
         """
             Verify user is able to switch app action tab
@@ -123,6 +128,7 @@ class TestApps(Base):
         assert page_title == 'App Actions | Cyware Orchestrate'
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_06_Verify_Switch_App_Instances_tab(self):
         """
             Verify user is able to switch on Instance App tab
@@ -137,6 +143,7 @@ class TestApps(Base):
         assert page_title == 'App Instances | Cyware Orchestrate'
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_07_Create_New_Instance_for_Custom_Created_App(self):
         """
             Verify user is able to new instance.
@@ -160,6 +167,7 @@ class TestApps(Base):
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_08_Verify_Switch_Playbook_tab(self):
         """
             Verify user is able to switch to playbook tab.
@@ -174,6 +182,7 @@ class TestApps(Base):
         assert page_title == 'App Playbooks | Cyware Orchestrate'
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_09_Clone_Custom_App_and_Uninstall(self):
         """
         Verify user is able to clone the custom app
@@ -225,6 +234,7 @@ class TestApps(Base):
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_10_Verify_Custom_App_Edit(self):
         """
         Verify user is able to edit the custom app
@@ -253,6 +263,7 @@ class TestApps(Base):
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_11_Export_Custom_Created_App(self):
         """
         Verify user is able to export the app or not
@@ -275,6 +286,7 @@ class TestApps(Base):
         assert new_app_name in my_apps.check_file_downloaded_and_get_file_name(new_app_name, 'zip')
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_12_Uninstall_Custom_Created_App(self):
         """
             Verify user is able to uninstall app
@@ -301,6 +313,7 @@ class TestApps(Base):
         my_apps.click_clear_search_btn()
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_13_Import_Custom_App(self):
         """
         Verify user is able to import the custom app
@@ -325,6 +338,7 @@ class TestApps(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.apps
     def test_14_Verify_App_Store_Switch_tab(self):
         """
             Verify user is able to switch from My apps to App Store
@@ -343,6 +357,7 @@ class TestApps(Base):
                and error_msg_visibility is False
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_15_Clone_CFTR_App_to_Debug(self):
         """
         Verify user is able to clone the cyware published app
@@ -396,6 +411,7 @@ class TestApps(Base):
         assert cloned_cyware_app_name == my_apps.top_first_search(cloned_cyware_app_name)
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_16_Verify_Debugging_App(self):
         """
         Verify user is able to debug the cyware published app by cloning it
@@ -473,6 +489,7 @@ class TestApps(Base):
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_17_Uninstall_Debugged_App(self):
         """
         Verify whether user is able to uninstall the debugged app
@@ -487,6 +504,7 @@ class TestApps(Base):
         my_apps.click_clear_search_btn()
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_18_Install_App_from_App_Store(self):
         """
         Verify user is able to install the cyware published app or not
@@ -517,6 +535,7 @@ class TestApps(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.apps
     def test_19_Verify_My_Apps_Switch_tab(self):
         """
             Verify user is able to switch from App Store to My Apps
@@ -532,6 +551,7 @@ class TestApps(Base):
         assert action.get_title() == 'My Apps | Cyware Orchestrate'
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_20_Verify_Installed_App(self):
         """
         Verify whether installed app is coming under my apps tab
@@ -546,6 +566,7 @@ class TestApps(Base):
         assert downloaded_app_name == search_result
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_21_Export_Cyware_App(self):
         """
         Verify whether user is able to export the cyware app
@@ -570,6 +591,7 @@ class TestApps(Base):
         assert first_3_app_letters in my_apps.check_file_downloaded_and_get_file_name(first_3_app_letters, 'zip')
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_22_Uninstall_Installed_Cyware_App(self):
         """
         Verify whether user is able to uninstall the cyware installed app
@@ -580,6 +602,7 @@ class TestApps(Base):
         self.test_12_Uninstall_Custom_Created_App()
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_23_Import_Cyware_App(self):
         """
         Verify user is able to import the installed cyware app
@@ -602,6 +625,7 @@ class TestApps(Base):
         my_apps.delete_downloaded_file(app_path)
 
     @pytest.mark.regression
+    @pytest.mark.apps
     def test_24_Switch_to_List_View(self):
         """
         Verify user is able to switch to list view

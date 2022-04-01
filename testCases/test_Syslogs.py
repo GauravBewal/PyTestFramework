@@ -15,6 +15,7 @@ class TestSyslogs(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.syslogs
     def test_01_Verify_Admin_SysLogs_redirection(self):
         """
             Verify redirection of SysLogs from the admin page
@@ -35,6 +36,7 @@ class TestSyslogs(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.syslogs
     def test_02_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -54,6 +56,7 @@ class TestSyslogs(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.syslogs
     def test_03_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
@@ -73,6 +76,7 @@ class TestSyslogs(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.syslogs
     def test_04_Click_New_Syslogs_btn(self):
         """
             Verify create button functionality of new syslogs
@@ -92,6 +96,7 @@ class TestSyslogs(Base):
         assert slider_title == 'Configure Syslog'
 
     @pytest.mark.regression
+    @pytest.mark.syslogs
     def test_05_Create_Syslog(self):
         """
             verify the create syslog
@@ -152,6 +157,7 @@ class TestSyslogs(Base):
         assert active_count + 1 == syslog.get_syslog_count()
 
     @pytest.mark.regression
+    @pytest.mark.syslogs
     def test_06_Search_Syslog(self):
         """
             Verify the Searchbar Functionality is working.
@@ -167,6 +173,7 @@ class TestSyslogs(Base):
         assert syslog_title == search_result
 
     @pytest.mark.regression
+    @pytest.mark.syslogs
     def test_07_Update_Syslog(self):
         """
         Verify user is able to edit the syslog
@@ -195,6 +202,7 @@ class TestSyslogs(Base):
         syslog.clear_search()
 
     @pytest.mark.regression
+    @pytest.mark.syslogs
     def test_08_Check_the_Dropdown_Edit_Visibility(self):
         """
             Verify the dropdown button Visibility.
@@ -219,6 +227,7 @@ class TestSyslogs(Base):
         assert slider_title == "Edit Syslog"
 
     @pytest.mark.regression
+    @pytest.mark.syslogs
     def test_09_Deactivate_Syslog(self):
         """
             Verify the deactivating syslog functionality
@@ -250,6 +259,7 @@ class TestSyslogs(Base):
         assert inactive_count + 1 == syslog.get_syslog_count()
 
     @pytest.mark.regression
+    @pytest.mark.syslogs
     def test_10_Activate_Syslog(self):
         """
             Verify the deactivating syslog functionality
@@ -284,6 +294,7 @@ class TestSyslogs(Base):
         assert updated_syslog_name == first_syslog_name
 
     @pytest.mark.regression
+    @pytest.mark.syslogs
     def test_11_Delete_Syslog(self):
         """
             Verify the delete syslog functionality

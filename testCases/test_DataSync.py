@@ -11,6 +11,7 @@ class TestDataSync(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.datasync
     def test_01_Verify_Data_Sync_redirection(self):
         """
             Verify Data Sync redirection from Main Menu
@@ -31,6 +32,7 @@ class TestDataSync(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.datasync
     def test_02_Click_Create_Data_Sync_btn(self):
         """
             Verify creation of new data sync job from Main Menu
@@ -52,6 +54,7 @@ class TestDataSync(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.datasync
     def test_03_Verify_Switch_Run_History(self):
         """
             Verify switch from Data Sync to Run History Logs
@@ -66,6 +69,7 @@ class TestDataSync(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.datasync
     def test_04_Verify_Switch_Data_Sync_Job_Details(self):
         """
             Verify switch from Run History Logs to Data Sync Job details
@@ -78,6 +82,7 @@ class TestDataSync(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.datasync
     def test_05_Click_on_Filter_btn(self):
         """
         Verify user is able to click on the filter button

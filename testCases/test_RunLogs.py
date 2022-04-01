@@ -11,6 +11,7 @@ class TestRunLogs(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.runlogs
     def test_01_Verify_Run_Logs_redirection(self):
         """
             Verify Run Logs redirection from Main Menu
@@ -27,6 +28,7 @@ class TestRunLogs(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.runlogs
     def test_02_Click_on_Filters_btn(self):
         """
             Verify whether user is able click on filter

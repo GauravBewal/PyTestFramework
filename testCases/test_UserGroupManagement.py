@@ -12,6 +12,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usergroupmanagement
     def test_01_Verify_User_Group_Management_redirection(self):
         """
             Verify redirection to user group management from admin menu
@@ -35,6 +36,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usergroupmanagement
     def test_02_Verify_Switch_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
@@ -55,6 +57,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usergroupmanagement
     def test_03_Verify_Switch_All_tab(self):
         """
             Verify switch to All tab from inactive tab
@@ -75,6 +78,7 @@ class TestUserGroupManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.usergroupmanagement
     def test_04_Click_New_User_Group_btn(self):
         """
             Verify creation of new user group
@@ -96,6 +100,7 @@ class TestUserGroupManagement(Base):
         assert slider_title == 'New User Group'
 
     @pytest.mark.regression
+    @pytest.mark.usergroupmanagement
     def test_05_Create_New_User_Group(self):
         """
             Verify creation of new user group
@@ -130,6 +135,7 @@ class TestUserGroupManagement(Base):
         assert active_count + 1 == usergroup.get_usergroup_count()
 
     @pytest.mark.regression
+    @pytest.mark.usergroupmanagement
     def test_06_search_usergroup(self):
         """
             Verify the Search functionality of the user group
@@ -147,6 +153,7 @@ class TestUserGroupManagement(Base):
         assert usergroupname == usergroup.get_User_Group_Name()
 
     @pytest.mark.regression
+    @pytest.mark.usergroupmanagement
     def test_07_update_usergroup(self):
         """
             Verify the Update functionality of the User Group
@@ -195,6 +202,7 @@ class TestUserGroupManagement(Base):
         assert updated_user_group == usergroup.get_User_Group_Name() and 'Success' in toast_msg
 
     @pytest.mark.regression
+    @pytest.mark.usergroupmanagement
     def test_08_clone_existing_usergroup(self):
         """
             Verify the clone Functionality based on the Button in more options

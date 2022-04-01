@@ -12,6 +12,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_01_Verify_Admin_License_Management_redirection(self):
         """
             Verify redirection of License Management from the admin page
@@ -30,6 +31,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_02_Click_Update_Licence_Key_btn(self):
         """
             Verify updation of licence key
@@ -46,6 +48,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_03_Visiblity_of_User_Accounts_Card(self):
         """
             Verify visiblity of User Account card
@@ -59,6 +62,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_04_Visiblity_of_Open_APIs_Card(self):
         """
             Verify visiblity of Open APIs card
@@ -72,6 +76,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_05_Visiblity_of_Webhooks_Card(self):
         """
             Verify visiblity of Webhooks card
@@ -85,6 +90,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_06_Days_left_for_expiration(self):
         """
             Verify number of days left for expiration is more than 10 days
@@ -98,6 +104,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_07_Tenant_Name_visiblity(self):
         """
             Verify if the name of the tenant is visible
@@ -111,6 +118,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_08_Tenant_Code_Visiblity(self):
         """
             Verify if the name of the tenant code is visible
@@ -124,6 +132,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_09_Tenant_Version_Visiblity(self):
         """
             Verify if the name of the tenant version is visible
@@ -137,6 +146,7 @@ class TestLicenseManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.readOnly
+    @pytest.mark.licensemanagement
     def test_10_Visiblity_of_Sync_Now_button(self):
         """
             Verify visiblity of Sync Now Button
