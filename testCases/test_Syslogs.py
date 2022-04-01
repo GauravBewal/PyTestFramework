@@ -179,7 +179,7 @@ class TestSyslogs(Base):
         log.info("Click on the first syslog")
         syslog.click_first_syslog()
         global updated_syslog_name
-        updated_syslog_name = "ui_automtion" + action.get_current_time()
+        updated_syslog_name = "updated_syslog" + action.get_current_time()
         log.info("Clear the previous title")
         syslog.clear_syslog_title()
         log.info("Enter updated syslog name")
@@ -229,7 +229,8 @@ class TestSyslogs(Base):
         tooltip = Tooltip(self.driver)
         log.info("Mouse hover the dropdown")
         syslog.check_drop_down()
-        log.info("Click on deactive button")
+        time.sleep(3)
+        log.info("Click on deactivate button")
         syslog.click_deactivate_button()
         log.info("Read the tool tip msg")
         tooltip_msg = tooltip.get_tooltip_msg()
@@ -238,11 +239,15 @@ class TestSyslogs(Base):
         tooltip.click_close_tooltip()
         log.info("Clear search")
         syslog.clear_search()
+        log.info("Refresh page")
+        syslog.page_refresh()
+        time.sleep(8)
         log.info("switch to inactive tab")
         syslog.click_inactive_tab()
+        log.info("Check for visibility of first inactive syslog")
         syslog.visibility_of_first_inactive_syslog()
         first_syslog_name = syslog.get_name_first_syslog()
-        assert updated_syslog_name == first_syslog_name
+        assert inactive_count + 1 == syslog.get_syslog_count()
 
     @pytest.mark.regression
     def test_10_Activate_Syslog(self):
@@ -253,8 +258,9 @@ class TestSyslogs(Base):
         syslog = Syslogs(self.driver)
         log = self.getlogger()
         tooltip = Tooltip(self.driver)
-        log.info("Search Functionality of Syslogs")
+        log.info("Search Functionality of Syslog")
         syslog.search_input_string(updated_syslog_name)
+        log.info("Press Enter to search")
         syslog.click_enter_for_search()
         log.info("Mouse hover the dropdown")
         syslog.check_drop_down()
@@ -267,10 +273,13 @@ class TestSyslogs(Base):
         assert 'Success' in tooltip_msg
         log.info("Clear the search")
         syslog.clear_search()
+        log.info("Refresh page")
+        # Since we are refreshing the page it will automatically switch to active
+        # So we don't need to switch to active tab
         syslog.page_refresh()
-        log.info("switch to active tab")
-        syslog.click_active_tab()
+        log.info("Check for first active syslog")
         syslog.visibility_of_first_active_syslog()
+        log.info("Read the first syslog name")
         first_syslog_name = syslog.get_name_first_syslog()
         assert updated_syslog_name == first_syslog_name
 

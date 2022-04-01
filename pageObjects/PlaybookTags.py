@@ -104,7 +104,7 @@ class PlaybookTags(Action):
         """
         return Action.wait_and_click(self, By.XPATH, PlaybookTags.button_save)
 
-    playbooktag_name = "(//tbody/tr[1]/td[1]//span[contains(@class,'csol-tag__title')])[1]"
+    playbooktag_name = "(//tr/td//span[contains(@class,'title')])[1]"
 
     def get_playbooktag_name(self):
         """

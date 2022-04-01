@@ -100,7 +100,6 @@ class TestPlaybookTags(Base):
         tag.click_on_searchbar()
         tag.put_string_in_searchbar(playbook_tag_text)
         tag.click_enter()
-        tag.visibility_of_first_playbook_tag()
         tag_name = tag.get_playbooktag_name()
         assert tag_name == playbook_tag_text
 
@@ -130,8 +129,8 @@ class TestPlaybookTags(Base):
         tag.put_playbooktag_description("Updated Description")
         log.info("Click on Save/update PlaybookTag button")
         tag.save_playbookTag()
-        # tooltip_msg = tooltip.get_tooltip_msg()
-        # assert 'Success' in tooltip_msg
+        tooltip_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in tooltip_msg
         tooltip.click_close_tooltip()
         tag.click_clear_search_btn()
         tag.put_string_in_searchbar(updated_playbooktag_title)
@@ -304,8 +303,8 @@ class TestPlaybookTags(Base):
         tag.delete_playbooktag()
         log.info("Confirm the deletion of the Playbook Tag")
         tag.click_confirm_delete()
-        # toast_msg = tooltip.get_tooltip_msg()
-        # assert 'Success' in toast_msg
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' in toast_msg
         log.info("click on close tool tip")
         tooltip.click_close_tooltip()
 

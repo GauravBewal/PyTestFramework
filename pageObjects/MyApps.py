@@ -515,7 +515,7 @@ class MyApps(Action):
             :param app_name:
             :return:
         """
-        return Action.read_search_result(self, By.XPATH, MyApps.top_1_search_result, app_name)
+        return Action.WaitUntil_textToBePresentInElementLocated(self, By.XPATH, MyApps.top_1_search_result, app_name)
 
     def click_first_search_result(self):
         """

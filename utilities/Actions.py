@@ -11,6 +11,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.color import Color
@@ -212,13 +213,24 @@ class Action(Base):
         ddelement.select_by_value(value)
 
     def get_text(self, by, locator):
-        ele = self.Webdriver_Wait_until_element_visible(by, locator)
-        return ele.text
+        global count
+        try:
+            ele = self.Webdriver_Wait_until_element_visible(by, locator)
+            if ele.is_displayed():
+                return ele.text
+        except (StaleElementReferenceException, ElementClickInterceptedException, TimeoutException) as e:
+            if count < 4:
+                count += 1
+                self.get_text(by, locator)
+            else:
+                raise e
 
-    def read_search_result(self, by, locator, value):
+
+    def WaitUntil_textToBePresentInElementLocated(self, by, locator, value):
         ele = WebDriverWait(self.driver, timeout=30).until(EC.text_to_be_present_in_element((by, locator), value))
         if ele is True:
             return self.driver.find_element(by, locator).text
+
 
     def get_title(self):
         return self.driver.title

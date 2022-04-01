@@ -35,3 +35,8 @@ class Runlogs(Action):
         """
         path = "//h3[contains(text(),'" + playbook_name + "')]"
         return Action.check_visibility_of_element(self, By.XPATH, path)
+
+    page_heading = "//header//h1"
+
+    def get_read_heading(self):
+        return Action.get_text(self, By.XPATH, Runlogs.page_heading)

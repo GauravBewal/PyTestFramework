@@ -293,9 +293,13 @@ class TestUserManagement(Base):
         tooltip.click_close_tooltip()
         log.info("Clear Search Bar Results")
         user.click_on_search_clear_btn()
+        log.info("Refreshing page")
         user.page_refresh()
+        log.info("Check for visibility of first active user")
+        user.visibility_of_first_active_user()
         log.info("Switch to inactive tab")
         user.click_inactive_tab()
+        log.info("Check for visibility of first inactive user")
         user.visibility_of_first_inactive_user()
         assert inactive_count + 1 == user.get_user_count()
 

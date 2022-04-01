@@ -129,8 +129,7 @@ class Tooltip(Action):
         """
             Get the tooltip message otherwise return No message found
         """
-        Action.Webdriver_Wait_until_element_clickable(self, By.XPATH, Tooltip.close_tooltip_btn)
-        return Action.get_text(self, By.XPATH, Tooltip.toast_msg_txt)
+        return Action.WaitUntil_textToBePresentInElementLocated(self, By.XPATH, Tooltip.toast_msg_txt, 'Success')
 
     tooltip_div = "//div[@class='el-notification__group']"
 
