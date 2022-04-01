@@ -70,7 +70,6 @@ class Action(Base):
         except (NoSuchElementException, TimeoutException, StaleElementReferenceException):
             return True
 
-
     def Apply_Pagination_if_element_not_found(self, by, locator, pagination_path):
         try:
             self.Webdriver_Wait_until_element_visible(by, locator)

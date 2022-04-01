@@ -190,7 +190,7 @@ class TestPlaybook(Base):
         log.info("Close the playbook data slider")
         playbooks.click_on_playbook_data()
         log.info("Click on active schedule playbooks")
-        playbooks.click_schedule_playbook_toogle_btn()
+        playbooks.click_schedule_playbook_toggle_btn()
         log.info("Check visibility of schedule options")
         elements_list = playbooks.get_list_of_elements(playbooks.get_all_schedule_playbook_options(),
                                                        playbooks.schedule_playbook_options)
