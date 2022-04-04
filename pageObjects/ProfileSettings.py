@@ -10,6 +10,7 @@ class ProfileSettings(Action):
         self.driver = driver
 
 
+
     dd_profile_settings = "//i[contains(@class,'icon-profile')]/parent::div"
 
     def click_profile_settings(self):

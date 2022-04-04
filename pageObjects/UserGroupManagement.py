@@ -12,6 +12,7 @@ class UserGroupManagement(Action):
         super().__init__(driver)
         self.driver = driver
 
+
     tab_user_group_management = "//p[contains(text(),'User Group')]/parent::div/parent::div"
 
     def click_user_group_management(self):

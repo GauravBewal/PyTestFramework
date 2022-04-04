@@ -9,7 +9,6 @@ class ConsoleStatus(Action):
         super().__init__(driver)
         self.driver = driver
 
-
     left_panel_elastic_search = "//div[contains(text(),'Elasticsearch')]"
 
     def click_elastic_search(self):

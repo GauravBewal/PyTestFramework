@@ -143,6 +143,7 @@ class TestPlaybookTags(Base):
         tag.click_clear_search_btn()
         tag.click_enter()
 
+
     @pytest.mark.regression
     @pytest.mark.playbooktag
     def test_06_Verify_Default_TagName_Ascending_Sort(self):

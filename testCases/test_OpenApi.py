@@ -258,6 +258,7 @@ class TestOpenApi(Base):
         Verify user is able to deactivate the openapi
         Validation-1: Based on the openapi getting listing in inactive tab
         """
+
         log = self.getlogger()
         openapi = OpenApi(self.driver)
         tooltip = Tooltip(self.driver)

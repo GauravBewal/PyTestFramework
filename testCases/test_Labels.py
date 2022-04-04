@@ -330,6 +330,7 @@ class TestLabels(Base):
         nav.page_refresh()
         assert runlogs.verify_playbook_visibility_in_runlog(playbook_name) is True
 
+
     @pytest.mark.regression
     @pytest.mark.labels
     def test_11_Deactivate_Label(self):

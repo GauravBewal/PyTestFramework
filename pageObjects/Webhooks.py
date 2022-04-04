@@ -219,6 +219,7 @@ class Webhooks(Action):
         """
         return Action.click_enter(self)
 
+
     get_token = "//div[@id='token__data-new']"
 
     def get_generated_token(self):

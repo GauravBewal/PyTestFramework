@@ -9,6 +9,7 @@ class TriggerEvents(Action):
         super().__init__(driver)
         self.driver = driver
 
+
     button_create_event = "//header//button"
 
     def click_create_new_event(self):

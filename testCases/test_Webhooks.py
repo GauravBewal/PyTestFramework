@@ -280,6 +280,7 @@ class TestWebhooks(Base):
         tooltip.click_close_tooltip()
         assert 'Success' == toast_message
 
+
     @pytest.mark.regression
     @pytest.mark.webhooks
     def test_12_Deactivate_Webhook(self):

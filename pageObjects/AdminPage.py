@@ -9,7 +9,6 @@ class Admin(Action):
         super().__init__(driver)
         self.driver = driver
 
-
     tab_Configuration = "//p[contains(text(),'Configuration')]/parent::div/parent::div"
 
     def click_configuration(self):

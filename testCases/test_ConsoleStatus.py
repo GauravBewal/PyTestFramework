@@ -101,6 +101,7 @@ class TestAdminPanel(Base):
             Verify gunicorn server status
             Validation - 1. On the basis of Active text of status
         """
+
         log = self.getlogger()
         console = ConsoleStatus(self.driver)
         console.click_gunicorn()

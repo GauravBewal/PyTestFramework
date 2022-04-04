@@ -138,6 +138,7 @@ class TestLicenseManagement(Base):
             Verify if the name of the tenant version is visible
             Validation - 1. On the basis of visiblity of version name
         """
+
         log = self.getlogger()
         license = LicenseManagement(self.driver)
         log.info("Read Name of the tenant version")

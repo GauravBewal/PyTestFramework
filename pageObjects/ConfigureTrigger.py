@@ -8,6 +8,7 @@ class ConfigureTrigger(Action):
         super().__init__(driver)
         self.driver = driver
 
+
     button_configure_trigger = "//header//button"
 
     def click_new_configure_trigger_btn(self):

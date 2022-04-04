@@ -18,6 +18,7 @@ class TestUserGroupManagement(Base):
             Verify redirection to user group management from admin menu
             Validation 1: On the basis of window's title
             TC_ID : 001
+
         """
         log = self.getlogger()
         nav = Navigation(self.driver)

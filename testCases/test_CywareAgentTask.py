@@ -4,7 +4,6 @@ from pageObjects.Navigation import Navigation
 from utilities.Actions import Action
 from utilities.Base import Base
 
-
 @pytest.mark.usefixtures("setup")
 class TestCywareAgentTask(Base):
 
