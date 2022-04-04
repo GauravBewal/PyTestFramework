@@ -29,7 +29,7 @@ class UserManagement(Action):
 
     first_active_user = "(//span[text()='Active' and @class='status__text'])[1]"
 
-    def visibility_of_first_active_user(self):
+    def Pass_even_first_active_User_is_not_visible(self):
         """
             Visibility of first active user
             :return:
@@ -38,12 +38,14 @@ class UserManagement(Action):
 
     first_inactive_user = "(//span[text()='Inactive' and @class='status__text'])[1]"
 
-    def visibility_of_first_inactive_user(self):
+    def Pass_even_first_inactive_User_is_not_visible(self):
         """
             Visibility of first inactive user
             :return:
         """
         return Action.Pass_even_element_not_visible(self, By.XPATH, UserManagement.first_inactive_user)
+
+
 
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
@@ -191,7 +193,8 @@ class UserManagement(Action):
             :param value:
             :return:
         """
-        return Action.send_keys(self, By.XPATH, UserManagement.user_name, value)
+        user_name = Action.convert_string_to_lower(self, value)
+        return Action.send_keys(self, By.XPATH, UserManagement.user_name, user_name)
 
     user_email = "//label[@for='email']/parent::div//input"
 
@@ -214,24 +217,32 @@ class UserManagement(Action):
 
     main_searchbar = "//input[@id='main-input']"
 
-    def search_button(self, value):
+    def Put_string_in_search_bar(self, value):
         """
-            Search button
-            :param value:
+            Search bar input field used to search
+            :param- value
             :return:
         """
         return Action.send_keys(self, By.XPATH, UserManagement.main_searchbar, value)
 
     list_first_name = "(//tr//td[1]//a)[1]"
 
-    def get_first_list_name(self):
+    def get_first_user_name_in_list(self):
         """
             Get first list name
             :return:
         """
         return Action.get_text(self, By.XPATH, UserManagement.list_first_name)
 
-    def click_first_list_user(self):
+
+    def visibility_of_created_user(self):
+        """
+        Wait until Visibility of created user
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, UserManagement.list_first_name)
+
+    def click_first_user_in_listing(self):
         """
             Click first list username
             :return:

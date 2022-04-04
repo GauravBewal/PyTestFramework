@@ -317,3 +317,4 @@ class Navigation(Action):
             :return:
         """
         return Action.check_visibility_of_element(self, By.XPATH, Navigation.navigation_error_msg)
+

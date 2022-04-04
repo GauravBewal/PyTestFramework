@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from configuration.readConfiguration import ReadConfig
@@ -49,7 +51,7 @@ class TestWebhooks(Base):
         webhook.click_inactive_tab()
         log.info("Read the tab color after switching")
         tab_color = webhook.get_inactive_tab_color()
-        webhook.visibility_of_first_inactive_webhook()
+        webhook.Pass_even_first_inactive_Webhook_is_not_visible()
         inactive_count = webhook.get_webhook_count()
         assert tab_color == '#1a3ee8'
 
@@ -68,7 +70,7 @@ class TestWebhooks(Base):
         webhook.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = webhook.get_all_tab_color()
-        webhook.visibility_of_first_active_webhook()
+        webhook.Pass_even_first_Active_Webhook_is_not_visible()
         all_tab_count = webhook.get_webhook_count()
         assert tab_color == '#1a3ee8' and all_tab_count == inactive_count + active_count
 
@@ -85,7 +87,7 @@ class TestWebhooks(Base):
         webhook = Webhooks(self.driver)
         log.info("Switch to active tab")
         webhook.click_active_tab()
-        webhook.visibility_of_first_active_webhook()
+        webhook.Pass_even_first_Active_Webhook_is_not_visible()
         log.info("Click on add webhook button")
         webhook.click_new_webhook()
         log.info("Read the slider title")
@@ -136,7 +138,7 @@ class TestWebhooks(Base):
         toast_msg = tooltip.get_tooltip_msg()
         log.info("Close the tooltip")
         tooltip.click_close_tooltip()
-        webhook.visibility_of_first_active_webhook()
+        webhook.visibility_of_created_webhook()
         assert active_count + 1 == webhook.get_webhook_count() and 'Success' in toast_msg
 
     @pytest.mark.regression
@@ -184,6 +186,8 @@ class TestWebhooks(Base):
         webhook.search_input_string(webhook_title)
         log.info("Click Enter/Confirm")
         webhook.click_enter_using_keyboard()
+        log.info("Visibility of first webhook")
+        assert webhook.visibility_of_created_webhook() is True
         log.info("Get the first/ Name of the searched webhook")
         searched_name = webhook.get_first_webhhook_name()
         log.info("Assert based on the input to search bar and the webhook title that result shown.")
@@ -214,17 +218,20 @@ class TestWebhooks(Base):
         webhook.update_webhook()
         log.info("read the toast message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Close the tooltip")
         tooltip.click_close_tooltip()
         log.info("Click on clear search icon")
-        webhook.click_on_search_clear_btn()
-        webhook.visibility_of_first_active_webhook()
+        webhook.Clear_Search_field()
+        log.info("Press Enter")
+        webhook.click_enter_using_keyboard()
+        log.info("Visibility of created webhook")
+        webhook.visibility_of_created_webhook()
         assert updated_webhook == webhook.get_first_webhhook_name()
 
     @pytest.mark.regression
     @pytest.mark.webhooks
-    def test_10_Check_the_Dropdown_Edit_Visibility(self):
+    def test_10_Check_the_Dropdown_Edit_btn_functionality(self):
         """
             Verify the dropdown button Visibility.
             Validation -1 : Check The Edit Slider Title
@@ -234,9 +241,14 @@ class TestWebhooks(Base):
         log = self.getlogger()
         log.info("Search the new updated Webhook Name")
         webhook.search_input_string(updated_webhook)
+        log.info("Press Enter")
         webhook.click_enter_using_keyboard()
+        log.info("Wait till visibility of created webhook")
+        assert webhook.visibility_of_created_webhook() is True
         log.info("Mouse over the dropdown")
-        webhook.check_drop_down()
+        webhook.mouser_hover_on_more_options()
+        log.info("check visibility of edit button")
+        assert webhook.visibility_of_edit_btn() is True
         log.info("Click on Edit button in Drop down")
         webhook.click_edit_button()
         log.info("Get the Slider Name")
@@ -257,14 +269,16 @@ class TestWebhooks(Base):
         log = self.getlogger()
         tooltip = Tooltip(self.driver)
         log.info("Mouse Over the Drop down")
-        webhook.check_drop_down()
+        webhook.mouser_hover_on_more_options()
+        log.info("Visibility of copy token button")
+        assert webhook.visibility_of_copy_token_btn() is True
         log.info("Click on the Copy token Button in Drop down")
         webhook.click_copy_token_button()
         log.info("Get the toast message Information")
         toast_message = tooltip.get_tooltip_msg()
         log.info("Close tool tip message")
         tooltip.click_close_tooltip()
-        assert 'Success' in toast_message
+        assert 'Success' == toast_message
 
     @pytest.mark.regression
     @pytest.mark.webhooks
@@ -278,20 +292,36 @@ class TestWebhooks(Base):
         log = self.getlogger()
         tooltip = Tooltip(self.driver)
         log.info("Click on dropdown")
-        webhook.check_drop_down()
+        webhook.mouser_hover_on_more_options()
+        log.info("Check visibility of deactivate button")
+        assert webhook.visibility_of_deactivate_btn() is True
         log.info("Click on inactive button")
-        webhook.click_deactivate_webhook()
+        webhook.click_deactivate_btn()
         log.info("Read the tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
+        log.info("Close tooltip")
         tooltip.click_close_tooltip()
-        webhook.click_on_search_clear_btn()
-        log.info("Refresh page")
-        webhook.page_refresh()
-        log.info("Check for visibility of first active webhook")
-        webhook.visibility_of_first_active_webhook()
-        log.info("Click/ Switch on the inactive Tab")
+        log.info("Clear search field")
+        webhook.Clear_Search_field()
+        log.info("Click Enter using keyboard")
+        webhook.click_enter_using_keyboard()
+        log.info("Check visibility of first active webhook")
+        webhook.Pass_even_first_Active_Webhook_is_not_visible()
+        log.info("Switch to inactive Tab")
         webhook.click_inactive_tab()
-        log.info("Check for visibility of first inactive weebhook")
-        webhook.visibility_of_first_inactive_webhook()
-        assert inactive_count + 1 == webhook.get_webhook_count()
+        log.info("Wait until visibility of first inactive webhook")
+        webhook.Pass_even_first_inactive_Webhook_is_not_visible()
+        log.info("Enter Webhook name to search")
+        webhook.search_input_string(updated_webhook)
+        log.info("Click Enter to search")
+        webhook.click_enter_using_keyboard()
+        log.info("Check for visibility of first inactive webhook")
+        assert webhook.visibility_of_created_webhook() is True
+        log.info("Read the created webhook name")
+        name = webhook.get_first_webhhook_name()
+        assert updated_webhook == name
+        log.info("Clear the search field")
+        webhook.Clear_Search_field()
+        log.info("Press Enter")
+        webhook.click_enter_using_keyboard()

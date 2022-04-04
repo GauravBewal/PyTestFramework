@@ -54,7 +54,7 @@ class TestApps(Base):
         my_apps.Create_App_button()
         log.info("Enter app name")
         global new_app_name
-        new_app_name = "newapp" + action.get_random_digit()
+        new_app_name = "newapp" + action.get_random_digit(5)
         my_apps.enter_app_name(new_app_name)
         log.info("Enter app supported api version")
         my_apps.enter_supported_api_version("1.0.0")
@@ -62,17 +62,16 @@ class TestApps(Base):
         my_apps.click_app_refresh_button()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         log.info("Click on active app")
         my_apps.click_active_app()
         log.info("Click on app save button")
         my_apps.click_save_app_button()
-        time.sleep(5)
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         log.info("Check visibility of 1st app")
@@ -162,7 +161,7 @@ class TestApps(Base):
         my_apps.click_slider_instance_create_btn()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg and my_apps.read_default_instance() == 'test'
+        assert 'Success' == toast_msg and my_apps.read_default_instance() == 'test'
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
 
@@ -213,7 +212,7 @@ class TestApps(Base):
         my_apps.click_save_app_button()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         log.info("Clear the search bar")
@@ -229,7 +228,7 @@ class TestApps(Base):
         my_apps.click_confirm_uninstall_app()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
 
@@ -250,15 +249,16 @@ class TestApps(Base):
         log.info("Mouse hover to more options")
         my_apps.mouse_hover_list_more_options()
         log.info("Visibility of edit app button")
-        my_apps.visibility_of_edit_button()
+        assert my_apps.visibility_of_edit_button() is True
         log.info("Click on the edit app button")
         my_apps.click_on_edit_btn()
-        page_heading = my_apps.get_page_heading()
-        assert 'Edit App' in page_heading
+        log.info("Read page heading")
+        page_heading = my_apps.get_edit_app_heading()
+        assert new_app_name == page_heading
         my_apps.click_save_app_button()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
 
@@ -280,10 +280,10 @@ class TestApps(Base):
         my_apps.click_on_export_btn()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
-        assert new_app_name in my_apps.check_file_downloaded_and_get_file_name(new_app_name, 'zip')
+        assert new_app_name in my_apps.check_file_downloaded_and_get_file_directory_path(new_app_name, 'zip')
 
     @pytest.mark.regression
     @pytest.mark.apps
@@ -323,14 +323,13 @@ class TestApps(Base):
         my_apps = MyApps(self.driver)
         tooltip = Tooltip(self.driver)
         log.info("Get the exact app location")
-        app_name = my_apps.check_file_downloaded_and_get_file_name(new_app_name, 'zip')
-
+        app_name = my_apps.check_file_downloaded_and_get_file_directory_path(new_app_name, 'zip')
         app_path = my_apps.get_file_downloaded_path(app_name)
         log.info("send app file location to import button")
         my_apps.send_file_path_to_upload_input_field(app_path)
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         log.info("Deleting the downloaded file")
@@ -393,7 +392,7 @@ class TestApps(Base):
         my_apps.click_app_refresh_button()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         log.info("Click on active app")
@@ -402,7 +401,7 @@ class TestApps(Base):
         my_apps.click_save_app_button()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         log.info("Search the cloned app")
@@ -442,7 +441,7 @@ class TestApps(Base):
         my_apps.click_slider_instance_create_btn()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         # log.info("Mouse hover on the created instance")
@@ -484,7 +483,7 @@ class TestApps(Base):
         my_apps.click_save_app_button()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
 
@@ -529,7 +528,7 @@ class TestApps(Base):
         log.info("Verify whether success tooltip is visible after installing")
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
 
@@ -583,12 +582,12 @@ class TestApps(Base):
         my_apps.click_on_export_btn()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         global first_3_app_letters
         first_3_app_letters = my_apps.get_first_3_letter_of_downloaded_app(downloaded_app_name)
-        assert first_3_app_letters in my_apps.check_file_downloaded_and_get_file_name(first_3_app_letters, 'zip')
+        assert first_3_app_letters in my_apps.check_file_downloaded_and_get_file_directory_path(first_3_app_letters, 'zip')
 
     @pytest.mark.regression
     @pytest.mark.apps
@@ -612,13 +611,13 @@ class TestApps(Base):
         my_apps = MyApps(self.driver)
         tooltip = Tooltip(self.driver)
         log.info("Get the exact app location")
-        app_name = my_apps.check_file_downloaded_and_get_file_name(first_3_app_letters, 'zip')
+        app_name = my_apps.check_file_downloaded_and_get_file_directory_path(first_3_app_letters, 'zip')
         app_path = my_apps.get_file_downloaded_path(app_name)
         log.info("send app file location to import button")
         my_apps.send_file_path_to_upload_input_field(app_path)
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
         log.info("Deleting the downloaded file")

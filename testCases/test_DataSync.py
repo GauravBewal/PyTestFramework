@@ -25,6 +25,7 @@ class TestDataSync(Base):
         nav.click_main_menu()
         log.info("Click on data sync")
         nav.navigate_data_sync()
+        log.info("Read page heading")
         page_heading = dataSync.get_page_heading_text()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate' \

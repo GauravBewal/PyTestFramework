@@ -48,7 +48,7 @@ class TestUserManagement(Base):
         log.info("Read the tab color after switching")
         tab_color = user.get_inactive_tab_color()
         log.info("Check visibility of inactive user")
-        user.visibility_of_first_inactive_user()
+        user.Pass_even_first_inactive_User_is_not_visible()
         global inactive_count
         inactive_count = user.get_user_count()
         assert tab_color == '#1a3ee8'
@@ -68,7 +68,7 @@ class TestUserManagement(Base):
         log.info("Read the tab color after switching")
         tab_color = user.get_all_tab_color()
         log.info("check visibility of active user")
-        user.visibility_of_first_active_user()
+        user.Pass_even_first_active_User_is_not_visible()
         global all_tab_count
         all_tab_count = user.get_user_count()
         assert tab_color == '#1a3ee8' and all_tab_count == inactive_count + active_count
@@ -76,29 +76,7 @@ class TestUserManagement(Base):
     @pytest.mark.regression
     @pytest.mark.readOnly
     @pytest.mark.usermanagement
-    def test_04_Click_Add_User_btn(self):
-        """
-            Verify create button functionality of new user
-            Validation - 1. On the basis of slider title
-        """
-        log = self.getlogger()
-        user = UserManagement(self.driver)
-        log.info("Switch to active tab")
-        user.click_active_tab()
-        log.info("Visibility og first active user")
-        user.visibility_of_first_active_user()
-        log.info("Click on add new user button")
-        user.click_add_user()
-        log.info("Read the slider title")
-        slider_title = user.get_slider_title()
-        log.info("Click on close slider button")
-        user.click_slider_close()
-        assert slider_title == 'User'
-
-    @pytest.mark.regression
-    @pytest.mark.readOnly
-    @pytest.mark.usermanagement
-    def test_05_Click_Export_User_btn(self):
+    def test_04_Click_Export_User_btn(self):
         """
             Verify export functionality of user management
             Validation - 1. On the basis of export options visibility
@@ -112,6 +90,28 @@ class TestUserManagement(Base):
         assert visibility is True
 
     @pytest.mark.regression
+    @pytest.mark.readOnly
+    @pytest.mark.usermanagement
+    def test_05_Click_Add_User_btn(self):
+        """
+            Verify create button functionality of new user
+            Validation - 1. On the basis of slider title
+        """
+        log = self.getlogger()
+        user = UserManagement(self.driver)
+        log.info("Switch to active tab")
+        user.click_active_tab()
+        log.info("Visibility og first active user")
+        user.Pass_even_first_active_User_is_not_visible()
+        log.info("Click on add new user button")
+        user.click_add_user()
+        log.info("Read the slider title")
+        slider_title = user.get_slider_title()
+        log.info("Click on close slider button")
+        user.click_slider_close()
+        assert slider_title == 'User'
+
+    @pytest.mark.regression
     @pytest.mark.usermanagement
     def test_06_Create_New_User(self):
         """
@@ -123,11 +123,9 @@ class TestUserManagement(Base):
         user = UserManagement(self.driver)
         action = Action(self.driver)
         tooltip = Tooltip(self.driver)
-        log.info("Redirect to the Active Tab")
-        user.click_active_tab()
         log.info("Click On add new User Button")
         user.click_add_user()
-        First_Name = "TestUser"
+        First_Name = "ui_user"
         Last_Name = action.get_current_time()
         global Full_Name
         Full_Name = First_Name + " " + Last_Name
@@ -140,7 +138,7 @@ class TestUserManagement(Base):
         user.click_dropdown()
         user.click_top_user_group()
         log.info("Add the User Name for User")
-        user.put_user_name(User_Name.lower())
+        user.put_user_name(User_Name)
         User_email = "testuser" + "." + str(all_tab_count) + "@cyware.com"
         log.info("Add the User Email Id")
         user.put_user_email(User_email)
@@ -148,12 +146,17 @@ class TestUserManagement(Base):
         user.check_bot_user()
         log.info("Click On create Button")
         user.click_create_user_btn()
-        log.info("Click on the close tool tip")
+        log.info("Read the tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
         assert "Success" in toast_msg
+        log.info("Click on the close tool tip")
         tooltip.click_close_tooltip()
+        log.info("Wait until visibility of active user")
+        # Used below method because currently on qa we have a dummy user without name
+        # Need to change this once the filter testcases are added
+        # (Before creating user need to apply sort based on created)
+        user.Pass_even_first_active_User_is_not_visible()
         log.info("Wait until the Visibility of the User")
-        user.visibility_of_first_active_user()
         assert active_count + 1 == user.get_user_count()
 
     @pytest.mark.regression
@@ -168,13 +171,13 @@ class TestUserManagement(Base):
         user = UserManagement(self.driver)
         action = Action(self.driver)
         log.info("Enter the Name to be Searched")
-        user.search_button(Full_Name)
+        user.Put_string_in_search_bar(Full_Name)
         log.info("Click Enter to Search the result")
         action.click_enter()
         log.info("Wait until the first User Name Visibility")
-        user.visibility_of_first_active_user()
         log.info("Get the First Name of search list and compare the Name")
-        assert Full_Name == user.get_first_list_name()
+        assert user.visibility_of_created_user() is True \
+               and Full_Name == user.get_first_user_name_in_list()
 
     @pytest.mark.regression
     @pytest.mark.usermanagement
@@ -189,32 +192,36 @@ class TestUserManagement(Base):
         user = UserManagement(self.driver)
         tooltip = Tooltip(self.driver)
         log.info("Click On First List User")
-        user.click_first_list_user()
+        user.click_first_user_in_listing()
         log.info("Clear the First Name")
         user.clear_first_name()
-        updated_first_name = "TestUser"
+        updated_first_name = "updatedusername-"
         log.info("Add the New Updated First Name")
         user.put_first_name(updated_first_name)
         log.info("Clear the Last Name Field")
         user.clear_last_name()
         updated_last_name = action.get_current_time()
+        log.info("Enter updated last name")
         user.put_last_name(updated_last_name)
+        log.info("Click on update button")
         user.click_update_btn()
+        global Updated_Full_Name
+        Updated_Full_Name = updated_first_name + " " + updated_last_name
         log.info("Get the Toast Message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Clear the Search Field")
         user.click_on_search_clear_btn()
         log.info("Wait until the Visibility of the First User")
-        user.visibility_of_first_active_user()
-        global Updated_Full_Name
-        Updated_Full_Name = updated_first_name + " " + updated_last_name
-        user.search_button(Updated_Full_Name)
+        user.Pass_even_first_active_User_is_not_visible()
+        log.info("Enter the update user full name to search")
+        user.Put_string_in_search_bar(Updated_Full_Name)
+        log.info("Press Enter")
         action.click_enter()
         log.info("Check the Visibility of the User")
-        user.visibility_of_first_active_user()
-        assert Updated_Full_Name == user.get_first_list_name()
+        assert user.visibility_of_created_user() is True \
+               and Updated_Full_Name == user.get_first_user_name_in_list()
 
 
     @pytest.mark.regression
@@ -287,32 +294,29 @@ class TestUserManagement(Base):
         tooltip = Tooltip(self.driver)
         user.click_on_search_clear_btn()
         log.info("Search for the user")
-        user.search_button(Updated_Full_Name)
+        user.Put_string_in_search_bar(Updated_Full_Name)
         log.info("Press Enter")
         user.click_enter()
         log.info("Wait until the first User Name Visibility")
-        user.visibility_of_first_active_user()
+        user.visibility_of_created_user()
         log.info("Click on the first user listed")
-        user.click_first_list_user()
+        user.click_first_user_in_listing()
         log.info("Click Deactivate the User button")
         user.click_deactivate_user()
         log.info("Click on Update Button")
         user.click_update_btn()
         log.info("Get the Toast Message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Clear Search Bar Results")
         user.click_on_search_clear_btn()
-        log.info("Refreshing page")
-        user.page_refresh()
         log.info("Check for visibility of first active user")
-        user.visibility_of_first_active_user()
+        user.Pass_even_first_active_User_is_not_visible()
         log.info("Switch to inactive tab")
         user.click_inactive_tab()
         log.info("Check for visibility of first inactive user")
-        user.visibility_of_first_inactive_user()
-        assert inactive_count + 1 == user.get_user_count()
+        assert user.visibility_of_created_user() is True and inactive_count + 1 == user.get_user_count()
 
     # @pytest.mark.regression
     # @pytest.mark.usermanagement

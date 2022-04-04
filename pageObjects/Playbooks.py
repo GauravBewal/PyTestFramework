@@ -239,7 +239,7 @@ class Playbooks(Action):
 
     btn_first_my_playbook = "//div[3]//tr[1]/td[3]//a"
 
-    def visibility_of_first_my_playbook(self):
+    def Pass_even_first_custom_playbook_is_not_visible(self):
         """
             Visibility of first my playbook
             :return:

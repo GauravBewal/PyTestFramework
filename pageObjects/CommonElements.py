@@ -1,6 +1,7 @@
 import time
 
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
@@ -129,12 +130,20 @@ class Tooltip(Action):
         """
             Get the tooltip message otherwise return No message found
         """
-        return Action.WaitUntil_textToBePresentInElementLocated(self, By.XPATH, Tooltip.toast_msg_txt, 'Success')
+        time.sleep(2)
+        if self.visibility_of_tooltip() is True:
+            return Action.get_text(self, By.XPATH, Tooltip.toast_msg_txt)
 
-    tooltip_div = "//div[@class='el-notification__group']"
+
+    tooltip_div = "//body//div[contains(@class,'cy-notification')]"
 
     def visibility_of_tooltip(self):
         """
             Check visibility of the tooltip
         """
         return Action.check_visibility_of_element(self, By.XPATH, Tooltip.tooltip_div)
+
+    spinner_on_btn = "//div[contains(@class,'cyicon-spinner')]"
+
+    def invisibility_of_spinner(self):
+        return Action.Webdriver_Wait_until_invisibility_of_element(self, By.XPATH, Tooltip.spinner_on_btn)

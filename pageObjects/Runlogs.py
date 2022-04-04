@@ -9,6 +9,7 @@ class Runlogs(Action):
         super().__init__(driver)
         self.driver = driver
 
+
     runlog_filter_btn = "//div[@class='filters-view']//button"
 
     def click_on_filter_btn(self):

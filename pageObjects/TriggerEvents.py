@@ -81,6 +81,11 @@ class TriggerEvents(Action):
         """
         return Action.get_count_from_string(self, By.XPATH, TriggerEvents.text_page_heading)
 
+    first_trigger_event = "(//tr/td//a)[1]"
+
+    def visibility_of_first_trigger_event(self):
+        return Action.check_visibility_of_element(self, By.XPATH, TriggerEvents.first_trigger_event)
+
     search_bar = "//input[contains(@placeholder,'Search')]"
 
     def put_string_to_search(self, value):

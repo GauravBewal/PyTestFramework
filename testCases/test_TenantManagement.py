@@ -44,7 +44,7 @@ class TestTenantManagement(Base):
         log.info("Read the tab color after switching")
         tab_color = tenant.get_inactive_tab_color()
         log.info("Check for visbility of first inactive tab")
-        tenant.visibility_of_first_inactive_tenant()
+        tenant.Pass_even_first_inactive_Tenant_is_not_visible()
         global inactive_count
         inactive_count = tenant.get_tenant_count()
         assert tab_color == '#1a3ee8'
@@ -62,7 +62,7 @@ class TestTenantManagement(Base):
         tenant.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = tenant.get_all_tab_color()
-        tenant.visibility_of_first_active_tenant()
+        tenant.Pass_even_first_active_Tenant_is_not_visible()
         global all_tab_count
         all_tab_count = tenant.get_tenant_count()
         assert tab_color == '#1a3ee8' and all_tab_count == active_count + inactive_count
@@ -78,7 +78,7 @@ class TestTenantManagement(Base):
         tenant = TenantManagement(self.driver)
         log.info("Switch to active tab")
         tenant.click_active_tab()
-        tenant.visibility_of_first_active_tenant()
+        tenant.Pass_even_first_active_Tenant_is_not_visible()
         log.info("Click on add tenant button")
         tenant.click_new_tenant()
         log.info("Read the tenant form slider title")
@@ -100,7 +100,7 @@ class TestTenantManagement(Base):
     #     tooltip = Tooltip(self.driver)
     #     log.info("Switch to active tab")
     #     tenant.click_active_tab()
-    #     tenant.visibility_of_first_active_tenant()
+    #     tenant.Pass_even_first_active_Tenant_is_not_visible()
     #     active_count = tenant.get_count_of_tenants()
     #     log.info("Click on add tenant button")
     #     tenant.click_new_tenant()
@@ -117,10 +117,12 @@ class TestTenantManagement(Base):
     #     log.info("Click on the close tool tip")
     #     toast_msg = tooltip.get_tooltip_msg()
     #     assert "Success" in toast_msg
+    #     log.info("Click on close tooltip")
     #     tooltip.click_close_tooltip()
     #     log.info("Click on Continue using Cyware Orchestrate button")
     #     tenant.click_continue_using_co_btn()
-    #     tenant.visibility_of_first_active_tenant()
+    #     log.info("Wait until created tenant is visible")
+    #     tenant.visibility_of_created_Tenant()
     #     assert tenant.get_count_of_tenants() == active_count + 1
     #
     # @pytest.mark.regression
@@ -133,9 +135,11 @@ class TestTenantManagement(Base):
     #     """
     #     tenant = TenantManagement(self.driver)
     #     log = self.getlogger()
-    #     tenant.visibility_of_first_active_tenant()
     #     log.info("Search Functionality of Tenant")
     #     tenant.search_input_string(tenant_name)
     #     tenant.click_enter_for_search()
+    #     log.info("Wait until create tenant is visible")
+    #     tenant.visibility_of_created_Tenant()
+    #     log.info("Get the tenant name")
     #     search_result = tenant.get_name_first_tenant()
     #     assert tenant_name == search_result

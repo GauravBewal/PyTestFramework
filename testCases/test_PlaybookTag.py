@@ -65,8 +65,6 @@ class TestPlaybookTags(Base):
         tooltip = Tooltip(self.driver)
         action = Action(self.driver)
         tag = PlaybookTags(self.driver)
-        log.info("Check visibility of first playbooktag")
-        tag.visibility_of_first_playbook_tag()
         log.info("Reading the count of total playbookTags before creating a new playbookTag")
         before_playbookTag_creation_count = tag.get_playbookTag_count()
         log.info("Click on to create new PlaybookTag")
@@ -80,10 +78,10 @@ class TestPlaybookTags(Base):
         log.info("Click on Save PlaybookTag button")
         tag.save_playbookTag()
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Check visibility of first playbooktag")
-        tag.visibility_of_first_playbook_tag()
+        assert tag.visibility_of_created_playbook_tag() is True
         log.info("Reading count of total labels after creating a new playbookTag")
         after_playbookTag_creation_count = tag.get_playbookTag_count()
         log.info("Validating total count of PlaybookTag before and after creation of new label, also checking the "
@@ -104,6 +102,7 @@ class TestPlaybookTags(Base):
         tag.click_on_searchbar()
         tag.put_string_in_searchbar(playbook_tag_text)
         tag.click_enter()
+        assert tag.visibility_of_created_playbook_tag() is True
         tag_name = tag.get_playbooktag_name()
         assert tag_name == playbook_tag_text
 
@@ -120,7 +119,6 @@ class TestPlaybookTags(Base):
         tooltip = Tooltip(self.driver)
         tag = PlaybookTags(self.driver)
         action = Action(self.driver)
-        tag.visibility_of_first_playbook_tag()
         log.info("Updating the PlaybookTag")
         tag.click_playbooktag()
         log.info("Clicking on Editing Button in Slider")
@@ -135,14 +133,13 @@ class TestPlaybookTags(Base):
         log.info("Click on Save/update PlaybookTag button")
         tag.save_playbookTag()
         tooltip_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in tooltip_msg
+        assert 'Success' == tooltip_msg
         tooltip.click_close_tooltip()
         tag.click_clear_search_btn()
         tag.put_string_in_searchbar(updated_playbooktag_title)
         tag.click_enter()
-        visibility = tag.visibility_of_first_playbook_tag()
-        tag_name = tag.get_playbooktag_name()
-        assert visibility is True and tag_name == updated_playbooktag_title
+        assert tag.visibility_of_created_playbook_tag() is True \
+               and updated_playbooktag_title == tag.get_playbooktag_name()
         tag.click_clear_search_btn()
         tag.click_enter()
 
@@ -156,6 +153,7 @@ class TestPlaybookTags(Base):
         """
         log = self.getlogger()
         tag = PlaybookTags(self.driver)
+        assert tag.visibility_of_created_playbook_tag() is True
         log.info("Checking The sort based on Tag Name")
         log.info("Verify the Ascending Order of the Tag Name")
         assert tag.get_first_tagname() < tag.get_second_playbookTag()
@@ -175,7 +173,7 @@ class TestPlaybookTags(Base):
         filterandsort.mouse_hover_on_sort()
         log.info("Changing sort to the Created")
         filterandsort.click_on_created()
-        tag.visibility_of_first_playbook_tag()
+        assert tag.visibility_of_created_playbook_tag() is True
         log.info("Changing sort to Descending Order")
         filterandsort.changing_sort_to_descending_order()
         assert filterandsort.get_name_sorted_filter() == "Created"
@@ -268,7 +266,7 @@ class TestPlaybookTags(Base):
         log.info("Navigate to the Manage Playbook Module")
         nav.navigate_manage_playbook()
         log.info("Visibility of first playbook")
-        playbook.visibility_of_first_my_playbook()
+        playbook.Pass_even_first_custom_playbook_is_not_visible()
         log.info("Click on create a New Playbook Button")
         playbook.click_on_create_playbook_btn()
         log.info("Click on the Overview Button")
@@ -314,7 +312,7 @@ class TestPlaybookTags(Base):
         log.info("Confirm the deletion of the Playbook Tag")
         tag.click_confirm_delete()
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("click on close tool tip")
         tooltip.click_close_tooltip()
 

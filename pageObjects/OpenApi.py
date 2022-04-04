@@ -201,7 +201,7 @@ class OpenApi(Action):
 
     first_active_openapi = "(//span[text()='Active' and @class='status__text'])[1]"
 
-    def visibility_of_first_active_openapi(self):
+    def Pass_even_first_active_openapi_is_not_visible(self):
         """
             Visibility of first Active Open API
             :return:
@@ -210,7 +210,7 @@ class OpenApi(Action):
 
     first_inactive_openapi = "(//span[text()='Inactive' and @class='status__text'])[1]"
 
-    def visibility_of_first_inactive_openapi(self):
+    def Pass_even_first_inactive_openapi_is_not_visible(self):
         """
             Visibility of first InActive Open API
             :return:

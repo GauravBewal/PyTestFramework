@@ -78,6 +78,7 @@ class TestTriggerEvents(Base):
         creation_msg = tooltip.get_tooltip_msg()
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
+        assert trigger_events.visibility_of_first_trigger_event() is True
         events_count_after_creation = trigger_events.get_events_count()
         assert creation_msg == 'Success' and active_count + 1 == events_count_after_creation
 
@@ -94,6 +95,9 @@ class TestTriggerEvents(Base):
         trigger_events.put_string_to_search(event_name)
         log.info("Click on ENTER")
         trigger_events.click_enter_for_search()
+        log.info("Wait until first trigger event is visible")
+        assert trigger_events.visibility_of_first_trigger_event() is True
+        log.info("Read the first trigger name")
         read_top_search_result = trigger_events.get_first_event_name()
         trigger_events.clear_search()
         log.info("Validating search results")

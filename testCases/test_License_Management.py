@@ -155,5 +155,5 @@ class TestLicenseManagement(Base):
         log = self.getlogger()
         license = LicenseManagement(self.driver)
         log.info("Visiblity of Sync Now Button")
-        Sync_Now_btn = license.visiblity_of_Sync_Now_btn()
-        assert Sync_Now_btn is True
+        visibility = license.visiblity_of_Sync_Now_btn()
+        assert visibility is True
