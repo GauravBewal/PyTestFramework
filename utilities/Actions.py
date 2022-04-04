@@ -34,7 +34,7 @@ class Action(Base):
         try:
             element = self.Webdriver_Wait_until_element_clickable(by, locator)
             self.driver.execute_script("arguments[0].click();", element)
-        except (StaleElementReferenceException, ElementClickInterceptedException) as e:
+        except (StaleElementReferenceException, TimeoutException, ElementClickInterceptedException) as e:
             if count < 4:
                 count += 1
                 self.javascript_click(by, locator)
@@ -118,14 +118,13 @@ class Action(Base):
         count = element.text.split(' ')[2]
         return int(count)
 
-    def check_file_downloaded_and_get_file_name(self, file_name, file_type):
+    def check_file_downloaded_and_get_file_directory_path(self, file_name, file_type):
         time.sleep(10)
         files_list = glob.glob('**/*' + file_name + '*.' + file_type + '', recursive=True)
-        downloaded_file_name = str(files_list[0])
-        return downloaded_file_name
+        return str(files_list[0])
 
-    def get_file_downloaded_path(self, file_name):
-        return os.path.abspath(file_name)
+    def get_file_downloaded_path(self, app_dir_path):
+        return os.path.abspath(app_dir_path)
 
     def delete_downloaded_file(self, downloaded_app_path):
         if os.path.isfile(downloaded_app_path):
@@ -183,6 +182,12 @@ class Action(Base):
         except TimeoutException:
             raise TimeoutException("Element not visible with locator" + locator)
 
+    def Webdriver_Wait_until_invisibility_of_element(self, by, locator):
+        try:
+            return WebDriverWait(self.driver, timeout=30).until(EC.invisibility_of_element_located((by, locator)))
+        except (TimeoutException, StaleElementReferenceException) as e:
+            raise e
+
     def page_refresh(self):
         self.driver.get(self.driver.current_url)
 
@@ -196,8 +201,9 @@ class Action(Base):
     def check_visibility_of_element(self, by, locator):
         try:
             ele = self.Webdriver_Wait_until_element_visible(by, locator)
-            if ele.is_displayed():
-                return True
+            return ele.is_displayed()
+        except StaleElementReferenceException:
+            self.check_visibility_of_element(by, locator)
         except (NoSuchElementException, TimeoutException):
             return False
 
@@ -216,14 +222,11 @@ class Action(Base):
         global count
         try:
             ele = self.Webdriver_Wait_until_element_visible(by, locator)
-            if ele.is_displayed():
-                return ele.text
-        except (StaleElementReferenceException, ElementClickInterceptedException, TimeoutException) as e:
-            if count < 4:
-                count += 1
-                self.get_text(by, locator)
-            else:
-                raise e
+            return ele.text
+        except StaleElementReferenceException:
+            self.get_text(by, locator)
+        except (ElementClickInterceptedException, TimeoutException) as e:
+            raise e
 
 
     def WaitUntil_textToBePresentInElementLocated(self, by, locator, value):
@@ -258,8 +261,8 @@ class Action(Base):
     def convert_string_to_lower(self, string):
         return string.lower()
 
-    def get_random_digit(self):
-        res = ''.join(random.choices(string.digits, k=4))
+    def get_random_digit(self, no_of_digits):
+        res = ''.join(random.choices(string.digits, k=no_of_digits))
         return res
 
     def accept_alert(self):

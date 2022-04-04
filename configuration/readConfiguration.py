@@ -8,7 +8,6 @@ ini_file = os.path.join(Current_folder, 'config.ini')
 
 config.read(ini_file)
 
-
 class ReadConfig:
 
     @staticmethod

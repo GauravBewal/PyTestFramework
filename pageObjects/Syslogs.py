@@ -1,8 +1,6 @@
 import time
-
 from selenium.webdriver.common.by import By
 
-from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 
 
@@ -98,18 +96,18 @@ class Syslogs(Action):
         """
         return Action.get_count_from_string(self, By.XPATH, Syslogs.title_count)
 
-    first_active_syslog = "(//span[text()='Active' and @class='status__text'])[1]"
+    first_active_syslog = "(//span[text()='Active' and @class='status__text']//ancestor::td/parent::tr)[1]"
 
-    def visibility_of_first_active_syslog(self):
+    def Pass_even_first_active_syslog_is_not_visible(self):
         """
             Visibility of first active syslog
             :return:
         """
         return Action.Pass_even_element_not_visible(self, By.XPATH, Syslogs.first_active_syslog)
 
-    first_inactive_syslog = "(//span[text()='Inactive' and @class='status__text'])[1]"
+    first_inactive_syslog = "(//span[text()='Inactive' and @class='status__text']//ancestor::td/parent::tr)[1]"
 
-    def visibility_of_first_inactive_syslog(self):
+    def Pass_even_first_inactive_syslog_is_not_visible(self):
         """
             Visibility of first inactive syslog
             :return:
@@ -148,7 +146,7 @@ class Syslogs(Action):
             Generate port number
             :return:
         """
-        port_number = int(Action.get_random_digit(self))
+        port_number = int(Action.get_random_digit(self, 4))
         return str(port_number + 1024)
 
     list_source_event_apps = "//span[contains(@class,'cyicon-chevron-down')]"
@@ -205,7 +203,7 @@ class Syslogs(Action):
         """
         return Action.wait_and_click(self, By.XPATH, Syslogs.save_btn)
 
-    three_dot = "(//i[contains(@class,'icon-more-vertical ')]/parent::span)[1]"
+    three_dot = "(//i[contains(@class,'icon-more-vertical ')]/ancestor::div[@class='el-dropdown'])[1]"
 
     def check_drop_down(self):
         """
@@ -214,74 +212,87 @@ class Syslogs(Action):
         """
         return Action.mouse_hover_on_element(self, By.XPATH, Syslogs.three_dot)
 
-    edit_button = "(//body/ul[1]/li[text()='Edit'])[1]"
+    edit_button = "//body/ul[@x-placement='bottom-end']/li[1]"
 
     def click_edit_button(self):
         """
             Click on edit button
             :return:
         """
-        return Action.wait_and_click(self, By.XPATH, Syslogs.edit_button)
+        return Action.javascript_click(self, By.XPATH, Syslogs.edit_button)
 
-    delete_button = "(//body/ul[1]/li[text()='Delete'])[1]"
+    def visibility_of_edit_button(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Syslogs.edit_button)
+
+    delete_button = "//body/ul[@x-placement='bottom-end']/li[2]"
 
     def click_delete_button(self):
         """
             Click on delete button
             :return:
         """
-        return Action.wait_and_click(self, By.XPATH, Syslogs.delete_button)
+        return Action.javascript_click(self, By.XPATH, Syslogs.delete_button)
 
-    deactivate_button = "(//body/ul[1]/li[text()='Deactivate'])[1]"
+    def visibility_of_delete_button(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Syslogs.delete_button)
+
+    deactivate_button = "//body/ul[@x-placement='bottom-end']/li[3]"
 
     def click_deactivate_button(self):
         """
             Click on deactivate button
             :return:
         """
-        return Action.wait_and_click(self, By.XPATH, Syslogs.deactivate_button)
+        return Action.javascript_click(self, By.XPATH, Syslogs.deactivate_button)
 
-    active_button = "(//body/ul[1]/li[text()='Activate'])[1]"
+    def visibility_of_deactivate_button(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Syslogs.deactivate_button)
+
+    activate_button = "//body/ul[@x-placement='bottom-end']/li[3]"
 
     def click_activate_button(self):
         """
             Click on activate button
             :return:
         """
-        return Action.wait_and_click(self, By.XPATH, Syslogs.active_button)
+        return Action.javascript_click(self, By.XPATH, Syslogs.activate_button)
 
-    main_input = "//input[@id='main-input']"
+    def visibility_of_active_button(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Syslogs.activate_button)
 
-    def search_input_string(self, value):
+    Search_bar_input_field = "//input[@id='main-input']"
+
+    def Put_string_to_search(self, value):
         """
             Search input string
             :param value:
             :return:
         """
-        return Action.send_keys(self, By.XPATH, Syslogs.main_input, value)
+        return Action.send_keys(self, By.XPATH, Syslogs.Search_bar_input_field, value)
 
     def click_enter_for_search(self):
         """
             Click enter for search
             :return:
         """
+        time.sleep(3)
         return Action.click_enter(self)
 
     first_syslog_name = "//tr[1]//div//span//a[1]"
 
-    def get_name_first_syslog(self):
+    def get_first_syslog_name(self):
         """
             Get name of first syslog
             :return:
         """
         return Action.get_text(self, By.XPATH, Syslogs.first_syslog_name)
 
-    def visibility_of_first_syslog(self):
+    def visibility_of_created_syslog(self):
         """
-            Visibility of first syslog
+            Visibility of created syslog
             :return:
         """
-        return Action.Pass_even_element_not_visible(self, By.XPATH, Syslogs.first_syslog_name)
+        return Action.check_visibility_of_element(self, By.XPATH, Syslogs.first_syslog_name)
 
     def click_first_syslog(self):
         """
@@ -290,14 +301,14 @@ class Syslogs(Action):
         """
         return Action.wait_and_click(self, By.XPATH, Syslogs.first_syslog_name)
 
-    click_clear_search = "//div[contains(@class,'clear-button')]"
+    clear_search = "//div[contains(@class,'clear-button')]"
 
-    def clear_search(self):
+    def click_clear_search_btn(self):
         """
             Clear on search button
             :return:
         """
-        return Action.javascript_click(self, By.XPATH, Syslogs.click_clear_search)
+        return Action.javascript_click(self, By.XPATH, Syslogs.clear_search)
 
     syslog_status = "(//tr[@class='el-table__row']//td[7]//span[2])[1]"
 

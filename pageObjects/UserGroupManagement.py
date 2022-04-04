@@ -1,7 +1,7 @@
 import time
 
 from selenium.webdriver.common.by import By
-
+from utilities.Base import Base
 from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 
@@ -31,6 +31,7 @@ class UserGroupManagement(Action):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_active)
 
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
+
 
     def click_inactive_tab(self):
         """
@@ -114,13 +115,6 @@ class UserGroupManagement(Action):
 
     usergroup_title = "(//div[@class='user-group__list']//div[contains(@class,'app-card-body')])[1]//h3"
 
-    def click_on_header(self):
-        """
-            Click on header
-            :return:
-        """
-        return Action.wait_and_click(self, By.XPATH, UserGroupManagement.usergroup_title)
-
     def get_User_Group_Name(self):
         """
             Get user group name
@@ -128,9 +122,12 @@ class UserGroupManagement(Action):
         """
         return Action.get_text(self, By.XPATH, UserGroupManagement.usergroup_title)
 
+    def visibility_of_created_usergroup(self):
+        return Action.check_visibility_of_element(self, By.XPATH, UserGroupManagement.usergroup_title)
+
     first_active_usergroup = "(//div[contains(@class,'app-card')]//span[text()='ACTIVE'])[1]"
 
-    def visibility_of_first_active_usergroup(self):
+    def Pass_even_first_Active_usergroup_is_not_visible(self):
         """
             Visibility of first active usergroup
             :return:
@@ -139,7 +136,7 @@ class UserGroupManagement(Action):
 
     first_inactive_usergroup = "(//div[contains(@class,'app-card')]//span[text()='INACTIVE'])[1]"
 
-    def visibility_of_first_inactive_usergroup(self):
+    def Pass_even_first_inactive_usergroup_is_not_visible(self):
         """
             Visibility of first inactive usergroup
             :return:
@@ -174,9 +171,9 @@ class UserGroupManagement(Action):
 
     main_searchbar = "//input[@id='main-input']"
 
-    def search_button(self, value):
+    def Put_String_to_Search(self, value):
         """
-            Search button
+            Enter string to search
             :param value:
             :return:
         """

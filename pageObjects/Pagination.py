@@ -9,6 +9,7 @@ class Pagination(Action):
         super().__init__(driver)
         self.driver = driver
 
+
     increment_pagination_btn = "//div[contains(@class,'footer-box')]//button[@class='btn-next']"
 
     def click_on_increment_pagination_btn(self):

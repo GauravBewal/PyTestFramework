@@ -108,6 +108,7 @@ class TestAdminPanel(Base):
         page_heading = console.get_server_page_heading()
         assert console.get_server_status() == 'Active' and page_heading == 'Gunicorn'
 
+
     @pytest.mark.regression
     @pytest.mark.readOnly
     @pytest.mark.consolestatus

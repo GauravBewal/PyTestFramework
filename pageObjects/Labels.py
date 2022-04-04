@@ -136,20 +136,29 @@ class Labels(Action):
         """
         return Action.javascript_click(self, By.XPATH, Labels.top_label_in_listing)
 
+    first_label_row = "(//tbody/tr)[1]"
+
+    def visibility_of_created_label(self):
+        """
+        Wait visibility of first label
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, Labels.first_label_row)
+
     first_active_label = "(//span[text()='Active' and @class='status__text'])[1]"
 
-    def visibility_of_first_active_label(self):
+    def Pass_even_active_label_is_not_visible(self):
         """
-            Visibility of first active label
+            Pass even the active label is not visible helpful incase of fresh instance
             :return:
         """
         return Action.Pass_even_element_not_visible(self, By.XPATH, Labels.first_active_label)
 
     first_inactive_label = "(//span[text()='Inactive' and @class='status__text'])[1]"
 
-    def visibility_of_first_inactive_label(self):
+    def Pass_even_inactive_label_is_not_visible(self):
         """
-            Visibility of first in-active label
+            Pass even the inactive label is not visible helpful incase of fresh instance
             :return:
         """
         return Action.Pass_even_element_not_visible(self, By.XPATH, Labels.first_inactive_label)

@@ -63,7 +63,7 @@ class TestOpenApi(Base):
         openapi.click_inactive_tab()
         log.info("Read the tab color after switching")
         tab_color = openapi.get_inactive_tab_color()
-        openapi.visibility_of_first_inactive_openapi()
+        openapi.Pass_even_first_inactive_openapi_is_not_visible()
         global inactive_count
         inactive_count = openapi.get_openapi_count()
         assert tab_color == '#1a3ee8'
@@ -82,7 +82,7 @@ class TestOpenApi(Base):
         openapi.click_all_tab()
         log.info("Read the tab color after switching")
         tab_color = openapi.get_all_tab_color()
-        openapi.visibility_of_first_active_openapi()
+        openapi.Pass_even_first_active_openapi_is_not_visible()
         all_tab_count = openapi.get_openapi_count()
         assert tab_color == '#1a3ee8' and all_tab_count == inactive_count+active_count
 
@@ -100,7 +100,8 @@ class TestOpenApi(Base):
         tooltip = Tooltip(self.driver)
         log.info("Switch to active tab")
         openapi.click_active_tab()
-        openapi.visibility_of_first_active_openapi()
+        log.info("Wait till visibility of active openapi")
+        openapi.Pass_even_first_active_openapi_is_not_visible()
         log.info("Click on the open api button")
         openapi.click_new_open_api_btn()
         log.info("Enter the openapi name")
@@ -119,8 +120,9 @@ class TestOpenApi(Base):
         openapi.click_on_create_btn()
         log.info("Read the successful message")
         successful_msg = tooltip.get_tooltip_msg()
+        log.info("Close tooltip")
         tooltip.click_close_tooltip()
-        assert 'Success' in successful_msg
+        assert 'Success' == successful_msg
 
     @pytest.mark.regression
     @pytest.mark.openapi
@@ -211,7 +213,7 @@ class TestOpenApi(Base):
         openapi.put_string_in_search_bar(openapi_name)
         log.info("Click Enter")
         openapi.click_enter_for_search()
-        openapi.visibility_of_first_active_openapi()
+        openapi.Pass_even_first_active_openapi_is_not_visible()
         read_top_search_result = openapi.get_top_1_openapi()
         openapi.clear_search()
         log.info("Validating search results")
@@ -240,11 +242,11 @@ class TestOpenApi(Base):
         openapi.click_on_update_btn()
         log.info("Read tool tip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tooltip")
         tooltip.click_close_tooltip()
         log.info("check visibility of first openapi")
-        openapi.visibility_of_first_active_openapi()
+        openapi.Pass_even_first_active_openapi_is_not_visible()
         top_openapi_name = openapi.get_top_1_openapi()
         log.info("Validating the new label name is updated or not ")
         assert top_openapi_name == updated_openapi_name
@@ -267,12 +269,12 @@ class TestOpenApi(Base):
         openapi.click_on_update_btn()
         log.info("Read tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Click on close tooltip")
         tooltip.click_close_tooltip()
         log.info("Click on inactive tab")
         openapi.click_inactive_tab()
-        openapi.visibility_of_first_inactive_openapi()
+        openapi.Pass_even_first_inactive_openapi_is_not_visible()
         top_openapi_name = openapi.get_top_1_openapi()
         log.info("Validating the new label name is updated or not ")
-        assert top_openapi_name in updated_openapi_name
+        assert top_openapi_name == updated_openapi_name

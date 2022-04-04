@@ -172,40 +172,22 @@ class Webhooks(Action):
 
     first_active_webhook = "(//span[text()='Active' and @class='status__text'])[1]"
 
-    def visibility_of_first_active_webhook(self):
+    def Pass_even_first_Active_Webhook_is_not_visible(self):
         """
-            Visibility of first active webhook
+            Wait until visibility of first active webhook. It will pass even the element is not visible
             :return:
         """
         return Action.Pass_even_element_not_visible(self, By.XPATH, Webhooks.first_active_webhook)
 
-    first_inactive_webhook = "(//span[text()='Inactive' and @class='status__text'])[1]"
+    first_webhook = "(//tr//td//a)[1]"
 
-    def visibility_of_first_inactive_webhook(self):
+    def visibility_of_created_webhook(self):
         """
-            Visibility of first inactive webhook
-            :return:
+        Visibility of created webhook
+        :return:
         """
-        return Action.Pass_even_element_not_visible(self, By.XPATH, Webhooks.first_inactive_webhook)
+        return Action.check_visibility_of_element(self, By.XPATH, Webhooks.first_webhook)
 
-    def click_enter_using_keyboard(self):
-        """
-            Click enter using Keyboard
-            :return:
-        """
-        time.sleep(3)
-        return Action.click_enter(self)
-
-    get_token = "//div[@id='token__data-new']"
-
-    def get_generated_token(self):
-        """
-            Get generated token
-            :return:
-        """
-        return Action.get_text(self, By.XPATH, Webhooks.get_token)
-
-    first_webhook = "//tr[1]//a"
 
     def click_on_first_webhook(self):
         """
@@ -220,6 +202,32 @@ class Webhooks(Action):
             :return:
         """
         return Action.get_text(self, By.XPATH, Webhooks.first_webhook)
+
+    first_inactive_webhook = "(//span[text()='Inactive' and @class='status__text'])[1]"
+
+    def Pass_even_first_inactive_Webhook_is_not_visible(self):
+        """
+            Wait until visibility of first inactive webhook. It will pass even the element is not visible
+            :return:
+        """
+        return Action.Pass_even_element_not_visible(self, By.XPATH, Webhooks.first_inactive_webhook)
+
+    def click_enter_using_keyboard(self):
+        """
+            Click enter using Keyboard
+            :return:
+        """
+        return Action.click_enter(self)
+
+    get_token = "//div[@id='token__data-new']"
+
+    def get_generated_token(self):
+        """
+            Get generated token
+            :return:
+        """
+        return Action.get_text(self, By.XPATH, Webhooks.get_token)
+
 
     token_data = "(//div[@id='token__data'])[1]"
 
@@ -265,30 +273,23 @@ class Webhooks(Action):
         """
         return Action.send_keys(self, By.XPATH, Webhooks.main_input, value)
 
-    def clear_input_field(self):
+    def Clear_Search_field(self):
         """
             Clear input field
             :return:
         """
         return Action.clear_field(self, By.XPATH, Webhooks.main_input)
 
-    search_bar_clear_btn = "//div[contains(@class,'clear-button')]"
 
-    def click_on_search_clear_btn(self):
-        """
-            Click on search clear button
-            :return:
-        """
-        return Action.wait_and_click(self, By.XPATH, Webhooks.search_bar_clear_btn)
 
-    three_dot = "(//i[contains(@class,'icon-more-vertical')]/parent::span)[1]"
+    dd_more_options = "(//span[@role='button']/parent::div[@class='el-dropdown'])[1]"
 
-    def check_drop_down(self):
+    def mouser_hover_on_more_options(self):
         """
             Check dropdown
             :return:
         """
-        return Action.mouse_hover_on_element(self, By.XPATH, Webhooks.three_dot)
+        return Action.mouse_hover_on_element(self, By.XPATH, Webhooks.dd_more_options)
 
     edit_button = "//body/ul[1]/li[1]"
 
@@ -297,7 +298,14 @@ class Webhooks(Action):
             Click edit button
             :return:
         """
-        return Action.wait_and_click(self, By.XPATH, Webhooks.edit_button)
+        return Action.javascript_click(self, By.XPATH, Webhooks.edit_button)
+
+    def visibility_of_edit_btn(self):
+        """
+        Wait visibility of edit button
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, Webhooks.edit_button)
 
     copy_token = "//body/ul[1]/li[2]"
 
@@ -306,16 +314,30 @@ class Webhooks(Action):
             Click on copy token button
             :return:
         """
-        return Action.wait_and_click(self, By.XPATH, Webhooks.copy_token)
+        return Action.javascript_click(self, By.XPATH, Webhooks.copy_token)
 
-    deactivate = "//body/ul[1]/li[3]"
+    def visibility_of_copy_token_btn(self):
+        """
+        Visibility of copy token btn
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, Webhooks.copy_token)
 
-    def click_deactivate_webhook(self):
+    deactivate_btn = "//body/ul[1]/li[3]"
+
+    def click_deactivate_btn(self):
         """
             Click on deactivate webhook
             :return:
         """
-        return Action.wait_and_click(self, By.XPATH, Webhooks.deactivate)
+        return Action.javascript_click(self, By.XPATH, Webhooks.deactivate_btn)
+
+    def visibility_of_deactivate_btn(self):
+        """
+        Visibility of deactivate button
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, Webhooks.deactivate_btn)
 
     select_time = "//input[contains(@placeholder,'Select time')]"
 

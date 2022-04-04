@@ -208,3 +208,8 @@ class Dashboard(Action):
             :return:
         """
         return Action.javascript_click(self, By.XPATH, Dashboard.btn_back)
+
+    first_bar_chart_group = "(//*[@class='highcharts-series-group'])[1]"
+
+    def visibility_of_first_chart(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Dashboard.first_bar_chart_group)

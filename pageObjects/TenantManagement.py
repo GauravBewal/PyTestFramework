@@ -70,7 +70,7 @@ class TenantManagement(Action):
 
     first_active_tenant = "(//span[text()='Active' and @class='status__text'])[1]"
 
-    def visibility_of_first_active_tenant(self):
+    def Pass_even_first_active_Tenant_is_not_visible(self):
         """
             Visibility of first active tenant
             :return:
@@ -79,7 +79,7 @@ class TenantManagement(Action):
 
     first_inactive_tenant = "(//span[text()='Inactive' and @class='status__text'])[1]"
 
-    def visibility_of_first_inactive_tenant(self):
+    def Pass_even_first_inactive_Tenant_is_not_visible(self):
         """
             Visibility of first inactive tenant
             :return:
@@ -185,4 +185,7 @@ class TenantManagement(Action):
             :return:
         """
         return Action.get_text(self, By.XPATH, TenantManagement.first_tenant_name)
+
+    def visibility_of_created_Tenant(self):
+        return Action.check_visibility_of_element(self, By.XPATH, TenantManagement.first_tenant_name)
 

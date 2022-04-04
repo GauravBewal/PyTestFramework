@@ -28,6 +28,11 @@ class MyApps(Action):
         """
         return Action.get_text(self, By.XPATH, MyApps.text_page_heading)
 
+    edit_app_page_heading = "//span[contains(@class,'app-edit__view--title')]"
+
+    def get_edit_app_heading(self):
+        return Action.get_text(self, By.XPATH, MyApps.edit_app_page_heading)
+
     total_app_count = "//a[@href='/soar/app/list/my-apps']/span"
 
     def get_app_count(self):

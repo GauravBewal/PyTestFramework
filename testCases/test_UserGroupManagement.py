@@ -27,7 +27,6 @@ class TestUserGroupManagement(Base):
         nav.click_admin_menu()
         log.info("Click on User group Management tab from Admin Page")
         usergroup.click_user_group_management()
-        log.info("Read the page heading")
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         global active_count
         log.info("Get the active Usergroup Count")
@@ -50,7 +49,7 @@ class TestUserGroupManagement(Base):
         log.info("Read the tab color after switching")
         tab_color = usergroup.get_inactive_tab_color()
         log.info("Check visibility of first inative usergroup")
-        usergroup.visibility_of_first_inactive_usergroup()
+        usergroup.Pass_even_first_inactive_usergroup_is_not_visible()
         global inactive_count
         inactive_count = usergroup.get_usergroup_count()
         assert tab_color == '#1a3ee8'
@@ -71,7 +70,7 @@ class TestUserGroupManagement(Base):
         log.info("Read the tab color after switching")
         tab_color = usergroup.get_all_tab_color()
         log.info("Check visibility of first active usergroup")
-        usergroup.visibility_of_first_active_usergroup()
+        usergroup.Pass_even_first_Active_usergroup_is_not_visible()
         global all_tab_count
         all_tab_count = usergroup.get_usergroup_count()
         assert tab_color == '#1a3ee8' and all_tab_count == inactive_count + active_count
@@ -90,7 +89,7 @@ class TestUserGroupManagement(Base):
         log.info("Switch to active tab")
         usergroup.click_on_active_tab()
         log.info("Check visibility of first active usergroup")
-        usergroup.visibility_of_first_active_usergroup()
+        usergroup.Pass_even_first_Active_usergroup_is_not_visible()
         log.info("Click on add new user button")
         usergroup.click_add_user_group()
         log.info("Read the slider title")
@@ -127,12 +126,12 @@ class TestUserGroupManagement(Base):
         usergroup.click_create_button()
         log.info("Get the toast message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
-        usergroup.visibility_of_first_active_usergroup()
         log.info("Validate the creation based on the Count and toast message")
-        assert active_count + 1 == usergroup.get_usergroup_count()
+        assert usergroup.visibility_of_created_usergroup() is True \
+               and active_count + 1 == usergroup.get_usergroup_count()
 
     @pytest.mark.regression
     @pytest.mark.usergroupmanagement
@@ -146,9 +145,11 @@ class TestUserGroupManagement(Base):
         usergroup = UserGroupManagement(self.driver)
         action = Action(self.driver)
         log.info("Input the searching string/ Name of the User Group")
-        usergroup.search_button(usergroupname)
+        usergroup.Put_String_to_Search(usergroupname)
         log.info("To get the results click Enter")
         action.click_enter()
+        log.info("Wait until visibility of first user group")
+        assert usergroup.visibility_of_created_usergroup() is True
         log.info("Validating based on the showed name")
         assert usergroupname == usergroup.get_User_Group_Name()
 
@@ -185,21 +186,22 @@ class TestUserGroupManagement(Base):
         usergroup.click_update_button()
         log.info("Get the toast message")
         toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' == toast_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
         log.info("Click on search button")
         usergroup.click_on_search_clear_btn()
-        usergroup.page_refresh()
         log.info("Check for visibility of first active usergroup")
-        usergroup.visibility_of_first_active_usergroup()
+        usergroup.Pass_even_first_Active_usergroup_is_not_visible()
         log.info("Switch to inactive tab")
         usergroup.click_inactive_tab()
         log.info("Entering the New updated User Group Name for searching ")
-        usergroup.search_button(updated_user_group)
+        usergroup.Put_String_to_Search(updated_user_group)
+        log.info("Press Enter")
         action.click_enter()
         log.info("Check visibility of first inactive group")
-        usergroup.visibility_of_first_inactive_usergroup()
-        assert updated_user_group == usergroup.get_User_Group_Name() and 'Success' in toast_msg
+        usergroup.visibility_of_created_usergroup()
+        assert updated_user_group == usergroup.get_User_Group_Name()
 
     @pytest.mark.regression
     @pytest.mark.usergroupmanagement
@@ -230,13 +232,13 @@ class TestUserGroupManagement(Base):
         usergroup.click_create_button()
         log.info("Get the toast message")
         toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' == toast_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
         log.info("Click on search button")
         usergroup.click_on_search_clear_btn()
         log.info("Searching based on changed name")
-        usergroup.search_button(cloned_usergroup)
+        usergroup.Put_String_to_Search(cloned_usergroup)
         action.click_enter()
-        usergroup.visibility_of_first_inactive_usergroup()
-        assert cloned_usergroup == usergroup.get_User_Group_Name() \
-               and 'Success' in toast_msg
+        usergroup.visibility_of_created_usergroup()
+        assert cloned_usergroup == usergroup.get_User_Group_Name()

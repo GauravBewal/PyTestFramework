@@ -9,6 +9,7 @@ class DataSync(Action):
         super().__init__(driver)
         self.driver = driver
 
+
     tab_run_history = "//span[@class='tab__count']/parent::a[@href='/soar/data-sync/list/logs']"
 
     def click_run_history(self):

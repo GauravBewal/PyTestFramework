@@ -33,6 +33,7 @@ class TestPlaybook(Base):
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         log.info("Check if walk through is initiated")
         playbooks.click_on_close_walkthrough()
+        log.info("Read page heading")
         read_page_heading = playbooks.get_manage_playbook_heading()
         assert read_page_heading == 'Manage Playbooks' and error_msg_visibility is False
 
@@ -428,7 +429,7 @@ class TestPlaybook(Base):
         assert tooltip_msg == 'Success'
         tooltip.click_close_tooltip()
         assert exported_playbook_name in \
-               playbooks.check_file_downloaded_and_get_file_name(exported_playbook_name, 'json')
+               playbooks.check_file_downloaded_and_get_file_directory_path(exported_playbook_name, 'json')
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -649,7 +650,7 @@ class TestPlaybook(Base):
         playbooks = Playbooks(self.driver)
         filterandsort = FilterandSort(self.driver)
         log.info("Get the exact app location")
-        playbook_name = playbooks.check_file_downloaded_and_get_file_name(exported_playbook_name, 'json')
+        playbook_name = playbooks.check_file_downloaded_and_get_file_directory_path(exported_playbook_name, 'json')
         playbook_path = playbooks.get_file_downloaded_path(playbook_name)
         log.info("send app file location to import button")
         playbooks.send_file_path_to_upload_input_field(playbook_path)

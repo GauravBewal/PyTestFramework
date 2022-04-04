@@ -93,7 +93,6 @@ class TestDashBoard(Base):
                 dashboard.click_on_view_all_btn(elements_list[element])
                 visibility = dashboard.visibility_of_legends_btn()
                 dashboard.click_on_back_btn()
-                time.sleep(ReadConfig.Wait_3_Sec())
                 assert visibility is True
         else:
             assert False
