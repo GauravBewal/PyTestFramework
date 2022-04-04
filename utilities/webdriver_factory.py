@@ -58,3 +58,4 @@ class WebDriverFactory:
         # Loading browser with App URL
         driver.get(self.baseUrl)
         return driver
+

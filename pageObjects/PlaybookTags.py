@@ -113,12 +113,15 @@ class PlaybookTags(Action):
         """
         return Action.get_text(self, By.XPATH, PlaybookTags.playbooktag_name)
 
-    def visibility_of_first_playbook_tag(self):
+    def Pass_even_first_tag_is_not_visible(self):
         """
             Visibility of first playbook tag
             :return:
         """
         return Action.Pass_even_element_not_visible(self, By.XPATH, PlaybookTags.playbooktag_name)
+
+    def visibility_of_created_playbook_tag(self):
+        return Action.check_visibility_of_element(self, By.XPATH, PlaybookTags.playbooktag_name)
 
     def get_first_tagname(self):
         """

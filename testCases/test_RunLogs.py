@@ -15,6 +15,7 @@ class TestRunLogs(Base):
     def test_01_Verify_Run_Logs_redirection(self):
         """
             Verify Run Logs redirection from Main Menu
+            Validation-1: Based on the page title
         """
         nav = Navigation(self.driver)
         log = self.getlogger()

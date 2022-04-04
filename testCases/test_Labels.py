@@ -54,7 +54,7 @@ class TestLabels(Base):
         log.info("Read the tab color")
         tab_color = label.get_inactive_tab_color()
         log.info("Check visibility of first inactive label")
-        label.visibility_of_first_inactive_label()
+        label.Pass_even_inactive_label_is_not_visible()
         log.info("Read the no of inactive labels available")
         global inactive_labels
         inactive_labels = label.get_label_count()
@@ -75,7 +75,7 @@ class TestLabels(Base):
         log.info("Read the tab color")
         tab_color = label.get_all_tab_color()
         log.info("Check visibility of first label")
-        label.visibility_of_first_active_label()
+        label.Pass_even_active_label_is_not_visible()
         log.info("Read the no of active labels available")
         all_tab_count = label.get_label_count()
         assert tab_color == '#1a3ee8' and all_tab_count == active_labels + inactive_labels
@@ -93,7 +93,7 @@ class TestLabels(Base):
         log.info("Switch to active tab")
         label.click_active_tab()
         log.info("Check visibility of first label")
-        label.visibility_of_first_active_label()
+        label.Pass_even_active_label_is_not_visible()
         log.info("Click on to New Label Button")
         label.click_new_label()
         slider_title = label.get_label_slider_title()
@@ -124,13 +124,14 @@ class TestLabels(Base):
         label.create_Label()
         log.info("Read the tool tip msg")
         tooltip_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in tooltip_msg
+        assert 'Success' == tooltip_msg
         log.info("Click on to close label creation tooltip ")
         tooltip.click_close_tooltip()
         log.info("Check visibility of first label")
-        label.visibility_of_first_active_label()
+        assert label.visibility_of_created_label() is True
         log.info("Reading count of total labels after creating a new label")
         after_label_creation_count = label.get_label_count()
+        log.info("Read the first label name")
         get_created_label_name = label.get_top_1_label_name()
         log.info("Validating total count of labels before and after creation of new label, also checking the "
                  "newly created label is listing or not")
@@ -149,10 +150,11 @@ class TestLabels(Base):
         label.put_search_string(label_text)
         log.info("Click on ENTER")
         label.click_enter_for_search()
+        log.info("Wait until first label is visible")
+        assert label.visibility_of_created_label() is True
         read_top_search_result = label.get_top_1_label_name()
-        label.clear_search()
         log.info("Validating search results")
-        assert label_text in read_top_search_result
+        assert label_text == read_top_search_result
 
     @pytest.mark.regression
     @pytest.mark.labels
@@ -177,13 +179,21 @@ class TestLabels(Base):
         label.put_description("updated description")
         log.info("Click on update label button")
         label.click_update_label()
-        # log.info("Read tool tip msg")
-        # tooltip_msg = tooltip.get_tooltip_msg()
-        # assert 'Success' in tooltip_msg
+        log.info("Read tool tip msg")
+        tooltip_msg = tooltip.get_tooltip_msg()
+        assert 'Success' == tooltip_msg
         log.info("Click on close tooltip")
         tooltip.click_close_tooltip()
-        label.visibility_of_first_active_label()
+        log.info("Clear search")
+        label.clear_search()
+        log.info("Enter update label name")
+        label.put_search_string(new_label_name)
+        log.info("Click Enter")
+        label.click_enter_for_search()
+        assert label.visibility_of_created_label() is True
         top_label = label.get_top_1_label_name()
+        log.info("Clear search")
+        label.clear_search()
         log.info("Validating the new label name is updated or not ")
         assert new_label_name == top_label
 
@@ -223,7 +233,9 @@ class TestLabels(Base):
         configure_event.click_new_configure_trigger_btn()
         log.info("Click on the label field")
         configure_event.click_on_label_field()
+        log.info("Enter label name")
         configure_event.put_label_name(new_label_name)
+        log.info("Get the first label name")
         top_label = configure_event.get_top_label()
         assert top_label == new_label_name
         configure_event.click_close_slider()
@@ -249,7 +261,7 @@ class TestLabels(Base):
         log.info("Check visibility of walkthrough")
         playbook.click_on_close_walkthrough()
         log.info("Visibility of first playbook")
-        playbook.visibility_of_first_my_playbook()
+        playbook.Pass_even_first_custom_playbook_is_not_visible()
         log.info("Click on create new playbook")
         playbook.click_on_create_playbook_btn()
         log.info("Check if walk through is initiated")
@@ -266,8 +278,7 @@ class TestLabels(Base):
         playbook.click_on_label_field()
         log.info("Enter the label name")
         playbook.put_label_name(new_label_name)
-        visibility = playbook.visibility_of_label(new_label_name)
-        assert visibility is True
+        assert playbook.visibility_of_label(new_label_name) is True
         playbook.click_on_top_searched_label()
         log.info("Click on label field to close")
         playbook.click_on_label_field()
@@ -275,14 +286,16 @@ class TestLabels(Base):
         playbook.mouse_hover_on_save_btn()
         log.info("Click on save and exit button")
         playbook.click_save_and_exit_btn()
-        # log.info("Read the tooltip msg")
-        # tool_msg = tooltip.get_tooltip_msg()
-        # assert 'Success' in tool_msg
-        # log.info("Click on close tooltip")
-        # tooltip.click_close_tooltip()
-        time.sleep(10)
+        log.info("Read the tooltip msg")
+        tool_msg = tooltip.get_tooltip_msg()
+        assert 'Success' == tool_msg
+        log.info("Click on close tooltip")
+        tooltip.click_close_tooltip()
+        log.info("Click on back button")
         playbook.click_on_back_button()
-        playbook.visibility_of_first_my_playbook()
+        log.info("Wait till visibility of first playbook")
+        playbook.Pass_even_first_custom_playbook_is_not_visible()
+        log.info("Click on main menu")
         nav.click_main_menu()
         log.info("Navigate to triggered events module")
         nav.navigate_trigger_event()
@@ -294,26 +307,28 @@ class TestLabels(Base):
         trigger_events.put_event_name(event_name)
         log.info("Click on the labels field")
         trigger_events.click_on_labels_field()
+        log.info("Enter label name to search")
         trigger_events.enter_label_name_to_search(new_label_name)
-        label_visibility = trigger_events.visibility_of_label(new_label_name)
-        assert label_visibility is True
+        log.info("Check visibility of created label")
+        assert trigger_events.visibility_of_label(new_label_name) is True
+        log.info("Click on the first label")
         trigger_events.click_on_top_label()
         log.info("close the label field")
         trigger_events.click_on_labels_field()
         log.info("Click on create button")
         trigger_events.click_on_create_button()
-        # log.info("Read tooltip msg")
-        # toast_msg = tooltip.get_tooltip_msg()
-        # assert 'Success' in toast_msg
-        # tooltip.click_close_tooltip()
+        log.info("Read tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert 'Success' == toast_msg
+        tooltip.click_close_tooltip()
         log.info("Navigate to run logs")
         nav.click_main_menu()
+        log.info("Navigate to run logs")
         nav.navigate_run_logs()
         assert 'Run Logs' in runlogs.get_read_heading()
-        log.info("Refresh the page")
+        log.info("Refresh the page to make sure apis are up to date")
         nav.page_refresh()
-        visibility = runlogs.verify_playbook_visibility_in_runlog(playbook_name)
-        assert visibility is True
+        assert runlogs.verify_playbook_visibility_in_runlog(playbook_name) is True
 
     @pytest.mark.regression
     @pytest.mark.labels
@@ -331,7 +346,7 @@ class TestLabels(Base):
         log.info("Navigate to playbook module")
         nav.navigate_labels()
         log.info("Check for visibility of first label")
-        label.visibility_of_first_active_label()
+        assert label.visibility_of_created_label() is True
         label_name_before_deactivating = label.get_top_1_label_name()
         log.info("Click on label present at top in listing")
         label.click_top_first_label()
@@ -341,14 +356,14 @@ class TestLabels(Base):
         label.click_update_label()
         log.info("Read tool tip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
-        label.page_refresh()
-        label.visibility_of_first_active_label()
+        log.info("Wait till visibility of active label")
+        label.Pass_even_active_label_is_not_visible()
         log.info("Click on inactive button")
         # navigating inactive tab to check whether the label is de-activated or not
         label.click_inactive_tab()
-        label.visibility_of_first_inactive_label()
+        label.Pass_even_inactive_label_is_not_visible()
         log.info("Validating label name before and after deactivating")
         # checking whether same label is visible in inactive tab listing after deactivating it
         assert label_name_before_deactivating == label.get_top_1_label_name()

@@ -56,7 +56,6 @@ def wait_and_click_element(by, path):
     element = WebDriverWait(webapp_driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
     element.click()
 
-
 def send_keys(by, path, value):
     element = WebDriverWait(webapp_driver, timeout=30).until(EC.element_to_be_clickable((by, path)))
     element.send_keys(value)

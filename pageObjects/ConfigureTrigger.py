@@ -174,7 +174,7 @@ class ConfigureTrigger(Action):
         """
         return Action.javascript_click(self, By.XPATH, ConfigureTrigger.first_config_trigger)
 
-    def get_first_configure_trigger(self):
+    def get_first_configure_trigger_name(self):
         """
             Select first configure trigger from list of configure trigger
             :return:

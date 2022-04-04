@@ -93,21 +93,27 @@ class TestProfileSettings(Base):
         profile.click_save_btn()
         log.info("Read tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
         updated_first_name = profile.get_first_name()
         updated_last_name = profile.get_last_name()
         assert updated_first_name == first_name and updated_last_name == last_name
+        log.info("Click on edit button")
         profile.click_on_edit_button()
+        log.info("Clear exisitng first name")
         profile.clear_first_name()
+        log.info("Enter previous first name")
         profile.enter_first_name(prev_first_name)
+        log.info("Cleat existing last name")
         profile.clear_last_name()
+        log.info("Enter previous last name")
         profile.enter_last_name(prev_last_name)
+        log.info("Click on save button")
         profile.click_save_btn()
         log.info("Read tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
 
@@ -121,7 +127,6 @@ class TestProfileSettings(Base):
         log = self.getlogger()
         profile = ProfileSettings(self.driver)
         tooltip = Tooltip(self.driver)
-        prev_title_name = profile.get_title_name()
         log.info("Clicking on edit button")
         profile.click_on_edit_button()
         global title_name
@@ -133,19 +138,19 @@ class TestProfileSettings(Base):
         profile.click_save_btn()
         log.info("Read tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
         updated_title_name = profile.get_title_name()
         assert updated_title_name == title_name
+        log.info("Click on edit button")
         profile.click_on_edit_button()
+        log.info("Remove the existing title name")
         profile.clear_title_name()
-        if prev_title_name != "—":
-            profile.enter_title_name(prev_title_name)
         profile.click_save_btn()
         log.info("Read tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
 
@@ -160,11 +165,10 @@ class TestProfileSettings(Base):
         profile = ProfileSettings(self.driver)
         tooltip = Tooltip(self.driver)
         action = Action(self.driver)
-        prev_mobile_number = profile.get_contact_number()
         log.info("Clicking on edit button")
         profile.click_on_edit_button()
         global mobile_number
-        mobile_number = action.get_random_digit() + action.get_random_digit()
+        mobile_number = action.get_random_digit(10)
         profile.clear_contact_number()
         log.info("Enter contact number of the user")
         profile.enter_contact_number(mobile_number)
@@ -172,18 +176,16 @@ class TestProfileSettings(Base):
         profile.click_save_btn()
         log.info("Read tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
         updated_mobile_number = profile.get_contact_number()
         assert updated_mobile_number == mobile_number
         profile.click_on_edit_button()
         profile.clear_contact_number()
-        if prev_mobile_number != "—":
-            profile.enter_contact_number(prev_mobile_number)
         profile.click_save_btn()
         log.info("Read tool tip message")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()

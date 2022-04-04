@@ -27,6 +27,7 @@ class TestConfigureTriggers(Base):
         nav.click_main_menu()
         log.info("Click on configure event")
         nav.navigate_configure_event()
+        log.info("Read page heading")
         page_heading = config_trigger.get_page_heading()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         global active_count
@@ -126,7 +127,7 @@ class TestConfigureTriggers(Base):
         config_trigger.click_create_btn()
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("click on close toop tip")
         tooltip.click_close_tooltip()
         log.info("Check for visibility of first configure event")
@@ -146,7 +147,7 @@ class TestConfigureTriggers(Base):
         log.info("Search Functionality of Configure Triggers")
         config_trigger.search_input_string(source_app)
         config_trigger.click_enter_for_search()
-        search_result = config_trigger.get_first_configure_trigger()
+        search_result = config_trigger.get_first_configure_trigger_name()
         log.info("Clearing the Search Field")
         config_trigger.clear_search()
         assert source_app == search_result
@@ -174,12 +175,12 @@ class TestConfigureTriggers(Base):
         config_trigger.click_on_update()
         log.info("Read tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("click on close toop tip")
         tooltip.click_close_tooltip()
         log.info("Check for visibility of first configure event")
         config_trigger.visibility_of_first_active_configure_trigger()
-        top_first_event_name = config_trigger.get_first_configure_trigger()
+        top_first_event_name = config_trigger.get_first_configure_trigger_name()
         assert new_config_name == top_first_event_name
 
     @pytest.mark.regression
@@ -193,7 +194,7 @@ class TestConfigureTriggers(Base):
         log = self.getlogger()
         config_trigger = ConfigureTrigger(self.driver)
         tooltip = Tooltip(self.driver)
-        tirgger_name_before_deactivating = config_trigger.get_first_configure_trigger()
+        tirgger_name_before_deactivating = config_trigger.get_first_configure_trigger_name()
         log.info("Click on Active Tab and select first configure trigger")
         config_trigger.click_first_configure_trigger()
         log.info("Deactivate the Configure Trigger")
@@ -202,11 +203,11 @@ class TestConfigureTriggers(Base):
         config_trigger.click_on_update()
         log.info("Read tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in toast_msg
+        assert 'Success' == toast_msg
         log.info("click on close toop tip")
         tooltip.click_close_tooltip()
         config_trigger.click_inactive_tab()
         log.info("Check for visibility of first configure event")
         config_trigger.visibility_of_first_inactive_configure_trigger()
-        trigger_name_after_deactivated = config_trigger.get_first_configure_trigger()
+        trigger_name_after_deactivated = config_trigger.get_first_configure_trigger_name()
         assert tirgger_name_before_deactivating == trigger_name_after_deactivated
