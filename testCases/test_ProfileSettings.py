@@ -189,3 +189,4 @@ class TestProfileSettings(Base):
         assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
+

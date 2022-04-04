@@ -60,7 +60,7 @@ class MyApps(Action):
         """
         return Action.wait_and_click(self, By.XPATH, MyApps.dd_100_items_per_page_option)
 
-    app_install_btn = "(//button[contains(text(),'Install')])[1]"
+    app_install_btn = "(//a//button[contains(text(),'Install')])[1]"
 
     app_store_pagination = "//button[@class='btn-next']"
 

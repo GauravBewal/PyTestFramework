@@ -565,7 +565,7 @@ class TestPlaybook(Base):
         log.info("Click on the open playbook button")
         playbooks.click_on_open_clone_playbook_btn()
         log.info("Switch to new tab")
-        parent_window = playbooks.switch_new_window(1)
+        parent_window = playbooks.switch_new_tab()
         log.info("Read the playbook title")
         global cloned_playbook_title
         cloned_playbook_title = playbooks.get_playbook_title()
@@ -624,6 +624,7 @@ class TestPlaybook(Base):
         playbook.mouse_hover_on_save_btn()
         log.info("Click on save and exit button")
         playbook.click_save_and_exit_btn()
+        time.sleep(1)
         log.info("Read the tooltip msg")
         tooltip_msg = tooltip.get_tooltip_msg()
         assert 'Success' in tooltip_msg

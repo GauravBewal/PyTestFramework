@@ -199,6 +199,8 @@ class TestApps(Base):
         my_apps.visibility_of_clone_app_btn()
         log.info("Click on the clone button")
         my_apps.click_clone_app_btn()
+        log.info("Switch to new tab")
+        parent = my_apps.switch_new_tab()
         log.info("Read page heading")
         page_heading = my_apps.get_clone_page_heading()
         assert action.get_title() == 'Clone App | Cyware Orchestrate' \
@@ -213,8 +215,10 @@ class TestApps(Base):
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
         assert 'Success' == toast_msg
-        log.info("Click on close tool tip")
+        log.info("Click on close tooltip")
         tooltip.click_close_tooltip()
+        log.info("Switch back to parent window")
+        my_apps.switch_back_parent_window(parent)
         log.info("Clear the search bar")
         my_apps.click_clear_search_btn()
         log.info("Search the cloned app")
@@ -311,6 +315,8 @@ class TestApps(Base):
         tooltip.click_close_tooltip()
         log.info("Clear the search result")
         my_apps.click_clear_search_btn()
+        log.info("Wait till visibility of first app")
+        my_apps.visibility_of_first_app()
 
     @pytest.mark.regression
     @pytest.mark.apps
@@ -355,6 +361,7 @@ class TestApps(Base):
         assert action.get_title() == 'Appstore | Cyware Orchestrate' \
                and error_msg_visibility is False
 
+
     @pytest.mark.regression
     @pytest.mark.apps
     def test_15_Clone_CFTR_App_to_Debug(self):
@@ -381,6 +388,8 @@ class TestApps(Base):
         my_apps.click_clone_app_btn()
         log.info("Click on slider clone button")
         my_apps.click_clone_btn_on_slider()
+        log.info("Switch to new tab")
+        parent = my_apps.switch_new_tab()
         log.info("Read page heading")
         page_heading = my_apps.get_clone_page_heading()
         assert action.get_title() == 'Clone App | Cyware Orchestrate' \
@@ -404,6 +413,13 @@ class TestApps(Base):
         assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()
+        log.info("Switch back to parent")
+        my_apps.switch_back_parent_window(parent)
+        log.info("Clear search bar")
+        my_apps.click_clear_search_btn()
+        my_apps.visibility_of_first_app()
+        log.info("Switch to active tab")
+        my_apps.My_Apps_Tab()
         log.info("Search the cloned app")
         my_apps.search_for_app(cloned_cyware_app_name)
         log.info("Search the app which is created new manually")
@@ -497,10 +513,7 @@ class TestApps(Base):
         log = self.getlogger()
         my_apps = MyApps(self.driver)
         self.test_12_Uninstall_Custom_Created_App()
-        my_apps.app_store_tab()
-        my_apps.visibility_of_first_app()
-        log.info("Clear the search bar")
-        my_apps.click_clear_search_btn()
+
 
     @pytest.mark.regression
     @pytest.mark.apps
@@ -513,6 +526,7 @@ class TestApps(Base):
         my_apps = MyApps(self.driver)
         tooltip = Tooltip(self.driver)
         my_apps.app_store_tab()
+        my_apps.visibility_of_first_app()
         log.info("Apply pagination if install button not found and Scroll "
                  "to install button view if found")
         my_apps.scroll_to_install_btn_view()
@@ -617,6 +631,7 @@ class TestApps(Base):
         my_apps.send_file_path_to_upload_input_field(app_path)
         log.info("Read the tooltip msg")
         toast_msg = tooltip.get_tooltip_msg()
+        print(app_name)
         assert 'Success' == toast_msg
         log.info("Click on close tool tip")
         tooltip.click_close_tooltip()

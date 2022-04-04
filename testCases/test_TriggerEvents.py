@@ -54,6 +54,7 @@ class TestTriggerEvents(Base):
     @pytest.mark.regression
     @pytest.mark.triggerevents
     def test_03_Create_Trigger_Event(self):
+
         """
         Verify whether user is able to create new trigger event
         Validation 1: Based on the count increased and successful msg

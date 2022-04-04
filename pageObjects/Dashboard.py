@@ -6,6 +6,7 @@ from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 
 
+
 class Dashboard(Action):
 
     def __init__(self, driver):

@@ -844,8 +844,7 @@ class Playbooks(Action):
         """
         return Action.get_text(self, By.XPATH, Playbooks.playbook_overview_slider_title)
 
-    schedule_playbook_toggle_btn = "(//div[contains(@class,'playbook-data')]/following-sibling::div" \
-                                   "//span[@class='cyicon-cross']/parent::div)[1]"
+    schedule_playbook_toggle_btn = "(//form/div/div[2]//div[contains(@class,'switch-btn__ball')])[1]"
 
     def click_schedule_playbook_toggle_btn(self):
         """

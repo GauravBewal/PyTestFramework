@@ -19,6 +19,7 @@ class TestUserManagement(Base):
         """
         Verify redirection to user management from admin menu
         Validation 1: On the basis of window's title
+
         """
         log = self.getlogger()
         nav = Navigation(self.driver)

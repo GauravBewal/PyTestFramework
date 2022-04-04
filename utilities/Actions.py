@@ -86,19 +86,19 @@ class Action(Base):
         element = self.driver.find_element(by, locator)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
-    def switch_new_window(self, window_number):
-        parent_window = self.driver.current_window_handle
+    def switch_new_tab(self):
+        # keeping 5secs sleep to wait until new tab is opened
+        time.sleep(5)
         all_windows = self.driver.window_handles
-        size = len(all_windows)
-        for x in range(size):
-            if x == window_number:
-                self.driver.switch_to.window(all_windows[x])
-                break
+        parent_window = all_windows[0]
+        child_window = all_windows[1]
+        self.driver.switch_to.window(child_window)
         return parent_window
 
     def switch_back_parent_window(self, parent_window):
         self.driver.close()
         self.driver.switch_to.window(parent_window)
+        time.sleep(5)
 
     def mouse_hover_on_element(self, by, locator):
         ele = self.Webdriver_Wait_until_element_visible(by, locator)

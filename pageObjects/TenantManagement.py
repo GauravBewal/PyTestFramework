@@ -9,6 +9,7 @@ class TenantManagement(Action):
         super().__init__(driver)
         self.driver = driver
 
+
     tab_tenant_management = "//p[contains(text(),'Tenant Management')]/parent::div/parent::div"
 
     def click_tenant_management(self):

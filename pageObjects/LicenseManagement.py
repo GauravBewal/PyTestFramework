@@ -9,7 +9,6 @@ class LicenseManagement(Action):
         super().__init__(driver)
         self.driver = driver
 
-
     btn_licence_update_button = "//button/span[contains(text(),'Update')]"
 
     def click_licence_update_button(self):

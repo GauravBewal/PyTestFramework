@@ -130,8 +130,8 @@ class Tooltip(Action):
         """
             Get the tooltip message otherwise return No message found
         """
-        time.sleep(2)
         if self.visibility_of_tooltip() is True:
+            time.sleep(2)
             return Action.get_text(self, By.XPATH, Tooltip.toast_msg_txt)
 
 

@@ -9,6 +9,7 @@ class UserManagement(Action):
         super().__init__(driver)
         self.driver = driver
 
+
     tab_user_management = "//p[contains(text(),'User Management')]/parent::div/parent::div"
 
     def click_user_management(self):

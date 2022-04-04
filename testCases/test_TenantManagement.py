@@ -87,6 +87,7 @@ class TestTenantManagement(Base):
         tenant.click_slider_close()
         assert slider_text == 'Add Tenant'
 
+
     # @pytest.mark.regression
     # @pytest.mark.tenantmanagement
     # def test_05_Create_New_Tenant(self):

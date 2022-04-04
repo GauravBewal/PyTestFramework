@@ -294,6 +294,7 @@ class Syslogs(Action):
         """
         return Action.check_visibility_of_element(self, By.XPATH, Syslogs.first_syslog_name)
 
+
     def click_first_syslog(self):
         """
             Click on first syslog

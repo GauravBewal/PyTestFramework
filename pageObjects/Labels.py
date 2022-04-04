@@ -6,6 +6,7 @@ from configuration.readConfiguration import ReadConfig
 from utilities.Actions import Action
 
 
+
 class Labels(Action):
     click_select_all_columns = (By.XPATH, "//button[contains(text(),'Select All Columns')]")
 

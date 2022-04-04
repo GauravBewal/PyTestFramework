@@ -390,3 +390,4 @@ class TestSyslogs(Base):
         tooltip.click_close_tooltip()
         log.info("Clear Search ")
         config_trigger.clear_search()
+
