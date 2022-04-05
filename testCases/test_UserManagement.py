@@ -1,8 +1,11 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.UserManagement import UserManagement
 from pageObjects.UserGroupManagement import UserGroupManagement
+from pageObjects.OpenApi import OpenApi
 from pageObjects.Webhooks import Webhooks
 from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
@@ -249,14 +252,41 @@ class TestUserManagement(Base):
         usergroup.click_dropdown_users()
         log.info("Click on the Visibility of the User Name in the list or drop down")
         assert user.visibility_of_user_in_usergroup(Updated_Full_Name) is True
+        
+    @pytest.mark.regression
+    @pytest.mark.usermanagement
+    def test_10_Visibility_user_in_OpenApi(self):
+        """
+                Verification of the Created user Visible in the User Group Management while creating a OpenApi.
+                Validation -1 : Verify the created new user is visible in the Bot User List in Open Api
+                TC_ID : 010
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        nav = Navigation(self.driver)
+        openapi = OpenApi(self.driver)
+        user = UserManagement(self.driver)
+        log.info("Click on the Admin Menu Button")
+        nav.click_admin_menu()
+        log.info("Click on the Open Api")
+        openapi.click_open_api_tab()
+        log.info("Verify or Check the redirection")
+        assert action.get_title() == 'Open APIs | Cyware Orchestrate'
+        log.info("Click on the Open Api Button")
+        openapi.click_new_open_api_btn()
+        log.info("Click on the Bot User Field")
+        openapi.click_on_bot_user_field()
+        log.info("Check the visibility of the Bot User in the dropdown")
+        assert user.visibility_of_user(Updated_Full_Name) is True
+
 
     @pytest.mark.regression
     @pytest.mark.usermanagement
-    def test_10_Visibility_User_in_Webhooks(self):
+    def test_11_Visibility_User_in_Webhooks(self):
         """
             Verification of the Created user Visible in the User Group Management while creating a Webhook.
             Validation -1 : Verify the created new user is visible in the Bot User List in Webhook
-            TC_ID : 010
+            TC_ID : 011
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -284,11 +314,11 @@ class TestUserManagement(Base):
 
     @pytest.mark.regression
     @pytest.mark.usermanagement
-    def test_11_Deactivate_User(self):
+    def test_12_Deactivate_User(self):
         """
             Verify The user is able to deactivate user easily IN User Group Management
             Validation -1 : Count in inactive tab and toast message
-            Tc_ID : 011
+            Tc_ID : 012
         """
         log = self.getlogger()
         user = UserManagement(self.driver)
@@ -319,18 +349,27 @@ class TestUserManagement(Base):
         log.info("Check for visibility of first inactive user")
         assert user.visibility_of_created_user() is True and inactive_count + 1 == user.get_user_count()
 
-    # @pytest.mark.regression
-    # @pytest.mark.usermanagement
-    # def test_09_Export_User_Details(self):
-    #     log = self.getlogger()
-    #     action = Action(self.driver)
-    #     user = UserManagement(self.driver)
-    #     log.info("Click on the export button")
-    #     user.click_export()
-    #     log.info("Click on csv option")
-    #     user.click_on_csv_btn()
-    #     log.info("Read the tooltip msg")
-    #     toast_msg = user.get_tooltip_msg()
-    #     assert "Success" in toast_msg
-    #     path = action.get_file_downloaded_path(action.check_file_downloaded_and_get_file_name("Cyw", 'csv'))
-    #     assert action.delete_downloaded_file(path) is True
+    @pytest.mark.regression
+    @pytest.mark.usermanagement
+    def test_13_Export_User_Details(self):
+        """
+            Verify User Management is able to export the data in csv file format.
+            Validation -1: Verify based on the success toast message.
+            TC_ID : 013
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        user = UserManagement(self.driver)
+        tooltip = Tooltip(self.driver)
+        log.info("Click on the export button")
+        user.click_export()
+        log.info("Click on csv option")
+        user.click_on_csv_btn()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.get_tooltip_msg()
+        assert "Success" == toast_msg
+        log.info("Get the path for the newly downloaded file")
+        path = action.get_file_downloaded_path(action.check_file_downloaded_and_get_file_directory_path("Cyw", 'csv'))
+        log.info("Delete the downloaded file")
+        action.delete_downloaded_file(path)
+
