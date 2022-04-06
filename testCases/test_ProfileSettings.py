@@ -92,7 +92,7 @@ class TestProfileSettings(Base):
         log.info("Click for the save button")
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
@@ -112,7 +112,7 @@ class TestProfileSettings(Base):
         log.info("Click on save button")
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
@@ -137,7 +137,7 @@ class TestProfileSettings(Base):
         log.info("Click for the save button")
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
@@ -149,7 +149,7 @@ class TestProfileSettings(Base):
         profile.clear_title_name()
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
@@ -175,7 +175,7 @@ class TestProfileSettings(Base):
         log.info("Click for the save button")
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
@@ -185,7 +185,7 @@ class TestProfileSettings(Base):
         profile.clear_contact_number()
         profile.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close tool tip")
         tooltip.click_close_tooltip()

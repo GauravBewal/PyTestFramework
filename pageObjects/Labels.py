@@ -119,7 +119,7 @@ class Labels(Action):
             Click enter for search
             :return:
         """
-        return Action.click_enter(self)
+        return Action.Press_enter(self)
 
     top_label_in_listing = "(//tr//a)[1]"
 

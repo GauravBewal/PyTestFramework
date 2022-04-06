@@ -1063,6 +1063,7 @@ class Playbooks(Action):
         path = "//div[@name='labels']//li[1]//div[contains(text(),'" + label_name + "')]"
         return Action.check_visibility_of_element(self, By.XPATH, path)
 
+
     top_first_searched_label = "//div[@name='labels']//li[1]/div[2]"
 
     def click_on_top_searched_label(self):

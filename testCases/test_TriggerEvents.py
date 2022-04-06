@@ -76,7 +76,7 @@ class TestTriggerEvents(Base):
         log.info("Click on create button")
         trigger_events.click_on_create_button()
         log.info("Read the successful message")
-        creation_msg = tooltip.get_tooltip_msg()
+        creation_msg = tooltip.read_tooltip_msg()
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
         assert trigger_events.visibility_of_first_trigger_event() is True

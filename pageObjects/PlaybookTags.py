@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from utilities.Actions import Action
 
+
 class PlaybookTags(Action):
 
     def __init__(self, driver):

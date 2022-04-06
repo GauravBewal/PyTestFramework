@@ -102,7 +102,7 @@ class TriggerEvents(Action):
             Click on enter for search event
             :return:
         """
-        return Action.click_enter(self)
+        return Action.Press_enter(self)
 
     first_event_in_listing = "(//tbody/tr[1]/td[2]//span)[2]"
 

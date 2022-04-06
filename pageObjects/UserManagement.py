@@ -50,6 +50,7 @@ class UserManagement(Action):
 
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
 
+
     def click_inactive_tab(self):
         """
             Click on Inactive tab

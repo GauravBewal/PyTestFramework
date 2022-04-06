@@ -125,7 +125,7 @@ class TestConfigureTriggers(Base):
         log.info("Enter the Create Button")
         config_trigger.click_create_btn()
         log.info("Read the tooltip msg")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("click on close toop tip")
         tooltip.click_close_tooltip()
@@ -173,7 +173,7 @@ class TestConfigureTriggers(Base):
         log.info("Click On Update")
         config_trigger.click_on_update()
         log.info("Read tooltip msg")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("click on close toop tip")
         tooltip.click_close_tooltip()
@@ -201,7 +201,7 @@ class TestConfigureTriggers(Base):
         log.info("Click on Update Button")
         config_trigger.click_on_update()
         log.info("Read tooltip msg")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("click on close toop tip")
         tooltip.click_close_tooltip()

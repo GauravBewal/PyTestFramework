@@ -151,7 +151,7 @@ class TestUserManagement(Base):
         log.info("Click On create Button")
         user.click_create_user_btn()
         log.info("Read the tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert "Success" in toast_msg
         log.info("Click on the close tool tip")
         tooltip.click_close_tooltip()
@@ -177,7 +177,7 @@ class TestUserManagement(Base):
         log.info("Enter the Name to be Searched")
         user.Put_string_in_search_bar(Full_Name)
         log.info("Click Enter to Search the result")
-        action.click_enter()
+        action.Press_enter()
         log.info("Wait until the first User Name Visibility")
         log.info("Get the First Name of search list and compare the Name")
         assert user.visibility_of_created_user() is True \
@@ -212,7 +212,7 @@ class TestUserManagement(Base):
         global Updated_Full_Name
         Updated_Full_Name = updated_first_name + " " + updated_last_name
         log.info("Get the Toast Message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Clear the Search Field")
@@ -222,7 +222,7 @@ class TestUserManagement(Base):
         log.info("Enter the update user full name to search")
         user.Put_string_in_search_bar(Updated_Full_Name)
         log.info("Press Enter")
-        action.click_enter()
+        action.Press_enter()
         log.info("Check the Visibility of the User")
         assert user.visibility_of_created_user() is True \
                and Updated_Full_Name == user.get_first_user_name_in_list()
@@ -310,8 +310,6 @@ class TestUserManagement(Base):
         user.click_user_management()
         assert user.get_title() in 'User Management | Cyware Orchestrate'
 
-
-
     @pytest.mark.regression
     @pytest.mark.usermanagement
     def test_12_Deactivate_User(self):
@@ -327,7 +325,7 @@ class TestUserManagement(Base):
         log.info("Search for the user")
         user.Put_string_in_search_bar(Updated_Full_Name)
         log.info("Press Enter")
-        user.click_enter()
+        user.Press_enter()
         log.info("Wait until the first User Name Visibility")
         user.visibility_of_created_user()
         log.info("Click on the first user listed")
@@ -337,7 +335,7 @@ class TestUserManagement(Base):
         log.info("Click on Update Button")
         user.click_update_btn()
         log.info("Get the Toast Message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Clear Search Bar Results")
@@ -366,7 +364,7 @@ class TestUserManagement(Base):
         log.info("Click on csv option")
         user.click_on_csv_btn()
         log.info("Read the tooltip msg")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert "Success" == toast_msg
         log.info("Get the path for the newly downloaded file")
         path = action.get_file_downloaded_path(action.check_file_downloaded_and_get_file_directory_path("Cyw", 'csv'))

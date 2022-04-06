@@ -181,14 +181,14 @@ class MyApps(Action):
         time.sleep(3)
         return Action.mouse_hover_on_element(self, By.XPATH, MyApps.more_options_dropdown)
 
-    uninstall_app_button = "(//body/ul/li[contains(text(),'Uninstall App')])[1]"
+    uninstall_app_button = "//i[contains(@class,'icon-trash')]/parent::li"
 
     def click_on_uninstall_app(self):
         """
             Click on uninstall app
             :return:
         """
-        return Action.javascript_click(self, By.XPATH, MyApps.uninstall_app_button)
+        return Action.wait_and_click(self, By.XPATH, MyApps.uninstall_app_button)
 
     def visibility_of_uninstall_btn(self):
         """
@@ -460,7 +460,7 @@ class MyApps(Action):
         """
         return Action.mouse_hover_on_element(self, By.XPATH, MyApps.app_listing_more_options)
 
-    clone_app_btn = "//ul[@x-placement='bottom-end']//li[contains(text(),'Clone App')]"
+    clone_app_btn = "//i[@class='cyicon-copy']/parent::li"
 
     def click_clone_app_btn(self):
         """
@@ -546,6 +546,13 @@ class MyApps(Action):
         """
         return Action.send_keys(self, By.XPATH, MyApps.search_app, app_name)
 
+    def click_on_Search_bar(self):
+        """
+        Click on the search input field
+        :return:
+        """
+        return Action.wait_and_click(self, By.XPATH, MyApps.search_app)
+
     app_status = "(//span[@class='status__text' and text()='Installed'])[1]"
 
     def Verify_app_installed_or_not(self):
@@ -622,7 +629,7 @@ class MyApps(Action):
         """
         return Action.javascript_click(self, By.XPATH, MyApps.button_app_save)
 
-    dd_edit_btn = "//ul[@x-placement='bottom-end']//li[contains(text(),'Edit App')]"
+    dd_edit_btn = "//i[@class='cyicon-edit']/parent::li"
 
     def click_on_edit_btn(self):
         """
@@ -638,7 +645,7 @@ class MyApps(Action):
         """
         return Action.check_visibility_of_element(self, By.XPATH, MyApps.dd_edit_btn)
 
-    dd_export_btn = "//ul[@x-placement='bottom-end']//li[contains(text(),'Export App')]"
+    dd_export_btn = "//i[contains(@class,'icon-export')]/parent::li"
 
     def visibility_of_export_btn(self):
         """
@@ -653,6 +660,23 @@ class MyApps(Action):
             :return:
         """
         return Action.javascript_click(self, By.XPATH, MyApps.dd_export_btn)
+
+
+    export_app_slider = "//div[contains(@class,'cy-right-modal__show')]" \
+                        "//div[@class='ellipsis' and contains(text(),'Export')]"
+
+    def visibility_of_export_app_slider(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.export_app_slider)
+
+    slider_export_app_btn = "//div[contains(@class,'cy-right-modal__show')]//button"
+
+    def click_on_export_app_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.slider_export_app_btn)
+
+    export_app_slider_close_btn = "//span[@data-testaction='slider-close']"
+
+    def click_on_slider_close_btn(self):
+        return Action.wait_and_click(self, By.XPATH, MyApps.export_app_slider_close_btn)
 
     run_btn = "//i[contains(@class,'cyicon-play')]/parent::div"
 
@@ -778,6 +802,9 @@ class MyApps(Action):
             :return:
         """
         return Action.javascript_click(self, By.XPATH, MyApps.tab_my_apps)
+
+    def visibility_of_my_apps_tab(self):
+        return Action.check_visibility_of_element(self, By.XPATH, MyApps.tab_my_apps)
 
     button_import_package = "//i[contains(@class,'icon-import')]/parent::button"
 

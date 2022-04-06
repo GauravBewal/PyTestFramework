@@ -425,7 +425,7 @@ class TestPlaybook(Base):
         log.info("click on the export as json button")
         playbooks.click_on_export_as_json()
         log.info("Read the successfully exported message")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert tooltip_msg == 'Success'
         tooltip.click_close_tooltip()
         assert exported_playbook_name in \
@@ -560,7 +560,7 @@ class TestPlaybook(Base):
         log.info("click on clone button")
         playbooks.click_on_playbook_listing_clone_btn()
         log.info("Read the successfully exported message")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert tooltip_msg == 'Success'
         log.info("Click on the open playbook button")
         playbooks.click_on_open_clone_playbook_btn()
@@ -624,9 +624,8 @@ class TestPlaybook(Base):
         playbook.mouse_hover_on_save_btn()
         log.info("Click on save and exit button")
         playbook.click_save_and_exit_btn()
-        time.sleep(1)
         log.info("Read the tooltip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert 'Success' in tooltip_msg
         log.info("Click on the close tooltip button")
         tooltip.click_close_tooltip()

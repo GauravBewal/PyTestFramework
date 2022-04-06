@@ -6,7 +6,6 @@ from pageObjects.TenantManagement import TenantManagement
 from utilities.Actions import Action
 from utilities.Base import Base
 
-
 @pytest.mark.usefixtures("setup")
 class TestTenantManagement(Base):
 

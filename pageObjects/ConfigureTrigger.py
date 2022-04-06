@@ -242,7 +242,7 @@ class ConfigureTrigger(Action):
             Click Enter after on Search button
             :return:
         """
-        return Action.click_enter(self)
+        return Action.Press_enter(self)
 
     click_clear_search = "//div[contains(@class,'clear-button')]/i"
 
