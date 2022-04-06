@@ -131,6 +131,3 @@ class TestHomePage(Base):
         assert visibility is True
         log.info("Close the walkthrough")
         nav.click_on_close_walkthrough()
-
-
-

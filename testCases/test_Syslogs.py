@@ -133,7 +133,7 @@ class TestSyslogs(Base):
         log.info("Click on update button")
         config_trigger.click_on_update()
         log.info("Read the success message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close tooltip")
         tooltip.click_close_tooltip()
@@ -167,7 +167,7 @@ class TestSyslogs(Base):
         log.info("Click on save button")
         syslog.click_save_btn()
         log.info("Read the tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("click on close toop tip")
         tooltip.click_close_tooltip()
@@ -217,7 +217,7 @@ class TestSyslogs(Base):
         log.info("Click on save button")
         syslog.click_save_btn()
         log.info("Read tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         log.info("Close tool tip")
         tooltip.click_close_tooltip()
         assert 'Success' == toast_msg
@@ -279,7 +279,7 @@ class TestSyslogs(Base):
         log.info("Click on deactivate button")
         syslog.click_deactivate_button()
         log.info("Read the tool tip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert 'Success' == tooltip_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
@@ -316,7 +316,7 @@ class TestSyslogs(Base):
         log.info("Click on active button")
         syslog.click_activate_button()
         log.info("Read the tool tip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
         assert 'Success' == tooltip_msg
@@ -356,7 +356,7 @@ class TestSyslogs(Base):
         log.info("Click on delete button")
         syslog.click_delete_button()
         log.info("Read the tool tip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert 'Success' == tooltip_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
@@ -384,7 +384,7 @@ class TestSyslogs(Base):
         log.info("Click on update button")
         config_trigger.click_on_update()
         log.info("Read the tool tip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert 'Success' == tooltip_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()

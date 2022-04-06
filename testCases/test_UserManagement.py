@@ -1,8 +1,11 @@
+import time
+
 import pytest
 
 from pageObjects.Navigation import Navigation
 from pageObjects.UserManagement import UserManagement
 from pageObjects.UserGroupManagement import UserGroupManagement
+from pageObjects.OpenApi import OpenApi
 from pageObjects.Webhooks import Webhooks
 from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
@@ -148,7 +151,7 @@ class TestUserManagement(Base):
         log.info("Click On create Button")
         user.click_create_user_btn()
         log.info("Read the tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert "Success" in toast_msg
         log.info("Click on the close tool tip")
         tooltip.click_close_tooltip()
@@ -174,7 +177,7 @@ class TestUserManagement(Base):
         log.info("Enter the Name to be Searched")
         user.Put_string_in_search_bar(Full_Name)
         log.info("Click Enter to Search the result")
-        action.click_enter()
+        action.Press_enter()
         log.info("Wait until the first User Name Visibility")
         log.info("Get the First Name of search list and compare the Name")
         assert user.visibility_of_created_user() is True \
@@ -209,7 +212,7 @@ class TestUserManagement(Base):
         global Updated_Full_Name
         Updated_Full_Name = updated_first_name + " " + updated_last_name
         log.info("Get the Toast Message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Clear the Search Field")
@@ -219,7 +222,7 @@ class TestUserManagement(Base):
         log.info("Enter the update user full name to search")
         user.Put_string_in_search_bar(Updated_Full_Name)
         log.info("Press Enter")
-        action.click_enter()
+        action.Press_enter()
         log.info("Check the Visibility of the User")
         assert user.visibility_of_created_user() is True \
                and Updated_Full_Name == user.get_first_user_name_in_list()
@@ -249,14 +252,41 @@ class TestUserManagement(Base):
         usergroup.click_dropdown_users()
         log.info("Click on the Visibility of the User Name in the list or drop down")
         assert user.visibility_of_user_in_usergroup(Updated_Full_Name) is True
+        
+    @pytest.mark.regression
+    @pytest.mark.usermanagement
+    def test_10_Visibility_user_in_OpenApi(self):
+        """
+                Verification of the Created user Visible in the User Group Management while creating a OpenApi.
+                Validation -1 : Verify the created new user is visible in the Bot User List in Open Api
+                TC_ID : 010
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        nav = Navigation(self.driver)
+        openapi = OpenApi(self.driver)
+        user = UserManagement(self.driver)
+        log.info("Click on the Admin Menu Button")
+        nav.click_admin_menu()
+        log.info("Click on the Open Api")
+        openapi.click_open_api_tab()
+        log.info("Verify or Check the redirection")
+        assert action.get_title() == 'Open APIs | Cyware Orchestrate'
+        log.info("Click on the Open Api Button")
+        openapi.click_new_open_api_btn()
+        log.info("Click on the Bot User Field")
+        openapi.click_on_bot_user_field()
+        log.info("Check the visibility of the Bot User in the dropdown")
+        assert user.visibility_of_user(Updated_Full_Name) is True
+
 
     @pytest.mark.regression
     @pytest.mark.usermanagement
-    def test_10_Visibility_User_in_Webhooks(self):
+    def test_11_Visibility_User_in_Webhooks(self):
         """
             Verification of the Created user Visible in the User Group Management while creating a Webhook.
             Validation -1 : Verify the created new user is visible in the Bot User List in Webhook
-            TC_ID : 010
+            TC_ID : 011
         """
         log = self.getlogger()
         action = Action(self.driver)
@@ -280,15 +310,13 @@ class TestUserManagement(Base):
         user.click_user_management()
         assert user.get_title() in 'User Management | Cyware Orchestrate'
 
-
-
     @pytest.mark.regression
     @pytest.mark.usermanagement
-    def test_11_Deactivate_User(self):
+    def test_12_Deactivate_User(self):
         """
             Verify The user is able to deactivate user easily IN User Group Management
             Validation -1 : Count in inactive tab and toast message
-            Tc_ID : 011
+            Tc_ID : 012
         """
         log = self.getlogger()
         user = UserManagement(self.driver)
@@ -297,7 +325,7 @@ class TestUserManagement(Base):
         log.info("Search for the user")
         user.Put_string_in_search_bar(Updated_Full_Name)
         log.info("Press Enter")
-        user.click_enter()
+        user.Press_enter()
         log.info("Wait until the first User Name Visibility")
         user.visibility_of_created_user()
         log.info("Click on the first user listed")
@@ -307,7 +335,7 @@ class TestUserManagement(Base):
         log.info("Click on Update Button")
         user.click_update_btn()
         log.info("Get the Toast Message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Clear Search Bar Results")
@@ -319,18 +347,27 @@ class TestUserManagement(Base):
         log.info("Check for visibility of first inactive user")
         assert user.visibility_of_created_user() is True and inactive_count + 1 == user.get_user_count()
 
-    # @pytest.mark.regression
-    # @pytest.mark.usermanagement
-    # def test_09_Export_User_Details(self):
-    #     log = self.getlogger()
-    #     action = Action(self.driver)
-    #     user = UserManagement(self.driver)
-    #     log.info("Click on the export button")
-    #     user.click_export()
-    #     log.info("Click on csv option")
-    #     user.click_on_csv_btn()
-    #     log.info("Read the tooltip msg")
-    #     toast_msg = user.get_tooltip_msg()
-    #     assert "Success" in toast_msg
-    #     path = action.get_file_downloaded_path(action.check_file_downloaded_and_get_file_name("Cyw", 'csv'))
-    #     assert action.delete_downloaded_file(path) is True
+    @pytest.mark.regression
+    @pytest.mark.usermanagement
+    def test_13_Export_User_Details(self):
+        """
+            Verify User Management is able to export the data in csv file format.
+            Validation -1: Verify based on the success toast message.
+            TC_ID : 013
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        user = UserManagement(self.driver)
+        tooltip = Tooltip(self.driver)
+        log.info("Click on the export button")
+        user.click_export()
+        log.info("Click on csv option")
+        user.click_on_csv_btn()
+        log.info("Read the tooltip msg")
+        toast_msg = tooltip.read_tooltip_msg()
+        assert "Success" == toast_msg
+        log.info("Get the path for the newly downloaded file")
+        path = action.get_file_downloaded_path(action.check_file_downloaded_and_get_file_directory_path("Cyw", 'csv'))
+        log.info("Delete the downloaded file")
+        action.delete_downloaded_file(path)
+

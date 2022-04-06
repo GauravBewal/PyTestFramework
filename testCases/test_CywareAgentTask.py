@@ -7,6 +7,7 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestCywareAgentTask(Base):
 
+
     @pytest.mark.regression
     @pytest.mark.cywareagenttask
     def test_01_Verify_Cyware_Agent_Task_redirection(self):

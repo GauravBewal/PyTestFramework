@@ -126,7 +126,7 @@ class TestUserGroupManagement(Base):
         log.info("Click on Create button")
         usergroup.click_create_button()
         log.info("Get the toast message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
@@ -148,7 +148,7 @@ class TestUserGroupManagement(Base):
         log.info("Input the searching string/ Name of the User Group")
         usergroup.Put_String_to_Search(usergroupname)
         log.info("To get the results click Enter")
-        action.click_enter()
+        action.Press_enter()
         log.info("Wait until visibility of first user group")
         assert usergroup.visibility_of_created_usergroup() is True
         log.info("Validating based on the showed name")
@@ -186,7 +186,7 @@ class TestUserGroupManagement(Base):
         log.info("Click on the Update Button")
         usergroup.click_update_button()
         log.info("Get the toast message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
@@ -199,7 +199,7 @@ class TestUserGroupManagement(Base):
         log.info("Entering the New updated User Group Name for searching ")
         usergroup.Put_String_to_Search(updated_user_group)
         log.info("Press Enter")
-        action.click_enter()
+        action.Press_enter()
         log.info("Check visibility of first inactive group")
         usergroup.visibility_of_created_usergroup()
         assert updated_user_group == usergroup.get_User_Group_Name()
@@ -232,7 +232,7 @@ class TestUserGroupManagement(Base):
         log.info("Click on the create button")
         usergroup.click_create_button()
         log.info("Get the toast message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close the tool tip")
         tooltip.click_close_tooltip()
@@ -240,6 +240,6 @@ class TestUserGroupManagement(Base):
         usergroup.click_on_search_clear_btn()
         log.info("Searching based on changed name")
         usergroup.Put_String_to_Search(cloned_usergroup)
-        action.click_enter()
+        action.Press_enter()
         usergroup.visibility_of_created_usergroup()
         assert cloned_usergroup == usergroup.get_User_Group_Name()

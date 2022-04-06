@@ -9,7 +9,6 @@ from utilities.Base import Base
 @pytest.mark.usefixtures("setup")
 class TestRunLogs(Base):
 
-
     @pytest.mark.regression
     @pytest.mark.readOnly
     @pytest.mark.runlogs

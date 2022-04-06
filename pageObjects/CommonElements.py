@@ -126,13 +126,10 @@ class Tooltip(Action):
 
     toast_msg_txt = "//div[@role='alert']//span[2]/span[1]"
 
-    def get_tooltip_msg(self):
-        """
-            Get the tooltip message otherwise return No message found
-        """
+    def read_tooltip_msg(self):
+
         if self.visibility_of_tooltip() is True:
-            time.sleep(2)
-            return Action.get_text(self, By.XPATH, Tooltip.toast_msg_txt)
+            return Action.get_html_attribute_value(self, By.XPATH, Tooltip.toast_msg_txt, "innerHTML")
 
 
     tooltip_div = "//body//div[contains(@class,'cy-notification')]"

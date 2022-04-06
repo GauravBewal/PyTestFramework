@@ -99,3 +99,4 @@ class TestAdminPanel(Base):
         admin.click_console_status()
         error_msg_visibility = nav.verify_error_msg_after_navigation()
         assert action.get_title() == 'Console Status | Cyware Orchestrate' and error_msg_visibility is False
+
