@@ -57,6 +57,15 @@ class Webhooks(Action):
         """
         return Action.wait_and_click(self, By.XPATH, Webhooks.tab_inactive)
 
+    inactive_tab_text = "//*[@id='-tab-2']/a"
+
+    def get_inactive_tab_title(self):
+        """
+            Get the text of inactive tab text
+            :return:
+        """
+        return Action.wait_and_click(self, By.XPATH, Webhooks.inactive_tab_text)
+
     def get_inactive_tab_color(self):
         """
             Get Inactive tab color
