@@ -269,6 +269,9 @@ class Playbooks(Action):
         """
         return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_edit_btn)
 
+    def visibility_of_edit_button(self):
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.playbook_edit_btn)
+
     close_walkthrough_tooltip = "//a[@class='introjs-skipbutton']"
 
     def click_on_close_walkthrough(self):
@@ -1063,6 +1066,7 @@ class Playbooks(Action):
         path = "//div[@name='labels']//li[1]//div[contains(text(),'" + label_name + "')]"
         return Action.check_visibility_of_element(self, By.XPATH, path)
 
+
     top_first_searched_label = "//div[@name='labels']//li[1]/div[2]"
 
     def click_on_top_searched_label(self):
@@ -1080,3 +1084,33 @@ class Playbooks(Action):
             :return:
         """
         return Action.get_text(self, By.XPATH, Playbooks.playbook_created_successful_txt)
+
+    node_details_slider_close_btn = "//span[@data-testaction='slider-close']"
+
+    def click_close_playbook_node_slider(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.node_details_slider_close_btn)
+
+    custom_action_node_btn = "(//*[@data-type='cy.STENCILSHAPE'])[2]"
+
+    regular_condition_node_btn = "(//*[@data-type='cy.STENCILSHAPE'])[4]"
+
+    custom_condition_node_btn = "(//*[@data-type='cy.STENCILSHAPE'])[5]"
+
+    input_node_btn = "(//*[@data-type='cy.STENCILSHAPE'])[6]"
+
+    memory_node_btn = "(//*[@data-type='cy.STENCILSHAPE'])[7]"
+
+    def drag_and_drop_memory_node_by_position(self, width, height):
+        return Action.drag_and_drop_by_offset(self, By.XPATH, Playbooks.memory_node_btn, width, height)
+
+    def drag_and_drop_input_node_by_position(self, width, height):
+        return Action.drag_and_drop_by_offset(self, By.XPATH, Playbooks.input_node_btn, width, height)
+
+    def drag_and_drop_regular_condition_node_by_position(self, width, height):
+        return Action.drag_and_drop_by_offset(self, By.XPATH, Playbooks.regular_condition_node_btn, width, height)
+
+    def drag_and_drop_custom_condition_node_by_position(self, width, height):
+        return Action.drag_and_drop_by_offset(self, By.XPATH, Playbooks.custom_condition_node_btn, width, height)
+
+    def drag_and_drop_custom_action_node_by_position(self, width, height):
+        return Action.drag_and_drop_by_offset(self, By.XPATH, Playbooks.custom_action_node_btn, width, height)

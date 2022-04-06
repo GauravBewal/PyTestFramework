@@ -176,7 +176,7 @@ class TenantManagement(Action):
             Click on enter for search
             :return:
         """
-        return Action.click_enter(self)
+        return Action.Press_enter(self)
 
     first_tenant_name = "(//tr[@class='el-table__row']//a)[1]"
 

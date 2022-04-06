@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 
 from utilities.Actions import Action
 
-
 class Runlogs(Action):
 
     def __init__(self, driver):

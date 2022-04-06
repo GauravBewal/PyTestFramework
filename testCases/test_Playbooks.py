@@ -425,7 +425,7 @@ class TestPlaybook(Base):
         log.info("click on the export as json button")
         playbooks.click_on_export_as_json()
         log.info("Read the successfully exported message")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert tooltip_msg == 'Success'
         tooltip.click_close_tooltip()
         assert exported_playbook_name in \
@@ -560,7 +560,7 @@ class TestPlaybook(Base):
         log.info("click on clone button")
         playbooks.click_on_playbook_listing_clone_btn()
         log.info("Read the successfully exported message")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert tooltip_msg == 'Success'
         log.info("Click on the open playbook button")
         playbooks.click_on_open_clone_playbook_btn()
@@ -624,10 +624,11 @@ class TestPlaybook(Base):
         playbook.mouse_hover_on_save_btn()
         log.info("Click on save and exit button")
         playbook.click_save_and_exit_btn()
-        time.sleep(1)
+        log.info("Wait until visibility of edit button")
+        assert playbook.visibility_of_edit_button() is True
         log.info("Read the tooltip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
-        assert 'Success' in tooltip_msg
+        tooltip_msg = tooltip.read_tooltip_msg()
+        assert 'Success' == tooltip_msg
         log.info("Click on the close tooltip button")
         tooltip.click_close_tooltip()
         log.info("Click on back button")
@@ -684,6 +685,120 @@ class TestPlaybook(Base):
                 assert read_sort_option == playbook.sort_options[element]
         else:
             assert False
+
+    @pytest.mark.regression
+    @pytest.mark.playbooks
+    def test_34_verify_drag_and_drop_functionality_of_memory_node(self):
+        """
+            Verify whether user is able to drag and drop memory node over the canvas
+            Validation 1: Based on the visibility of slider's title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        nav = Navigation(self.driver)
+        playbooks = Playbooks(self.driver)
+        nav.click_main_menu()
+        log.info("Click on Manage Playbook from Main Menu")
+        nav.navigate_manage_playbook()
+        playbooks.my_playbook_tab()
+        log.info("Click on create new playbook cta")
+        playbooks.click_on_create_playbook_btn()
+        playbooks.click_add_node_btn()
+        playbooks.drag_and_drop_memory_node_by_position(500, -70)
+        node_title = playbooks.get_playbook_node_title()
+        playbooks.click_close_playbook_node_slider()
+        playbooks.click_on_back_button()
+        playbooks.click_playbook_exit_without_save()
+        assert node_title == '#1 - Memory Form'
+
+    @pytest.mark.regression
+    @pytest.mark.playbooks
+    def test_35_verify_drag_and_drop_functionality_of_input_node(self):
+        """
+            Verify whether user is able to drag and drop input node over the canvas
+            Validation 1: Based on the visibility of slider's title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        playbooks.my_playbook_tab()
+        log.info("Click on create new playbook cta")
+        playbooks.click_on_create_playbook_btn()
+        playbooks.click_add_node_btn()
+        playbooks.drag_and_drop_input_node_by_position(500, -70)
+        node_title = playbooks.get_playbook_node_title()
+        playbooks.click_close_playbook_node_slider()
+        playbooks.click_on_back_button()
+        playbooks.click_playbook_exit_without_save()
+        assert node_title == '#1 - Input Form'
+
+    @pytest.mark.regression
+    @pytest.mark.playbooks
+    def test_36_verify_drag_and_drop_functionality_of_regular_condition_node(self):
+        """
+            Verify whether user is able to drag and drop regular condition node over the canvas
+            Validation 1: Based on the visibility of slider's title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        nav = Navigation(self.driver)
+        playbooks.my_playbook_tab()
+        log.info("Click on create new playbook cta")
+        playbooks.click_on_create_playbook_btn()
+        playbooks.click_add_node_btn()
+        playbooks.drag_and_drop_regular_condition_node_by_position(500, -70)
+        node_title = playbooks.get_playbook_node_title()
+        playbooks.click_close_playbook_node_slider()
+        playbooks.click_on_back_button()
+        playbooks.click_playbook_exit_without_save()
+        assert node_title == '#1 - Condition Node (Regular)'
+
+    @pytest.mark.regression
+    @pytest.mark.playbooks
+    def test_37_verify_drag_and_drop_functionality_of_custom_condition_node(self):
+        """
+            Verify whether user is able to drag and drop custom condition node over the canvas
+            Validation 1: Based on the visibility of slider's title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        playbooks.my_playbook_tab()
+        log.info("Click on create new playbook cta")
+        playbooks.click_on_create_playbook_btn()
+        playbooks.click_add_node_btn()
+        playbooks.drag_and_drop_custom_condition_node_by_position(500, -70)
+        node_title = playbooks.get_playbook_node_title()
+        playbooks.click_close_playbook_node_slider()
+        playbooks.click_on_back_button()
+        playbooks.click_playbook_exit_without_save()
+        assert node_title == '#1 - Condition Node (Custom)'
+
+    @pytest.mark.regression
+    @pytest.mark.playbooks
+    def test_38_verify_drag_and_drop_functionality_of_custom_action_node(self):
+        """
+            Verify whether user is able to drag and drop custom action node over the canvas
+            Validation 1: Based on the visibility of slider's title
+        """
+        log = self.getlogger()
+        action = Action(self.driver)
+        playbooks = Playbooks(self.driver)
+        nav = Navigation(self.driver)
+        nav.click_main_menu()
+        log.info("Click on Manage Playbook from Main Menu")
+        nav.navigate_manage_playbook()
+        playbooks.my_playbook_tab()
+        log.info("Click on create new playbook cta")
+        playbooks.click_on_create_playbook_btn()
+        playbooks.click_add_node_btn()
+        playbooks.drag_and_drop_custom_action_node_by_position(500, 20)
+        node_title = playbooks.get_playbook_node_title()
+        playbooks.click_close_playbook_node_slider()
+        playbooks.click_on_back_button()
+        playbooks.click_playbook_exit_without_save()
+        assert node_title == '#1 - Action Node (Custom)'
 
     #
     # @pytest.mark.regression

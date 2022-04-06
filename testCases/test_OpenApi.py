@@ -119,7 +119,7 @@ class TestOpenApi(Base):
         log.info("Click on create button")
         openapi.click_on_create_btn()
         log.info("Read the successful message")
-        successful_msg = tooltip.get_tooltip_msg()
+        successful_msg = tooltip.read_tooltip_msg()
         log.info("Close tooltip")
         tooltip.click_close_tooltip()
         assert 'Success' == successful_msg
@@ -241,7 +241,7 @@ class TestOpenApi(Base):
         log.info("Click on update button")
         openapi.click_on_update_btn()
         log.info("Read tool tip msg")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Click on close tooltip")
         tooltip.click_close_tooltip()
@@ -269,7 +269,7 @@ class TestOpenApi(Base):
         log.info("Click on update button")
         openapi.click_on_update_btn()
         log.info("Read tooltip msg")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Click on close tooltip")
         tooltip.click_close_tooltip()

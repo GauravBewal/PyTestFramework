@@ -123,7 +123,7 @@ class TestLabels(Base):
         log.info("Click on create label button")
         label.create_Label()
         log.info("Read the tool tip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert 'Success' == tooltip_msg
         log.info("Click on to close label creation tooltip ")
         tooltip.click_close_tooltip()
@@ -180,7 +180,7 @@ class TestLabels(Base):
         log.info("Click on update label button")
         label.click_update_label()
         log.info("Read tool tip msg")
-        tooltip_msg = tooltip.get_tooltip_msg()
+        tooltip_msg = tooltip.read_tooltip_msg()
         assert 'Success' == tooltip_msg
         log.info("Click on close tooltip")
         tooltip.click_close_tooltip()
@@ -287,7 +287,7 @@ class TestLabels(Base):
         log.info("Click on save and exit button")
         playbook.click_save_and_exit_btn()
         log.info("Read the tooltip msg")
-        tool_msg = tooltip.get_tooltip_msg()
+        tool_msg = tooltip.read_tooltip_msg()
         assert 'Success' == tool_msg
         log.info("Click on close tooltip")
         tooltip.click_close_tooltip()
@@ -318,7 +318,7 @@ class TestLabels(Base):
         log.info("Click on create button")
         trigger_events.click_on_create_button()
         log.info("Read tooltip msg")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Navigate to run logs")
@@ -356,7 +356,7 @@ class TestLabels(Base):
         log.info("Click on update label button")
         label.click_update_label()
         log.info("Read tool tip msg")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         tooltip.click_close_tooltip()
         log.info("Wait till visibility of active label")

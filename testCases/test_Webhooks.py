@@ -135,7 +135,7 @@ class TestWebhooks(Base):
         log.info("Close the Create slider")
         webhook.click_slider_close()
         log.info("Read the tooltip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         log.info("Close the tooltip")
         tooltip.click_close_tooltip()
         webhook.visibility_of_created_webhook()
@@ -218,7 +218,8 @@ class TestWebhooks(Base):
         log.info("Click Update/Save Button")
         webhook.update_webhook()
         log.info("read the toast message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
+        assert 'Success' == toast_msg
         log.info("Close the tooltip")
         tooltip.click_close_tooltip()
         log.info("Click on clear search icon")
@@ -227,7 +228,6 @@ class TestWebhooks(Base):
         webhook.click_enter_using_keyboard()
         log.info("Visibility of created webhook")
         webhook.visibility_of_created_webhook()
-        assert toast_msg == 'Success'
         assert updated_webhook == webhook.get_first_webhhook_name()
 
     @pytest.mark.regression
@@ -276,7 +276,7 @@ class TestWebhooks(Base):
         log.info("Click on the Copy token Button in Drop down")
         webhook.click_copy_token_button()
         log.info("Get the toast message Information")
-        toast_message = tooltip.get_tooltip_msg()
+        toast_message = tooltip.read_tooltip_msg()
         log.info("Close tool tip message")
         tooltip.click_close_tooltip()
         assert 'Success' == toast_message
@@ -299,7 +299,7 @@ class TestWebhooks(Base):
         log.info("Click on inactive button")
         webhook.click_deactivate_btn()
         log.info("Read the tool tip message")
-        toast_msg = tooltip.get_tooltip_msg()
+        toast_msg = tooltip.read_tooltip_msg()
         assert 'Success' == toast_msg
         log.info("Close tooltip")
         tooltip.click_close_tooltip()

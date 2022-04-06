@@ -81,6 +81,7 @@ class TestDataSync(Base):
         dataSync.click_job_details()
         assert action.get_title() == 'Data Sync Jobs | Cyware Orchestrate'
 
+
     @pytest.mark.regression
     @pytest.mark.readOnly
     @pytest.mark.datasync
