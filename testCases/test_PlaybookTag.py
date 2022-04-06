@@ -100,9 +100,11 @@ class TestPlaybookTags(Base):
         tag = PlaybookTags(self.driver)
         log.info("Searching the Playbook Tag")
         tag.click_on_searchbar()
+        log.info("Enter playbook tag name to search")
         tag.put_string_in_searchbar(playbook_tag_text)
-        tag.Press_enter()
-        assert tag.visibility_of_created_playbook_tag() is True
+        log.info("CLick on enter")
+        tag.press_enter()
+        log.info("Read the first playbook tag name")
         tag_name = tag.get_playbooktag_name()
         assert tag_name == playbook_tag_text
 
@@ -137,11 +139,11 @@ class TestPlaybookTags(Base):
         tooltip.click_close_tooltip()
         tag.click_clear_search_btn()
         tag.put_string_in_searchbar(updated_playbooktag_title)
-        tag.Press_enter()
+        tag.press_enter()
         assert tag.visibility_of_created_playbook_tag() is True \
                and updated_playbooktag_title == tag.get_playbooktag_name()
         tag.click_clear_search_btn()
-        tag.Press_enter()
+        tag.press_enter()
 
 
     @pytest.mark.regression

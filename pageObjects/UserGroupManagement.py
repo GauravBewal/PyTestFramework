@@ -185,7 +185,7 @@ class UserGroupManagement(Action):
             Click on enter to search
             :return:
         """
-        return Action.Press_enter(self)
+        return Action.press_enter(self)
 
     search_bar_clear_btn = "//div[contains(@class,'clear-button')]"
 

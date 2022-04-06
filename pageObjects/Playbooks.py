@@ -371,6 +371,54 @@ class Playbooks(Action):
         """
         return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_add_node_btn)
 
+    cloned_app_node_image = "(//div[@id='playbook']//*[@joint-selector='iconBg'])[1]"
+
+    def mouse_hover_on_cloned_app_image(self):
+        """
+        Mouse hover on the app node image
+        :return:
+        """
+        return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.cloned_app_node_image)
+
+    node_action_add_btn = "//div[@id='playbook']//*[@joint-selector='.btn-add-node' and @style='display: block;']"
+
+    def visibility_of_node_action_add_btn(self):
+        """
+        Check visibility of add node button present on the node
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.node_action_add_btn)
+
+    node_action_edit_btn = "//div[@id='playbook']//*[@joint-selector='.btn-edit-option' and" \
+                           " @style='display: block;']"
+
+    def visibility_of_node_action_edit_btn(self):
+        """
+        Check visibility of edit node button present on the node
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.node_action_edit_btn)
+
+    node_action_clone_btn = "//div[@id='playbook']//*[@joint-selector='.btn-delete-option' and " \
+                            "@style='display: block;']"
+
+    def visibility_of_node_action_clone_btn(self):
+        """
+        Check visibility of clone node button present on the node
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.node_action_clone_btn)
+
+    node_action_delete_btn = "//div[@id='playbook']//*[@joint-selector='.btn-edit-option' " \
+                             "and @style='display: block;']"
+
+    def visibility_of_node_Action_delete_btn(self):
+        """
+        Check visibility of delete node button present on the node
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, Playbooks.node_action_delete_btn)
+
     action_app_node_btn = "(//*[@data-type='cy.STENCILSHAPE'])[1]"
 
     playbook_background = "//div[@class='paper-scroller-background']/div"
@@ -666,6 +714,11 @@ class Playbooks(Action):
         """
         return Action.send_keys(self, By.XPATH, Playbooks.playbook_description_field, value)
 
+    save_button = "//i[@class='icon-save']/ancestor::button"
+
+    def click_on_save_button(self):
+        return Action.wait_and_click(self, By.XPATH, Playbooks.save_button)
+
     save_more_options = "(//div[@class='el-button-group']/button)[2]"
 
     def mouse_hover_on_save_btn(self):
@@ -673,6 +726,7 @@ class Playbooks(Action):
             Mouse hover on Save button
             :return:
         """
+        time.sleep(3)
         return Action.mouse_hover_on_element(self, By.XPATH, Playbooks.save_more_options)
 
     save_and_run_btn = "//i[@class='icon-save-and-run']/parent::li"
@@ -838,6 +892,15 @@ class Playbooks(Action):
         """
         return Action.javascript_click(self, By.XPATH, Playbooks.playbook_overview_btn)
 
+    playbook_overview_close_btn = "//span[@data-testaction='slider-close']/parent::div"
+
+    def click_on_overview_close_btn(self):
+        """
+        Click on overview close button
+        :return:
+        """
+        return Action.wait_and_click(self, By.XPATH, Playbooks.playbook_overview_close_btn)
+
     playbook_overview_slider_title = "//div[text()='Overview']"
 
     def get_playbook_overview_slider_title(self):
@@ -847,14 +910,14 @@ class Playbooks(Action):
         """
         return Action.get_text(self, By.XPATH, Playbooks.playbook_overview_slider_title)
 
-    schedule_playbook_toggle_btn = "(//form/div/div[2]//div[contains(@class,'switch-btn__ball')])[1]"
+    schedule_playbook_toggle_btn = "//form/div/div[2]//div[contains(@class,'switch-btn__ball')]"
 
     def click_schedule_playbook_toggle_btn(self):
         """
             Click on schedule playbook toggle button
             :return:
         """
-        return Action.wait_and_click(self, By.XPATH, Playbooks.schedule_playbook_toggle_btn)
+        return Action.javascript_click(self, By.XPATH, Playbooks.schedule_playbook_toggle_btn)
 
     schedule_playbook_tab = "(//div[contains(@class,'playbook-data')]/following-sibling::div/div[1]/div)[1]"
 
@@ -967,7 +1030,7 @@ class Playbooks(Action):
         """
         return Action.get_text(self, By.XPATH, Playbooks.no_state_validation_txt)
 
-    associated_sub_playbooks = "//div[contains(@class,'is-active')]//label[2]"
+    associated_sub_playbooks = "//form/div//div[4]//label[2]"
 
     def switch_to_sub_playbooks_tab(self):
         """
