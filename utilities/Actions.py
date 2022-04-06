@@ -259,7 +259,7 @@ class Action(Base):
         while len(element.get_attribute("value")) > 0:
             element.send_keys(Keys.BACK_SPACE)
 
-    def Press_enter(self):
+    def press_enter(self):
         """
             Click enter
             :return:

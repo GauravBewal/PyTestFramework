@@ -177,7 +177,7 @@ class TestUserManagement(Base):
         log.info("Enter the Name to be Searched")
         user.Put_string_in_search_bar(Full_Name)
         log.info("Click Enter to Search the result")
-        action.Press_enter()
+        action.press_enter()
         log.info("Wait until the first User Name Visibility")
         log.info("Get the First Name of search list and compare the Name")
         assert user.visibility_of_created_user() is True \
@@ -222,7 +222,7 @@ class TestUserManagement(Base):
         log.info("Enter the update user full name to search")
         user.Put_string_in_search_bar(Updated_Full_Name)
         log.info("Press Enter")
-        action.Press_enter()
+        action.press_enter()
         log.info("Check the Visibility of the User")
         assert user.visibility_of_created_user() is True \
                and Updated_Full_Name == user.get_first_user_name_in_list()
@@ -325,7 +325,7 @@ class TestUserManagement(Base):
         log.info("Search for the user")
         user.Put_string_in_search_bar(Updated_Full_Name)
         log.info("Press Enter")
-        user.Press_enter()
+        user.press_enter()
         log.info("Wait until the first User Name Visibility")
         user.visibility_of_created_user()
         log.info("Click on the first user listed")

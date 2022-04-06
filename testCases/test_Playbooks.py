@@ -202,6 +202,7 @@ class TestPlaybook(Base):
         playbooks.click_on_playbook_data()
         log.info("Click on active schedule playbooks")
         playbooks.click_schedule_playbook_toggle_btn()
+        playbooks.click_on_schedule_playbook_tab()
         log.info("Check visibility of schedule options")
         elements_list = playbooks.get_list_of_elements(playbooks.get_all_schedule_playbook_options(),
                                                        playbooks.schedule_playbook_options)
@@ -549,6 +550,7 @@ class TestPlaybook(Base):
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
         tooltip = Tooltip(self.driver)
+        playbooks.cyware_playbook_tab()
         log.info("Search for the playbook")
         global playbook_name
         playbook_name = "Add Hosts in CFTR"
@@ -571,6 +573,7 @@ class TestPlaybook(Base):
         cloned_playbook_title = playbooks.get_playbook_title()
         assert playbook_name in cloned_playbook_title
         playbooks.switch_back_parent_window(parent_window)
+        log.info("Clcik on close tooltip button")
         tooltip.click_close_tooltip()
 
     @pytest.mark.regression
@@ -601,7 +604,33 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_31_Edit_Cloned_Playbook(self):
+    def test_31_Check_Actions_of_Node_Visibility(self):
+        """
+        Verify whether user is able to see the node actions
+        Validation:- 1. Based on the visibility of edit, clone, delete and addition buttons
+        """
+        log = self.getlogger()
+        playbook = Playbooks(self.driver)
+        log.info("Click on the first playbook")
+        playbook.click_on_first_my_playbook()
+        log.info("Click on edit playbook button")
+        playbook.click_on_playbook_edit_btn()
+        assert 'Edit Playbook' in playbook.get_playbook_title()
+        log.info("Mouse hover on the first node")
+        playbook.mouse_hover_on_cloned_app_image()
+        log.info("Check visibility of add action button on node")
+        visibility_1 = playbook.visibility_of_node_action_add_btn()
+        log.info("Check visibility of edit action button on node")
+        visibility_2 = playbook.visibility_of_node_action_edit_btn()
+        log.info("Check visibility of clone action button on node")
+        visibility_3 = playbook.visibility_of_node_action_clone_btn()
+        log.info("Check visibility of delete action button on node")
+        visibility_4 = playbook.visibility_of_node_Action_delete_btn()
+        assert visibility_1 is True and visibility_2 is True and visibility_3 is True and visibility_4 is True
+
+    @pytest.mark.regression
+    @pytest.mark.playbooks
+    def test_32_Edit_Cloned_Playbook(self):
         """
             Verify whether user is able to edit the cloned app
             Validation-1: Based on the successful updation message
@@ -609,26 +638,23 @@ class TestPlaybook(Base):
         log = self.getlogger()
         playbook = Playbooks(self.driver)
         tooltip = Tooltip(self.driver)
-        log.info("Click on the first playbook")
-        playbook.click_on_first_my_playbook()
-        log.info("Click on edit playbook button")
-        playbook.click_on_playbook_edit_btn()
-        assert 'Edit Playbook' in playbook.get_playbook_title()
         playbook.click_on_playbook_overview_btn()
         updated_cloned_playbook_name = "playbook_cloned" + playbook.get_current_time()
-        log.info("Clear exisitng playbook name")
+        log.info("Clear existing playbook name")
         playbook.remove_default_playbook_name()
         log.info("Enter the playbook name")
         playbook.enter_playbook_name(updated_cloned_playbook_name)
+        description = "Cloned playbook description"
+        log.info("Enter playbook description")
+        playbook.enter_playbook_description(description)
+        log.info("Click on close overview button")
+        playbook.click_on_overview_close_btn()
         log.info("Mouse hover on more save options")
         playbook.mouse_hover_on_save_btn()
         log.info("Click on save and exit button")
         playbook.click_save_and_exit_btn()
-        log.info("Wait until visibility of edit button")
-        assert playbook.visibility_of_edit_button() is True
         log.info("Read the tooltip msg")
         tooltip_msg = tooltip.read_tooltip_msg()
-        assert 'Success' == tooltip_msg
         log.info("Click on the close tooltip button")
         tooltip.click_close_tooltip()
         log.info("Click on back button")
@@ -638,19 +664,23 @@ class TestPlaybook(Base):
         log.info("Enter updated cloned playbook name")
         playbook.put_string_to_search(updated_cloned_playbook_name)
         search_result = playbook.get_first_my_playbook_name()
-        assert search_result == updated_cloned_playbook_name
         playbook.click_on_search_clear_btn()
+        assert search_result == updated_cloned_playbook_name and 'Success' == tooltip_msg
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_32_Import_System_Playbook(self):
+    def test_33_Import_System_Playbook(self):
         """
         Verify whether user is able to import exported system playbook
         Validation-1: Based on the imported successful message
         """
         log = self.getlogger()
         playbooks = Playbooks(self.driver)
+        nav = Navigation(self.driver)
         filterandsort = FilterandSort(self.driver)
+        nav.click_main_menu()
+        log.info("Click on Manage Playbook from Main Menu")
+        nav.navigate_manage_playbook()
         log.info("Get the exact app location")
         playbook_name = playbooks.check_file_downloaded_and_get_file_directory_path(exported_playbook_name, 'json')
         playbook_path = playbooks.get_file_downloaded_path(playbook_name)
@@ -667,7 +697,7 @@ class TestPlaybook(Base):
     @pytest.mark.regression
     @pytest.mark.readOnly
     @pytest.mark.playbooks
-    def test_33_Sort_Options_Visibility(self):
+    def test_34_Sort_Options_Visibility(self):
         """
         Verify whether user is able to see all the available sort options
         Validation 1: Based on the options visibility
@@ -688,19 +718,17 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_34_verify_drag_and_drop_functionality_of_memory_node(self):
+    def test_35_verify_drag_and_drop_functionality_of_memory_node(self):
         """
             Verify whether user is able to drag and drop memory node over the canvas
             Validation 1: Based on the visibility of slider's title
         """
         log = self.getlogger()
-        action = Action(self.driver)
         nav = Navigation(self.driver)
         playbooks = Playbooks(self.driver)
         nav.click_main_menu()
         log.info("Click on Manage Playbook from Main Menu")
         nav.navigate_manage_playbook()
-        playbooks.my_playbook_tab()
         log.info("Click on create new playbook cta")
         playbooks.click_on_create_playbook_btn()
         playbooks.click_add_node_btn()
@@ -713,15 +741,13 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_35_verify_drag_and_drop_functionality_of_input_node(self):
+    def test_36_verify_drag_and_drop_functionality_of_input_node(self):
         """
             Verify whether user is able to drag and drop input node over the canvas
             Validation 1: Based on the visibility of slider's title
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        playbooks.my_playbook_tab()
         log.info("Click on create new playbook cta")
         playbooks.click_on_create_playbook_btn()
         playbooks.click_add_node_btn()
@@ -734,16 +760,13 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_36_verify_drag_and_drop_functionality_of_regular_condition_node(self):
+    def test_37_verify_drag_and_drop_functionality_of_regular_condition_node(self):
         """
             Verify whether user is able to drag and drop regular condition node over the canvas
             Validation 1: Based on the visibility of slider's title
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        nav = Navigation(self.driver)
-        playbooks.my_playbook_tab()
         log.info("Click on create new playbook cta")
         playbooks.click_on_create_playbook_btn()
         playbooks.click_add_node_btn()
@@ -756,15 +779,13 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_37_verify_drag_and_drop_functionality_of_custom_condition_node(self):
+    def test_38_verify_drag_and_drop_functionality_of_custom_condition_node(self):
         """
             Verify whether user is able to drag and drop custom condition node over the canvas
             Validation 1: Based on the visibility of slider's title
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        playbooks.my_playbook_tab()
         log.info("Click on create new playbook cta")
         playbooks.click_on_create_playbook_btn()
         playbooks.click_add_node_btn()
@@ -777,19 +798,13 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_38_verify_drag_and_drop_functionality_of_custom_action_node(self):
+    def test_39_verify_drag_and_drop_functionality_of_custom_action_node(self):
         """
             Verify whether user is able to drag and drop custom action node over the canvas
             Validation 1: Based on the visibility of slider's title
         """
         log = self.getlogger()
-        action = Action(self.driver)
         playbooks = Playbooks(self.driver)
-        nav = Navigation(self.driver)
-        nav.click_main_menu()
-        log.info("Click on Manage Playbook from Main Menu")
-        nav.navigate_manage_playbook()
-        playbooks.my_playbook_tab()
         log.info("Click on create new playbook cta")
         playbooks.click_on_create_playbook_btn()
         playbooks.click_add_node_btn()
