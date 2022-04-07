@@ -38,7 +38,7 @@ class TestWebhooks(Base):
     @pytest.mark.regression
     @pytest.mark.readOnly
     @pytest.mark.webhooks
-    def test_03_Verify_Switch_Inactive_tab(self):
+    def test_03_Verify_Switch_to_Inactive_tab(self):
         """
             Verify switch to inactive tab from active tab
             Validation - 3. On the basis of tab color
@@ -53,12 +53,12 @@ class TestWebhooks(Base):
         tab_color = webhook.get_inactive_tab_color()
         webhook.Pass_even_first_inactive_Webhook_is_not_visible()
         inactive_count = webhook.get_webhook_count()
-        assert tab_color == '#1a3ee8'
+        assert webhook.get_inactive_tab_title() == 'Inactive' and tab_color == '#1a3ee8'
 
     @pytest.mark.regression
     @pytest.mark.readOnly
     @pytest.mark.webhooks
-    def test_04_Verify_Switch_All_tab(self):
+    def test_04_Verify_Switch_to_All_tab(self):
         """
             Verify switch to All tab from inactive tab
             Validation - 3. On the basis of tab color
@@ -77,7 +77,7 @@ class TestWebhooks(Base):
     @pytest.mark.regression
     @pytest.mark.readOnly
     @pytest.mark.webhooks
-    def test_02_Click_New_Webhook_btn(self):
+    def test_02_Click_on_New_Webhook_btn(self):
         """
             Verify create button functionality of new webhook
             Validation - 2. On the basis of slider title
@@ -100,8 +100,8 @@ class TestWebhooks(Base):
     @pytest.mark.webhooks
     def test_05_Create_Webhook(self):
         """
-            verify the create webhooks
-            Validation . On basis of Buttton Click and Adding required data.
+            Verify creation of webhooks
+            Validation . On basis of button click and adding required data.
             TC_ID : 005
         """
         log = self.getlogger()
@@ -115,7 +115,7 @@ class TestWebhooks(Base):
         log.info("Click on the create new button")
         webhook.click_new_webhook()
         log.info("Add the description")
-        description = "New Test Webhook"
+        description = "New test webhook added by automation script"
         log.info("Add the Webhook title in the specified input field")
         webhook.put_webhook_title(webhook_title)
         log.info("Add the Webhook description in required webhook field")
@@ -139,7 +139,8 @@ class TestWebhooks(Base):
         log.info("Close the tooltip")
         tooltip.click_close_tooltip()
         webhook.visibility_of_created_webhook()
-        assert active_count + 1 == webhook.get_webhook_count() and 'Success' in toast_msg
+        assert 'Success' in toast_msg
+        assert active_count + 1 == webhook.get_webhook_count()
 
     @pytest.mark.regression
     @pytest.mark.webhooks
@@ -280,12 +281,11 @@ class TestWebhooks(Base):
         tooltip.click_close_tooltip()
         assert 'Success' == toast_message
 
-
     @pytest.mark.regression
     @pytest.mark.webhooks
     def test_12_Deactivate_Webhook(self):
         """
-            Verify the deactivate the Webhook
+            Verify to deactivate the Webhook
             Validation 1: Based on the Count of the Inactive Webhook
             TC_ID : 012
         """

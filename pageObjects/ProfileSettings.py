@@ -2,13 +2,12 @@ from selenium.webdriver.common.by import By
 
 from utilities.Actions import Action
 
+
 class ProfileSettings(Action):
 
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-
-
 
     dd_profile_settings = "//i[contains(@class,'icon-profile')]/parent::div"
 

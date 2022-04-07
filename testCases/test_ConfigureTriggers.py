@@ -6,6 +6,7 @@ from pageObjects.CommonElements import Tooltip
 from utilities.Actions import Action
 from utilities.Base import Base
 
+
 @pytest.mark.usefixtures("setup")
 class TestConfigureTriggers(Base):
 

@@ -1,10 +1,7 @@
-import time
-
 import pytest
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.Dashboard import Dashboard
 from pageObjects.Navigation import Navigation
 from utilities.Actions import Action

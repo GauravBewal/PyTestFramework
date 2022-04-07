@@ -9,7 +9,6 @@ class UserManagement(Action):
         super().__init__(driver)
         self.driver = driver
 
-
     tab_user_management = "//p[contains(text(),'User Management')]/parent::div/parent::div"
 
     def click_user_management(self):
@@ -46,10 +45,7 @@ class UserManagement(Action):
         """
         return Action.Pass_even_element_not_visible(self, By.XPATH, UserManagement.first_inactive_user)
 
-
-
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
-
 
     def click_inactive_tab(self):
         """
@@ -236,7 +232,6 @@ class UserManagement(Action):
         """
         return Action.get_text(self, By.XPATH, UserManagement.list_first_name)
 
-
     def visibility_of_created_user(self):
         """
         Wait until Visibility of created user
@@ -293,7 +288,7 @@ class UserManagement(Action):
             :param user_name:
             :return:
         """
-        path = "//ul/li//div[contains(@class,'cy-select-menu-option--multiple')]//div[contains(text(),'"+user_name+"')]"
+        path = "//ul/li//div[contains(@class,'cy-select-menu-option--multiple')]//div[contains(text(),'" + user_name + "')]"
         return Action.check_visibility_of_element(self, By.XPATH, path)
 
     def visibility_of_user(self, user_name):
@@ -302,7 +297,7 @@ class UserManagement(Action):
             :param user_name:
             :return:
         """
-        path = "//ul/li//div[contains(@class,'cy-width-inherit')]//div[contains(text(),'"+user_name+"')]"
+        path = "//ul/li//div[contains(@class,'cy-width-inherit')]//div[contains(text(),'" + user_name + "')]"
         return Action.check_visibility_of_element(self, By.XPATH, path)
 
     bot_user = "//span[contains(text(),'Bot User')]/parent::div"

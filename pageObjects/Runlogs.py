@@ -2,13 +2,12 @@ from selenium.webdriver.common.by import By
 
 from utilities.Actions import Action
 
+
 class Runlogs(Action):
 
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-
-
 
     runlog_filter_btn = "//div[@class='filters-view']//button"
 

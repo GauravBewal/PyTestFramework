@@ -9,7 +9,6 @@ class OpenApi(Action):
         super().__init__(driver)
         self.driver = driver
 
-
     tab_open_API = "//p[contains(text(),'Open API')]/parent::div/parent::div"
 
     def click_open_api_tab(self):

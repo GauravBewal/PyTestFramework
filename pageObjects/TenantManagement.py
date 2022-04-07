@@ -9,7 +9,6 @@ class TenantManagement(Action):
         super().__init__(driver)
         self.driver = driver
 
-
     tab_tenant_management = "//p[contains(text(),'Tenant Management')]/parent::div/parent::div"
 
     def click_tenant_management(self):
@@ -189,4 +188,3 @@ class TenantManagement(Action):
 
     def visibility_of_created_Tenant(self):
         return Action.check_visibility_of_element(self, By.XPATH, TenantManagement.first_tenant_name)
-
