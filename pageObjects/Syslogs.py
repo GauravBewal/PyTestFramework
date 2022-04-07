@@ -276,7 +276,7 @@ class Syslogs(Action):
             :return:
         """
         time.sleep(3)
-        return Action.Press_enter(self)
+        return Action.press_enter(self)
 
     first_syslog_name = "//tr[1]//div//span//a[1]"
 

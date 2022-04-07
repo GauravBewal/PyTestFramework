@@ -226,7 +226,7 @@ class Webhooks(Action):
             Click enter using Keyboard
             :return:
         """
-        return Action.Press_enter(self)
+        return Action.press_enter(self)
 
 
     get_token = "//div[@id='token__data-new']"

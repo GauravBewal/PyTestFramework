@@ -114,6 +114,8 @@ class TestOpenApi(Base):
         openapi.select_on_today_in_calendar()
         log.info("click on the bot user field")
         openapi.click_on_bot_user_field()
+        log.info("Wait until visibility of first bot user")
+        assert openapi.visibility_of_first_bot_user() is True
         log.info("Select the first user in the list as an bot user")
         openapi.click_on_first_bot_user()
         log.info("Click on create button")

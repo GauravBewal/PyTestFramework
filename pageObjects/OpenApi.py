@@ -63,7 +63,7 @@ class OpenApi(Action):
         """
         return Action.wait_and_click(self, By.XPATH, OpenApi.field_open_api_expiration_date)
 
-    calendar_current_date = "//td[@class='available today']"
+    calendar_current_date = "(//td[@class='available today'])[1]"
 
     def select_on_today_in_calendar(self):
         """
@@ -91,6 +91,13 @@ class OpenApi(Action):
         return Action.wait_and_click(self, By.XPATH, OpenApi.btn_create)
 
     dd_first_bot_user = "//div[@name='bot_user']//ul//li[1]"
+
+    def visibility_of_first_bot_user(self):
+        """
+        Visibility of first bot user
+        :return:
+        """
+        return Action.check_visibility_of_element(self, By.XPATH, OpenApi.dd_first_bot_user)
 
     def click_on_first_bot_user(self):
         """
@@ -182,7 +189,7 @@ class OpenApi(Action):
             Click enter for search
             :return:
         """
-        return Action.Press_enter(self)
+        return Action.press_enter(self)
 
     top_openapi_in_listing = "(//tr//a)[1]"
 
