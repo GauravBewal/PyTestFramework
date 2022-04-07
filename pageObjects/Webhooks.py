@@ -197,7 +197,6 @@ class Webhooks(Action):
         """
         return Action.check_visibility_of_element(self, By.XPATH, Webhooks.first_webhook)
 
-
     def click_on_first_webhook(self):
         """
             Click on first webhook from table
@@ -228,7 +227,6 @@ class Webhooks(Action):
         """
         return Action.press_enter(self)
 
-
     get_token = "//div[@id='token__data-new']"
 
     def get_generated_token(self):
@@ -237,7 +235,6 @@ class Webhooks(Action):
             :return:
         """
         return Action.get_text(self, By.XPATH, Webhooks.get_token)
-
 
     token_data = "(//div[@id='token__data'])[1]"
 
@@ -289,8 +286,6 @@ class Webhooks(Action):
             :return:
         """
         return Action.clear_field(self, By.XPATH, Webhooks.main_input)
-
-
 
     dd_more_options = "(//span[@role='button']/parent::div[@class='el-dropdown'])[1]"
 

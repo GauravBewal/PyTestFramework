@@ -1,5 +1,3 @@
-import time
-
 import pytest
 
 from pageObjects.AdminPage import Admin
@@ -14,7 +12,6 @@ from utilities.Base import Base
 
 @pytest.mark.usefixtures("setup")
 class TestPlaybookTags(Base):
-
 
     @pytest.mark.regression
     @pytest.mark.readOnly
@@ -145,7 +142,6 @@ class TestPlaybookTags(Base):
         tag.click_clear_search_btn()
         tag.press_enter()
 
-
     @pytest.mark.regression
     @pytest.mark.playbooktag
     def test_06_Verify_Default_TagName_Ascending_Sort(self):
@@ -240,7 +236,7 @@ class TestPlaybookTags(Base):
         dashboard.click_start_date_btn()
         log.info("Select start date from calendar")
         dashboard.select_calendar_start_date()
-        #Start date and end date will be same because we are applying current date filter
+        # Start date and end date will be same because we are applying current date filter
         log.info("Select end date from calendar")
         dashboard.select_calendar_start_date()
         log.info("Click on the start date button to check whether date is selected or not")
@@ -318,6 +314,3 @@ class TestPlaybookTags(Base):
         assert 'Success' == toast_msg
         log.info("click on close tool tip")
         tooltip.click_close_tooltip()
-
-
-

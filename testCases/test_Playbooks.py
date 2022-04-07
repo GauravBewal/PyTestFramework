@@ -1,10 +1,6 @@
-import time
-
 import pytest
 
-from configuration.readConfiguration import ReadConfig
 from pageObjects.CommonElements import FilterandSort, Tooltip
-from pageObjects.MyApps import MyApps
 from pageObjects.Navigation import Navigation
 from pageObjects.Pagination import Pagination
 from pageObjects.Playbooks import Playbooks
@@ -718,7 +714,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_35_verify_drag_and_drop_functionality_of_memory_node(self):
+    def test_35_Verify_Drag_and_Drop_Functionality_of_Memory_Node(self):
         """
             Verify whether user is able to drag and drop memory node over the canvas
             Validation 1: Based on the visibility of slider's title
@@ -741,7 +737,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_36_verify_drag_and_drop_functionality_of_input_node(self):
+    def test_36_Verify_Drag_and_Drop_Functionality_of_Input_Node(self):
         """
             Verify whether user is able to drag and drop input node over the canvas
             Validation 1: Based on the visibility of slider's title
@@ -760,7 +756,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_37_verify_drag_and_drop_functionality_of_regular_condition_node(self):
+    def test_37_Verify_Drag_and_Drop_Functionality_of_Regular_Condition_Node(self):
         """
             Verify whether user is able to drag and drop regular condition node over the canvas
             Validation 1: Based on the visibility of slider's title
@@ -779,7 +775,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_38_verify_drag_and_drop_functionality_of_custom_condition_node(self):
+    def test_38_Verify_Drag_and_Drop_Functionality_of_Custom_Condition_Node(self):
         """
             Verify whether user is able to drag and drop custom condition node over the canvas
             Validation 1: Based on the visibility of slider's title
@@ -798,7 +794,7 @@ class TestPlaybook(Base):
 
     @pytest.mark.regression
     @pytest.mark.playbooks
-    def test_39_verify_drag_and_drop_functionality_of_custom_action_node(self):
+    def test_39_Verify_Drag_and_Drop_Functionality_of_Custom_Action_Node(self):
         """
             Verify whether user is able to drag and drop custom action node over the canvas
             Validation 1: Based on the visibility of slider's title

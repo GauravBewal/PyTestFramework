@@ -12,7 +12,6 @@ class UserGroupManagement(Action):
         super().__init__(driver)
         self.driver = driver
 
-
     tab_user_group_management = "//p[contains(text(),'User Group')]/parent::div/parent::div"
 
     def click_user_group_management(self):
@@ -32,7 +31,6 @@ class UserGroupManagement(Action):
         return Action.wait_and_click(self, By.XPATH, UserGroupManagement.tab_active)
 
     tab_inactive = "//li/a[contains(text(),'Inactive')]"
-
 
     def click_inactive_tab(self):
         """

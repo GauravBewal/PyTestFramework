@@ -1,10 +1,10 @@
 import pytest
 
-from pageObjects.CommonElements import Tooltip
 from pageObjects.Navigation import Navigation
 from pageObjects.TenantManagement import TenantManagement
 from utilities.Actions import Action
 from utilities.Base import Base
+
 
 @pytest.mark.usefixtures("setup")
 class TestTenantManagement(Base):
@@ -85,7 +85,6 @@ class TestTenantManagement(Base):
         log.info("Click on slider close button")
         tenant.click_slider_close()
         assert slider_text == 'Add Tenant'
-
 
     # @pytest.mark.regression
     # @pytest.mark.tenantmanagement
